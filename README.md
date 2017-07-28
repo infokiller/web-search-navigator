@@ -5,6 +5,8 @@ navigation in Google Search. Google provides an experimental keyboard navigation
 for search results, but it's often broken for me (and [not just for
   me](https://goo.gl/1zMkYu)).
 
+[Install from the Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
+
 ## Keybindings
 
 * `↓`: Select next search result
@@ -13,6 +15,3 @@ for search results, but it's often broken for me (and [not just for
 * `Return`: Navigate to selected result
 * `Ctrl/⌘+Return`: Open selected result in new tab/window
 
-## Installation
-
-TODO
