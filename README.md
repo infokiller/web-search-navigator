@@ -15,3 +15,7 @@ for search results, but it's often broken for me (and [not just for
 * `Return`: Navigate to selected result
 * `Ctrl/⌘+Return`: Open selected result in new tab/window
 
+## TODO
+
+* Add animated gif showing how this extension works
+* Enable customizing the keyboard shortcuts and other behavior
