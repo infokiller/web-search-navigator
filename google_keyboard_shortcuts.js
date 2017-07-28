@@ -3,7 +3,6 @@ const toggleResultHighlighting = (link) => {
 };
 
 const addEventListeners = () => {
-  console.log('Starting addEventListeners');
   let resultIndex = 0;
   let results = document.querySelectorAll('h3.r a');
   const updateHighlightedResult = (newResultIndex) => {
