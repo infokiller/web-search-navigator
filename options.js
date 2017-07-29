@@ -8,6 +8,7 @@ const saveOptions = () => {
         autoSelectFirst: document.getElementById('auto-select-first').checked,
         nextKey: document.getElementById('next-key').value,
         previousKey: document.getElementById('previous-key').value,
+        navigateKey: document.getElementById('navigate-key').value,
       },
       () => {
         // Update status to let user know options were saved.
@@ -28,6 +29,7 @@ const restoreOptions = () => {
         autoSelectFirst: true,
         nextKey: 'down, j',
         previousKey: 'up, k',
+        navigateKey: 'return, space',
       },
       (items) => {
         document.getElementById('wrap-navigation').checked =

@@ -12,6 +12,7 @@ const loadOptions = () => {
           autoSelectFirst: true,
           nextKey: 'down, j',
           previousKey: 'up, k',
+          navigateKey: 'return, space',
         },
         (items) => {
           options = items;
@@ -24,8 +25,28 @@ const loadOptions = () => {
   });
 };
 
+const getNextIndex = (currentIndex, numResults, shouldWrap) => {
+  if (currentIndex < numResults - 1) {
+    return currentIndex + 1;
+  }
+  if (!shouldWrap) {
+    return currentIndex;
+  }
+  return 0;
+};
+
+const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
+  if (currentIndex > 0) {
+    return currentIndex - 1;
+  }
+  if (!shouldWrap) {
+    return currentIndex;
+  }
+  return numResults - 1;
+};
+
 const initPage = () => {
-  let firstNavigationDone = false;
+  let isFirstNavigation = true;
   let resultIndex = 0;
   let results = document.querySelectorAll('h3.r a');
   const updateHighlightedResult = (newResultIndex) => {
@@ -39,48 +60,36 @@ const initPage = () => {
     updateHighlightedResult(0);
   }
   key(options.nextKey, (event) => {
-    let newIndex = resultIndex + 1;
-    if (newIndex == results.length) {
-      if (options.wrapNavigation) {
-        newIndex = 0;
-      } else {
-        newIndex = resultIndex;
-      }
+    let nextIndex =
+        getNextIndex(resultIndex, results.length, options.wrapNavigation);
+    if (!options.autoSelectFirst && isFirstNavigation) {
+      nextIndex = 0;
+      isFirstNavigation = false;
     }
-    if (!options.autoSelectFirst && !firstNavigationDone) {
-      newIndex = 0;
-      firstNavigationDone = true;
-    }
-    updateHighlightedResult(newIndex);
+    updateHighlightedResult(nextIndex);
     event.stopPropagation();
     event.preventDefault();
   });
   key(options.previousKey, (event) => {
-    let newIndex = resultIndex - 1;
-    if (newIndex == -1) {
-      if (options.wrapNavigation) {
-        newIndex = results.length - 1;
-      } else {
-        newIndex = resultIndex;
-      }
+    let previousIndex =
+        getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
+    if (!options.autoSelectFirst && isFirstNavigation) {
+      previousIndex = 0;
+      isFirstNavigation = false;
     }
-    if (!options.autoSelectFirst && !firstNavigationDone) {
-      newIndex = 0;
-      firstNavigationDone = true;
-    }
-    updateHighlightedResult(newIndex);
+    updateHighlightedResult(previousIndex);
+    event.stopPropagation();
+    event.preventDefault();
+  });
+  key(options.navigateKey, (event) => {
+    let link = results[resultIndex];
+    location.href = link.href;
     event.stopPropagation();
     event.preventDefault();
   });
   key('command+return, ctrl+return', (event) => {
     let link = results[resultIndex];
-    window.open(link.attr('href'));
-    event.stopPropagation();
-    event.preventDefault();
-  });
-  key('return', (event) => {
-    let link = results[resultIndex];
-    location.href = link.attr('href');
+    window.open(link.href);
     event.stopPropagation();
     event.preventDefault();
   });

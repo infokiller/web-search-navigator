@@ -4,6 +4,11 @@ div {
 
 .input-keybinding {
   position: absolute;
-  left: 170px;
+  left: 220px;
   width: 100px;
 }
+
+.option-desc {
+  display: inline-block;
+  width: 200px;
+};
