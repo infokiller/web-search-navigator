@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Enhanced keyboard navigation in Google Search",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Unofficial extension to enhance keyboard navigation in Google Search.",
     "content_scripts": [{
         "matches": [
@@ -396,8 +396,13 @@
         "*://www.google.co.za/*",
         "*://www.google.co.zm/*",
         "*://www.google.co.zw/*",
-        "*://www.google.cat/*"
+        "*://www.google.cat/*",
+        "storage"
     ],
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
     "icons": {
         "16": "icon16.png",
         "48": "icon48.png",

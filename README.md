@@ -18,4 +18,3 @@ Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/en
 ## TODO
 
 * Add animated gif showing how this extension works
-* Enable customizing the keyboard shortcuts and other behavior

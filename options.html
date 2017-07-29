@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Options for Enhanced keyboard navigation in Google Search</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <div class="option">
+    <input type="checkbox" id="wrap-navigation">
+    Wrap around when navigating before/after the first/last search result
+  </div>
+  <div class="option">
+    <input type="checkbox" id="auto-select-first">
+    Select first search result automatically after the page loads
+  </div>
+  <div id="keybindings-container">
+  <h3>Keybindings</h3>
+  <p>All keybindings should be specified in <a href="https://github.com/madrobby/keymaster" target="_blank">Keymaster</a> format. Examples:
+    <ul>
+      <li><kbd class="keybinding">a</kbd>
+      <li><kbd class="keybinding">ctrl+a</kbd>
+      <li><kbd class="keybinding">command+a</kbd>
+      <li><kbd class="keybinding">a, ctrl+b, command+c</kbd> - multiple shortcuts that will be treated equivalently
+    </ul>
+  </p>
+  <div class="option">
+    Next search result
+    <input id="next-key" class="input-keybinding" type="text" value="down, j">
+  </div>
+  <div class="option">
+    Previous search result
+    <input id="previous-key" class="input-keybinding" type="text" value="up, k">
+  </div>
+  </div>
+
+  <div id="status"></div>
+  <button id="save">Save</button>
+
+  <script src="options.js"></script>
+</body>
+</html>

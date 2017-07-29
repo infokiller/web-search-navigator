@@ -1,0 +1,9 @@
+div {
+  margin-bottom: 10px;
+}
+
+.input-keybinding {
+  position: absolute;
+  left: 170px;
+  width: 100px;
+}
