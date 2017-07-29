@@ -5,15 +5,15 @@ navigation in Google Search. Google provides an experimental keyboard navigation
 for search results, but it's often broken for me (and [not just for
   me](https://goo.gl/1zMkYu)).
 
-[Install from the Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
+Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
 
 ## Keybindings
 
-* `↓`: Select next search result
-* `↑`: Select previous previous result
+* `↓`/`j`: Select next search result
+* `↑`/`k`: Select previous previous result
 * `/`: Focus on input search box
 * `Return`: Navigate to selected result
-* `Ctrl/⌘+Return`: Open selected result in new tab/window
+* `Ctrl+Return`/`⌘+return`: Open selected result in new tab/window
 
 ## TODO
 

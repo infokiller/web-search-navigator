@@ -1,3 +1,5 @@
+let shouldWrap = false;
+
 const toggleResultHighlighting = (link) => {
   link.classList.toggle('highlighted-search-result')
 };
@@ -13,25 +15,33 @@ const addEventListeners = () => {
   };
   // Highlight the first result when the page is loaded.
   updateHighlightedResult(0);
-  key('down', (event) => {
+  key('down, j', (event) => {
     let newIndex = resultIndex + 1;
     if (newIndex == results.length) {
-      newIndex = 0;
+      if (shouldWrap) {
+        newIndex = 0;
+      } else {
+        newIndex = resultIndex;
+      }
     }
     updateHighlightedResult(newIndex);
     event.stopPropagation();
     event.preventDefault();
   });
-  key('up', (event) => {
+  key('up, k', (event) => {
     let newIndex = resultIndex - 1;
     if (newIndex == -1) {
-      newIndex = results.length - 1;
+      if (shouldWrap) {
+        newIndex = results.length - 1;
+      } else {
+        newIndex = resultIndex;
+      }
     }
     updateHighlightedResult(newIndex);
     event.stopPropagation();
     event.preventDefault();
   });
-  key('⌘+return, ctrl+return', (event) => {
+  key('command+return, ctrl+return', (event) => {
     let link = results[resultIndex];
     window.open(link.attr('href'));
     event.stopPropagation();
