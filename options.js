@@ -9,6 +9,8 @@ const saveOptions = () => {
         nextKey: document.getElementById('next-key').value,
         previousKey: document.getElementById('previous-key').value,
         navigateKey: document.getElementById('navigate-key').value,
+        navigateNewTabKey:
+            document.getElementById('navigate-new-tab-key').value,
       },
       () => {
         // Update status to let user know options were saved.
@@ -30,6 +32,7 @@ const restoreOptions = () => {
         nextKey: 'down, j',
         previousKey: 'up, k',
         navigateKey: 'return, space',
+        navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
       },
       (items) => {
         document.getElementById('wrap-navigation').checked =
@@ -38,6 +41,9 @@ const restoreOptions = () => {
             items.autoSelectFirst;
         document.getElementById('next-key').value = items.nextKey;
         document.getElementById('previous-key').value = items.previousKey;
+        document.getElementById('navigate-key').value = items.navigateKey;
+        document.getElementById('navigate-new-tab-key').value =
+            items.navigateNewTabKey;
       });
 };
 

@@ -13,7 +13,7 @@ Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/en
 * `↑`/`k`: Select previous previous result
 * `/`: Focus on input search box
 * `Enter`/`Space`: Navigate to selected result
-* `Ctrl+Enter`/`⌘+Enter`: Open selected result in new tab/window
+* `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in new tab/window
 
 ## TODO
 

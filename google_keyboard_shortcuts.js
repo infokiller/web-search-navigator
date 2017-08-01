@@ -13,6 +13,7 @@ const loadOptions = () => {
           nextKey: 'down, j',
           previousKey: 'up, k',
           navigateKey: 'return, space',
+          navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
         },
         (items) => {
           options = items;
@@ -87,7 +88,7 @@ const initPage = () => {
     event.stopPropagation();
     event.preventDefault();
   });
-  key('command+return, ctrl+return', (event) => {
+  key(options.navigateNewTabKey, (event) => {
     let link = results[resultIndex];
     window.open(link.href);
     event.stopPropagation();
@@ -101,8 +102,35 @@ const initPage = () => {
   });
 };
 
-// This file is loaded only after the DOM is ready, so no need to wait for
-// DOMContentLoaded.
-loadOptions().then(() => {
-  initPage();
-});
+const getQueryStringParams = () => {
+  const encodedQueryString = window.location.search.slice(1);
+  const encodedParams = encodedQueryString.split('&');
+  let params = {};
+  for (const encodedParam of encodedParams) {
+    let [key, encodedValue] = encodedParam.split('=');
+    if (!encodedValue) {
+      encodedValue = '';
+    }
+    // + (plus sign) is not decoded by decodeURIComponent so we need to decode
+    // it manually.
+    encodedValue = encodedValue.replace(/\+/g, ' ');
+    params[key] = decodeURIComponent(encodedValue);
+  }
+  return params;
+}
+
+const initPageIfNeeded = () => {
+  const params = getQueryStringParams();
+  // Don't use the extension code if we're on image search, since it doesn't
+  // work there currently.
+  if (params['tbm'] === 'isch') {
+    return;
+  }
+  // This file is loaded only after the DOM is ready, so no need to wait for
+  // DOMContentLoaded.
+  loadOptions().then(() => {
+    initPage();
+  });
+};
+
+initPageIfNeeded();
