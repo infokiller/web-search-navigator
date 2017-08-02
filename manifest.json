@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Google Search Navigator",
-    "version": "0.2.2",
-    "description": "Unofficial extension to enhance keyboard navigation in Google Search.",
+    "version": "0.2.3",
+    "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "content_scripts": [{
         "matches": [
             "*://www.google.com/search*",
