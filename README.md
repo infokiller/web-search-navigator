@@ -1,4 +1,6 @@
-# Google Search Navigator
+# ![Logo](https://github.com/infokiller/google-search-navigator/blob/master/icon48.png?raw=true) Google Search Navigator
+
+![Demo flow](https://github.com/infokiller/google-search-navigator/blob/master/demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
 in Google Search. Google provides an experimental keyboard navigation for search
@@ -20,6 +22,6 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 
 ## TODO
 
-*   Add animated gif showing how this extension works
+*   Add option for navigating "Top stories"
 *   Remove Keymaster dependency and add functions for validation user provided
     Keybindings
