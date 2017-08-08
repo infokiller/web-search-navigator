@@ -95,8 +95,9 @@ const initPage = () => {
     event.preventDefault();
   });
   let searchInput = document.getElementById('lst-ib');
-  key('/', (event) => {
+  key('/, escape', (event) => {
     searchInput.focus();
+    searchInput.select();
     event.stopPropagation();
     event.preventDefault();
   });

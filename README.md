@@ -16,7 +16,7 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 
 *   `↓`/`j`: Select next search result
 *   `↑`/`k`: Select previous previous result
-*   `/`: Focus on input search box
+*   `/`/`Escape`: Focus on input search box
 *   `Enter`/`Space`: Navigate to selected result
 *   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in new tab/window
 
