@@ -49,7 +49,9 @@ const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
 const initPage = () => {
   let isFirstNavigation = true;
   let resultIndex = 0;
-  let results = document.querySelectorAll('h3.r a');
+  let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
+  let nextPage = document.querySelector('#pnnext');
+  results.push(nextPage);
   const updateHighlightedResult = (newResultIndex) => {
     results[resultIndex].classList.remove('highlighted-search-result')
     resultIndex = newResultIndex;
