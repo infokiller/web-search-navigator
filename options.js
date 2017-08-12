@@ -11,6 +11,16 @@ const saveOptions = () => {
         navigateKey: document.getElementById('navigate-key').value,
         navigateNewTabKey:
             document.getElementById('navigate-new-tab-key').value,
+        navigateSearchTab: 
+            document.getElementById('navigate-search-tab').value,
+        navigateImagesTab: 
+            document.getElementById('navigate-images-tab').value,
+        navigateVideosTab: 
+            document.getElementById('navigate-videos-tab').value,
+        navigateMapsTab: 
+            document.getElementById('navigate-maps-tab').value,
+        navigateNewsTab: 
+            document.getElementById('navigate-news-tab').value,
       },
       () => {
         // Update status to let user know options were saved.
@@ -33,6 +43,11 @@ const restoreOptions = () => {
         previousKey: 'up, k',
         navigateKey: 'return, space',
         navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+        navigateSearchTab: 'a, s',
+        navigateImagesTab: 'i',
+        navigateVideosTab: 'v',
+        navigateMapsTab: 'm',
+        navigateNewsTab: 'n'
       },
       (items) => {
         document.getElementById('wrap-navigation').checked =
@@ -44,6 +59,16 @@ const restoreOptions = () => {
         document.getElementById('navigate-key').value = items.navigateKey;
         document.getElementById('navigate-new-tab-key').value =
             items.navigateNewTabKey;
+        document.getElementById('navigate-search-tab').value =
+            items.navigateSearchTab;
+        document.getElementById('navigate-images-tab').value =
+            items.navigateImagesTab;
+        document.getElementById('navigate-videos-tab').value =
+            items.navigateVideosTab;
+        document.getElementById('navigate-maps-tab').value =
+            items.navigateMapsTab;
+        document.getElementById('navigate-news-tab').value =
+            items.navigateNewsTab;
       });
 };
 

@@ -14,6 +14,11 @@ const loadOptions = () => {
           previousKey: 'up, k',
           navigateKey: 'return, space',
           navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+          navigateSearchTab: 'a, s',
+          navigateImagesTab: 'i',
+          navigateVideosTab: 'v',
+          navigateMapsTab: 'm',
+          navigateNewsTab: 'n'
         },
         (items) => {
           options = items;
@@ -70,8 +75,7 @@ const initPage = () => {
       isFirstNavigation = false;
     }
     updateHighlightedResult(nextIndex);
-    event.stopPropagation();
-    event.preventDefault();
+    handleEvent(event);
   });
   key(options.previousKey, (event) => {
     let previousIndex =
@@ -81,29 +85,66 @@ const initPage = () => {
       isFirstNavigation = false;
     }
     updateHighlightedResult(previousIndex);
-    event.stopPropagation();
-    event.preventDefault();
+    handleEvent(event);
   });
   key(options.navigateKey, (event) => {
     let link = results[resultIndex];
     location.href = link.href;
-    event.stopPropagation();
-    event.preventDefault();
+    handleEvent(event);
   });
   key(options.navigateNewTabKey, (event) => {
     let link = results[resultIndex];
     window.open(link.href);
-    event.stopPropagation();
-    event.preventDefault();
+    handleEvent(event);
   });
+  initCommonNavigation();
+};
+
+const initCommonNavigation = () => {
   let searchInput = document.getElementById('lst-ib');
   key('/, escape', (event) => {
     searchInput.focus();
     searchInput.select();
-    event.stopPropagation();
-    event.preventDefault();
+    handleEvent(event);
   });
-};
+  let all = getElementByXpath("//a[contains(@class, 'q qs') and not (contains(@href, '&tbm=')) and not (contains(@href, 'maps.google.'))]");
+  key(options.navigateSearchTab, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(all, event);
+  });
+  let images = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=isch'))]");  
+  key(options.navigateImagesTab, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(images, event);
+  });
+  let videos = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=vid'))]");
+  key(options.navigateVideosTab, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(videos, event);
+  });
+  let maps = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, 'maps.google.'))]");
+  key(options.navigateMapsTab, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(maps, event);
+  });
+  let news = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=nws'))]");
+  key(options.navigateNewsTab, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(news, event);
+  });
+}
+
+const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
+  if (node !== null)
+    {
+      location.href = node.href;
+    }
+   
+  handleEvent(event);
+}
+
+const handleEvent = (event) => {
+  if (event !== null)
+    {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+}
 
 const getQueryStringParams = () => {
   const encodedQueryString = window.location.search.slice(1);
@@ -124,16 +165,26 @@ const getQueryStringParams = () => {
 
 const initPageIfNeeded = () => {
   const params = getQueryStringParams();
-  // Don't use the extension code if we're on image search, since it doesn't
-  // work there currently.
+  // Only initialize common navigation on image search, since other
+  // extension code doesn't work there currently
   if (params['tbm'] === 'isch') {
+
+    loadOptions().then(() => {
+      initCommonNavigation();
+    });
+
     return;
   }
+
   // This file is loaded only after the DOM is ready, so no need to wait for
   // DOMContentLoaded.
   loadOptions().then(() => {
     initPage();
   });
 };
+
+function getElementByXpath(path) {
+  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}
 
 initPageIfNeeded();
