@@ -21,6 +21,10 @@ const saveOptions = () => {
             document.getElementById('navigate-maps-tab').value,
         navigateNewsTab: 
             document.getElementById('navigate-news-tab').value,
+        navigatePreviousResultPage:
+            document.getElementById('navigate-previous-result-page').value,
+        navigateNextResultPage:
+            document.getElementById('navigate-next-result-page').value,
       },
       () => {
         // Update status to let user know options were saved.
@@ -47,7 +51,9 @@ const restoreOptions = () => {
         navigateImagesTab: 'i',
         navigateVideosTab: 'v',
         navigateMapsTab: 'm',
-        navigateNewsTab: 'n'
+        navigateNewsTab: 'n',
+        navigatePreviousResultPage: 'left',
+        navigateNextResultPage: 'right'
       },
       (items) => {
         document.getElementById('wrap-navigation').checked =
@@ -68,6 +74,10 @@ const restoreOptions = () => {
         document.getElementById('navigate-maps-tab').value =
             items.navigateMapsTab;
         document.getElementById('navigate-news-tab').value =
+            items.navigateNewsTab;
+        document.getElementById('navigate-previous-result-page').value =
+            items.navigateNewsTab;
+        document.getElementById('navigate-next-result-page').value =
             items.navigateNewsTab;
       });
 };

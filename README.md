@@ -20,6 +20,8 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 *   `/`/`Escape`: Focus on input search box
 *   `Enter`/`Space`: Navigate to selected result
 *   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in new tab/window
+*   `←`: Navigate to previous search result page
+*   `→`: Navigate to next search result page
 *   `a`/`s`: Navigate to All tab (= default search tab)
 *   `i`: Navigate to images tab
 *   `v`: Navigate to videos tab
