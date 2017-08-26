@@ -3,11 +3,12 @@
 ![Demo flow](https://github.com/infokiller/google-search-navigator/blob/master/demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
-in Google Search. Google provides an experimental keyboard navigation for search
-results, but it's often broken for me (and [not just for
-me](https://goo.gl/1zMkYu)). In addition, I wanted to add new keyboard shortcuts
-and customize some of the existing ones to be more vim like (j/k for
-navigation).
+in Google Search. Google used to provide an experimental keyboard navigation for
+search results, but it was [often broken](https://goo.gl/1zMkYu), and seems to
+have been [removed as of
+2017-07-31](https://stackoverflow.com/a/45513198/1014208).
+In addition, I wanted to add new keyboard shortcuts and the existing ones to be
+more vim like (j/k for navigation).
 
 Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
@@ -20,10 +21,10 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 *   `Enter`/`Space`: Navigate to selected result
 *   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in new tab/window
 *   `a`/`s`: Navigate to All tab (= default search tab)
-*   `i`: Navigate to Images tab
-*   `v`: Navigate to Videos tab
-*   `m`: Navigate to Maps tab
-*   `n`: Navigate to News tab
+*   `i`: Navigate to images tab
+*   `v`: Navigate to videos tab
+*   `m`: Navigate to maps tab
+*   `n`: Navigate to news tab
 
 ## TODO
 

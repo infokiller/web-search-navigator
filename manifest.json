@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Search Navigator",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "content_scripts": [{
         "matches": [
@@ -197,7 +197,8 @@
             "*://www.google.co.za/search*",
             "*://www.google.co.zm/search*",
             "*://www.google.co.zw/search*",
-            "*://www.google.cat/search*"
+            "*://www.google.cat/search*",
+            "*://encrypted.google.com/*"
         ],
         "js": ["keymaster.min.js", "google_keyboard_shortcuts.js"],
         "css": ["search_results.css"],
@@ -397,6 +398,7 @@
         "*://www.google.co.zm/search*",
         "*://www.google.co.zw/search*",
         "*://www.google.cat/search*",
+        "*://encrypted.google.com/*",
         "storage"
     ],
     "options_ui": {
