@@ -12,15 +12,15 @@ const loadOptions = () => {
           autoSelectFirst: true,
           nextKey: 'down, j',
           previousKey: 'up, k',
+          navigatePreviousResultPage: 'left, h',
+          navigateNextResultPage: 'right, l',
           navigateKey: 'return, space',
           navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
           navigateSearchTab: 'a, s',
           navigateImagesTab: 'i',
           navigateVideosTab: 'v',
           navigateMapsTab: 'm',
-          navigateNewsTab: 'n',
-          navigatePreviousResultPage: 'left',
-          navigateNextResultPage: 'right'
+          navigateNewsTab: 'n'
         },
         (items) => {
           options = items;
