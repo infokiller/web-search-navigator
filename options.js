@@ -8,6 +8,10 @@ const saveOptions = () => {
         autoSelectFirst: document.getElementById('auto-select-first').checked,
         nextKey: document.getElementById('next-key').value,
         previousKey: document.getElementById('previous-key').value,
+        navigatePreviousResultPage:
+            document.getElementById('navigate-previous-result-page').value,
+        navigateNextResultPage:
+            document.getElementById('navigate-next-result-page').value,
         navigateKey: document.getElementById('navigate-key').value,
         navigateNewTabKey:
             document.getElementById('navigate-new-tab-key').value,
@@ -41,6 +45,8 @@ const restoreOptions = () => {
         autoSelectFirst: true,
         nextKey: 'down, j',
         previousKey: 'up, k',
+        navigatePreviousResultPage: 'left, h',
+        navigateNextResultPage: 'right, l',
         navigateKey: 'return, space',
         navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
         navigateSearchTab: 'a, s',
@@ -56,6 +62,10 @@ const restoreOptions = () => {
             items.autoSelectFirst;
         document.getElementById('next-key').value = items.nextKey;
         document.getElementById('previous-key').value = items.previousKey;
+        document.getElementById('navigate-previous-result-page').value =
+            items.navigateNewsTab;
+        document.getElementById('navigate-next-result-page').value =
+            items.navigateNewsTab;
         document.getElementById('navigate-key').value = items.navigateKey;
         document.getElementById('navigate-new-tab-key').value =
             items.navigateNewTabKey;

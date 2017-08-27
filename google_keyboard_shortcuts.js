@@ -12,6 +12,8 @@ const loadOptions = () => {
           autoSelectFirst: true,
           nextKey: 'down, j',
           previousKey: 'up, k',
+          navigatePreviousResultPage: 'left, h',
+          navigateNextResultPage: 'right, l',
           navigateKey: 'return, space',
           navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
           navigateSearchTab: 'a, s',
@@ -55,16 +57,21 @@ const initPage = () => {
   let isFirstNavigation = true;
   let resultIndex = 0;
   let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
-  let prevPage = document.querySelector('#pnprev');
-  if (prevPage != null)
-    results.push(prevPage);
-  let nextPage = document.querySelector('#pnnext');  
-  results.push(nextPage);
+  let prevPage = document.querySelector('#pnprev');		
+  if (prevPage !== null) {
+    results.push(prevPage);		
+  }		
+  let nextPage = document.querySelector('#pnnext');
+  if (nextPage !== null) {
+    results.push(nextPage);
+  }
   const updateHighlightedResult = (newResultIndex) => {
-    results[resultIndex].classList.remove('highlighted-search-result')
-    resultIndex = newResultIndex;
-    results[resultIndex].classList.add('highlighted-search-result')
-    results[resultIndex].focus();
+    if (results.length > 0) {
+      results[resultIndex].classList.remove('highlighted-search-result')
+      resultIndex = newResultIndex;
+      results[resultIndex].classList.add('highlighted-search-result')
+      results[resultIndex].focus();
+    }
   };
   if (options.autoSelectFirst) {
     // Highlight the first result when the page is loaded.
@@ -129,6 +136,14 @@ const initCommonNavigation = () => {
   let news = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=nws'))]");
   key(options.navigateNewsTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(news, event);
+  });
+  let previousResultPage = document.querySelector('#pnprev');
+  key(options.navigatePreviousResultPage, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(previousResultPage, event);
+  });
+  let nextResultPage = document.querySelector('#pnnext');
+  key(options.navigateNextResultPage, (event) => {
+    updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
   });
 }
 
