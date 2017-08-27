@@ -57,11 +57,21 @@ const initPage = () => {
   let isFirstNavigation = true;
   let resultIndex = 0;
   let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
+  let prevPage = document.querySelector('#pnprev');		
+  if (prevPage !== null) {
+    results.push(prevPage);		
+  }		
+  let nextPage = document.querySelector('#pnnext');
+  if (nextPage !== null) {
+    results.push(nextPage);
+  }
   const updateHighlightedResult = (newResultIndex) => {
-    results[resultIndex].classList.remove('highlighted-search-result')
-    resultIndex = newResultIndex;
-    results[resultIndex].classList.add('highlighted-search-result')
-    results[resultIndex].focus();
+    if (results.length > 0) {
+      results[resultIndex].classList.remove('highlighted-search-result')
+      resultIndex = newResultIndex;
+      results[resultIndex].classList.add('highlighted-search-result')
+      results[resultIndex].focus();
+    }
   };
   if (options.autoSelectFirst) {
     // Highlight the first result when the page is loaded.
