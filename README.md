@@ -1,6 +1,6 @@
-# ![Logo](https://github.com/infokiller/google-search-navigator/blob/master/icon48.png?raw=true) Google Search Navigator
+# ![Logo](./icon48.png?raw=true) Google Search Navigator
 
-![Demo flow](https://github.com/infokiller/google-search-navigator/blob/master/demo.gif?raw=true)
+![Demo flow](./demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
