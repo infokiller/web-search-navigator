@@ -15,6 +15,8 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 
 ## Keybindings
 
+_Note: All shortcuts can be customized to your like via options._ 
+
 *   `↓`/`j`: Select next search result
 *   `↑`/`k`: Select previous previous result
 *   `←`/`h`: Navigate to previous search result page
