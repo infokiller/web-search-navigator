@@ -63,9 +63,9 @@ const restoreOptions = () => {
         document.getElementById('next-key').value = items.nextKey;
         document.getElementById('previous-key').value = items.previousKey;
         document.getElementById('navigate-previous-result-page').value =
-            items.navigateNewsTab;
+            items.navigatePreviousResultPage;
         document.getElementById('navigate-next-result-page').value =
-            items.navigateNewsTab;
+            items.navigateNextResultPage;
         document.getElementById('navigate-key').value = items.navigateKey;
         document.getElementById('navigate-new-tab-key').value =
             items.navigateNewTabKey;
