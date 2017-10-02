@@ -20,7 +20,8 @@ const loadOptions = () => {
           navigateImagesTab: 'i',
           navigateVideosTab: 'v',
           navigateMapsTab: 'm',
-          navigateNewsTab: 'n'
+          navigateNewsTab: 'n',
+          focusSearchInput: '/, escape'
         },
         (items) => {
           options = items;
@@ -112,7 +113,7 @@ const initPage = () => {
 
 const initCommonNavigation = () => {
   let searchInput = document.getElementById('lst-ib');
-  key('/, escape', (event) => {
+  key(options.focusSearchInput, (event) => {
     searchInput.focus();
     searchInput.select();
     handleEvent(event);

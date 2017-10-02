@@ -25,6 +25,8 @@ const saveOptions = () => {
             document.getElementById('navigate-maps-tab').value,
         navigateNewsTab: 
             document.getElementById('navigate-news-tab').value,
+        focusSearchInput:
+            document.getElementById('focus-search-input').value
       },
       () => {
         // Update status to let user know options were saved.
@@ -53,7 +55,8 @@ const restoreOptions = () => {
         navigateImagesTab: 'i',
         navigateVideosTab: 'v',
         navigateMapsTab: 'm',
-        navigateNewsTab: 'n'
+        navigateNewsTab: 'n',
+        focusSearchInput: '/, escape'
       },
       (items) => {
         document.getElementById('wrap-navigation').checked =
@@ -79,6 +82,8 @@ const restoreOptions = () => {
             items.navigateMapsTab;
         document.getElementById('navigate-news-tab').value =
             items.navigateNewsTab;
+        document.getElementById('focus-search-input').value =
+            items.focusSearchInput;
       });
 };
 
