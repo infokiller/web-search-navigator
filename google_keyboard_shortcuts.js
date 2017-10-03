@@ -117,6 +117,7 @@ const initResultsNavigation = (results) => {
   key(options.navigateKey, (event) => {
     let link = results[resultIndex];
     saveLastNavigation();
+    link.click();
     handleEvent(event);
   });
   key(options.navigateNewTabKey, (event) => {
