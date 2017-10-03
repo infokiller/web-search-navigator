@@ -116,7 +116,7 @@ const initResultsNavigation = (results) => {
   });
   key(options.navigateKey, (event) => {
     let link = results[resultIndex];
-    saveLastNavigation();
+    saveLastNavigation(resultIndex);
     link.click();
     handleEvent(event);
   });
@@ -241,11 +241,11 @@ function getElementByXpath(path) {
       .singleNodeValue;
 };
 
-const saveLastNavigation = () => {
+const saveLastNavigation = (visitedIndex) => {
   chrome.storage.local.set(
       {
         lastQueryUrl: location.href,
-        lastFocusedIndex: resultIndex 
+        lastFocusedIndex: visitedIndex
       }, 
       null);
 }
