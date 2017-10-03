@@ -15,18 +15,12 @@ const saveOptions = () => {
         navigateKey: document.getElementById('navigate-key').value,
         navigateNewTabKey:
             document.getElementById('navigate-new-tab-key').value,
-        navigateSearchTab: 
-            document.getElementById('navigate-search-tab').value,
-        navigateImagesTab: 
-            document.getElementById('navigate-images-tab').value,
-        navigateVideosTab: 
-            document.getElementById('navigate-videos-tab').value,
-        navigateMapsTab: 
-            document.getElementById('navigate-maps-tab').value,
-        navigateNewsTab: 
-            document.getElementById('navigate-news-tab').value,
-        focusSearchInput:
-            document.getElementById('focus-search-input').value
+        navigateSearchTab: document.getElementById('navigate-search-tab').value,
+        navigateImagesTab: document.getElementById('navigate-images-tab').value,
+        navigateVideosTab: document.getElementById('navigate-videos-tab').value,
+        navigateMapsTab: document.getElementById('navigate-maps-tab').value,
+        navigateNewsTab: document.getElementById('navigate-news-tab').value,
+        focusSearchInput: document.getElementById('focus-search-input').value
       },
       () => {
         // Update status to let user know options were saved.
