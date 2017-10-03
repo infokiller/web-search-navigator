@@ -1,6 +1,6 @@
-# ![Logo](https://github.com/infokiller/google-search-navigator/blob/master/icon48.png?raw=true) Google Search Navigator
+# ![Logo](./icon48.png?raw=true) Google Search Navigator
 
-![Demo flow](https://github.com/infokiller/google-search-navigator/blob/master/demo.gif?raw=true)
+![Demo flow](./demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
@@ -14,6 +14,8 @@ Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
 
 ## Keybindings
+
+_Note: All shortcuts can be customized to your liking via options._ 
 
 *   `↓`/`j`: Select next search result
 *   `↑`/`k`: Select previous previous result
