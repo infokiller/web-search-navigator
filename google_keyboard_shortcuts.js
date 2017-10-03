@@ -54,18 +54,9 @@ const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
   return numResults - 1;
 };
 
-const initPage = () => {
+const initResultsNavigation = (results) => {
   let isFirstNavigation = true;
   let resultIndex = 0;
-  let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
-  let prevPage = document.querySelector('#pnprev');
-  if (prevPage !== null) {
-    results.push(prevPage);
-  }
-  let nextPage = document.querySelector('#pnnext');
-  if (nextPage !== null) {
-    results.push(nextPage);
-  }
   const updateHighlightedResult = (newResultIndex) => {
     if (results.length > 0) {
       results[resultIndex].classList.remove('highlighted-search-result')
@@ -100,7 +91,7 @@ const initPage = () => {
   });
   key(options.navigateKey, (event) => {
     let link = results[resultIndex];
-    location.href = link.href;
+    link.click();
     handleEvent(event);
   });
   key(options.navigateNewTabKey, (event) => {
@@ -108,10 +99,9 @@ const initPage = () => {
     window.open(link.href);
     handleEvent(event);
   });
-  initCommonNavigation();
 };
 
-const initCommonNavigation = () => {
+const initCommonGoogleSearchNavigation = () => {
   let searchInput = document.getElementById('lst-ib');
   key(options.focusSearchInput, (event) => {
     searchInput.focus();
@@ -184,21 +174,39 @@ const getQueryStringParams = () => {
   return params;
 };
 
-const initPageIfNeeded = () => {
-  const params = getQueryStringParams();
-  // Only initialize common navigation on image search, since other
-  // extension code doesn't work there currently
-  if (params['tbm'] === 'isch') {
-    loadOptions().then(() => {
-      initCommonNavigation();
-    });
-    return;
+const getGoogleSearchLinks = function() {
+  let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
+  let prevPage = document.querySelector('#pnprev');
+  if (prevPage !== null) {
+    results.push(prevPage);
   }
-  // This file is loaded only after the DOM is ready, so no need to wait for
-  // DOMContentLoaded.
+  let nextPage = document.querySelector('#pnnext');
+  if (nextPage !== null) {
+    results.push(nextPage);
+  }
+  return results;
+};
+
+const initGoogleSearch = function() {
+  const params = getQueryStringParams();
+  // Don't initialize results navigation on image search, since it doesn't work
+  // there.
+  if (params['tbm'] !== 'isch') {
+    // This file is loaded only after the DOM is ready, so no need to wait for
+    // DOMContentLoaded.
+    loadOptions().then(() => {
+      initResultsNavigation(getGoogleSearchLinks());
+    });
+  }
   loadOptions().then(() => {
-    initPage();
+    initCommonGoogleSearchNavigation();
   });
+};
+
+const initPageIfNeeded = () => {
+  if (/^(www|encrypted)\.google\./.test(window.location.hostname)) {
+    initGoogleSearch();
+  }
 };
 
 function getElementByXpath(path) {
@@ -208,3 +216,4 @@ function getElementByXpath(path) {
 };
 
 initPageIfNeeded();
+
