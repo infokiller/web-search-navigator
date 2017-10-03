@@ -1,4 +1,5 @@
 let options;
+let lastNavigation;
 
 const toggleResultHighlighting = (link) => {
   link.classList.toggle('highlighted-search-result')
@@ -34,6 +35,24 @@ const loadOptions = () => {
   });
 };
 
+const loadLastNavigation = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(
+    {
+      lastQueryUrl: false,
+      lastFocusedIndex: 0
+    },
+    (items) =>{
+      lastNavigation = items;
+      if (chrome.runtime.lastError) {
+        reject();
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+  
 const getNextIndex = (currentIndex, numResults, shouldWrap) => {
   if (currentIndex < numResults - 1) {
     return currentIndex + 1;
@@ -69,6 +88,12 @@ const initResultsNavigation = (results) => {
     // Highlight the first result when the page is loaded.
     updateHighlightedResult(0);
   }
+  loadLastNavigation().then(() => {
+    if (location.href === lastNavigation.lastQueryUrl) {
+      isFirstNavigation = false;
+      updateHighlightedResult(lastNavigation.lastFocusedIndex);
+    }
+  });
   key(options.nextKey, (event) => {
     let nextIndex =
         getNextIndex(resultIndex, results.length, options.wrapNavigation);
@@ -91,6 +116,7 @@ const initResultsNavigation = (results) => {
   });
   key(options.navigateKey, (event) => {
     let link = results[resultIndex];
+    saveLastNavigation(resultIndex);
     link.click();
     handleEvent(event);
   });
@@ -214,6 +240,15 @@ function getElementByXpath(path) {
       .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
       .singleNodeValue;
 };
+
+const saveLastNavigation = (visitedIndex) => {
+  chrome.storage.local.set(
+      {
+        lastQueryUrl: location.href,
+        lastFocusedIndex: visitedIndex
+      }, 
+      null);
+}
 
 initPageIfNeeded();
 
