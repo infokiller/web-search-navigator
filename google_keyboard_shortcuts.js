@@ -57,10 +57,10 @@ const initPage = () => {
   let isFirstNavigation = true;
   let resultIndex = 0;
   let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
-  let prevPage = document.querySelector('#pnprev');		
+  let prevPage = document.querySelector('#pnprev');
   if (prevPage !== null) {
-    results.push(prevPage);		
-  }		
+    results.push(prevPage);
+  }
   let nextPage = document.querySelector('#pnnext');
   if (nextPage !== null) {
     results.push(nextPage);
@@ -117,23 +117,28 @@ const initCommonNavigation = () => {
     searchInput.select();
     handleEvent(event);
   });
-  let all = getElementByXpath("//a[contains(@class, 'q qs') and not (contains(@href, '&tbm=')) and not (contains(@href, 'maps.google.'))]");
+  let all = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
   key(options.navigateSearchTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(all, event);
   });
-  let images = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=isch'))]");  
+  let images = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
   key(options.navigateImagesTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(images, event);
   });
-  let videos = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=vid'))]");
+  let videos = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
   key(options.navigateVideosTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(videos, event);
   });
-  let maps = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, 'maps.google.'))]");
+  let maps = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
   key(options.navigateMapsTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(maps, event);
   });
-  let news = getElementByXpath("//a[contains(@class, 'q qs') and (contains(@href, '&tbm=nws'))]");
+  let news = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
   key(options.navigateNewsTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(news, event);
   });
@@ -145,24 +150,21 @@ const initCommonNavigation = () => {
   key(options.navigateNextResultPage, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
   });
-}
+};
 
 const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
-  if (node !== null)
-    {
-      location.href = node.href;
-    }
-   
+  if (node !== null) {
+    location.href = node.href;
+  }
   handleEvent(event);
-}
+};
 
 const handleEvent = (event) => {
-  if (event !== null)
-    {
-      event.stopPropagation();
-      event.preventDefault();
-    }
-}
+  if (event !== null) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+};
 
 const getQueryStringParams = () => {
   const encodedQueryString = window.location.search.slice(1);
@@ -179,21 +181,18 @@ const getQueryStringParams = () => {
     params[key] = decodeURIComponent(encodedValue);
   }
   return params;
-}
+};
 
 const initPageIfNeeded = () => {
   const params = getQueryStringParams();
   // Only initialize common navigation on image search, since other
   // extension code doesn't work there currently
   if (params['tbm'] === 'isch') {
-
     loadOptions().then(() => {
       initCommonNavigation();
     });
-
     return;
   }
-
   // This file is loaded only after the DOM is ready, so no need to wait for
   // DOMContentLoaded.
   loadOptions().then(() => {
@@ -202,7 +201,9 @@ const initPageIfNeeded = () => {
 };
 
 function getElementByXpath(path) {
-  return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-}
+  return document
+      .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+      .singleNodeValue;
+};
 
 initPageIfNeeded();
