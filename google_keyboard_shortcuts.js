@@ -247,7 +247,6 @@ const saveLastNavigation = () => {
         lastQueryUrl: location.href,
         lastFocusedIndex: resultIndex 
       }, null);
-    link.click();
 }
 
 initPageIfNeeded();
