@@ -1,4 +1,19 @@
-let options;
+let options = {
+  wrapNavigation: false,
+  autoSelectFirst: true,
+  nextKey: 'down, j',
+  previousKey: 'up, k',
+  navigatePreviousResultPage: 'left, h',
+  navigateNextResultPage: 'right, l',
+  navigateKey: 'return, space',
+  navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+  navigateSearchTab: 'a, s',
+  navigateImagesTab: 'i',
+  navigateVideosTab: 'v',
+  navigateMapsTab: 'm',
+  navigateNewsTab: 'n',
+  focusSearchInput: '/, escape'
+};
 let lastNavigation;
 
 const toggleResultHighlighting = (link) => {
@@ -8,27 +23,12 @@ const toggleResultHighlighting = (link) => {
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(
-        {
-          wrapNavigation: false,
-          autoSelectFirst: true,
-          nextKey: 'down, j',
-          previousKey: 'up, k',
-          navigatePreviousResultPage: 'left, h',
-          navigateNextResultPage: 'right, l',
-          navigateKey: 'return, space',
-          navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
-          navigateSearchTab: 'a, s',
-          navigateImagesTab: 'i',
-          navigateVideosTab: 'v',
-          navigateMapsTab: 'm',
-          navigateNewsTab: 'n',
-          focusSearchInput: '/, escape'
-        },
+        options,
         (items) => {
-          options = items;
           if (chrome.runtime.lastError) {
             reject();
           } else {
+            options = items;
             resolve();
           }
         });
@@ -220,13 +220,12 @@ const initGoogleSearch = function() {
   if (params['tbm'] !== 'isch') {
     // This file is loaded only after the DOM is ready, so no need to wait for
     // DOMContentLoaded.
-    loadOptions().then(() => {
+    let afterOptions = () => {
       initResultsNavigation(getGoogleSearchLinks());
-    });
+    };
+    loadOptions().then(afterOptions, afterOptions);
   }
-  loadOptions().then(() => {
-    initCommonGoogleSearchNavigation();
-  });
+  loadOptions().then(initCommonGoogleSearchNavigation, initCommonGoogleSearchNavigation);
 };
 
 const initPageIfNeeded = () => {
