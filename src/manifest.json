@@ -200,7 +200,7 @@
             "*://www.google.cat/search*",
             "*://encrypted.google.com/*"
         ],
-        "js": ["keymaster.min.js", "google_keyboard_shortcuts.js"],
+        "js": ["keymaster.js", "google_keyboard_shortcuts.js"],
         "css": ["search_results.css"],
         "run_at": "document_end"
     }],

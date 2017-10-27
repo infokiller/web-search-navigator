@@ -6,7 +6,15 @@
   "repository": "https://github.com/infokiller/google-search-navigator",
   "author": "https://github.com/infokiller",
   "license": "MIT",
+  "scripts": {
+    "build": "gulp"
+  },
   "dependencies": {
     "keymaster": "^1.6.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
   }
 }
