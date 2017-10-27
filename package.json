@@ -5,5 +5,8 @@
   "main": "google_keyboard_shortcuts.js",
   "repository": "https://github.com/infokiller/google-search-navigator",
   "author": "https://github.com/infokiller",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "keymaster": "^1.6.2"
+  }
 }
