@@ -32,18 +32,11 @@ _Note: All shortcuts can be customized to your liking via options._
 
 ## Development
 
-Install all the dependencies via [yarn](https://yarnpkg.com/):
+We use [yarn](https://yarnpkg.com/) package manager for dependency management and [gulp](https://gulpjs.com/) for build.
+Installing and building (deploying the web extension files) is as easy as:
 
 ```
-yarn install
-```
-
-Than deploy the web extension files using [gulp](https://gulpjs.com/). There is 
-no need to install it. It is automatically resolved dependency from the 
-previous step:
-
-```
-gulp
+yarn install && yarn build
 ```
 
 The extension will be deployed directly to the `src` directory. You can load this directory as an unpacked extensions to
@@ -58,7 +51,7 @@ extension manually on every change. Hence the `src` directory is used for the co
 To deploy the production sources use:
 
 ```
-gulp --production
+yarn build --production
 ```
 
 The automated build scripts are currently not implemented so manual process is required afterward.
