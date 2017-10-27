@@ -1,0 +1,9 @@
+{
+  "name": "google-search-navigator",
+  "version": "0.2.5",
+  "description": "Adds keyboard shortcuts to Google Search (google.com).",
+  "main": "google_keyboard_shortcuts.js",
+  "repository": "https://github.com/infokiller/google-search-navigator",
+  "author": "https://github.com/infokiller",
+  "license": "MIT"
+}
