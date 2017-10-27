@@ -1,6 +1,6 @@
-# ![Logo](./icon48.png?raw=true) Google Search Navigator
+# ![Logo](./src/icon48.png?raw=true) Google Search Navigator
 
-![Demo flow](./demo.gif?raw=true)
+![Demo flow](./assets/demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
