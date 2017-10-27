@@ -30,6 +30,39 @@ _Note: All shortcuts can be customized to your liking via options._
 *   `m`: Navigate to maps tab
 *   `n`: Navigate to news tab
 
+## Development
+
+Install all the dependencies via [yarn](https://yarnpkg.com/):
+
+```
+yarn install
+```
+
+Than deploy the web extension files using [gulp](https://gulpjs.com/). There is 
+no need to install it. It is automatically resolved dependency from the 
+previous step:
+
+```
+gulp
+```
+
+The extension will be deployed directly to the `src` directory. You can load this directory as an unpacked extensions to
+your browser.
+
+_It would be better to deploy for example to `build/deploy` and add `gulp-watch` to update the deployed files 
+automatically. However when done so the browser's (Chrome) auto-reload extension gets broken and one has to reload the 
+extension manually on every change. Hence the `src` directory is used for the convenience._ 
+
+## Build
+
+To deploy the production sources use:
+
+```
+gulp --production
+```
+
+The automated build scripts are currently not implemented so manual process is required afterward.
+
 ## TODO
 
 *   Add option for navigating "Top stories"
