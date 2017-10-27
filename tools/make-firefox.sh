@@ -25,12 +25,8 @@ echo "Copying files..."
 rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
-cp *.css "$OBJ"
-cp *.html "$OBJ"
-cp *.js "$OBJ"
-cp *.json "$OBJ"
+cp src/* "$OBJ"
 cp .web-extension-id "$OBJ"
-cp icon*.png "$OBJ"
 
 # pack and sign the package
 echo "Creating package..."
