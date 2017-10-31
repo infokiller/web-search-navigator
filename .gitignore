@@ -1,2 +1,4 @@
 .tags
 build/
+node_modules/
+src/keymaster.js

@@ -15,11 +15,7 @@ echo "Copying files..."
 rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
-cp ./*.css "$OBJ"
-cp ./*.html "$OBJ"
-cp ./*.js "$OBJ"
-cp ./*.json "$OBJ"
-cp ./icon*.png "$OBJ"
+cp src/* "$OBJ"
 
 echo "Creating package..."
 zip -FS "$BIN/package.zip" $OBJ/*

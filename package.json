@@ -1,0 +1,21 @@
+{
+  "name": "google-search-navigator",
+  "version": "0.2.5",
+  "description": "Adds keyboard shortcuts to Google Search (google.com).",
+  "main": "google_keyboard_shortcuts.js",
+  "repository": "https://github.com/infokiller/google-search-navigator",
+  "author": "https://github.com/infokiller",
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp"
+  },
+  "dependencies": {
+    "keymaster": "^1.6.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8"
+  }
+}

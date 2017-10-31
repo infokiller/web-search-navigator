@@ -1,6 +1,6 @@
-# ![Logo](./icon48.png?raw=true) Google Search Navigator
+# ![Logo](./src/icon48.png?raw=true) Google Search Navigator
 
-![Demo flow](./demo.gif?raw=true)
+![Demo flow](./assets/demo.gif?raw=true)
 
 This is a simple Google Chrome extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
@@ -29,6 +29,32 @@ _Note: All shortcuts can be customized to your liking via options._
 *   `v`: Navigate to videos tab
 *   `m`: Navigate to maps tab
 *   `n`: Navigate to news tab
+
+## Development
+
+We use [yarn](https://yarnpkg.com/) package manager for dependency management and [gulp](https://gulpjs.com/) for build.
+Installing and building (deploying the web extension files) is as easy as:
+
+```
+yarn install && yarn build
+```
+
+The extension will be deployed directly to the `src` directory. You can load this directory as an unpacked extensions to
+your browser.
+
+_It would be better to deploy for example to `build/deploy` and add `gulp-watch` to update the deployed files 
+automatically. However when done so the browser's (Chrome) auto-reload extension gets broken and one has to reload the 
+extension manually on every change. Hence the `src` directory is used for the convenience._ 
+
+## Build
+
+To deploy the production sources use:
+
+```
+yarn build --production
+```
+
+The automated build scripts are currently not implemented so manual process is required afterward.
 
 ## TODO
 
