@@ -14,7 +14,10 @@ let options = {
   navigateNewsTab: 'n',
   focusSearchInput: '/, escape'
 };
-let lastNavigation;
+let lastNavigation = {
+  lastQueryUrl: false,
+  lastFocusedIndex: 0
+};
 
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
@@ -34,15 +37,12 @@ const loadOptions = () => {
 const loadLastNavigation = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
-      {
-        lastQueryUrl: false,
-        lastFocusedIndex: 0
-      },
+      lastNavigation,
       (items) => {
-        lastNavigation = items;
         if (chrome.runtime.lastError) {
           reject();
         } else {
+          lastNavigation = items;
           resolve();
         }
       });
