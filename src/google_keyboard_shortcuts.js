@@ -16,10 +16,6 @@ let options = {
 };
 let lastNavigation;
 
-const toggleResultHighlighting = (link) => {
-  link.classList.toggle('highlighted-search-result')
-};
-
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(
@@ -51,7 +47,7 @@ const loadLastNavigation = () => {
         }
       });
   });
-}
+};
 
 const getNextIndex = (currentIndex, numResults, shouldWrap) => {
   if (currentIndex < numResults - 1) {
@@ -78,9 +74,9 @@ const initResultsNavigation = (results) => {
   let resultIndex = 0;
   const updateHighlightedResult = (newResultIndex) => {
     if (results.length > 0) {
-      results[resultIndex].classList.remove('highlighted-search-result')
+      results[resultIndex].classList.remove('highlighted-search-result');
       resultIndex = newResultIndex;
-      results[resultIndex].classList.add('highlighted-search-result')
+      results[resultIndex].classList.add('highlighted-search-result');
       results[resultIndex].focus();
     }
   };
@@ -238,7 +234,7 @@ function getElementByXpath(path) {
   return document
     .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
     .singleNodeValue;
-};
+}
 
 const saveLastNavigation = (visitedIndex) => {
   chrome.storage.local.set(
@@ -247,7 +243,7 @@ const saveLastNavigation = (visitedIndex) => {
       lastFocusedIndex: visitedIndex
     },
     null);
-}
+};
 
 initPageIfNeeded();
 
