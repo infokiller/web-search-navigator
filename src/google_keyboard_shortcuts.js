@@ -14,45 +14,41 @@ let options = {
   navigateNewsTab: 'n',
   focusSearchInput: '/, escape'
 };
-let lastNavigation;
-
-const toggleResultHighlighting = (link) => {
-  link.classList.toggle('highlighted-search-result')
+let lastNavigation = {
+  lastQueryUrl: false,
+  lastFocusedIndex: 0
 };
 
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(
-        options,
-        (items) => {
-          if (chrome.runtime.lastError) {
-            reject();
-          } else {
-            options = items;
-            resolve();
-          }
-        });
+      options,
+      (items) => {
+        if (chrome.runtime.lastError) {
+          reject();
+        } else {
+          options = items;
+          resolve();
+        }
+      });
   });
 };
 
 const loadLastNavigation = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
-    {
-      lastQueryUrl: false,
-      lastFocusedIndex: 0
-    },
-    (items) =>{
-      lastNavigation = items;
-      if (chrome.runtime.lastError) {
-        reject();
-      } else {
-        resolve();
-      }
-    });
+      lastNavigation,
+      (items) => {
+        if (chrome.runtime.lastError) {
+          reject();
+        } else {
+          lastNavigation = items;
+          resolve();
+        }
+      });
   });
-}
-  
+};
+
 const getNextIndex = (currentIndex, numResults, shouldWrap) => {
   if (currentIndex < numResults - 1) {
     return currentIndex + 1;
@@ -78,9 +74,9 @@ const initResultsNavigation = (results) => {
   let resultIndex = 0;
   const updateHighlightedResult = (newResultIndex) => {
     if (results.length > 0) {
-      results[resultIndex].classList.remove('highlighted-search-result')
+      results[resultIndex].classList.remove('highlighted-search-result');
       resultIndex = newResultIndex;
-      results[resultIndex].classList.add('highlighted-search-result')
+      results[resultIndex].classList.add('highlighted-search-result');
       results[resultIndex].focus();
     }
   };
@@ -96,7 +92,7 @@ const initResultsNavigation = (results) => {
   });
   key(options.nextKey, (event) => {
     let nextIndex =
-        getNextIndex(resultIndex, results.length, options.wrapNavigation);
+      getNextIndex(resultIndex, results.length, options.wrapNavigation);
     if (!options.autoSelectFirst && isFirstNavigation) {
       nextIndex = 0;
       isFirstNavigation = false;
@@ -106,7 +102,7 @@ const initResultsNavigation = (results) => {
   });
   key(options.previousKey, (event) => {
     let previousIndex =
-        getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
+      getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
     if (!options.autoSelectFirst && isFirstNavigation) {
       previousIndex = 0;
       isFirstNavigation = false;
@@ -135,27 +131,27 @@ const initCommonGoogleSearchNavigation = () => {
     handleEvent(event);
   });
   let all = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
+    '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
   key(options.navigateSearchTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(all, event);
   });
   let images = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
+    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
   key(options.navigateImagesTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(images, event);
   });
   let videos = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
+    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
   key(options.navigateVideosTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(videos, event);
   });
   let maps = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
+    '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
   key(options.navigateMapsTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(maps, event);
   });
   let news = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
+    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
   key(options.navigateNewsTab, (event) => {
     updateUrlWithNodeHrefAndHandleEvent(news, event);
   });
@@ -236,18 +232,18 @@ const initPageIfNeeded = () => {
 
 function getElementByXpath(path) {
   return document
-      .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
-      .singleNodeValue;
-};
+    .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+    .singleNodeValue;
+}
 
 const saveLastNavigation = (visitedIndex) => {
   chrome.storage.local.set(
-      {
-        lastQueryUrl: location.href,
-        lastFocusedIndex: visitedIndex
-      }, 
-      null);
-}
+    {
+      lastQueryUrl: location.href,
+      lastFocusedIndex: visitedIndex
+    },
+    null);
+};
 
 initPageIfNeeded();
 
