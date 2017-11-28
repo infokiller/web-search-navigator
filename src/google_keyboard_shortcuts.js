@@ -1,33 +1,36 @@
-let options = {
-  wrapNavigation: false,
-  autoSelectFirst: true,
-  nextKey: 'down, j',
-  previousKey: 'up, k',
-  navigatePreviousResultPage: 'left, h',
-  navigateNextResultPage: 'right, l',
-  navigateKey: 'return, space',
-  navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
-  navigateSearchTab: 'a, s',
-  navigateImagesTab: 'i',
-  navigateVideosTab: 'v',
-  navigateMapsTab: 'm',
-  navigateNewsTab: 'n',
-  focusSearchInput: '/, escape'
-};
-let lastNavigation = {
-  lastQueryUrl: false,
-  lastFocusedIndex: 0
+const extension = {
+  options: {
+    wrapNavigation: false,
+    autoSelectFirst: true,
+    nextKey: 'down, j',
+    previousKey: 'up, k',
+    navigatePreviousResultPage: 'left, h',
+    navigateNextResultPage: 'right, l',
+    navigateKey: 'return, space',
+    navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+    navigateSearchTab: 'a, s',
+    navigateImagesTab: 'i',
+    navigateVideosTab: 'v',
+    navigateMapsTab: 'm',
+    navigateNewsTab: 'n',
+    focusSearchInput: '/, escape'
+  },
+
+  lastNavigation: {
+    lastQueryUrl: false,
+    lastFocusedIndex: 0
+  }
 };
 
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(
-      options,
+      extension.options,
       (items) => {
         if (chrome.runtime.lastError) {
           reject();
         } else {
-          options = items;
+          extension.options = items;
           resolve();
         }
       });
@@ -37,12 +40,12 @@ const loadOptions = () => {
 const loadLastNavigation = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(
-      lastNavigation,
+      extension.lastNavigation,
       (items) => {
         if (chrome.runtime.lastError) {
           reject();
         } else {
-          lastNavigation = items;
+          extension.lastNavigation = items;
           resolve();
         }
       });
@@ -72,6 +75,9 @@ const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
 const initResultsNavigation = (results) => {
   let isFirstNavigation = true;
   let resultIndex = 0;
+  let options = extension.options;
+  let lastNavigation = extension.lastNavigation;
+
   const updateHighlightedResult = (newResultIndex) => {
     if (results.length > 0) {
       results[resultIndex].classList.remove('highlighted-search-result');
@@ -125,6 +131,8 @@ const initResultsNavigation = (results) => {
 
 const initCommonGoogleSearchNavigation = () => {
   let searchInput = document.getElementById('lst-ib');
+  let options = extension.options;
+
   key(options.focusSearchInput, (event) => {
     searchInput.focus();
     searchInput.select();
