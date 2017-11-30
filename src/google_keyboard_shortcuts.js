@@ -19,8 +19,125 @@ const extension = {
   lastNavigation: {
     lastQueryUrl: false,
     lastFocusedIndex: 0
+  },
+
+  initPageIfNeeded: function() {
+    if (/^(www|encrypted)\.google\./.test(window.location.hostname)) {
+      this.initGoogleSearch();
+    }
+  },
+
+  initGoogleSearch: function() {
+    const params = getQueryStringParams();
+    // Don't initialize results navigation on image search, since it doesn't work
+    // there.
+    if (params['tbm'] !== 'isch') {
+      // This file is loaded only after the DOM is ready, so no need to wait for
+      // DOMContentLoaded.
+      let afterOptions = () => {
+        this.initResultsNavigation(getGoogleSearchLinks());
+      };
+      loadOptions().then(afterOptions, afterOptions);
+    }
+    loadOptions().then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
+  },
+
+  initResultsNavigation: function(r) {
+    results = r;
+    let options = this.options;
+    let lastNavigation = this.lastNavigation;
+
+    if (options.autoSelectFirst) {
+      // Highlight the first result when the page is loaded.
+      updateHighlightedResult(0);
+    }
+    loadLastNavigation().then(() => {
+      if (location.href === lastNavigation.lastQueryUrl) {
+        isFirstNavigation = false;
+        updateHighlightedResult(lastNavigation.lastFocusedIndex);
+      }
+    });
+    key(options.nextKey, (event) => {
+      let nextIndex =
+        getNextIndex(resultIndex, results.length, options.wrapNavigation);
+      if (!options.autoSelectFirst && isFirstNavigation) {
+        nextIndex = 0;
+        isFirstNavigation = false;
+      }
+      updateHighlightedResult(nextIndex);
+      handleEvent(event);
+    });
+    key(options.previousKey, (event) => {
+      let previousIndex =
+        getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
+      if (!options.autoSelectFirst && isFirstNavigation) {
+        previousIndex = 0;
+        isFirstNavigation = false;
+      }
+      updateHighlightedResult(previousIndex);
+      handleEvent(event);
+    });
+    key(options.navigateKey, (event) => {
+      let link = results[resultIndex];
+      saveLastNavigation(resultIndex);
+      link.click();
+      handleEvent(event);
+    });
+    key(options.navigateNewTabKey, (event) => {
+      let link = results[resultIndex];
+      window.open(link.href);
+      handleEvent(event);
+    });
+  },
+
+  initCommonGoogleSearchNavigation: function() {
+    let searchInput = document.getElementById('lst-ib');
+    let options = this.options;
+
+    key(options.focusSearchInput, (event) => {
+      searchInput.focus();
+      searchInput.select();
+      handleEvent(event);
+    });
+    let all = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
+    key(options.navigateSearchTab, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(all, event);
+    });
+    let images = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
+    key(options.navigateImagesTab, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(images, event);
+    });
+    let videos = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
+    key(options.navigateVideosTab, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(videos, event);
+    });
+    let maps = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
+    key(options.navigateMapsTab, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(maps, event);
+    });
+    let news = getElementByXpath(
+      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
+    key(options.navigateNewsTab, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(news, event);
+    });
+    let previousResultPage = document.querySelector('#pnprev');
+    key(options.navigatePreviousResultPage, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(previousResultPage, event);
+    });
+    let nextResultPage = document.querySelector('#pnnext');
+    key(options.navigateNextResultPage, (event) => {
+      updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
+    });
   }
 };
+
+let isFirstNavigation = true;
+let results = null;
+let resultIndex = 0;
 
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
@@ -35,6 +152,15 @@ const loadOptions = () => {
         }
       });
   });
+};
+
+const updateHighlightedResult = (newResultIndex) => {
+  if (results.length > 0) {
+    results[resultIndex].classList.remove('highlighted-search-result');
+    resultIndex = newResultIndex;
+    results[resultIndex].classList.add('highlighted-search-result');
+    results[resultIndex].focus();
+  }
 };
 
 const loadLastNavigation = () => {
@@ -70,107 +196,6 @@ const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
     return currentIndex;
   }
   return numResults - 1;
-};
-
-const initResultsNavigation = (results) => {
-  let isFirstNavigation = true;
-  let resultIndex = 0;
-  let options = extension.options;
-  let lastNavigation = extension.lastNavigation;
-
-  const updateHighlightedResult = (newResultIndex) => {
-    if (results.length > 0) {
-      results[resultIndex].classList.remove('highlighted-search-result');
-      resultIndex = newResultIndex;
-      results[resultIndex].classList.add('highlighted-search-result');
-      results[resultIndex].focus();
-    }
-  };
-  if (options.autoSelectFirst) {
-    // Highlight the first result when the page is loaded.
-    updateHighlightedResult(0);
-  }
-  loadLastNavigation().then(() => {
-    if (location.href === lastNavigation.lastQueryUrl) {
-      isFirstNavigation = false;
-      updateHighlightedResult(lastNavigation.lastFocusedIndex);
-    }
-  });
-  key(options.nextKey, (event) => {
-    let nextIndex =
-      getNextIndex(resultIndex, results.length, options.wrapNavigation);
-    if (!options.autoSelectFirst && isFirstNavigation) {
-      nextIndex = 0;
-      isFirstNavigation = false;
-    }
-    updateHighlightedResult(nextIndex);
-    handleEvent(event);
-  });
-  key(options.previousKey, (event) => {
-    let previousIndex =
-      getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
-    if (!options.autoSelectFirst && isFirstNavigation) {
-      previousIndex = 0;
-      isFirstNavigation = false;
-    }
-    updateHighlightedResult(previousIndex);
-    handleEvent(event);
-  });
-  key(options.navigateKey, (event) => {
-    let link = results[resultIndex];
-    saveLastNavigation(resultIndex);
-    link.click();
-    handleEvent(event);
-  });
-  key(options.navigateNewTabKey, (event) => {
-    let link = results[resultIndex];
-    window.open(link.href);
-    handleEvent(event);
-  });
-};
-
-const initCommonGoogleSearchNavigation = () => {
-  let searchInput = document.getElementById('lst-ib');
-  let options = extension.options;
-
-  key(options.focusSearchInput, (event) => {
-    searchInput.focus();
-    searchInput.select();
-    handleEvent(event);
-  });
-  let all = getElementByXpath(
-    '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
-  key(options.navigateSearchTab, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(all, event);
-  });
-  let images = getElementByXpath(
-    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
-  key(options.navigateImagesTab, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(images, event);
-  });
-  let videos = getElementByXpath(
-    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
-  key(options.navigateVideosTab, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(videos, event);
-  });
-  let maps = getElementByXpath(
-    '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
-  key(options.navigateMapsTab, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(maps, event);
-  });
-  let news = getElementByXpath(
-    '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
-  key(options.navigateNewsTab, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(news, event);
-  });
-  let previousResultPage = document.querySelector('#pnprev');
-  key(options.navigatePreviousResultPage, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(previousResultPage, event);
-  });
-  let nextResultPage = document.querySelector('#pnnext');
-  key(options.navigateNextResultPage, (event) => {
-    updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
-  });
 };
 
 const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
@@ -217,26 +242,7 @@ const getGoogleSearchLinks = function() {
   return results;
 };
 
-const initGoogleSearch = function() {
-  const params = getQueryStringParams();
-  // Don't initialize results navigation on image search, since it doesn't work
-  // there.
-  if (params['tbm'] !== 'isch') {
-    // This file is loaded only after the DOM is ready, so no need to wait for
-    // DOMContentLoaded.
-    let afterOptions = () => {
-      initResultsNavigation(getGoogleSearchLinks());
-    };
-    loadOptions().then(afterOptions, afterOptions);
-  }
-  loadOptions().then(initCommonGoogleSearchNavigation, initCommonGoogleSearchNavigation);
-};
 
-const initPageIfNeeded = () => {
-  if (/^(www|encrypted)\.google\./.test(window.location.hostname)) {
-    initGoogleSearch();
-  }
-};
 
 function getElementByXpath(path) {
   return document
@@ -253,5 +259,4 @@ const saveLastNavigation = (visitedIndex) => {
     null);
 };
 
-initPageIfNeeded();
-
+extension.initPageIfNeeded();
