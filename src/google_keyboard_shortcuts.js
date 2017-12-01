@@ -35,18 +35,19 @@ const extension = {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
       let afterOptions = () => {
-        this.initResultsNavigation(getGoogleSearchLinks());
+        this.initResultsNavigation();
       };
       optionsTask.then(afterOptions, afterOptions);
     }
     optionsTask.then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
   },
 
-  initResultsNavigation: function(results) {
+  initResultsNavigation: function() {
     let options = this.options;
     let lastNavigation = this.lastNavigation;
-    let isFirstNavigation = true;
+    let results = getGoogleSearchLinks();
     let resultIndex = 0;
+    let isFirstNavigation = true;
 
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
@@ -229,19 +230,9 @@ const getQueryStringParams = () => {
 };
 
 const getGoogleSearchLinks = function() {
-  let results = Array.prototype.slice.call(document.querySelectorAll('h3.r a'));
-  let prevPage = document.querySelector('#pnprev');
-  if (prevPage !== null) {
-    results.push(prevPage);
-  }
-  let nextPage = document.querySelector('#pnnext');
-  if (nextPage !== null) {
-    results.push(nextPage);
-  }
-  return results;
+  // the nodes are returned in the document order which is what we want
+  return document.querySelectorAll('h3.r a, #pnprev, #pnnext');
 };
-
-
 
 function getElementByXpath(path) {
   return document
