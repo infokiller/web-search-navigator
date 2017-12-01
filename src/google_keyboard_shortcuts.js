@@ -48,15 +48,16 @@ const extension = {
     let options = this.options;
     let lastNavigation = this.lastNavigation;
     let isFirstNavigation = true;
+    let resultIndex = 0;
 
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
-      updateHighlightedResult(results, 0);
+      resultIndex = updateHighlightedResult(results, resultIndex, 0);
     }
     loadLastNavigation().then(() => {
       if (location.href === lastNavigation.lastQueryUrl) {
         isFirstNavigation = false;
-        updateHighlightedResult(results, lastNavigation.lastFocusedIndex);
+        resultIndex = updateHighlightedResult(results, resultIndex, lastNavigation.lastFocusedIndex);
       }
     });
     key(options.nextKey, (event) => {
@@ -66,7 +67,7 @@ const extension = {
         nextIndex = 0;
         isFirstNavigation = false;
       }
-      updateHighlightedResult(results, nextIndex);
+      resultIndex = updateHighlightedResult(results, resultIndex, nextIndex);
       handleEvent(event);
     });
     key(options.previousKey, (event) => {
@@ -76,7 +77,7 @@ const extension = {
         previousIndex = 0;
         isFirstNavigation = false;
       }
-      updateHighlightedResult(results, previousIndex);
+      resultIndex = updateHighlightedResult(results, resultIndex, previousIndex);
       handleEvent(event);
     });
     key(options.navigateKey, (event) => {
@@ -137,8 +138,6 @@ const extension = {
   }
 };
 
-let resultIndex = 0;
-
 const loadOptions = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(
@@ -154,13 +153,15 @@ const loadOptions = () => {
   });
 };
 
-const updateHighlightedResult = (results, newResultIndex) => {
+const updateHighlightedResult = (results, oldResultIndex, newResultIndex) => {
   if (results.length > 0) {
-    results[resultIndex].classList.remove('highlighted-search-result');
-    resultIndex = newResultIndex;
-    results[resultIndex].classList.add('highlighted-search-result');
-    results[resultIndex].focus();
+    results[oldResultIndex].classList.remove('highlighted-search-result');
+    results[newResultIndex].classList.add('highlighted-search-result');
+    results[newResultIndex].focus();
+    return newResultIndex;
   }
+
+  return oldResultIndex;
 };
 
 const loadLastNavigation = () => {
