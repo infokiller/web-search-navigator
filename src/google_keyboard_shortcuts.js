@@ -47,6 +47,7 @@ const extension = {
   initResultsNavigation: function(results) {
     let options = this.options;
     let lastNavigation = this.lastNavigation;
+    let isFirstNavigation = true;
 
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
@@ -136,7 +137,6 @@ const extension = {
   }
 };
 
-let isFirstNavigation = true;
 let resultIndex = 0;
 
 const loadOptions = () => {
