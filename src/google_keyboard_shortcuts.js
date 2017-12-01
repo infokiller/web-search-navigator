@@ -21,13 +21,11 @@ const extension = {
     lastFocusedIndex: 0
   },
 
-  initPageIfNeeded: function() {
-    if (/^(www|encrypted)\.google\./.test(window.location.hostname)) {
-      this.initGoogleSearch();
+  init: function() {
+    if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
+      return;
     }
-  },
 
-  initGoogleSearch: function() {
     const params = getQueryStringParams();
     let optionsTask = this.loadOptions();
 
@@ -260,4 +258,4 @@ const saveLastNavigation = (visitedIndex) => {
     null);
 };
 
-extension.initPageIfNeeded();
+extension.init();
