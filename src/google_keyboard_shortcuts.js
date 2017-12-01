@@ -46,47 +46,44 @@ const extension = {
     let options = this.options;
     let lastNavigation = this.lastNavigation;
     let results = getGoogleSearchLinks();
-    let resultIndex = 0;
     let isFirstNavigation = true;
 
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
-      resultIndex = updateHighlightedResult(results, resultIndex, 0);
+      results.focus(0);
     }
     loadLastNavigation().then(() => {
       if (location.href === lastNavigation.lastQueryUrl) {
         isFirstNavigation = false;
-        resultIndex = updateHighlightedResult(results, resultIndex, lastNavigation.lastFocusedIndex);
+        results.focus(lastNavigation.lastFocusedIndex);
       }
     });
     key(options.nextKey, (event) => {
-      let nextIndex =
-        getNextIndex(resultIndex, results.length, options.wrapNavigation);
+      let nextIndex = getNextIndex(results, options.wrapNavigation);
       if (!options.autoSelectFirst && isFirstNavigation) {
         nextIndex = 0;
         isFirstNavigation = false;
       }
-      resultIndex = updateHighlightedResult(results, resultIndex, nextIndex);
+      results.focus(nextIndex);
       handleEvent(event);
     });
     key(options.previousKey, (event) => {
-      let previousIndex =
-        getPreviousIndex(resultIndex, results.length, options.wrapNavigation);
+      let previousIndex = getPreviousIndex(results, options.wrapNavigation);
       if (!options.autoSelectFirst && isFirstNavigation) {
         previousIndex = 0;
         isFirstNavigation = false;
       }
-      resultIndex = updateHighlightedResult(results, resultIndex, previousIndex);
+      results.focus(previousIndex);
       handleEvent(event);
     });
     key(options.navigateKey, (event) => {
-      let link = results[resultIndex];
-      saveLastNavigation(resultIndex);
+      let link = results[results.focusedIndex];
+      saveLastNavigation(results.focusedIndex);
       link.click();
       handleEvent(event);
     });
     key(options.navigateNewTabKey, (event) => {
-      let link = results[resultIndex];
+      let link = results[results.focusedIndex];
       window.open(link.href);
       handleEvent(event);
     });
@@ -152,16 +149,20 @@ const extension = {
   }
 };
 
-const updateHighlightedResult = (results, oldResultIndex, newResultIndex) => {
-  if (results.length > 0) {
-    results[oldResultIndex].classList.remove('highlighted-search-result');
-    results[newResultIndex].classList.add('highlighted-search-result');
-    results[newResultIndex].focus();
-    return newResultIndex;
-  }
+function SearchResults(nodes) {
+  this.items = Array.prototype.slice.call(nodes);
+  this.focusedIndex = 0;
 
-  return oldResultIndex;
-};
+  this.focus = function(index) {
+    if (this.focusedIndex >= 0) {
+      this.items[this.focusedIndex].classList.remove('highlighted-search-result');
+    }
+    let newItem = this.items[index];
+    newItem.classList.add('highlighted-search-result');
+    newItem.focus();
+    this.focusedIndex = index;
+  };
+}
 
 const loadLastNavigation = () => {
   return new Promise((resolve, reject) => {
@@ -178,24 +179,24 @@ const loadLastNavigation = () => {
   });
 };
 
-const getNextIndex = (currentIndex, numResults, shouldWrap) => {
-  if (currentIndex < numResults - 1) {
-    return currentIndex + 1;
+const getNextIndex = (results, shouldWrap) => {
+  if (results.focusedIndex < results.items.length - 1) {
+    return results.focusedIndex + 1;
   }
   if (!shouldWrap) {
-    return currentIndex;
+    return results.focusedIndex;
   }
   return 0;
 };
 
-const getPreviousIndex = (currentIndex, numResults, shouldWrap) => {
-  if (currentIndex > 0) {
-    return currentIndex - 1;
+const getPreviousIndex = (results, shouldWrap) => {
+  if (results.focusedIndex > 0) {
+    return results.focusedIndex - 1;
   }
   if (!shouldWrap) {
-    return currentIndex;
+    return results.focusedIndex;
   }
-  return numResults - 1;
+  return results.items.length - 1;
 };
 
 const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
@@ -231,7 +232,7 @@ const getQueryStringParams = () => {
 
 const getGoogleSearchLinks = function() {
   // the nodes are returned in the document order which is what we want
-  return document.querySelectorAll('h3.r a, #pnprev, #pnnext');
+  return new SearchResults(document.querySelectorAll('h3.r a, #pnprev, #pnnext'));
 };
 
 function getElementByXpath(path) {
