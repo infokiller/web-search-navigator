@@ -29,7 +29,7 @@ const extension = {
 
   initGoogleSearch: function() {
     const params = getQueryStringParams();
-    let optionsTask = loadOptions();
+    let optionsTask = this.loadOptions();
 
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
@@ -135,22 +135,22 @@ const extension = {
     key(options.navigateNextResultPage, (event) => {
       updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
     });
-  }
-};
+  },
 
-const loadOptions = () => {
-  return new Promise((resolve, reject) => {
-    chrome.storage.sync.get(
-      extension.options,
-      (items) => {
-        if (chrome.runtime.lastError) {
-          reject();
-        } else {
-          extension.options = items;
-          resolve();
-        }
-      });
-  });
+  loadOptions: function() {
+    return new Promise((resolve, reject) => {
+      chrome.storage.sync.get(
+        this.options,
+        (items) => {
+          if (chrome.runtime.lastError) {
+            reject();
+          } else {
+            this.options = items;
+            resolve();
+          }
+        });
+    });
+  }
 };
 
 const updateHighlightedResult = (results, oldResultIndex, newResultIndex) => {
