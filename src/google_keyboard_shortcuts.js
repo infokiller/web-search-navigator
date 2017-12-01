@@ -29,6 +29,8 @@ const extension = {
 
   initGoogleSearch: function() {
     const params = getQueryStringParams();
+    let optionsTask = loadOptions();
+
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (params['tbm'] !== 'isch') {
@@ -37,9 +39,9 @@ const extension = {
       let afterOptions = () => {
         this.initResultsNavigation(getGoogleSearchLinks());
       };
-      loadOptions().then(afterOptions, afterOptions);
+      optionsTask.then(afterOptions, afterOptions);
     }
-    loadOptions().then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
+    optionsTask.then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
   },
 
   initResultsNavigation: function(r) {
