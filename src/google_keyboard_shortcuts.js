@@ -44,19 +44,18 @@ const extension = {
     optionsTask.then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
   },
 
-  initResultsNavigation: function(r) {
-    results = r;
+  initResultsNavigation: function(results) {
     let options = this.options;
     let lastNavigation = this.lastNavigation;
 
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
-      updateHighlightedResult(0);
+      updateHighlightedResult(results, 0);
     }
     loadLastNavigation().then(() => {
       if (location.href === lastNavigation.lastQueryUrl) {
         isFirstNavigation = false;
-        updateHighlightedResult(lastNavigation.lastFocusedIndex);
+        updateHighlightedResult(results, lastNavigation.lastFocusedIndex);
       }
     });
     key(options.nextKey, (event) => {
@@ -66,7 +65,7 @@ const extension = {
         nextIndex = 0;
         isFirstNavigation = false;
       }
-      updateHighlightedResult(nextIndex);
+      updateHighlightedResult(results, nextIndex);
       handleEvent(event);
     });
     key(options.previousKey, (event) => {
@@ -76,7 +75,7 @@ const extension = {
         previousIndex = 0;
         isFirstNavigation = false;
       }
-      updateHighlightedResult(previousIndex);
+      updateHighlightedResult(results, previousIndex);
       handleEvent(event);
     });
     key(options.navigateKey, (event) => {
@@ -138,7 +137,6 @@ const extension = {
 };
 
 let isFirstNavigation = true;
-let results = null;
 let resultIndex = 0;
 
 const loadOptions = () => {
@@ -156,7 +154,7 @@ const loadOptions = () => {
   });
 };
 
-const updateHighlightedResult = (newResultIndex) => {
+const updateHighlightedResult = (results, newResultIndex) => {
   if (results.length > 0) {
     results[resultIndex].classList.remove('highlighted-search-result');
     resultIndex = newResultIndex;
