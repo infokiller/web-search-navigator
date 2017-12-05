@@ -59,21 +59,23 @@ const extension = {
       }
     });
     key(options.nextKey, (event) => {
-      let nextIndex = getNextIndex(results, options.wrapNavigation);
       if (!options.autoSelectFirst && isFirstNavigation) {
-        nextIndex = 0;
+        results.focus(0);
         isFirstNavigation = false;
       }
-      results.focus(nextIndex);
+      else {
+        results.focusNext(options.wrapNavigation);
+      }
       handleEvent(event);
     });
     key(options.previousKey, (event) => {
-      let previousIndex = getPreviousIndex(results, options.wrapNavigation);
       if (!options.autoSelectFirst && isFirstNavigation) {
-        previousIndex = 0;
+        results.focus(0);
         isFirstNavigation = false;
       }
-      results.focus(previousIndex);
+      else {
+        results.focusPrevious(options.wrapNavigation);
+      }
       handleEvent(event);
     });
     key(options.navigateKey, (event) => {
@@ -162,6 +164,32 @@ function SearchResults(nodes) {
     newItem.focus();
     this.focusedIndex = index;
   };
+
+  this.focusNext = function(shouldWrap) {
+    let nextIndex = 0;
+
+    if (this.focusedIndex < this.items.length - 1) {
+      nextIndex = this.focusedIndex + 1;
+    }
+    else if (!shouldWrap) {
+      nextIndex = this.focusedIndex;
+    }
+
+    this.focus(nextIndex);
+  };
+
+  this.focusPrevious = function(shouldWrap) {
+    let previousIndex = this.items.length - 1;
+
+    if (this.focusedIndex > 0) {
+      previousIndex = this.focusedIndex - 1;
+    }
+    else if (!shouldWrap) {
+      previousIndex = this.focusedIndex;
+    }
+
+    this.focus(previousIndex);
+  }
 }
 
 const loadLastNavigation = () => {
@@ -177,26 +205,6 @@ const loadLastNavigation = () => {
         }
       });
   });
-};
-
-const getNextIndex = (results, shouldWrap) => {
-  if (results.focusedIndex < results.items.length - 1) {
-    return results.focusedIndex + 1;
-  }
-  if (!shouldWrap) {
-    return results.focusedIndex;
-  }
-  return 0;
-};
-
-const getPreviousIndex = (results, shouldWrap) => {
-  if (results.focusedIndex > 0) {
-    return results.focusedIndex - 1;
-  }
-  if (!shouldWrap) {
-    return results.focusedIndex;
-  }
-  return results.items.length - 1;
 };
 
 const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
