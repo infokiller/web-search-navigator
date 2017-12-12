@@ -1,19 +1,35 @@
 const extension = {
   options: {
-    wrapNavigation: false,
-    autoSelectFirst: true,
-    nextKey: 'down, j',
-    previousKey: 'up, k',
-    navigatePreviousResultPage: 'left, h',
-    navigateNextResultPage: 'right, l',
-    navigateKey: 'return, space',
-    navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
-    navigateSearchTab: 'a, s',
-    navigateImagesTab: 'i',
-    navigateVideosTab: 'v',
-    navigateMapsTab: 'm',
-    navigateNewsTab: 'n',
-    focusSearchInput: '/, escape'
+    sync: {
+      wrapNavigation: false,
+      autoSelectFirst: true,
+      nextKey: 'down, j',
+      previousKey: 'up, k',
+      navigatePreviousResultPage: 'left, h',
+      navigateNextResultPage: 'right, l',
+      navigateKey: 'return, space',
+      navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+      navigateSearchTab: 'a, s',
+      navigateImagesTab: 'i',
+      navigateVideosTab: 'v',
+      navigateMapsTab: 'm',
+      navigateNewsTab: 'n',
+      focusSearchInput: '/, escape'
+    },
+
+    load: function() {
+      return new Promise((resolve) => {
+        chrome.storage.sync.get(
+          this.sync,
+          (values) => {
+            if (!chrome.runtime.lastError) {
+              this.sync = values;
+            }
+            resolve();
+          }
+        );
+      });
+    }
   },
 
   lastNavigation: {
@@ -27,27 +43,21 @@ const extension = {
     }
 
     const params = getQueryStringParams();
-    let optionsTask = this.loadOptions();
+    let loadOptions = this.options.load();
 
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (params['tbm'] !== 'isch') {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
-      let afterOptions = () => {
-        this.initResultsNavigation();
-      };
-      optionsTask.then(afterOptions, afterOptions);
+      loadOptions.then(() => this.initResultsNavigation());
     }
 
-    optionsTask.then(
-      () => this.initCommonGoogleSearchNavigation(),
-      () => this.initCommonGoogleSearchNavigation()
-    );
+    loadOptions.then(() => this.initCommonGoogleSearchNavigation());
   },
 
   initResultsNavigation: function() {
-    let options = this.options;
+    let options = this.options.sync;
     let lastNavigation = this.lastNavigation;
     let results = getGoogleSearchLinks();
     let isFirstNavigation = true;
@@ -92,46 +102,34 @@ const extension = {
   },
 
   initCommonGoogleSearchNavigation: function() {
-    let searchInput = document.getElementById('lst-ib');
-    let options = this.options;
+    let options = this.options.sync;
 
     this.register(options.focusSearchInput, () => {
+      let searchInput = document.getElementById('lst-ib');
       searchInput.focus();
       searchInput.select();
     });
-    let all = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
-    this.register(options.navigateSearchTab, () => {
-      updateUrlWithNodeHref(all);
-    });
-    let images = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
-    this.register(options.navigateImagesTab, () => {
-      updateUrlWithNodeHref(images);
-    });
-    let videos = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
-    this.register(options.navigateVideosTab, () => {
-      updateUrlWithNodeHref(videos);
-    });
-    let maps = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
-    this.register(options.navigateMapsTab, () => {
-      updateUrlWithNodeHref(maps);
-    });
-    let news = getElementByXpath(
-      '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
-    this.register(options.navigateNewsTab, () => {
-      updateUrlWithNodeHref(news);
-    });
-    let previousResultPage = document.querySelector('#pnprev');
-    this.register(options.navigatePreviousResultPage, () => {
-      updateUrlWithNodeHref(previousResultPage);
-    });
-    let nextResultPage = document.querySelector('#pnnext');
-    this.register(options.navigateNextResultPage, () => {
-      updateUrlWithNodeHref(nextResultPage);
-    });
+
+    let tabs = [
+      [options.navigateSearchTab, '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]'],
+      [options.navigateImagesTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]'],
+      [options.navigateVideosTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]'],
+      [options.navigateMapsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]'],
+      [options.navigateNewsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]'],
+      [options.navigatePreviousResultPage, "//a[@id='pnprev']"],
+      [options.navigateNextResultPage, "//a[@id='pnnext']"]
+    ];
+
+    for (let i = 0; i < tabs.length; i++) {
+      let tabCommand = tabs[i];
+      this.register(tabCommand[0], () => {
+        let node = getElementByXpath(tabCommand[1]);
+
+        if (node !== null) {
+          location.href = node.href;
+        }
+      });
+    }
   },
 
   register: function(shortcut, callback) {
@@ -144,21 +142,6 @@ const extension = {
       }
 
       return false;
-    });
-  },
-
-  loadOptions: function() {
-    return new Promise((resolve, reject) => {
-      chrome.storage.sync.get(
-        this.options,
-        (items) => {
-          if (chrome.runtime.lastError) {
-            reject();
-          } else {
-            this.options = items;
-            resolve();
-          }
-        });
     });
   }
 };
@@ -217,12 +200,6 @@ const loadLastNavigation = () => {
         }
       });
   });
-};
-
-const updateUrlWithNodeHref = (node) => {
-  if (node !== null) {
-    location.href = node.href;
-  }
 };
 
 const getQueryStringParams = () => {
