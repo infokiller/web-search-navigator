@@ -62,7 +62,7 @@ const extension = {
         results.focus(lastNavigation.lastFocusedIndex);
       }
     });
-    key(options.nextKey, (event) => {
+    this.register(options.nextKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
         isFirstNavigation = false;
@@ -70,9 +70,8 @@ const extension = {
       else {
         results.focusNext(options.wrapNavigation);
       }
-      handleEvent(event);
     });
-    key(options.previousKey, (event) => {
+    this.register(options.previousKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
         isFirstNavigation = false;
@@ -80,18 +79,15 @@ const extension = {
       else {
         results.focusPrevious(options.wrapNavigation);
       }
-      handleEvent(event);
     });
-    key(options.navigateKey, (event) => {
+    this.register(options.navigateKey, () => {
       let link = results[results.focusedIndex];
       saveLastNavigation(results.focusedIndex);
       link.click();
-      handleEvent(event);
     });
-    key(options.navigateNewTabKey, (event) => {
+    this.register(options.navigateNewTabKey, () => {
       let link = results[results.focusedIndex];
       window.open(link.href);
-      handleEvent(event);
     });
   },
 
@@ -99,43 +95,55 @@ const extension = {
     let searchInput = document.getElementById('lst-ib');
     let options = this.options;
 
-    key(options.focusSearchInput, (event) => {
+    this.register(options.focusSearchInput, () => {
       searchInput.focus();
       searchInput.select();
-      handleEvent(event);
     });
     let all = getElementByXpath(
       '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]');
-    key(options.navigateSearchTab, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(all, event);
+    this.register(options.navigateSearchTab, () => {
+      updateUrlWithNodeHref(all);
     });
     let images = getElementByXpath(
       '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]');
-    key(options.navigateImagesTab, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(images, event);
+    this.register(options.navigateImagesTab, () => {
+      updateUrlWithNodeHref(images);
     });
     let videos = getElementByXpath(
       '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]');
-    key(options.navigateVideosTab, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(videos, event);
+    this.register(options.navigateVideosTab, () => {
+      updateUrlWithNodeHref(videos);
     });
     let maps = getElementByXpath(
       '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]');
-    key(options.navigateMapsTab, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(maps, event);
+    this.register(options.navigateMapsTab, () => {
+      updateUrlWithNodeHref(maps);
     });
     let news = getElementByXpath(
       '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]');
-    key(options.navigateNewsTab, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(news, event);
+    this.register(options.navigateNewsTab, () => {
+      updateUrlWithNodeHref(news);
     });
     let previousResultPage = document.querySelector('#pnprev');
-    key(options.navigatePreviousResultPage, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(previousResultPage, event);
+    this.register(options.navigatePreviousResultPage, () => {
+      updateUrlWithNodeHref(previousResultPage);
     });
     let nextResultPage = document.querySelector('#pnnext');
-    key(options.navigateNextResultPage, (event) => {
-      updateUrlWithNodeHrefAndHandleEvent(nextResultPage, event);
+    this.register(options.navigateNextResultPage, () => {
+      updateUrlWithNodeHref(nextResultPage);
+    });
+  },
+
+  register: function(shortcut, callback) {
+    key(shortcut, function(event) {
+      callback();
+
+      if (event !== null) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+
+      return false;
     });
   },
 
@@ -211,17 +219,9 @@ const loadLastNavigation = () => {
   });
 };
 
-const updateUrlWithNodeHrefAndHandleEvent = (node, event) => {
+const updateUrlWithNodeHref = (node) => {
   if (node !== null) {
     location.href = node.href;
-  }
-  handleEvent(event);
-};
-
-const handleEvent = (event) => {
-  if (event !== null) {
-    event.stopPropagation();
-    event.preventDefault();
   }
 };
 
