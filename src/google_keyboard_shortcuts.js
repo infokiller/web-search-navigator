@@ -39,7 +39,11 @@ const extension = {
       };
       optionsTask.then(afterOptions, afterOptions);
     }
-    optionsTask.then(this.initCommonGoogleSearchNavigation, this.initCommonGoogleSearchNavigation);
+
+    optionsTask.then(
+      () => this.initCommonGoogleSearchNavigation(),
+      () => this.initCommonGoogleSearchNavigation()
+    );
   },
 
   initResultsNavigation: function() {
