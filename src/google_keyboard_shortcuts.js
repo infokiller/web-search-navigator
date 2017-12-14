@@ -17,8 +17,25 @@ const extension = {
       focusSearchInput: '/, escape'
     },
 
+    local: {
+      lastQueryUrl: false,
+      lastFocusedIndex: 0
+    },
+
     load: function() {
-      return new Promise((resolve) => {
+      let loadLocal = new Promise((resolve) => {
+        chrome.storage.local.get(
+          this.local,
+          (values) => {
+            if (!chrome.runtime.lastError) {
+              this.local = values;
+            }
+
+            resolve();
+          });
+      });
+
+      let loadSync = new Promise((resolve) => {
         chrome.storage.sync.get(
           this.sync,
           (values) => {
@@ -29,12 +46,9 @@ const extension = {
           }
         );
       });
-    }
-  },
 
-  lastNavigation: {
-    lastQueryUrl: false,
-    lastFocusedIndex: 0
+      return Promise.all([loadLocal, loadSync]);
+    }
   },
 
   init: function() {
@@ -58,7 +72,7 @@ const extension = {
 
   initResultsNavigation: function() {
     let options = this.options.sync;
-    let lastNavigation = this.lastNavigation;
+    let lastNavigation = this.options.local;
     let results = getGoogleSearchLinks();
     let isFirstNavigation = true;
 
@@ -66,12 +80,12 @@ const extension = {
       // Highlight the first result when the page is loaded.
       results.focus(0);
     }
-    loadLastNavigation().then(() => {
-      if (location.href === lastNavigation.lastQueryUrl) {
-        isFirstNavigation = false;
-        results.focus(lastNavigation.lastFocusedIndex);
-      }
-    });
+
+    if (location.href === lastNavigation.lastQueryUrl) {
+      isFirstNavigation = false;
+      results.focus(lastNavigation.lastFocusedIndex);
+    }
+
     this.register(options.nextKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
@@ -81,6 +95,7 @@ const extension = {
         results.focusNext(options.wrapNavigation);
       }
     });
+
     this.register(options.previousKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
@@ -90,11 +105,13 @@ const extension = {
         results.focusPrevious(options.wrapNavigation);
       }
     });
+
     this.register(options.navigateKey, () => {
       let link = results[results.focusedIndex];
       saveLastNavigation(results.focusedIndex);
       link.click();
     });
+
     this.register(options.navigateNewTabKey, () => {
       let link = results[results.focusedIndex];
       window.open(link.href);
@@ -186,21 +203,6 @@ function SearchResults(nodes) {
     this.focus(previousIndex);
   }
 }
-
-const loadLastNavigation = () => {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(
-      extension.lastNavigation,
-      (items) => {
-        if (chrome.runtime.lastError) {
-          reject();
-        } else {
-          extension.lastNavigation = items;
-          resolve();
-        }
-      });
-  });
-};
 
 const getQueryStringParams = () => {
   const encodedQueryString = window.location.search.slice(1);
