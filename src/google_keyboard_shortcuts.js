@@ -18,7 +18,7 @@ const extension = {
     },
 
     local: {
-      lastQueryUrl: false,
+      lastQueryUrl: null,
       lastFocusedIndex: 0
     },
 
@@ -48,6 +48,22 @@ const extension = {
       });
 
       return Promise.all([loadLocal, loadSync]);
+    },
+
+    saveLocal: function() {
+      return new Promise((resolve, reject) => {
+        chrome.storage.local.set(
+          this.local,
+          () => {
+            if (chrome.runtime.lastError) {
+              reject();
+            }
+            else {
+              resolve();
+            }
+          }
+        )
+      });
     }
   },
 
@@ -106,14 +122,17 @@ const extension = {
       }
     });
 
+    let that = this;
     this.register(options.navigateKey, () => {
-      let link = results[results.focusedIndex];
-      saveLastNavigation(results.focusedIndex);
+      let link = results.items[results.focusedIndex];
+      lastNavigation.lastQueryUrl = location.href;
+      lastNavigation.lastFocusedIndex = results.focusedIndex;
+      that.options.saveLocal();
       link.click();
     });
 
     this.register(options.navigateNewTabKey, () => {
-      let link = results[results.focusedIndex];
+      let link = results.items[results.focusedIndex];
       window.open(link.href);
     });
   },
@@ -231,14 +250,5 @@ function getElementByXpath(path) {
     .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
     .singleNodeValue;
 }
-
-const saveLastNavigation = (visitedIndex) => {
-  chrome.storage.local.set(
-    {
-      lastQueryUrl: location.href,
-      lastFocusedIndex: visitedIndex
-    },
-    null);
-};
 
 extension.init();
