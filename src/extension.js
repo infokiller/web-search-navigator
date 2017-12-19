@@ -251,4 +251,3 @@ function getElementByXpath(path) {
     .singleNodeValue;
 }
 
-extension.init();
