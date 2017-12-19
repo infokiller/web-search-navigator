@@ -50,10 +50,18 @@ const extension = {
       return Promise.all([loadLocal, loadSync]);
     },
 
+    saveSync: function () {
+      return this.save(this.sync, chrome.storage.sync);
+    },
+
     saveLocal: function() {
+      return this.save(this.local, chrome.storage.local);
+    },
+
+    save: function(values, storage) {
       return new Promise((resolve, reject) => {
-        chrome.storage.local.set(
-          this.local,
+        storage.set(
+          values,
           () => {
             if (chrome.runtime.lastError) {
               reject();
