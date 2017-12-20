@@ -1,78 +1,37 @@
+// noinspection JSUnusedGlobalSymbols
 const extension = {
   options: {
-    sync: {
-      wrapNavigation: false,
-      autoSelectFirst: true,
-      nextKey: 'down, j',
-      previousKey: 'up, k',
-      navigatePreviousResultPage: 'left, h',
-      navigateNextResultPage: 'right, l',
-      navigateKey: 'return, space',
-      navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
-      navigateSearchTab: 'a, s',
-      navigateImagesTab: 'i',
-      navigateVideosTab: 'v',
-      navigateMapsTab: 'm',
-      navigateNewsTab: 'n',
-      focusSearchInput: '/, escape'
-    },
+    sync: new OptionSection(
+      chrome.storage.sync,
+      {
+        wrapNavigation: false,
+        autoSelectFirst: true,
+        nextKey: 'down, j',
+        previousKey: 'up, k',
+        navigatePreviousResultPage: 'left, h',
+        navigateNextResultPage: 'right, l',
+        navigateKey: 'return, space',
+        navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+        navigateSearchTab: 'a, s',
+        navigateImagesTab: 'i',
+        navigateVideosTab: 'v',
+        navigateMapsTab: 'm',
+        navigateNewsTab: 'n',
+        focusSearchInput: '/, escape'
+      }
+    ),
 
-    local: {
-      lastQueryUrl: null,
-      lastFocusedIndex: 0
-    },
+    local: new OptionSection(
+      chrome.storage.local,
+      {
+        lastQueryUrl: null,
+        lastFocusedIndex: 0
+      }
+    ),
 
     load: function() {
-      let loadLocal = new Promise((resolve) => {
-        chrome.storage.local.get(
-          this.local,
-          (values) => {
-            if (!chrome.runtime.lastError) {
-              this.local = values;
-            }
-
-            resolve();
-          });
-      });
-
-      let loadSync = new Promise((resolve) => {
-        chrome.storage.sync.get(
-          this.sync,
-          (values) => {
-            if (!chrome.runtime.lastError) {
-              this.sync = values;
-            }
-            resolve();
-          }
-        );
-      });
-
-      return Promise.all([loadLocal, loadSync]);
+      return Promise.all([this.local.load(), this.sync.load()]);
     },
-
-    saveSync: function () {
-      return this.save(this.sync, chrome.storage.sync);
-    },
-
-    saveLocal: function() {
-      return this.save(this.local, chrome.storage.local);
-    },
-
-    save: function(values, storage) {
-      return new Promise((resolve, reject) => {
-        storage.set(
-          values,
-          () => {
-            if (chrome.runtime.lastError) {
-              reject();
-            }
-            else {
-              resolve();
-            }
-          }
-        )
-      });
-    }
   },
 
   init: function() {
@@ -95,8 +54,8 @@ const extension = {
   },
 
   initResultsNavigation: function() {
-    let options = this.options.sync;
-    let lastNavigation = this.options.local;
+    let options = this.options.sync.values;
+    let lastNavigation = this.options.local.values;
     let results = getGoogleSearchLinks();
     let isFirstNavigation = true;
 
@@ -135,7 +94,7 @@ const extension = {
       let link = results.items[results.focusedIndex];
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
-      that.options.saveLocal();
+      that.options.local.save();
       link.click();
     });
 
@@ -146,7 +105,7 @@ const extension = {
   },
 
   initCommonGoogleSearchNavigation: function() {
-    let options = this.options.sync;
+    let options = this.options.sync.values;
 
     this.register(options.focusSearchInput, () => {
       let searchInput = document.getElementById('lst-ib');
@@ -190,6 +149,41 @@ const extension = {
   }
 };
 
+function OptionSection(storage, defaultValues) {
+  this.storage = storage;
+  this.values = defaultValues;
+
+  this.load = function() {
+    return new Promise((resolve) => {
+      this.storage.get(
+        this.values,
+        (values) => {
+          if (!chrome.runtime.lastError) {
+            this.values = values;
+          }
+          resolve();
+        }
+      );
+    });
+  };
+
+  this.save = function() {
+    return new Promise((resolve, reject) => {
+      this.storage.set(
+        this.values,
+        () => {
+          if (chrome.runtime.lastError) {
+            reject();
+          }
+          else {
+            resolve();
+          }
+        }
+      )
+    });
+  };
+}
+
 function SearchResults(nodes) {
   this.items = Array.prototype.slice.call(nodes);
   this.focusedIndex = 0;
@@ -231,7 +225,7 @@ function SearchResults(nodes) {
   }
 }
 
-const getQueryStringParams = () => {
+function getQueryStringParams() {
   const encodedQueryString = window.location.search.slice(1);
   const encodedParams = encodedQueryString.split('&');
   let params = {};
@@ -246,16 +240,15 @@ const getQueryStringParams = () => {
     params[key] = decodeURIComponent(encodedValue);
   }
   return params;
-};
+}
 
-const getGoogleSearchLinks = function() {
+function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
   return new SearchResults(document.querySelectorAll('h3.r a, #pnprev, #pnnext'));
-};
+}
 
 function getElementByXpath(path) {
   return document
     .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
     .singleNodeValue;
 }
-

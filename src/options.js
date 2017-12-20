@@ -29,10 +29,10 @@ const saveOptions = function() {
   };
 
   for (let key in values) {
-    extension.options.sync[key] = values[key];
+    extension.options.sync.values[key] = values[key];
   }
 
-  return extension.options.saveSync().then(
+  return extension.options.sync.save().then(
     () => flashMessage('Options saved.'),
     () => flashMessage('Error when saving options.')
   );
@@ -41,8 +41,8 @@ const saveOptions = function() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 const restoreOptions = function() {
-  extension.options.load().then(() => {
-    let values = extension.options.sync;
+  extension.options.sync.load().then(() => {
+    let values = extension.options.sync.values;
 
     document.getElementById('wrap-navigation').checked =
       values.wrapNavigation;
