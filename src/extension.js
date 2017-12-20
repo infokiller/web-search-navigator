@@ -149,6 +149,11 @@ const extension = {
   }
 };
 
+/**
+ * @param {StorageArea} storage The storage area to which this section will write.
+ * @param {Object} defaultValues The default options.
+ * @constructor
+ */
 function OptionSection(storage, defaultValues) {
   this.storage = storage;
   this.values = defaultValues;
@@ -184,6 +189,10 @@ function OptionSection(storage, defaultValues) {
   };
 }
 
+/**
+ * @param {NodeList|Node[]} nodes The collection of the anchor nodes representing search result to move focus for.
+ * @constructor
+ */
 function SearchResults(nodes) {
   this.items = Array.prototype.slice.call(nodes);
   this.focusedIndex = 0;
