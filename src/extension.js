@@ -38,10 +38,8 @@ const extension = {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
-
     const params = getQueryStringParams();
     let loadOptions = this.options.load();
-
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (params['tbm'] !== 'isch') {
@@ -49,7 +47,6 @@ const extension = {
       // DOMContentLoaded.
       loadOptions.then(() => this.initResultsNavigation());
     }
-
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
   },
 
@@ -58,17 +55,14 @@ const extension = {
     let lastNavigation = this.options.local.values;
     let results = getGoogleSearchLinks();
     let isFirstNavigation = true;
-
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
       results.focus(0);
     }
-
     if (location.href === lastNavigation.lastQueryUrl) {
       isFirstNavigation = false;
       results.focus(lastNavigation.lastFocusedIndex);
     }
-
     this.register(options.nextKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
@@ -78,7 +72,6 @@ const extension = {
         results.focusNext(options.wrapNavigation);
       }
     });
-
     this.register(options.previousKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
@@ -88,7 +81,6 @@ const extension = {
         results.focusPrevious(options.wrapNavigation);
       }
     });
-
     let that = this;
     this.register(options.navigateKey, () => {
       let link = results.items[results.focusedIndex];
@@ -97,7 +89,6 @@ const extension = {
       that.options.local.save();
       link.click();
     });
-
     this.register(options.navigateNewTabKey, () => {
       let link = results.items[results.focusedIndex];
       window.open(link.href);
@@ -106,13 +97,11 @@ const extension = {
 
   initCommonGoogleSearchNavigation: function() {
     let options = this.options.sync.values;
-
     this.register(options.focusSearchInput, () => {
       let searchInput = document.getElementById('lst-ib');
       searchInput.focus();
       searchInput.select();
     });
-
     let tabs = [
       [options.navigateSearchTab, '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]'],
       [options.navigateImagesTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]'],
@@ -122,12 +111,10 @@ const extension = {
       [options.navigatePreviousResultPage, "//a[@id='pnprev']"],
       [options.navigateNextResultPage, "//a[@id='pnnext']"]
     ];
-
     for (let i = 0; i < tabs.length; i++) {
       let tabCommand = tabs[i];
       this.register(tabCommand[0], () => {
         let node = getElementByXpath(tabCommand[1]);
-
         if (node !== null) {
           location.href = node.href;
         }
@@ -138,12 +125,10 @@ const extension = {
   register: function(shortcut, callback) {
     key(shortcut, function(event) {
       callback();
-
       if (event !== null) {
         event.stopPropagation();
         event.preventDefault();
       }
-
       return false;
     });
   }
@@ -157,7 +142,6 @@ const extension = {
 function OptionSection(storage, defaultValues) {
   this.storage = storage;
   this.values = defaultValues;
-
   this.load = function() {
     return new Promise((resolve) => {
       this.storage.get(
@@ -171,7 +155,6 @@ function OptionSection(storage, defaultValues) {
       );
     });
   };
-
   this.save = function() {
     return new Promise((resolve, reject) => {
       this.storage.set(
@@ -196,7 +179,6 @@ function OptionSection(storage, defaultValues) {
 function SearchResults(nodes) {
   this.items = Array.prototype.slice.call(nodes);
   this.focusedIndex = 0;
-
   this.focus = function(index) {
     if (this.focusedIndex >= 0) {
       this.items[this.focusedIndex].classList.remove('highlighted-search-result');
@@ -206,30 +188,24 @@ function SearchResults(nodes) {
     newItem.focus();
     this.focusedIndex = index;
   };
-
   this.focusNext = function(shouldWrap) {
     let nextIndex = 0;
-
     if (this.focusedIndex < this.items.length - 1) {
       nextIndex = this.focusedIndex + 1;
     }
     else if (!shouldWrap) {
       nextIndex = this.focusedIndex;
     }
-
     this.focus(nextIndex);
   };
-
   this.focusPrevious = function(shouldWrap) {
     let previousIndex = this.items.length - 1;
-
     if (this.focusedIndex > 0) {
       previousIndex = this.focusedIndex - 1;
     }
     else if (!shouldWrap) {
       previousIndex = this.focusedIndex;
     }
-
     this.focus(previousIndex);
   }
 }

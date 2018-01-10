@@ -27,11 +27,9 @@ const saveOptions = function() {
     navigateNewsTab: document.getElementById('navigate-news-tab').value,
     focusSearchInput: document.getElementById('focus-search-input').value
   };
-
   for (let key in values) {
     extension.options.sync.values[key] = values[key];
   }
-
   return extension.options.sync.save().then(
     () => flashMessage('Options saved.'),
     () => flashMessage('Error when saving options.')
@@ -43,7 +41,6 @@ const saveOptions = function() {
 const restoreOptions = function() {
   extension.options.sync.load().then(() => {
     let values = extension.options.sync.values;
-
     document.getElementById('wrap-navigation').checked =
       values.wrapNavigation;
     document.getElementById('auto-select-first').checked =
