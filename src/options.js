@@ -1,6 +1,6 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
 
-const flashMessage = function(message) {
+const flashMessage = (message) => {
   // Update status to let user know.
   const status = document.getElementById('status');
   status.textContent = message;
@@ -10,7 +10,7 @@ const flashMessage = function(message) {
 };
 
 // Saves options to chrome.storage.sync.
-const saveOptions = function() {
+const saveOptions = () => {
   const values = {
     wrapNavigation: document.getElementById('wrap-navigation').checked,
     autoSelectFirst: document.getElementById('auto-select-first').checked,
@@ -38,7 +38,7 @@ const saveOptions = function() {
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
-const restoreOptions = function() {
+const restoreOptions = () => {
   extension.options.sync.load().then(() => {
     const values = extension.options.sync.values;
     document.getElementById('wrap-navigation').checked =
