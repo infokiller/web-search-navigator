@@ -29,12 +29,12 @@ const extension = {
       }
     ),
 
-    load: function() {
+    load() {
       return Promise.all([this.local.load(), this.sync.load()]);
     },
   },
 
-  init: function() {
+  init() {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
@@ -50,7 +50,7 @@ const extension = {
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
   },
 
-  initResultsNavigation: function() {
+  initResultsNavigation() {
     let options = this.options.sync.values;
     let lastNavigation = this.options.local.values;
     let results = getGoogleSearchLinks();
@@ -95,7 +95,7 @@ const extension = {
     });
   },
 
-  initCommonGoogleSearchNavigation: function() {
+  initCommonGoogleSearchNavigation() {
     let options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
       let searchInput = document.getElementById('lst-ib');
@@ -122,7 +122,7 @@ const extension = {
     }
   },
 
-  register: function(shortcut, callback) {
+  register(shortcut, callback) {
     key(shortcut, function(event) {
       callback();
       if (event !== null) {
