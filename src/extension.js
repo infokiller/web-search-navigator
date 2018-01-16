@@ -39,7 +39,7 @@ const extension = {
       return;
     }
     const params = getQueryStringParams();
-    let loadOptions = this.options.load();
+    const loadOptions = this.options.load();
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (params['tbm'] !== 'isch') {
@@ -51,9 +51,9 @@ const extension = {
   },
 
   initResultsNavigation() {
-    let options = this.options.sync.values;
-    let lastNavigation = this.options.local.values;
-    let results = getGoogleSearchLinks();
+    const options = this.options.sync.values;
+    const lastNavigation = this.options.local.values;
+    const results = getGoogleSearchLinks();
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded.
@@ -81,28 +81,28 @@ const extension = {
         results.focusPrevious(options.wrapNavigation);
       }
     });
-    let that = this;
+    const that = this;
     this.register(options.navigateKey, () => {
-      let link = results.items[results.focusedIndex];
+      const link = results.items[results.focusedIndex];
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
       that.options.local.save();
       link.click();
     });
     this.register(options.navigateNewTabKey, () => {
-      let link = results.items[results.focusedIndex];
+      const link = results.items[results.focusedIndex];
       window.open(link.href);
     });
   },
 
   initCommonGoogleSearchNavigation() {
-    let options = this.options.sync.values;
+    const options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
-      let searchInput = document.getElementById('lst-ib');
+      const searchInput = document.getElementById('lst-ib');
       searchInput.focus();
       searchInput.select();
     });
-    let tabs = [
+    const tabs = [
       [options.navigateSearchTab, '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]'],
       [options.navigateImagesTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]'],
       [options.navigateVideosTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]'],
@@ -112,9 +112,9 @@ const extension = {
       [options.navigateNextResultPage, "//a[@id='pnnext']"]
     ];
     for (let i = 0; i < tabs.length; i++) {
-      let tabCommand = tabs[i];
+      const tabCommand = tabs[i];
       this.register(tabCommand[0], () => {
-        let node = getElementByXpath(tabCommand[1]);
+        const node = getElementByXpath(tabCommand[1]);
         if (node !== null) {
           location.href = node.href;
         }
@@ -183,7 +183,7 @@ function SearchResults(nodes) {
     if (this.focusedIndex >= 0) {
       this.items[this.focusedIndex].classList.remove('highlighted-search-result');
     }
-    let newItem = this.items[index];
+    const newItem = this.items[index];
     newItem.classList.add('highlighted-search-result');
     newItem.focus();
     this.focusedIndex = index;
@@ -213,7 +213,7 @@ function SearchResults(nodes) {
 function getQueryStringParams() {
   const encodedQueryString = window.location.search.slice(1);
   const encodedParams = encodedQueryString.split('&');
-  let params = {};
+  const params = {};
   for (const encodedParam of encodedParams) {
     let [key, encodedValue] = encodedParam.split('=');
     if (!encodedValue) {

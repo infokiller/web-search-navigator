@@ -2,7 +2,7 @@
 
 const flashMessage = function(message) {
   // Update status to let user know.
-  let status = document.getElementById('status');
+  const status = document.getElementById('status');
   status.textContent = message;
   setTimeout(function() {
     status.textContent = '';
@@ -11,7 +11,7 @@ const flashMessage = function(message) {
 
 // Saves options to chrome.storage.sync.
 const saveOptions = function() {
-  let values = {
+  const values = {
     wrapNavigation: document.getElementById('wrap-navigation').checked,
     autoSelectFirst: document.getElementById('auto-select-first').checked,
     nextKey: document.getElementById('next-key').value,
@@ -40,7 +40,7 @@ const saveOptions = function() {
 // stored in chrome.storage.
 const restoreOptions = function() {
   extension.options.sync.load().then(() => {
-    let values = extension.options.sync.values;
+    const values = extension.options.sync.values;
     document.getElementById('wrap-navigation').checked =
       values.wrapNavigation;
     document.getElementById('auto-select-first').checked =
