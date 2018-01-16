@@ -11,3 +11,6 @@ trim_trailing_whitespace=true
 
 [manifest.json]
 indent_size=4
+
+[*.html]
+indent_size=4

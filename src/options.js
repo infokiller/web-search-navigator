@@ -1,84 +1,75 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
 
+const flashMessage = (message) => {
+  // Update status to let user know.
+  const status = document.getElementById('status');
+  status.textContent = message;
+  setTimeout(function() {
+    status.textContent = '';
+  }, 3000);
+};
+
 // Saves options to chrome.storage.sync.
 const saveOptions = () => {
-  chrome.storage.sync.set(
-      {
-        wrapNavigation: document.getElementById('wrap-navigation').checked,
-        autoSelectFirst: document.getElementById('auto-select-first').checked,
-        nextKey: document.getElementById('next-key').value,
-        previousKey: document.getElementById('previous-key').value,
-        navigatePreviousResultPage:
-            document.getElementById('navigate-previous-result-page').value,
-        navigateNextResultPage:
-            document.getElementById('navigate-next-result-page').value,
-        navigateKey: document.getElementById('navigate-key').value,
-        navigateNewTabKey:
-            document.getElementById('navigate-new-tab-key').value,
-        navigateSearchTab: document.getElementById('navigate-search-tab').value,
-        navigateImagesTab: document.getElementById('navigate-images-tab').value,
-        navigateVideosTab: document.getElementById('navigate-videos-tab').value,
-        navigateMapsTab: document.getElementById('navigate-maps-tab').value,
-        navigateNewsTab: document.getElementById('navigate-news-tab').value,
-        focusSearchInput: document.getElementById('focus-search-input').value
-      },
-      () => {
-        // Update status to let user know options were saved.
-        let status = document.getElementById('status');
-        status.textContent = 'Options saved.';
-        setTimeout(function() {
-          status.textContent = '';
-        }, 3000);
-      });
+  const values = {
+    wrapNavigation: document.getElementById('wrap-navigation').checked,
+    autoSelectFirst: document.getElementById('auto-select-first').checked,
+    nextKey: document.getElementById('next-key').value,
+    previousKey: document.getElementById('previous-key').value,
+    navigatePreviousResultPage: document.getElementById('navigate-previous-result-page').value,
+    navigateNextResultPage: document.getElementById('navigate-next-result-page').value,
+    navigateKey: document.getElementById('navigate-key').value,
+    navigateNewTabKey: document.getElementById('navigate-new-tab-key').value,
+    navigateSearchTab: document.getElementById('navigate-search-tab').value,
+    navigateImagesTab: document.getElementById('navigate-images-tab').value,
+    navigateVideosTab: document.getElementById('navigate-videos-tab').value,
+    navigateMapsTab: document.getElementById('navigate-maps-tab').value,
+    navigateNewsTab: document.getElementById('navigate-news-tab').value,
+    focusSearchInput: document.getElementById('focus-search-input').value
+  };
+  for (let key in values) {
+    extension.options.sync.values[key] = values[key];
+  }
+  return extension.options.sync.save().then(
+    () => flashMessage('Options saved.'),
+    () => flashMessage('Error when saving options.')
+  );
 };
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 const restoreOptions = () => {
-  chrome.storage.sync.get(
-      {
-        wrapNavigation: false,
-        autoSelectFirst: true,
-        nextKey: 'down, j',
-        previousKey: 'up, k',
-        navigatePreviousResultPage: 'left, h',
-        navigateNextResultPage: 'right, l',
-        navigateKey: 'return, space',
-        navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
-        navigateSearchTab: 'a, s',
-        navigateImagesTab: 'i',
-        navigateVideosTab: 'v',
-        navigateMapsTab: 'm',
-        navigateNewsTab: 'n',
-        focusSearchInput: '/, escape'
-      },
-      (items) => {
-        document.getElementById('wrap-navigation').checked =
-            items.wrapNavigation;
-        document.getElementById('auto-select-first').checked =
-            items.autoSelectFirst;
-        document.getElementById('next-key').value = items.nextKey;
-        document.getElementById('previous-key').value = items.previousKey;
-        document.getElementById('navigate-previous-result-page').value =
-            items.navigatePreviousResultPage;
-        document.getElementById('navigate-next-result-page').value =
-            items.navigateNextResultPage;
-        document.getElementById('navigate-key').value = items.navigateKey;
-        document.getElementById('navigate-new-tab-key').value =
-            items.navigateNewTabKey;
-        document.getElementById('navigate-search-tab').value =
-            items.navigateSearchTab;
-        document.getElementById('navigate-images-tab').value =
-            items.navigateImagesTab;
-        document.getElementById('navigate-videos-tab').value =
-            items.navigateVideosTab;
-        document.getElementById('navigate-maps-tab').value =
-            items.navigateMapsTab;
-        document.getElementById('navigate-news-tab').value =
-            items.navigateNewsTab;
-        document.getElementById('focus-search-input').value =
-            items.focusSearchInput;
-      });
+  extension.options.sync.load().then(() => {
+    const values = extension.options.sync.values;
+    document.getElementById('wrap-navigation').checked =
+      values.wrapNavigation;
+    document.getElementById('auto-select-first').checked =
+      values.autoSelectFirst;
+    document.getElementById('next-key').value =
+      values.nextKey;
+    document.getElementById('previous-key').value =
+      values.previousKey;
+    document.getElementById('navigate-previous-result-page').value =
+      values.navigatePreviousResultPage;
+    document.getElementById('navigate-next-result-page').value =
+      values.navigateNextResultPage;
+    document.getElementById('navigate-key').value =
+      values.navigateKey;
+    document.getElementById('navigate-new-tab-key').value =
+      values.navigateNewTabKey;
+    document.getElementById('navigate-search-tab').value =
+      values.navigateSearchTab;
+    document.getElementById('navigate-images-tab').value =
+      values.navigateImagesTab;
+    document.getElementById('navigate-videos-tab').value =
+      values.navigateVideosTab;
+    document.getElementById('navigate-maps-tab').value =
+      values.navigateMapsTab;
+    document.getElementById('navigate-news-tab').value =
+      values.navigateNewsTab;
+    document.getElementById('focus-search-input').value =
+      values.focusSearchInput;
+  });
 };
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
