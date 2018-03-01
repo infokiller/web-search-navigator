@@ -28,8 +28,9 @@ mkdir -p "$OBJ"
 cp src/* "$OBJ"
 cp .web-extension-id "$OBJ"
 
-# pack and sign the package
+# build and pack the package
+# do not sign as it would result in signed add-on intended for self-distribution
 echo "Creating package..."
-web-ext sign --source-dir "$OBJ" --artifacts-dir "$BIN" "$@"
+web-ext build --source-dir "$OBJ" --artifacts-dir "$BIN" "$@"
 
 echo "Build complete"
