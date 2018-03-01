@@ -26,7 +26,6 @@ rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
 cp src/* "$OBJ"
-cp .web-extension-id "$OBJ"
 
 # build and pack the package
 # do not sign as it would result in signed add-on intended for self-distribution
