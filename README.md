@@ -10,8 +10,11 @@ have been [removed as of
 In addition, I wanted to add new keyboard shortcuts and the existing ones to be
 more vim like (j/k for navigation).
 
-Install from the [Chrome Web
-Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
+## Installation
+
+* for Chrome: Install from the [Chrome Web
+Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
+* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/cs/firefox/addon/the-google-search-navigator/).
 
 ## Keybindings
 
