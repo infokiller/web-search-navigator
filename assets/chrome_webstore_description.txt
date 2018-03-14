@@ -1,4 +1,6 @@
 ﻿New in 0.2.6 (not released):
+* Navigation to a new tab in background (ctrl/command + shift + space)
+
 * Keybindings for navigating between search result pages
 
 Simple open source extension that enhances the keyboard navigation
