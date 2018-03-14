@@ -20,6 +20,7 @@ const saveOptions = () => {
     navigateNextResultPage: document.getElementById('navigate-next-result-page').value,
     navigateKey: document.getElementById('navigate-key').value,
     navigateNewTabKey: document.getElementById('navigate-new-tab-key').value,
+    navigateNewTabBackgroundKey: document.getElementById('navigate-new-tab-background-key').value,
     navigateSearchTab: document.getElementById('navigate-search-tab').value,
     navigateImagesTab: document.getElementById('navigate-images-tab').value,
     navigateVideosTab: document.getElementById('navigate-videos-tab').value,
@@ -57,6 +58,8 @@ const restoreOptions = () => {
       values.navigateKey;
     document.getElementById('navigate-new-tab-key').value =
       values.navigateNewTabKey;
+    document.getElementById('navigate-new-tab-background-key').value =
+      values.navigateNewTabBackgroundKey;
     document.getElementById('navigate-search-tab').value =
       values.navigateSearchTab;
     document.getElementById('navigate-images-tab').value =

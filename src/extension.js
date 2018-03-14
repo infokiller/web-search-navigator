@@ -12,6 +12,7 @@ const extension = {
         navigateNextResultPage: 'right, l',
         navigateKey: 'return, space',
         navigateNewTabKey: 'ctrl+return, command+return, ctrl+space',
+        navigateNewTabBackgroundKey: 'ctrl+shift+return, command+shift+return, ctrl+shift+space',
         navigateSearchTab: 'a, s',
         navigateImagesTab: 'i',
         navigateVideosTab: 'v',
@@ -92,6 +93,10 @@ const extension = {
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
       window.open(link.href);
+    });
+    this.register(options.navigateNewTabBackgroundKey, () => {
+      const link = results.items[results.focusedIndex];
+      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.href, active: false}});
     });
   },
 
