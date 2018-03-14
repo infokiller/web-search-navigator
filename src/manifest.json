@@ -210,6 +210,9 @@
         "css": ["search_results.css"],
         "run_at": "document_end"
     }],
+    "background": {
+        "scripts": ["background.js"]
+    },
     "permissions": [
         "*://www.google.com/search*",
         "*://www.google.ad/search*",
@@ -405,7 +408,8 @@
         "*://www.google.co.zw/search*",
         "*://www.google.cat/search*",
         "*://encrypted.google.com/*",
-        "storage"
+        "storage",
+        "tabs"
     ],
     "options_ui": {
         "page": "options.html",
