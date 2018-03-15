@@ -22,11 +22,12 @@ _Note: All shortcuts can be customized to your liking via options._
 
 *   `↓`/`j`: Select next search result
 *   `↑`/`k`: Select previous previous result
-*   `←`/`h`: Navigate to previous search result page
-*   `→`/`l`: Navigate to next search result page
 *   `/`/`Escape`: Focus on input search box
 *   `Enter`/`Space`: Navigate to selected result
-*   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in new tab/window
+*   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
+*   `Ctrl+Shift+Enter`/`⌘+Shift+Enter`/`Ctrl+Shift+Space`: Open selected result in new window/tab
+*   `←`/`h`: Navigate to previous search result page
+*   `→`/`l`: Navigate to next search result page
 *   `a`/`s`: Navigate to All tab (= default search tab)
 *   `i`: Navigate to images tab
 *   `v`: Navigate to videos tab
