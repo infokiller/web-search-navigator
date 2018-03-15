@@ -92,7 +92,9 @@ const extension = {
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
-      window.open(link.href);
+      // NOTE: Firefox (tested in 58) somehow from single window.open() opened
+      // a link twice. Using timeout solves the issue.
+      window.setTimeout(() => window.open(link.href));
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
