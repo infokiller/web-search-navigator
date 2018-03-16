@@ -236,7 +236,7 @@ function getQueryStringParams() {
 
 function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
-  return new SearchResults(document.querySelectorAll('h3.r a, #pnprev, #pnnext'));
+  return new SearchResults(document.querySelectorAll('h3.r a, div.JTuIPc > a, #pnprev, #pnnext'));
 }
 
 function getElementByXpath(path) {
