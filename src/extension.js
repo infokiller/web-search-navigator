@@ -180,19 +180,59 @@ function OptionSection(storage, defaultValues) {
 }
 
 /**
- * @param {NodeList|Node[]} nodes The collection of the anchor nodes representing search result to move focus for.
+ * @param {...[Element[], function|null]} var_args The array of tuples.
+ * Each tuple contains collection of the search results optionally accompanied
+ * with their container selector.
  * @constructor
  */
-function SearchResults(nodes) {
-  this.items = Array.prototype.slice.call(nodes);
+function SearchResultCollection(var_args) {
+  /**
+   * @type {SearchResult[]}
+   */
+  this.items = [];
+  for (let i = 0; i < arguments.length; i++) {
+    const params = arguments[i];
+    const nodes = params[0];
+    const containerSelector = params[1];
+    for (let j = 0; j < nodes.length; j++) {
+      const node = nodes[j];
+      this.items.push(new SearchResult(node, containerSelector));
+    }
+  }
+  // need to sort items by their document position)
+  this.items.sort((a, b) => {
+    const position = a.anchor.compareDocumentPosition(b.anchor);
+    if (position & Node.DOCUMENT_POSITION_FOLLOWING || position & Node.DOCUMENT_POSITION_CONTAINED_BY) {
+      return -1;
+    } else if (position & Node.DOCUMENT_POSITION_PRECEDING || position & Node.DOCUMENT_POSITION_CONTAINS) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
   this.focusedIndex = 0;
   this.focus = function(index) {
     if (this.focusedIndex >= 0) {
-      this.items[this.focusedIndex].classList.remove('highlighted-search-result');
+      this.items[this.focusedIndex].anchor.classList.remove('highlighted-search-result');
     }
     const newItem = this.items[index];
-    newItem.classList.add('highlighted-search-result');
-    newItem.focus();
+    newItem.anchor.classList.add('highlighted-search-result');
+    newItem.anchor.focus();
+    const container = newItem.getContainer() || newItem.anchor;
+    const containerBounds = container.getBoundingClientRect();
+    // firefox displays tooltip at the bottom which obstructs the view;
+    // bottomDelta is a workaround to it
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    const bottomDelta = (isFirefox ? 26 : 0);
+    if (containerBounds.top < 0) {
+      // scroll container to top
+      container.scrollIntoView(true);
+    }
+    else if (containerBounds.bottom + bottomDelta > window.innerHeight) {
+      // scroll container to bottom
+      container.scrollIntoView(false);
+      window.scrollBy(0, bottomDelta);
+    }
     this.focusedIndex = index;
   };
   this.focusNext = function(shouldWrap) {
@@ -217,6 +257,22 @@ function SearchResults(nodes) {
   }
 }
 
+/**
+ * @param {Element} anchor
+ * @param {function|null} containerSelector
+ * @constructor
+ */
+function SearchResult(anchor, containerSelector) {
+  this.anchor = anchor;
+  this.getContainer = function() {
+    if (!containerSelector) {
+      return this.anchor;
+    }
+
+    return containerSelector(this.anchor);
+  };
+}
+
 function getQueryStringParams() {
   const encodedQueryString = window.location.search.slice(1);
   const encodedParams = encodedQueryString.split('&');
@@ -236,7 +292,11 @@ function getQueryStringParams() {
 
 function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
-  return new SearchResults(document.querySelectorAll('h3.r a, div.JTuIPc > a, #pnprev, #pnnext'));
+  return new SearchResultCollection(
+    [document.querySelectorAll('h3.r a'), (n) => n.parentElement.parentElement],
+    [document.querySelectorAll('div.JTuIPc > a'), null],
+    [document.querySelectorAll('#pnprev, #pnnext'), null]
+  );
 }
 
 function getElementByXpath(path) {
