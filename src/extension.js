@@ -218,12 +218,17 @@ function SearchResultCollection(...results) {
     const newItem = this.items[index];
     newItem.anchor.classList.add('highlighted-search-result');
     newItem.anchor.focus();
+    // ensure whole search result container is visible in the viewport, not only
+    // the search result link
     const container = newItem.getContainer() || newItem.anchor;
     const containerBounds = container.getBoundingClientRect();
-    // firefox displays tooltip at the bottom which obstructs the view;
-    // bottomDelta is a workaround to it
+    // firefox displays tooltip at the bottom which obstructs the view
+    // as a workaround ensure extra space from the bottom in the viewport
+    // firefox detection (https://stackoverflow.com/a/7000222/2870889)
     const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    const bottomDelta = (isFirefox ? 26 : 0);
+    // hardcoded height of the tooltip plus some margin
+    const firefoxBottomDelta = 26;
+    const bottomDelta = (isFirefox ? firefoxBottomDelta: 0);
     if (containerBounds.top < 0) {
       // scroll container to top
       container.scrollIntoView(true);
