@@ -180,18 +180,18 @@ function OptionSection(storage, defaultValues) {
 }
 
 /**
- * @param {...[Element[], function|null]} var_args The array of tuples.
+ * @param {...[Element[], function|null]} results The array of tuples.
  * Each tuple contains collection of the search results optionally accompanied
  * with their container selector.
  * @constructor
  */
-function SearchResultCollection(var_args) {
+function SearchResultCollection(...results) {
   /**
    * @type {SearchResult[]}
    */
   this.items = [];
-  for (let i = 0; i < arguments.length; i++) {
-    const params = arguments[i];
+  for (let i = 0; i < results.length; i++) {
+    const params = results[i];
     const nodes = params[0];
     const containerSelector = params[1];
     for (let j = 0; j < nodes.length; j++) {
