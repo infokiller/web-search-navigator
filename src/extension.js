@@ -294,7 +294,7 @@ function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
   return new SearchResultCollection(
     [document.querySelectorAll('h3.r a'), (n) => n.parentElement.parentElement],
-    [document.querySelectorAll('div.JTuIPc > a'), null],
+    [document.querySelectorAll('div.zjbNbe > a'), null],
     [document.querySelectorAll('#pnprev, #pnnext'), null]
   );
 }
