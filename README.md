@@ -14,7 +14,7 @@ more vim like (j/k for navigation).
 
 * for Chrome: Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
-* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/cs/firefox/addon/the-google-search-navigator/).
+* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
 
 ## Keybindings
 
