@@ -18,6 +18,10 @@ const extension = {
         navigateVideosTab: 'v',
         navigateMapsTab: 'm',
         navigateNewsTab: 'n',
+        navigateShoppingTab: 'alt+s',
+        navigateBooksTab: 'b',
+        navigateFlightsTab: 'alt+l',
+        navigateFinancialTab: 'f',
         focusSearchInput: '/, escape'
       }
     ),
@@ -115,6 +119,10 @@ const extension = {
       [options.navigateVideosTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]'],
       [options.navigateMapsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]'],
       [options.navigateNewsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]'],
+      [options.navigateShoppingTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=shop\'))]'],
+      [options.navigateBooksTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=bks\'))]'],
+      [options.navigateFlightsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=flm\'))]'],
+      [options.navigateFinancialTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=fin\'))]'],
       [options.navigatePreviousResultPage, "//a[@id='pnprev']"],
       [options.navigateNextResultPage, "//a[@id='pnnext']"]
     ];
