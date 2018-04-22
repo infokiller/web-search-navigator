@@ -3,7 +3,7 @@
 }
 
 .highlighted-search-result::before {
-  content: "►";
+  content: "\25BA";
   margin-right: 25px;
   left: -25px;
   position: absolute;
