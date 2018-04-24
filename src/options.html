@@ -9,27 +9,34 @@
 <body>
     <div class="option">
         <label for="wrap-navigation">
-        <input type="checkbox" id="wrap-navigation">
-        Wrap around when navigating before/after the first/last search result
-      </label>
+            <input type="checkbox" id="wrap-navigation"> Wrap around when navigating before/after the first/last search result
+        </label>
     </div>
     <div class="option">
         <label for="auto-select-first">
-        <input type="checkbox" id="auto-select-first">
-        Focus on first search result automatically after the page loads
-      </label>
+            <input type="checkbox" id="auto-select-first"> Focus on first search result automatically after the page loads
+        </label>
     </div>
     <div id="keybindings-container">
         <h3>Keybindings</h3>
         <div id="keybindings-help">
-            All keybindings should be specified in <a href="https://github.com/madrobby/keymaster" target="_blank">Keymaster</a> format. Examples:
+            All keybindings should be specified in
+            <a href="https://github.com/madrobby/keymaster" target="_blank">Keymaster</a> format. Examples:
             <ul>
-                <li><kbd class="keybinding">a</kbd></li>
-                <li><kbd class="keybinding">ctrl+a</kbd></li>
-                <li><kbd class="keybinding">command+a</kbd></li>
-                <li><kbd class="keybinding">a, ctrl+b, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
+                <li>
+                    <kbd class="keybinding">a</kbd>
+                </li>
+                <li>
+                    <kbd class="keybinding">ctrl+a</kbd>
+                </li>
+                <li>
+                    <kbd class="keybinding">command+a</kbd>
+                </li>
+                <li>
+                    <kbd class="keybinding">a, ctrl+b, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
             </ul>
-            Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown, del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
+            Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown,
+            del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
         </div>
         <div class="option">
             <label for="next-key" class="option-desc">Next search result</label>
