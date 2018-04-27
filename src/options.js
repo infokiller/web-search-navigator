@@ -4,7 +4,7 @@ const flashMessage = (message) => {
   // Update status to let user know.
   const status = document.getElementById('status');
   status.textContent = message;
-  setTimeout(function () {
+  setTimeout(function() {
     status.textContent = '';
   }, 3000);
 };
