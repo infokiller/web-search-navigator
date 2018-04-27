@@ -1,7 +1,8 @@
-﻿New in 0.2.6 (not released):
+New in 0.2.8:
 * Changed default key binding of "Open selected result in new window/tab" to `Ctrl/⌘ + Shift + Enter/Space`.
-* Navigation to a new tab in background (Ctrl/⌘ + Enter/Space)
-* Keybindings for navigating between search result pages
+* New feature for Navigation to a new tab in background (Ctrl/⌘ + Enter/Space)
+* New keybindings for navigating between search result pages
+* Added navigation to more tabs: shopping, books, flights, and financial.
 
 Simple open source extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
