@@ -92,17 +92,17 @@ const extension = {
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
       that.options.local.save();
-      link.click();
+      link.anchor.click();
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
       // NOTE: Firefox (tested in 58) somehow from single window.open() opened
       // a link twice. Using timeout solves the issue.
-      window.setTimeout(() => window.open(link.href));
+      window.setTimeout(() => window.open(link.anchor.href));
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
-      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.href, active: false}});
+      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
     });
   },
 
