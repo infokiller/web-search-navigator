@@ -4,6 +4,10 @@ New in 0.2.8:
 * New keybindings for navigating between search result pages
 * Added navigation to more tabs: shopping, books, flights, and financial.
 
+New in 0.2.5:
+* Keybindings for navigating to images/videos/maps/news tabs
+* Works in encrypted.google.com
+
 Simple open source extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
 search results, but it was often broken (https://goo.gl/1zMkYu), and seems to
