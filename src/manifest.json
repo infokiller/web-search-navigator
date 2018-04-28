@@ -408,8 +408,7 @@
         "*://www.google.co.zw/search*",
         "*://www.google.cat/search*",
         "*://encrypted.google.com/*",
-        "storage",
-        "tabs"
+        "storage"
     ],
     "options_ui": {
         "page": "options.html",
