@@ -1,14 +1,13 @@
 {
+    "manifest_version": 2,
+    "name": "Google Search Navigator",
+    "version": "0.2.8",
+    "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "applications": {
         "gecko": {
             "id": "{ffadac89-63bb-4b04-be90-8cb2aa323171}",
             "strict_min_version": "48.0"
         }
-    },
-    "author": "Google Search Navigator",
-    "background": {
-        "page": "background.html",
-        "persistent": true
     },
     "content_scripts": [
         {
@@ -219,15 +218,10 @@
             "run_at": "document_end"
         }
     ],
-    "description": "Adds keyboard shortcuts to Google Search (google.com).",
-    "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
+    "background": {
+        "page": "background.html",
+        "persistent": true
     },
-    "manifest_version": 2,
-    "name": "Google Search Navigator",
-    "options_page": "options.html",
     "permissions": [
         "*://www.google.com/search*",
         "*://www.google.ad/search*",
@@ -426,7 +420,13 @@
         "storage",
         "tabs"
     ],
-    "version": "0.2.8",
+    "options_page": "options.html",
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "author": "Google Search Navigator",
     "-ms-preload": {
         "backgroundScript": "backgroundScriptsAPIBridge.js",
         "contentScript": "contentScriptsAPIBridge.js"
