@@ -428,7 +428,7 @@
     },
     "author": "Google Search Navigator",
     "-ms-preload": {
-        "backgroundScript": "backgroundScriptsAPIBridge.js",
-        "contentScript": "contentScriptsAPIBridge.js"
+        "backgroundScript": "edge/backgroundScriptsAPIBridge.js",
+        "contentScript": "edge/contentScriptsAPIBridge.js"
     }
 }
