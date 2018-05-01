@@ -34,6 +34,10 @@ _Note: All shortcuts can be customized to your liking via options._
 *   `v`: Navigate to videos tab
 *   `m`: Navigate to maps tab
 *   `n`: Navigate to news tab
+*   `alt+s`: Navigate to shopping tab
+*   `b`: Navigate to books tab
+*   `alt+l`: Navigate to flights tab
+*   `f`: Navigate to financial tab
 
 ## Development
 

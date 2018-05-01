@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Search Navigator",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "applications": {
         "gecko": {
@@ -417,8 +417,7 @@
         "*://www.google.co.zw/search*",
         "*://www.google.cat/search*",
         "*://encrypted.google.com/*",
-        "storage",
-        "tabs"
+        "storage"
     ],
     "options_page": "options.html",
     "icons": {

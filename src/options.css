@@ -1,5 +1,5 @@
 body {
-  min-width: 400px;
+  width: 400px;
 }
 
 div {
@@ -15,4 +15,8 @@ div {
 .option-desc {
   display: inline-block;
   width: 200px;
+}
+
+#status {
+  font-weight: bold;
 }

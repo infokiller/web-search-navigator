@@ -26,6 +26,10 @@ const saveOptions = () => {
     navigateVideosTab: document.getElementById('navigate-videos-tab').value,
     navigateMapsTab: document.getElementById('navigate-maps-tab').value,
     navigateNewsTab: document.getElementById('navigate-news-tab').value,
+    navigateShoppingTab: document.getElementById('navigate-shopping-tab').value,
+    navigateBooksTab: document.getElementById('navigate-books-tab').value,
+    navigateFlightsTab: document.getElementById('navigate-flights-tab').value,
+    navigateFinancialTab: document.getElementById('navigate-financial-tab').value,
     focusSearchInput: document.getElementById('focus-search-input').value
   };
   for (let key in values) {
@@ -70,6 +74,14 @@ const restoreOptions = () => {
       values.navigateMapsTab;
     document.getElementById('navigate-news-tab').value =
       values.navigateNewsTab;
+    document.getElementById('navigate-shopping-tab').value =
+      values.navigateShoppingTab;
+    document.getElementById('navigate-books-tab').value =
+      values.navigateBooksTab;
+    document.getElementById('navigate-flights-tab').value =
+      values.navigateFlightsTab;
+    document.getElementById('navigate-financial-tab').value =
+      values.navigateFinancialTab;
     document.getElementById('focus-search-input').value =
       values.focusSearchInput;
   });

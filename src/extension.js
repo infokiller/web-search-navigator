@@ -18,6 +18,10 @@ const extension = {
         navigateVideosTab: 'v',
         navigateMapsTab: 'm',
         navigateNewsTab: 'n',
+        navigateShoppingTab: 'alt+s',
+        navigateBooksTab: 'b',
+        navigateFlightsTab: 'alt+l',
+        navigateFinancialTab: 'f',
         focusSearchInput: '/, escape'
       }
     ),
@@ -88,17 +92,17 @@ const extension = {
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
       that.options.local.save();
-      link.click();
+      link.anchor.click();
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
       // NOTE: Firefox (tested in 58) somehow from single window.open() opened
       // a link twice. Using timeout solves the issue.
-      window.setTimeout(() => window.open(link.href));
+      window.setTimeout(() => window.open(link.anchor.href));
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
-      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.href, active: false}});
+      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
     });
   },
 
@@ -115,6 +119,10 @@ const extension = {
       [options.navigateVideosTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]'],
       [options.navigateMapsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]'],
       [options.navigateNewsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]'],
+      [options.navigateShoppingTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=shop\'))]'],
+      [options.navigateBooksTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=bks\'))]'],
+      [options.navigateFlightsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=flm\'))]'],
+      [options.navigateFinancialTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=fin\'))]'],
       [options.navigatePreviousResultPage, "//a[@id='pnprev']"],
       [options.navigateNextResultPage, "//a[@id='pnnext']"]
     ];

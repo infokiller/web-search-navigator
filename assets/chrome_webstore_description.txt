@@ -1,7 +1,19 @@
-﻿New in 0.2.6 (not released):
+New in 0.2.9:
+
+The issue is related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/google-search-navigator/issues/53
+* Removed tabs permission which caused a scary Chrome warning about a new
+  permission in the extension to read "browsing history".
+  Note from author: sorry for that warning, but I can assure you that this extension DOES NOT READ ANY of your browsing history. You don't need to trust my word- you can read the source code in https://github.com/infokiller/google-search-navigator
+
+New in 0.2.8:
 * Changed default key binding of "Open selected result in new window/tab" to `Ctrl/⌘ + Shift + Enter/Space`.
-* Navigation to a new tab in background (Ctrl/⌘ + Enter/Space)
-* Keybindings for navigating between search result pages
+* New feature for Navigation to a new tab in background (Ctrl/⌘ + Enter/Space)
+* New keybindings for navigating between search result pages
+* Added navigation to more tabs: shopping, books, flights, and financial.
+
+New in 0.2.5:
+* Keybindings for navigating to images/videos/maps/news tabs
+* Works in encrypted.google.com
 
 Simple open source extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
@@ -25,3 +37,7 @@ more vim like (j/k for navigation).
 *   `v`: Navigate to videos tab
 *   `m`: Navigate to maps tab
 *   `n`: Navigate to news tab
+*   `alt+s`: Navigate to shopping tab
+*   `b`: Navigate to books tab
+*   `alt+l`: Navigate to flights tab
+*   `f`: Navigate to financial tab
