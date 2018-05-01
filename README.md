@@ -2,7 +2,7 @@
 
 ![Demo flow](./assets/demo.gif?raw=true)
 
-This is a simple Google Chrome extension that enhances the keyboard navigation
+This is a simple browser extension that enhances the keyboard navigation
 in Google Search. Google used to provide an experimental keyboard navigation for
 search results, but it was [often broken](https://goo.gl/1zMkYu), and seems to
 have been [removed as of
@@ -15,6 +15,7 @@ more vim like (j/k for navigation).
 * for Chrome: Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
 * for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
+* for Microsoft Edge: Install from the [Microsoft Store](https://www.microsoft.com/store/apps/9P0PTV58KND9).
 
 ## Keybindings
 
