@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Search Navigator",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "applications": {
         "gecko": {
