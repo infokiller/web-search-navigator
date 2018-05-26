@@ -25,7 +25,7 @@ echo "Copying files..."
 rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
-cp src/* "$OBJ"
+cp -R src/* "$OBJ"
 
 # build and pack the package
 # do not sign as it would result in signed add-on intended for self-distribution

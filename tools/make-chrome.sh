@@ -15,7 +15,7 @@ echo "Copying files..."
 rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
-cp src/* "$OBJ"
+cp -R src/* "$OBJ"
 
 echo "Creating package..."
 zip -FS "$BIN/package.zip" $OBJ/*
