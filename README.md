@@ -12,6 +12,8 @@ more vim like (j/k for navigation).
 
 ## Installation
 
+NOTE: Due to temporary copyright issues (#59, #60) the extension was taken down on 2018-05-21. We expect it to be back on the store soon (pending a minor legal review by Google).
+
 * for Chrome: Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
 * for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
