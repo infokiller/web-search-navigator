@@ -22,7 +22,14 @@ const extension = {
         navigateBooksTab: 'b',
         navigateFlightsTab: 'alt+l',
         navigateFinancialTab: 'f',
-        focusSearchInput: '/, escape'
+        focusSearchInput: '/, escape',
+        navigateShowAll: 'ctrl+shift+a',
+        navigateShowHour: 'ctrl+shift+h',
+        navigateShowDay: 'ctrl+shift+d',
+        navigateShowWeek: 'ctrl+shift+w',
+        navigateShowMonth: 'ctrl+shift+m',
+        navigateShowYear: 'ctrl+shift+y',
+        toggleSort: 'ctrl+shift+s'
       }
     ),
 
@@ -53,6 +60,22 @@ const extension = {
       loadOptions.then(() => this.initResultsNavigation());
     }
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
+  },
+
+  changeTools(period) {
+    // Save current period and sort.
+    const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href)
+    const currPeriod = (res && res[1]) || ''
+    const currSort = (res && res[2]) || ''
+    // Remove old period and sort.
+    const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '')
+    if (period) {
+      location.href = strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort)
+    }
+    else if (currPeriod) {
+      // Can't apply sort when not using period.
+      location.href = strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1')
+    }
   },
 
   initResultsNavigation() {
@@ -104,6 +127,13 @@ const extension = {
       const link = results.items[results.focusedIndex];
       chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
     });
+    this.register(options.navigateShowAll, () => this.changeTools('a'));
+    this.register(options.navigateShowHour, () => this.changeTools('h'));
+    this.register(options.navigateShowDay, () => this.changeTools('d'));
+    this.register(options.navigateShowWeek, () => this.changeTools('w'));
+    this.register(options.navigateShowMonth, () => this.changeTools('m'));
+    this.register(options.navigateShowYear, () => this.changeTools('y'));
+    this.register(options.toggleSort, () => this.changeTools(null));
   },
 
   initCommonGoogleSearchNavigation() {
