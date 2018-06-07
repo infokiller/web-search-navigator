@@ -62,7 +62,7 @@ const extension = {
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
   },
 
-  changeTools(period, sort) {
+  changeTools(period) {
     // Save current period and sort.
     const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href)
     const currPeriod = (res && res[1]) || ''
@@ -72,9 +72,8 @@ const extension = {
     if (period) {
       location.href = strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort)
     }
-    else if (sort) {
+    else if (currPeriod) {
       // Can't apply sort when not using period.
-      if (!currPeriod) { return; }
       location.href = strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1')
     }
   },
@@ -134,7 +133,7 @@ const extension = {
     this.register(options.navigateShowWeek, () => this.changeTools('w'));
     this.register(options.navigateShowMonth, () => this.changeTools('m'));
     this.register(options.navigateShowYear, () => this.changeTools('y'));
-    this.register(options.toggleSort, () => this.changeTools(null, 1));
+    this.register(options.toggleSort, () => this.changeTools(null));
   },
 
   initCommonGoogleSearchNavigation() {
