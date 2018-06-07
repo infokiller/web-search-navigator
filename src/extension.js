@@ -63,20 +63,18 @@ const extension = {
   },
 
   changeTools(period, sort) {
-    // save current period, sort
+    // Save current period and sort.
     const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href)
     const currPeriod = (res && res[1]) || ''
     const currSort = (res && res[2]) || ''
-    // remove old period, sort
+    // Remove old period and sort.
     const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '')
-    // changing period
-    if(period) {
+    if (period) {
       location.href = strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort)
     }
-    // changing sort
-    else if(sort) {
-      // can't apply sort when not using period
-      if(!currPeriod) { return }
+    else if (sort) {
+      // Can't apply sort when not using period.
+      if (!currPeriod) { return; }
       location.href = strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1')
     }
   },
