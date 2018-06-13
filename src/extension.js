@@ -251,9 +251,15 @@ function SearchResultCollection(...results) {
   this.focusedIndex = 0;
   this.focus = function(index) {
     if (this.focusedIndex >= 0) {
-      this.items[this.focusedIndex].anchor.classList.remove('highlighted-search-result');
+      // ensure previous focused item
+      this.items[this.focusedIndex] && this.items[this.focusedIndex].anchor.classList.remove('highlighted-search-result');
     }
     const newItem = this.items[index];
+
+    // exit if no new item
+    if(!newItem) {
+      return this.focusedIndex = -1
+    }
     newItem.anchor.classList.add('highlighted-search-result');
     newItem.anchor.focus();
     // ensure whole search result container is visible in the viewport, not only
