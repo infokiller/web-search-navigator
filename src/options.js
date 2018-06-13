@@ -30,7 +30,14 @@ const saveOptions = () => {
     navigateBooksTab: document.getElementById('navigate-books-tab').value,
     navigateFlightsTab: document.getElementById('navigate-flights-tab').value,
     navigateFinancialTab: document.getElementById('navigate-financial-tab').value,
-    focusSearchInput: document.getElementById('focus-search-input').value
+    focusSearchInput: document.getElementById('focus-search-input').value,
+    navigateShowAll: document.getElementById('navigate-show-all').value,
+    navigateShowHour: document.getElementById('navigate-show-hour').value,
+    navigateShowDay: document.getElementById('navigate-show-day').value,
+    navigateShowWeek: document.getElementById('navigate-show-week').value,
+    navigateShowMonth: document.getElementById('navigate-show-month').value,
+    navigateShowYear: document.getElementById('navigate-show-year').value,
+    toggleSort: document.getElementById('toggle-sort').value
   };
   for (let key in values) {
     extension.options.sync.values[key] = values[key];
@@ -84,6 +91,20 @@ const restoreOptions = () => {
       values.navigateFinancialTab;
     document.getElementById('focus-search-input').value =
       values.focusSearchInput;
+    document.getElementById('navigate-show-all').value =
+      values.navigateShowAll;
+    document.getElementById('navigate-show-hour').value =
+      values.navigateShowHour;
+    document.getElementById('navigate-show-day').value =
+      values.navigateShowDay;
+    document.getElementById('navigate-show-week').value =
+      values.navigateShowWeek;
+    document.getElementById('navigate-show-month').value =
+      values.navigateShowMonth;
+    document.getElementById('navigate-show-year').value =
+      values.navigateShowYear;
+    document.getElementById('toggle-sort').value =
+      values.toggleSort;
   });
 };
 
