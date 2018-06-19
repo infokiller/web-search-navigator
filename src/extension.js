@@ -6,31 +6,31 @@ const extension = {
       {
         wrapNavigation: false,
         autoSelectFirst: true,
-        nextKey: 'down, j',
-        previousKey: 'up, k',
-        navigatePreviousResultPage: 'left, h',
-        navigateNextResultPage: 'right, l',
-        navigateKey: 'return, space',
-        navigateNewTabBackgroundKey: 'ctrl+return, command+return, ctrl+space',
-        navigateNewTabKey: 'ctrl+shift+return, command+shift+return, ctrl+shift+space',
-        navigateSearchTab: 'a, s',
-        navigateImagesTab: 'i',
-        navigateVideosTab: 'v',
-        navigateMapsTab: 'm',
-        navigateNewsTab: 'n',
-        navigateShoppingTab: 'alt+s',
-        navigateBooksTab: 'b',
-        navigateFlightsTab: 'alt+l',
-        navigateFinancialTab: 'f',
-        focusSearchInput: '/, escape',
-        navigateShowAll: 'ctrl+shift+a',
-        navigateShowHour: 'ctrl+shift+h',
-        navigateShowDay: 'ctrl+shift+d',
-        navigateShowWeek: 'ctrl+shift+w',
-        navigateShowMonth: 'ctrl+shift+m',
-        navigateShowYear: 'ctrl+shift+y',
-        toggleSort: 'ctrl+shift+s'
-      }
+        nextKey: ['down', 'j'],
+        previousKey: ['up', 'k'],
+        navigatePreviousResultPage: ['left', 'h'],
+        navigateNextResultPage: ['right', 'l'],
+        navigateKey: ['return', 'space'],
+        navigateNewTabBackgroundKey: ['ctrl+return', 'command+return', 'ctrl+space'],
+        navigateNewTabKey: ['ctrl+shift+return', 'command+shift+return', 'ctrl+shift+space'],
+        navigateSearchTab: ['a', 's'],
+        navigateImagesTab: ['i'],
+        navigateVideosTab: ['v'],
+        navigateMapsTab: ['m'],
+        navigateNewsTab: ['n'],
+        navigateShoppingTab: ['alt+s'],
+        navigateBooksTab: ['b'],
+        navigateFlightsTab: ['alt+l'],
+        navigateFinancialTab: ['f'],
+        focusSearchInput: ['/', 'escape'],
+        navigateShowAll: ['z z'],
+        navigateShowHour: ['z h'],
+        navigateShowDay: ['z d'],
+        navigateShowWeek: ['z w'],
+        navigateShowMonth: ['z m'],
+        navigateShowYear: ['z y'],
+        toggleSort: ['z s']
+      },
     ),
 
     local: new OptionSection(
@@ -168,7 +168,7 @@ const extension = {
   },
 
   register(shortcut, callback) {
-    key(shortcut, function(event) {
+    Mousetrap.bind(shortcut, function(event) {
       callback();
       if (event !== null) {
         event.stopPropagation();

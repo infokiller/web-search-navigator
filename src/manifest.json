@@ -208,7 +208,7 @@
                 "*://encrypted.google.com/*"
             ],
             "js": [
-                "keymaster.js",
+                "mousetrap.min.js",
                 "extension.js",
                 "main.js"
             ],

@@ -9,39 +9,48 @@ const flashMessage = (message) => {
   }, 3000);
 };
 
+const divs = {
+  nextKey: 'next-key',
+  previousKey: 'previous-key',
+  navigatePreviousResultPage: 'navigate-previous-result-page',
+  navigateNextResultPage: 'navigate-next-result-page',
+  navigateKey: 'navigate-key',
+  navigateNewTabKey: 'navigate-new-tab-key',
+  navigateNewTabBackgroundKey: 'navigate-new-tab-background-key',
+  navigateSearchTab: 'navigate-search-tab',
+  navigateImagesTab: 'navigate-images-tab',
+  navigateVideosTab: 'navigate-videos-tab',
+  navigateMapsTab: 'navigate-maps-tab',
+  navigateNewsTab: 'navigate-news-tab',
+  navigateShoppingTab: 'navigate-shopping-tab',
+  navigateBooksTab: 'navigate-books-tab',
+  navigateFlightsTab: 'navigate-flights-tab',
+  navigateFinancialTab: 'navigate-financial-tab',
+  focusSearchInput: 'focus-search-input',
+  navigateShowAll: 'navigate-show-all',
+  navigateShowHour: 'navigate-show-hour',
+  navigateShowDay: 'navigate-show-day',
+  navigateShowWeek: 'navigate-show-week',
+  navigateShowMonth: 'navigate-show-month',
+  navigateShowYear: 'navigate-show-year',
+  toggleSort: 'toggle-sort'
+};
+
 // Saves options to chrome.storage.sync.
 const saveOptions = () => {
-  const values = {
-    wrapNavigation: document.getElementById('wrap-navigation').checked,
-    autoSelectFirst: document.getElementById('auto-select-first').checked,
-    nextKey: document.getElementById('next-key').value,
-    previousKey: document.getElementById('previous-key').value,
-    navigatePreviousResultPage: document.getElementById('navigate-previous-result-page').value,
-    navigateNextResultPage: document.getElementById('navigate-next-result-page').value,
-    navigateKey: document.getElementById('navigate-key').value,
-    navigateNewTabKey: document.getElementById('navigate-new-tab-key').value,
-    navigateNewTabBackgroundKey: document.getElementById('navigate-new-tab-background-key').value,
-    navigateSearchTab: document.getElementById('navigate-search-tab').value,
-    navigateImagesTab: document.getElementById('navigate-images-tab').value,
-    navigateVideosTab: document.getElementById('navigate-videos-tab').value,
-    navigateMapsTab: document.getElementById('navigate-maps-tab').value,
-    navigateNewsTab: document.getElementById('navigate-news-tab').value,
-    navigateShoppingTab: document.getElementById('navigate-shopping-tab').value,
-    navigateBooksTab: document.getElementById('navigate-books-tab').value,
-    navigateFlightsTab: document.getElementById('navigate-flights-tab').value,
-    navigateFinancialTab: document.getElementById('navigate-financial-tab').value,
-    focusSearchInput: document.getElementById('focus-search-input').value,
-    navigateShowAll: document.getElementById('navigate-show-all').value,
-    navigateShowHour: document.getElementById('navigate-show-hour').value,
-    navigateShowDay: document.getElementById('navigate-show-day').value,
-    navigateShowWeek: document.getElementById('navigate-show-week').value,
-    navigateShowMonth: document.getElementById('navigate-show-month').value,
-    navigateShowYear: document.getElementById('navigate-show-year').value,
-    toggleSort: document.getElementById('toggle-sort').value
-  };
-  for (let key in values) {
-    extension.options.sync.values[key] = values[key];
+
+  // handle checks separately
+  extension.options.sync.values.wrapNavigation = document.getElementById('wrap-navigation').checked
+  extension.options.sync.values.autoSelectFirst = document.getElementById('auto-select-first').checked
+
+  // update using div lookup
+  for(let key in divs) {
+    // set value, must split array with ,
+    extension.options.sync.values[key] =
+      document.getElementById(divs[key]).value.split(',').map(t => t.trim())
   }
+
+  // update the sync values and save
   return extension.options.sync.save().then(
     () => flashMessage('Options saved.'),
     () => flashMessage('Error when saving options.')
@@ -52,59 +61,16 @@ const saveOptions = () => {
 // stored in chrome.storage.
 const restoreOptions = () => {
   extension.options.sync.load().then(() => {
-    const values = extension.options.sync.values;
-    document.getElementById('wrap-navigation').checked =
-      values.wrapNavigation;
-    document.getElementById('auto-select-first').checked =
-      values.autoSelectFirst;
-    document.getElementById('next-key').value =
-      values.nextKey;
-    document.getElementById('previous-key').value =
-      values.previousKey;
-    document.getElementById('navigate-previous-result-page').value =
-      values.navigatePreviousResultPage;
-    document.getElementById('navigate-next-result-page').value =
-      values.navigateNextResultPage;
-    document.getElementById('navigate-key').value =
-      values.navigateKey;
-    document.getElementById('navigate-new-tab-key').value =
-      values.navigateNewTabKey;
-    document.getElementById('navigate-new-tab-background-key').value =
-      values.navigateNewTabBackgroundKey;
-    document.getElementById('navigate-search-tab').value =
-      values.navigateSearchTab;
-    document.getElementById('navigate-images-tab').value =
-      values.navigateImagesTab;
-    document.getElementById('navigate-videos-tab').value =
-      values.navigateVideosTab;
-    document.getElementById('navigate-maps-tab').value =
-      values.navigateMapsTab;
-    document.getElementById('navigate-news-tab').value =
-      values.navigateNewsTab;
-    document.getElementById('navigate-shopping-tab').value =
-      values.navigateShoppingTab;
-    document.getElementById('navigate-books-tab').value =
-      values.navigateBooksTab;
-    document.getElementById('navigate-flights-tab').value =
-      values.navigateFlightsTab;
-    document.getElementById('navigate-financial-tab').value =
-      values.navigateFinancialTab;
-    document.getElementById('focus-search-input').value =
-      values.focusSearchInput;
-    document.getElementById('navigate-show-all').value =
-      values.navigateShowAll;
-    document.getElementById('navigate-show-hour').value =
-      values.navigateShowHour;
-    document.getElementById('navigate-show-day').value =
-      values.navigateShowDay;
-    document.getElementById('navigate-show-week').value =
-      values.navigateShowWeek;
-    document.getElementById('navigate-show-month').value =
-      values.navigateShowMonth;
-    document.getElementById('navigate-show-year').value =
-      values.navigateShowYear;
-    document.getElementById('toggle-sort').value =
-      values.toggleSort;
+
+    // handle checks separately
+    document.getElementById('wrap-navigation').checked = extension.options.sync.values.wrapNavigation;
+    document.getElementById('auto-select-first').checked = extension.options.sync.values.autoSelectFirst;
+
+    // update using div lookup
+    for(let key in divs) {
+      // set div, must join array with ,
+      document.getElementById(divs[key]).value = extension.options.sync.values[key].join(', ')
+    }
   });
 };
 
