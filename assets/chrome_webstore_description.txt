@@ -1,5 +1,8 @@
-New in 0.2.9:
+New is 0.2.91:
+* Changed keyboard handling to Mousetrap
+* Added keybindings for time filtering, relevance sorting
 
+New in 0.2.9:
 The issue is related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/google-search-navigator/issues/53
 * Removed tabs permission which caused a scary Chrome warning about a new
   permission in the extension to read "browsing history".
@@ -41,10 +44,10 @@ more vim like (j/k for navigation).
 *   `b`: Navigate to books tab
 *   `alt+l`: Navigate to flights tab
 *   `f`: Navigate to financial tab
-*	`Ctrl+Shift+h`: Filter results by past hour
-*	`Ctrl+Shift+d`: Filter results by past 24 hours (day)
-*	`Ctrl+Shift+w`: Filter results by past week
-*	`Ctrl+Shift+m`: Filter results by past month
-*	`Ctrl+Shift+y`: Filter results by past year
-*	`Ctrl+Shift+a`: Turn off filter (show all results)
-*	`Ctrl+Shift+s`: Toggle sort by date/relevance (only when filtering)
+*	`z h`: Filter results by past hour
+*	`z d`: Filter results by past 24 hours (day)
+*	`z w`: Filter results by past week
+*	`z m`: Filter results by past month
+*	`z y`: Filter results by past year
+*	`z z`: Turn off filter (show all results)
+*	`z s`: Toggle sort by date/relevance (only when filtering)

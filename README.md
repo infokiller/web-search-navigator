@@ -40,13 +40,13 @@ _Note: All shortcuts can be customized to your liking via options._
 *   `b`: Navigate to books tab
 *   `alt+l`: Navigate to flights tab
 *   `f`: Navigate to financial tab
-*	`Ctrl+Shift+h`: Filter results by past hour
-*	`Ctrl+Shift+d`: Filter results by past 24 hours (day)
-*	`Ctrl+Shift+w`: Filter results by past week
-*	`Ctrl+Shift+m`: Filter results by past month
-*	`Ctrl+Shift+y`: Filter results by past year
-*	`Ctrl+Shift+a`: Turn off filter (show all results)
-*	`Ctrl+Shift+s`: Toggle sort by date/relevance (only when filtering)
+*	`z h`: Filter results by past hour
+*	`z d`: Filter results by past 24 hours (day)
+*	`z w`: Filter results by past week
+*	`z m`: Filter results by past month
+*	`z y`: Filter results by past year
+*	`z z`: Turn off filter (show all results)
+*	`z s`: Toggle sort by date/relevance (only when filtering)
 
 ## Development
 
@@ -77,5 +77,4 @@ The automated build scripts are currently not implemented so manual process is r
 ## TODO
 
 *   Add option for navigating "Top stories"
-*   Remove Keymaster dependency and add functions for validation user provided
-    Keybindings
+*   Add validation user provided keybindings

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Search Navigator",
-    "version": "0.2.10",
+    "version": "0.2.91",
     "description": "Adds keyboard shortcuts to Google Search (google.com).",
     "applications": {
         "gecko": {
@@ -208,7 +208,7 @@
                 "*://encrypted.google.com/*"
             ],
             "js": [
-                "mousetrap.min.js",
+                "mousetrap.js",
                 "extension.js",
                 "main.js"
             ],

@@ -21,10 +21,13 @@
         <h3>Keybindings</h3>
         <div id="keybindings-help">
             All keybindings should be specified in
-            <a href="https://github.com/madrobby/keymaster" target="_blank">Keymaster</a> format. Examples:
+            <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
             <ul>
                 <li>
                     <kbd class="keybinding">a</kbd>
+                </li>
+                <li>
+                    <kbd class="keybinding">z y</kbd>
                 </li>
                 <li>
                     <kbd class="keybinding">ctrl+a</kbd>
@@ -33,7 +36,7 @@
                     <kbd class="keybinding">command+a</kbd>
                 </li>
                 <li>
-                    <kbd class="keybinding">a, ctrl+b, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
+                    <kbd class="keybinding">a, ctrl+b, z y, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
             </ul>
             Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown,
             del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
@@ -108,31 +111,31 @@
         </div>
         <div class="option">
             <label for="navigate-show-all" class="option-desc">Turn off filter (show all results)</label>
-            <input id="navigate-show-all" class="input-keybinding" type="text" value="ctrl+shift+a">
+            <input id="navigate-show-all" class="input-keybinding" type="text" value="z z">
         </div>
         <div class="option">
             <label for="navigate-show-hour" class="option-desc">Filter results by past hour</label>
-            <input id="navigate-show-hour" class="input-keybinding" type="text" value="ctrl+shift+h">
+            <input id="navigate-show-hour" class="input-keybinding" type="text" value="z h">
         </div>
         <div class="option">
             <label for="navigate-show-day" class="option-desc">Filter results by past 24 hours</label>
-            <input id="navigate-show-day" class="input-keybinding" type="text" value="ctrl+shift+d">
+            <input id="navigate-show-day" class="input-keybinding" type="text" value="z d">
         </div>
         <div class="option">
             <label for="navigate-show-week" class="option-desc">Filter results by past week</label>
-            <input id="navigate-show-week" class="input-keybinding" type="text" value="ctrl+shift+w">
+            <input id="navigate-show-week" class="input-keybinding" type="text" value="z w">
         </div>
         <div class="option">
             <label for="navigate-show-month" class="option-desc">Filter results by past month</label>
-            <input id="navigate-show-month" class="input-keybinding" type="text" value="ctrl+shift+m">
+            <input id="navigate-show-month" class="input-keybinding" type="text" value="z m">
         </div>
         <div class="option">
             <label for="navigate-show-year" class="option-desc">Filter results by past year</label>
-            <input id="navigate-show-year" class="input-keybinding" type="text" value="ctrl+shift+y">
+            <input id="navigate-show-year" class="input-keybinding" type="text" value="z y">
         </div>
         <div class="option">
             <label for="toggle-sort" class="option-desc">Toggle sort by date/relevance</label>
-            <input id="toggle-sort" class="input-keybinding" type="text" value="ctrl+shift+s">
+            <input id="toggle-sort" class="input-keybinding" type="text" value="z s">
         </div>
     </div>
 
