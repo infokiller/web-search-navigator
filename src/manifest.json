@@ -420,6 +420,10 @@
         "storage"
     ],
     "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
     "icons": {
         "16": "icon16.png",
         "48": "icon48.png",
