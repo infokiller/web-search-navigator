@@ -1,3 +1,6 @@
+New in 0.2.11:
+* Fixed options not being configurable for Firefox.
+
 New in 0.2.9:
 
 The issue is related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/google-search-navigator/issues/53
