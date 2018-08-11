@@ -344,6 +344,7 @@ function getGoogleSearchLinks() {
   return new SearchResultCollection(
     [document.querySelectorAll('h3.r a'), (n) => n.parentElement.parentElement],
     [document.querySelectorAll('div.zjbNbe > a'), null],
+    [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
     [document.querySelectorAll('#pnprev, #pnnext'), null]
   );
 }
