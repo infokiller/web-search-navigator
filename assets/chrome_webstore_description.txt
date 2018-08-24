@@ -1,3 +1,6 @@
+New in 0.2.12:
+* Added support for shopping results.
+
 New in 0.2.11:
 * Fixed options not being configurable for Firefox.
 
