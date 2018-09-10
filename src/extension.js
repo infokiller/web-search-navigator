@@ -139,7 +139,7 @@ const extension = {
   initCommonGoogleSearchNavigation() {
     const options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = document.getElementById('lst-ib');
+      const searchInput = getElementByXpath("//*[@id='searchform']//input[@name='q']");
       searchInput.focus();
       searchInput.select();
     });
