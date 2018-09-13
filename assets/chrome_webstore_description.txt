@@ -1,3 +1,6 @@
+New in 0.2.13:
+* Fixed "Focus searchbox" shortcut not working in some cases.
+
 New in 0.2.12:
 * Added support for shopping results.
 
