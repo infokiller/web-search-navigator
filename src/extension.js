@@ -341,8 +341,16 @@ function getQueryStringParams() {
 
 function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
+  if(document.querySelector('.LC20lb')!==null){ // check for new search results uses new search selector
+    return new SearchResultCollection(
+      [document.querySelectorAll('h3.LC20lb'), (n) => n.parentElement.parentElement], // new search results selector
+      [document.querySelectorAll('div.zjbNbe > a'), null],
+      [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
+      [document.querySelectorAll('#pnprev, #pnnext'), null]
+    );
+  }
   return new SearchResultCollection(
-    [document.querySelectorAll('h3.r a'), (n) => n.parentElement.parentElement],
+    [document.querySelectorAll('h3.r a'), (n) => n.parentElement.parentElement], // legacy search results selector
     [document.querySelectorAll('div.zjbNbe > a'), null],
     [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
     [document.querySelectorAll('#pnprev, #pnnext'), null]
