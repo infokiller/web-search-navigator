@@ -1,3 +1,6 @@
+New in 0.2.14:
+* Fixed search results matching in a new (or alternate?) Google Search version.
+
 New in 0.2.13:
 * Fixed "Focus searchbox" shortcut not working in some cases.
 
