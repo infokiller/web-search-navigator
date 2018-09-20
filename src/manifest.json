@@ -3,14 +3,39 @@
     "name": "Google Search Navigator",
     "version": "0.2.15",
     "description": "Adds keyboard shortcuts to Google Search (google.com).",
+    "author": "Google Search Navigator",
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
     "applications": {
         "gecko": {
             "id": "{ffadac89-63bb-4b04-be90-8cb2aa323171}",
             "strict_min_version": "48.0"
         }
     },
+    "permissions": ["storage"],
+    "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
     "content_scripts": [
         {
+            "js": [
+                "keymaster.js",
+                "extension.js",
+                "main.js"
+            ],
+            "css": [
+                "search_results.css"
+            ],
+            "run_at": "document_end",
             "matches": [
                 "*://www.google.com/search*",
                 "*://www.google.ad/search*",
@@ -206,32 +231,7 @@
                 "*://www.google.co.zw/search*",
                 "*://www.google.cat/search*",
                 "*://encrypted.google.com/*"
-            ],
-            "js": [
-                "keymaster.js",
-                "extension.js",
-                "main.js"
-            ],
-            "css": [
-                "search_results.css"
-            ],
-            "run_at": "document_end"
+            ]
         }
-    ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-    },
-    "permissions": ["storage"],
-    "options_page": "options.html",
-    "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
-    },
-    "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
-    },
-    "author": "Google Search Navigator"
+    ]
 }
