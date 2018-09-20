@@ -219,8 +219,8 @@
         }
     ],
     "background": {
-        "page": "background.html",
-        "persistent": true
+        "scripts": ["background.js"],
+        "persistent": false
     },
     "permissions": [
         "*://www.google.com/search*",
