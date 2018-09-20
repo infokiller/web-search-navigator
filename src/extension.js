@@ -241,9 +241,9 @@ function SearchResultCollection(...results) {
   // need to sort items by their document position)
   this.items.sort((a, b) => {
     const position = a.anchor.compareDocumentPosition(b.anchor);
-    if (position & Node.DOCUMENT_POSITION_FOLLOWING || position & Node.DOCUMENT_POSITION_CONTAINED_BY) {
+    if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
       return -1;
-    } else if (position & Node.DOCUMENT_POSITION_PRECEDING || position & Node.DOCUMENT_POSITION_CONTAINS) {
+    } else if (position & Node.DOCUMENT_POSITION_PRECEDING) {
       return 1;
     } else {
       return 0;
