@@ -140,27 +140,27 @@ const extension = {
   initCommonGoogleSearchNavigation() {
     const options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = getElementByXpath("//*[@id='searchform']//input[@name='q']");
+      const searchInput = document.querySelector("#searchform input[name=q]");
       searchInput.focus();
       searchInput.select();
     });
     const tabs = [
-      [options.navigateSearchTab, '//a[contains(@class, \'q qs\') and not (contains(@href, \'&tbm=\')) and not (contains(@href, \'maps.google.\'))]'],
-      [options.navigateImagesTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=isch\'))]'],
-      [options.navigateVideosTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=vid\'))]'],
-      [options.navigateMapsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'maps.google.\'))]'],
-      [options.navigateNewsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=nws\'))]'],
-      [options.navigateShoppingTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=shop\'))]'],
-      [options.navigateBooksTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=bks\'))]'],
-      [options.navigateFlightsTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=flm\'))]'],
-      [options.navigateFinancialTab, '//a[contains(@class, \'q qs\') and (contains(@href, \'&tbm=fin\'))]'],
-      [options.navigatePreviousResultPage, "//a[@id='pnprev']"],
-      [options.navigateNextResultPage, "//a[@id='pnnext']"]
+      [options.navigateSearchTab, 'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'],
+      [options.navigateImagesTab, 'a.q.qs[href*="&tbm=isch"]'],
+      [options.navigateVideosTab, 'a.q.qs[href*="&tbm=vid"]'],
+      [options.navigateMapsTab, 'a.q.qs[href*="maps.google."]'],
+      [options.navigateNewsTab, 'a.q.qs[href*="&tbm=nws"]'],
+      [options.navigateShoppingTab, 'a.q.qs[href*="&tbm=shop"]'],
+      [options.navigateBooksTab, 'a.q.qs[href*="&tbm=bks"]'],
+      [options.navigateFlightsTab, 'a.q.qs[href*="&tbm=flm"]'],
+      [options.navigateFinancialTab, 'a.q.qs[href*="&tbm=fin"]'],
+      [options.navigatePreviousResultPage, "#pnprev"],
+      [options.navigateNextResultPage, "#pnnext"]
     ];
     for (let i = 0; i < tabs.length; i++) {
       const tabCommand = tabs[i];
       this.register(tabCommand[0], () => {
-        const node = getElementByXpath(tabCommand[1]);
+        const node = document.querySelector(tabCommand[1]);
         if (node !== null) {
           location.href = node.href;
         }
@@ -331,10 +331,4 @@ function getGoogleSearchLinks() {
     [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
     [document.querySelectorAll('#pnprev, #pnnext'), null]
   );
-}
-
-function getElementByXpath(path) {
-  return document
-    .evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
-    .singleNodeValue;
 }
