@@ -342,7 +342,7 @@ function getQueryStringParams() {
 function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
   return new SearchResultCollection(
-    [document.querySelectorAll('#search .r > a:first-child'), (n) => n.parentElement.parentElement],
+    [document.querySelectorAll('#search .r > a:first-of-type'), (n) => n.parentElement.parentElement],
     [document.querySelectorAll('div.zjbNbe > a'), null],
     [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
     [document.querySelectorAll('#pnprev, #pnnext'), null]
