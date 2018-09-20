@@ -52,11 +52,10 @@ const extension = {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
-    const params = getQueryStringParams();
     const loadOptions = this.options.load();
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
-    if (params['tbm'] !== 'isch') {
+    if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
       loadOptions.then(() => this.initResultsNavigation());
@@ -322,23 +321,6 @@ function SearchResult(anchor, containerSelector) {
 
     return containerSelector(this.anchor);
   };
-}
-
-function getQueryStringParams() {
-  const encodedQueryString = window.location.search.slice(1);
-  const encodedParams = encodedQueryString.split('&');
-  const params = {};
-  for (const encodedParam of encodedParams) {
-    let [key, encodedValue] = encodedParam.split('=');
-    if (!encodedValue) {
-      encodedValue = '';
-    }
-    // + (plus sign) is not decoded by decodeURIComponent so we need to decode
-    // it manually.
-    encodedValue = encodedValue.replace(/\+/g, ' ');
-    params[key] = decodeURIComponent(encodedValue);
-  }
-  return params;
 }
 
 function getGoogleSearchLinks() {
