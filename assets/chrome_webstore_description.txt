@@ -1,3 +1,6 @@
+New in 0.2.15
+* Fixed "translate this site"-links being indexed as search results.
+
 New in 0.2.14:
 * Fixed search results matching in a new (or alternate?) Google Search version.
 
