@@ -1,8 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
+const browser = this.chrome && chrome.runtime ? chrome : this.browser;
+
 const extension = {
   options: {
     sync: new OptionSection(
-      chrome.storage.sync,
+      browser.storage.sync,
       {
         wrapNavigation: false,
         autoSelectFirst: true,
@@ -34,7 +36,7 @@ const extension = {
     ),
 
     local: new OptionSection(
-      chrome.storage.local,
+      browser.storage.local,
       {
         lastQueryUrl: null,
         lastFocusedIndex: 0
@@ -125,7 +127,7 @@ const extension = {
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
-      chrome.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
+      browser.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
     });
     this.register(options.navigateShowAll, () => this.changeTools('a'));
     this.register(options.navigateShowHour, () => this.changeTools('h'));
@@ -192,7 +194,7 @@ function OptionSection(storage, defaultValues) {
       this.storage.get(
         this.values,
         (values) => {
-          if (!chrome.runtime.lastError) {
+          if (!browser.runtime.lastError) {
             this.values = values;
           }
           resolve();
@@ -205,7 +207,7 @@ function OptionSection(storage, defaultValues) {
       this.storage.set(
         this.values,
         () => {
-          if (chrome.runtime.lastError) {
+          if (browser.runtime.lastError) {
             reject();
           }
           else {

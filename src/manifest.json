@@ -429,9 +429,5 @@
         "48": "icon48.png",
         "128": "icon128.png"
     },
-    "author": "Google Search Navigator",
-    "-ms-preload": {
-        "backgroundScript": "edge/backgroundScriptsAPIBridge.js",
-        "contentScript": "edge/contentScriptsAPIBridge.js"
-    }
+    "author": "Google Search Navigator"
 }
