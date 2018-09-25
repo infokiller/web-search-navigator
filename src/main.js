@@ -61,12 +61,11 @@ Object.assign(extension, {
         results.focusPrevious(options.wrapNavigation);
       }
     });
-    const that = this;
     this.register(options.navigateKey, () => {
       const link = results.items[results.focusedIndex];
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
-      that.options.local.save();
+      this.options.local.save();
       link.anchor.click();
     });
     this.register(options.navigateNewTabKey, () => {
