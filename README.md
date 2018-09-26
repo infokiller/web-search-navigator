@@ -13,7 +13,7 @@ NOTE: Due to temporary copyright issues (#59, #60) the extension was taken down 
 
 * for Chrome: Install from the [Chrome Web
 Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
-* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
+* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-web-search-navigator/).
 * for Microsoft Edge: Install from the [Microsoft Store](https://www.microsoft.com/store/apps/9P0PTV58KND9).
 
 ## Keybindings

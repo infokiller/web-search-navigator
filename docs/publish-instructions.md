@@ -15,6 +15,6 @@ Do this only once for all builds (Chrome, Firefox,...).
 
 * After completing pre-build instructions run `./tools/make-firefox.sh`.
 * The add-on archive will be placed under `./build/firefox/goole_search_navigator-<version>.zip`.
-* Open the [upload new version]((https://addons.mozilla.org/cs/developers/addon/the-google-search-navigator/versions/submit/)) page.
+* Open the [upload new version]((https://addons.mozilla.org/cs/developers/addon/the-web-search-navigator/versions/submit/)) page.
 * Only upload the produced archive and click "Continue".
 * Provide the version notes and you are done!   
