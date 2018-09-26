@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "Google Search Navigator",
-    "version": "0.2.15",
-    "description": "Adds keyboard shortcuts to Google Search (google.com).",
-    "author": "Google Search Navigator",
+    "name": "Web Search Navigator",
+    "version": "0.3.0",
+    "description": "Keyboard shortcuts for Google™ search.",
+    "author": "Web Search Navigator",
     "icons": {
         "16": "icon16.png",
         "48": "icon48.png",

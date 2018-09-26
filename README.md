@@ -1,12 +1,9 @@
-# ![Logo](./src/icon48.png?raw=true) Google Search Navigator
+# ![Logo](./src/icon48.png?raw=true) Web Search Navigator
 
 ![Demo flow](./assets/demo.gif?raw=true)
 
-This is a simple browser extension that enhances the keyboard navigation
-in Google Search. Google used to provide an experimental keyboard navigation for
-search results, but it was [often broken](https://goo.gl/1zMkYu), and seems to
-have been [removed as of
-2017-07-31](https://stackoverflow.com/a/45513198/1014208).
+Simple browser extension that adds keyboard shortcuts to Google search™.
+Google search™ used to provide experimental keyboard navigation, but it was [often broken](https://goo.gl/1zMkYu), and seems to have been [removed as of 2017-07-31](https://stackoverflow.com/a/45513198/1014208).
 In addition, I wanted to add new keyboard shortcuts and the existing ones to be
 more vim like (j/k for navigation).
 
@@ -21,7 +18,7 @@ Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/coham
 
 ## Keybindings
 
-_Note: All shortcuts can be customized to your liking via options._ 
+_Note: All shortcuts can be customized to your liking via options._
 
 *   `↓`/`j`: Select next search result
 *   `↑`/`k`: Select previous previous result
@@ -60,9 +57,9 @@ yarn install && yarn build
 The extension will be deployed directly to the `src` directory. You can load this directory as an unpacked extensions to
 your browser.
 
-_It would be better to deploy for example to `build/deploy` and add `gulp-watch` to update the deployed files 
-automatically. However when done so the browser's (Chrome) auto-reload extension gets broken and one has to reload the 
-extension manually on every change. Hence the `src` directory is used for the convenience._ 
+_It would be better to deploy for example to `build/deploy` and add `gulp-watch` to update the deployed files
+automatically. However when done so the browser's (Chrome) auto-reload extension gets broken and one has to reload the
+extension manually on every change. Hence the `src` directory is used for the convenience._
 
 ## Build
 
@@ -79,3 +76,9 @@ The automated build scripts are currently not implemented so manual process is r
 *   Add option for navigating "Top stories"
 *   Remove Keymaster dependency and add functions for validation user provided
     Keybindings
+
+## Trademarks notice
+
+This project is not affiliated with Google LLC.
+
+©2018 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.

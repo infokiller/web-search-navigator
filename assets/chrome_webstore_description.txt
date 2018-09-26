@@ -1,8 +1,11 @@
+New in 0.3.0
+* Renamed the extension to comply with the branding guidelines of Google LLC.
+
 New in 0.2.15
 * Fixed "translate this site"-links being indexed as search results.
 
 New in 0.2.14:
-* Fixed search results matching in a new (or alternate?) Google Search version.
+* Fixed search results matching in a new (or alternate?) Google™ search version.
 
 New in 0.2.13:
 * Fixed "Focus searchbox" shortcut not working in some cases.
@@ -15,10 +18,10 @@ New in 0.2.11:
 
 New in 0.2.9:
 
-The issue is related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/google-search-navigator/issues/53
 * Removed tabs permission which caused a scary Chrome warning about a new
-  permission in the extension to read "browsing history".
-  Note from author: sorry for that warning, but I can assure you that this extension DOES NOT READ ANY of your browsing history. You don't need to trust my word- you can read the source code in https://github.com/infokiller/google-search-navigator
+  permission in the extension to read "browsing history". The issue was related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/google-search-navigator/issues/53
+
+NOTE FROM AUTHOR: sorry for that warning, but I can assure you that this extension DOES NOT READ ANY of your browsing history. You don't need to trust my word- you can read the source code in https://github.com/infokiller/google-search-navigator
 
 New in 0.2.8:
 * Changed default key binding of "Open selected result in new window/tab" to `Ctrl/⌘ + Shift + Enter/Space`.
@@ -30,12 +33,12 @@ New in 0.2.5:
 * Keybindings for navigating to images/videos/maps/news tabs
 * Works in encrypted.google.com
 
-Simple open source extension that enhances the keyboard navigation
-in Google Search. Google used to provide an experimental keyboard navigation for
-search results, but it was often broken (https://goo.gl/1zMkYu), and seems to
-have been removed as of 2017-07-31 (https://stackoverflow.com/a/45513198/1014208).
-In addition, I wanted to add new keyboard shortcuts and the existing ones to be
-more vim like (j/k for navigation).
+Simple open source extension that adds keyboard shortcuts to Google search™.
+Google search™ used to provide experimental keyboard navigation, but it was
+often broken (https://goo.gl/1zMkYu), and seems to have been removed as of
+2017-07-31 (https://stackoverflow.com/a/45513198/1014208).  In addition, I
+wanted to add new keyboard shortcuts and the existing ones to be more vim like
+(j/k for navigation).
 
 ## Keybindings
 
@@ -63,3 +66,5 @@ more vim like (j/k for navigation).
 *	`Ctrl+Shift+y`: Filter results by past year
 *	`Ctrl+Shift+a`: Turn off filter (show all results)
 *	`Ctrl+Shift+s`: Toggle sort by date/relevance (only when filtering)
+
+©2018 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.

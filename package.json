@@ -1,6 +1,6 @@
 {
-  "name": "google-search-navigator",
-  "description": "Adds keyboard shortcuts to Google Search (google.com).",
+  "name": "web-search-navigator",
+  "description": "Keyboard shortcuts for Google™ search.",
   "repository": "https://github.com/infokiller/google-search-navigator",
   "author": "https://github.com/infokiller",
   "contributors": [

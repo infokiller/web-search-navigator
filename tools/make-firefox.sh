@@ -14,7 +14,7 @@
 # - npm (already bundled with nodejs)
 # - web-ext nodejs package (npm install --global web-ext)
 ##
-echo "Building Google Search Navigator for Firefox"
+echo "Building Web Search Navigator for Firefox"
 
 # copy the sources into the working directory
 BIN=build/firefox

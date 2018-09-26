@@ -4,7 +4,7 @@
 # This script builds the extension for the Chrome browser.
 #
 ##
-echo "Building Google Search Navigator for Chrome"
+echo "Building Web Search Navigator for Chrome"
 
 # copy the sources into the working directory
 BIN=build/chrome
