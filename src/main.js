@@ -70,9 +70,7 @@ Object.assign(extension, {
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
-      // NOTE: Firefox (tested in 58) somehow from single window.open() opened
-      // a link twice. Using timeout solves the issue.
-      window.setTimeout(() => window.open(link.anchor.href));
+      browser.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: true}});
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
