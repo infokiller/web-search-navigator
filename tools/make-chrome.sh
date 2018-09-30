@@ -18,6 +18,6 @@ mkdir -p "$OBJ"
 cp -R src/* "$OBJ"
 
 echo "Creating package..."
-zip -FS "$BIN/package.zip" $OBJ/*
+zip -FSj "$BIN/package.zip" $OBJ/*
 
 echo "Build complete"
