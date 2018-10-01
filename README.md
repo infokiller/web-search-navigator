@@ -9,12 +9,35 @@ more vim like (j/k for navigation).
 
 ## Installation
 
-NOTE: Due to temporary copyright issues (#59, #60) the extension was taken down on 2018-05-21. We expect it to be back on the store soon (pending a minor legal review by Google).
+### Chrome
 
-* for Chrome: Install from the [Chrome Web
-Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
-* for Firefox: Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-web-search-navigator/).
-* for Microsoft Edge: Install from the [Microsoft Store](https://www.microsoft.com/store/apps/9P0PTV58KND9).
+The extension is not available in the Chrome Web Store (see [explanation below](#why-is-the-extension-not-in-the-store)), so you will need to install it manually.
+
+#### Chrome manual installation
+
+1. Download the latest release from https://github.com/infokiller/web-search-navigator/releases
+1. Extract the zip file to any directory you'd like, though you need to make sure the directory is not deleted while you want to use the extension
+1. Go to extensions page in Chrome (URL: `chrome://extensions`)
+1. Enable developer mode if needed
+1. Disable other existing instances of Google Search Navigator (from the store or from loading another unpacked version)
+1. Click "Load Unpacked" and select the directory you extracted the release zip into
+
+#### Why is the extension not in the store?
+
+The extension used to be available in the Chrome Web Store but was removed
+because of copyright issues (see issue #60 for background). As of 2018-10-01, it
+is pending a legal review from Google. Assuming it passes the review, it should
+be back in the store in [this URL](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
+
+### Firefox
+
+Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-web-search-navigator/).
+
+### Edge
+
+The extension is not in the store and needs to be installed manually because of
+the same issue mentioned in the [Chrome instructions](#chrome).
+Once it will be added to the store, you will be able to install it [from here](https://www.microsoft.com/store/apps/9P0PTV58KND9).
 
 ## Keybindings
 
