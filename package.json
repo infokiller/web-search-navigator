@@ -24,6 +24,7 @@
     "gulp": "^4.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.1",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "prettier": "^1.14.3"
   }
 }
