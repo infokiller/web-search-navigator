@@ -177,10 +177,10 @@ function SearchResultCollection(...results) {
         );
     }
     const newItem = this.items[index];
-
     // exit if no new item
     if (!newItem) {
-      return (this.focusedIndex = -1);
+      this.focusedIndex = -1;
+      return;
     }
     newItem.anchor.classList.add('highlighted-search-result');
     newItem.anchor.focus();
@@ -236,13 +236,12 @@ function SearchResult(anchor, containerSelector) {
     if (!containerSelector) {
       return this.anchor;
     }
-
     return containerSelector(this.anchor);
   };
 }
 
 function getGoogleSearchLinks() {
-  // the nodes are returned in the document order which is what we want
+  // The nodes are returned in the document order, which is what we want.
   return new SearchResultCollection(
     [
       document.querySelectorAll('#search .r > a:first-of-type'),
