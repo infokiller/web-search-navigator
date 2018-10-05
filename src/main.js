@@ -183,7 +183,10 @@ function SearchResultCollection(...results) {
       return;
     }
     newItem.anchor.classList.add('highlighted-search-result');
-    newItem.anchor.focus();
+    // We already scroll below, so no need for focus to scroll. The scrolling
+    // behavior of `focus` also seems less predictable and caused an issue, see
+    // also: https://github.com/infokiller/web-search-navigator/issues/35
+    newItem.anchor.focus({ preventScroll: true });
     // ensure whole search result container is visible in the viewport, not only
     // the search result link
     const container = newItem.getContainer() || newItem.anchor;
