@@ -16,17 +16,18 @@ Object.assign(extension, {
 
   changeTools(period) {
     // Save current period and sort.
-    const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href)
-    const currPeriod = (res && res[1]) || ''
-    const currSort = (res && res[2]) || ''
+    const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);
+    const currPeriod = (res && res[1]) || '';
+    const currSort = (res && res[2]) || '';
     // Remove old period and sort.
-    const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '')
+    const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '');
     if (period) {
-      location.href = strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort)
-    }
-    else if (currPeriod) {
+      location.href =
+        strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort);
+    } else if (currPeriod) {
       // Can't apply sort when not using period.
-      location.href = strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1')
+      location.href =
+        strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1');
     }
   },
 
@@ -47,8 +48,7 @@ Object.assign(extension, {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
         isFirstNavigation = false;
-      }
-      else {
+      } else {
         results.focusNext(options.wrapNavigation);
       }
     });
@@ -56,8 +56,7 @@ Object.assign(extension, {
       if (!options.autoSelectFirst && isFirstNavigation) {
         results.focus(0);
         isFirstNavigation = false;
-      }
-      else {
+      } else {
         results.focusPrevious(options.wrapNavigation);
       }
     });
@@ -70,11 +69,17 @@ Object.assign(extension, {
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
-      browser.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: true}});
+      browser.runtime.sendMessage({
+        type: 'tabsCreate',
+        options: { url: link.anchor.href, active: true }
+      });
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
-      browser.runtime.sendMessage({type: 'tabsCreate', options: {url: link.anchor.href, active: false}});
+      browser.runtime.sendMessage({
+        type: 'tabsCreate',
+        options: { url: link.anchor.href, active: false }
+      });
     });
     this.register(options.navigateShowAll, () => this.changeTools('a'));
     this.register(options.navigateShowHour, () => this.changeTools('h'));
@@ -88,12 +93,15 @@ Object.assign(extension, {
   initCommonGoogleSearchNavigation() {
     const options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = document.querySelector("#searchform input[name=q]");
+      const searchInput = document.querySelector('#searchform input[name=q]');
       searchInput.focus();
       searchInput.select();
     });
     const tabs = [
-      [options.navigateSearchTab, 'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'],
+      [
+        options.navigateSearchTab,
+        'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'
+      ],
       [options.navigateImagesTab, 'a.q.qs[href*="&tbm=isch"]'],
       [options.navigateVideosTab, 'a.q.qs[href*="&tbm=vid"]'],
       [options.navigateMapsTab, 'a.q.qs[href*="maps.google."]'],
@@ -102,8 +110,8 @@ Object.assign(extension, {
       [options.navigateBooksTab, 'a.q.qs[href*="&tbm=bks"]'],
       [options.navigateFlightsTab, 'a.q.qs[href*="&tbm=flm"]'],
       [options.navigateFinancialTab, 'a.q.qs[href*="&tbm=fin"]'],
-      [options.navigatePreviousResultPage, "#pnprev"],
-      [options.navigateNextResultPage, "#pnnext"]
+      [options.navigatePreviousResultPage, '#pnprev'],
+      [options.navigateNextResultPage, '#pnnext']
     ];
     for (let i = 0; i < tabs.length; i++) {
       const tabCommand = tabs[i];
@@ -148,7 +156,7 @@ function SearchResultCollection(...results) {
       this.items.push(new SearchResult(node, containerSelector));
     }
   }
-  // need to sort items by their document position)
+  // Sort items by their document position.
   this.items.sort((a, b) => {
     const position = a.anchor.compareDocumentPosition(b.anchor);
     if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
@@ -163,13 +171,16 @@ function SearchResultCollection(...results) {
   this.focus = function(index) {
     if (this.focusedIndex >= 0) {
       // ensure previous focused item
-      this.items[this.focusedIndex] && this.items[this.focusedIndex].anchor.classList.remove('highlighted-search-result');
+      this.items[this.focusedIndex] &&
+        this.items[this.focusedIndex].anchor.classList.remove(
+          'highlighted-search-result'
+        );
     }
     const newItem = this.items[index];
 
     // exit if no new item
-    if(!newItem) {
-      return this.focusedIndex = -1
+    if (!newItem) {
+      return (this.focusedIndex = -1);
     }
     newItem.anchor.classList.add('highlighted-search-result');
     newItem.anchor.focus();
@@ -183,12 +194,11 @@ function SearchResultCollection(...results) {
     const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     // hardcoded height of the tooltip plus some margin
     const firefoxBottomDelta = 26;
-    const bottomDelta = (isFirefox ? firefoxBottomDelta: 0);
+    const bottomDelta = isFirefox ? firefoxBottomDelta : 0;
     if (containerBounds.top < 0) {
       // scroll container to top
       container.scrollIntoView(true);
-    }
-    else if (containerBounds.bottom + bottomDelta > window.innerHeight) {
+    } else if (containerBounds.bottom + bottomDelta > window.innerHeight) {
       // scroll container to bottom
       container.scrollIntoView(false);
       window.scrollBy(0, bottomDelta);
@@ -199,8 +209,7 @@ function SearchResultCollection(...results) {
     let nextIndex = 0;
     if (this.focusedIndex < this.items.length - 1) {
       nextIndex = this.focusedIndex + 1;
-    }
-    else if (!shouldWrap) {
+    } else if (!shouldWrap) {
       nextIndex = this.focusedIndex;
     }
     this.focus(nextIndex);
@@ -209,12 +218,11 @@ function SearchResultCollection(...results) {
     let previousIndex = this.items.length - 1;
     if (this.focusedIndex > 0) {
       previousIndex = this.focusedIndex - 1;
-    }
-    else if (!shouldWrap) {
+    } else if (!shouldWrap) {
       previousIndex = this.focusedIndex;
     }
     this.focus(previousIndex);
-  }
+  };
 }
 
 /**
@@ -236,7 +244,10 @@ function SearchResult(anchor, containerSelector) {
 function getGoogleSearchLinks() {
   // the nodes are returned in the document order which is what we want
   return new SearchResultCollection(
-    [document.querySelectorAll('#search .r > a:first-of-type'), (n) => n.parentElement.parentElement],
+    [
+      document.querySelectorAll('#search .r > a:first-of-type'),
+      n => n.parentElement.parentElement
+    ],
     [document.querySelectorAll('div.zjbNbe > a'), null],
     [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
     [document.querySelectorAll('#pnprev, #pnnext'), null]

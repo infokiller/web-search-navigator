@@ -1,6 +1,6 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
 
-const flashMessage = (message) => {
+const flashMessage = message => {
   // Update status to let user know.
   const status = document.getElementById('status');
   status.textContent = message;
@@ -16,11 +16,16 @@ const saveOptions = () => {
     autoSelectFirst: document.getElementById('auto-select-first').checked,
     nextKey: document.getElementById('next-key').value,
     previousKey: document.getElementById('previous-key').value,
-    navigatePreviousResultPage: document.getElementById('navigate-previous-result-page').value,
-    navigateNextResultPage: document.getElementById('navigate-next-result-page').value,
+    navigatePreviousResultPage: document.getElementById(
+      'navigate-previous-result-page'
+    ).value,
+    navigateNextResultPage: document.getElementById('navigate-next-result-page')
+      .value,
     navigateKey: document.getElementById('navigate-key').value,
     navigateNewTabKey: document.getElementById('navigate-new-tab-key').value,
-    navigateNewTabBackgroundKey: document.getElementById('navigate-new-tab-background-key').value,
+    navigateNewTabBackgroundKey: document.getElementById(
+      'navigate-new-tab-background-key'
+    ).value,
     navigateSearchTab: document.getElementById('navigate-search-tab').value,
     navigateImagesTab: document.getElementById('navigate-images-tab').value,
     navigateVideosTab: document.getElementById('navigate-videos-tab').value,
@@ -29,7 +34,8 @@ const saveOptions = () => {
     navigateShoppingTab: document.getElementById('navigate-shopping-tab').value,
     navigateBooksTab: document.getElementById('navigate-books-tab').value,
     navigateFlightsTab: document.getElementById('navigate-flights-tab').value,
-    navigateFinancialTab: document.getElementById('navigate-financial-tab').value,
+    navigateFinancialTab: document.getElementById('navigate-financial-tab')
+      .value,
     focusSearchInput: document.getElementById('focus-search-input').value,
     navigateShowAll: document.getElementById('navigate-show-all').value,
     navigateShowHour: document.getElementById('navigate-show-hour').value,
@@ -42,10 +48,12 @@ const saveOptions = () => {
   for (let key in values) {
     extension.options.sync.values[key] = values[key];
   }
-  return extension.options.sync.save().then(
-    () => flashMessage('Options saved.'),
-    () => flashMessage('Error when saving options.')
-  );
+  return extension.options.sync
+    .save()
+    .then(
+      () => flashMessage('Options saved.'),
+      () => flashMessage('Error when saving options.')
+    );
 };
 
 // Restores select box and checkbox state using the preferences
@@ -53,20 +61,16 @@ const saveOptions = () => {
 const restoreOptions = () => {
   extension.options.sync.load().then(() => {
     const values = extension.options.sync.values;
-    document.getElementById('wrap-navigation').checked =
-      values.wrapNavigation;
+    document.getElementById('wrap-navigation').checked = values.wrapNavigation;
     document.getElementById('auto-select-first').checked =
       values.autoSelectFirst;
-    document.getElementById('next-key').value =
-      values.nextKey;
-    document.getElementById('previous-key').value =
-      values.previousKey;
+    document.getElementById('next-key').value = values.nextKey;
+    document.getElementById('previous-key').value = values.previousKey;
     document.getElementById('navigate-previous-result-page').value =
       values.navigatePreviousResultPage;
     document.getElementById('navigate-next-result-page').value =
       values.navigateNextResultPage;
-    document.getElementById('navigate-key').value =
-      values.navigateKey;
+    document.getElementById('navigate-key').value = values.navigateKey;
     document.getElementById('navigate-new-tab-key').value =
       values.navigateNewTabKey;
     document.getElementById('navigate-new-tab-background-key').value =
@@ -77,10 +81,8 @@ const restoreOptions = () => {
       values.navigateImagesTab;
     document.getElementById('navigate-videos-tab').value =
       values.navigateVideosTab;
-    document.getElementById('navigate-maps-tab').value =
-      values.navigateMapsTab;
-    document.getElementById('navigate-news-tab').value =
-      values.navigateNewsTab;
+    document.getElementById('navigate-maps-tab').value = values.navigateMapsTab;
+    document.getElementById('navigate-news-tab').value = values.navigateNewsTab;
     document.getElementById('navigate-shopping-tab').value =
       values.navigateShoppingTab;
     document.getElementById('navigate-books-tab').value =
@@ -91,20 +93,17 @@ const restoreOptions = () => {
       values.navigateFinancialTab;
     document.getElementById('focus-search-input').value =
       values.focusSearchInput;
-    document.getElementById('navigate-show-all').value =
-      values.navigateShowAll;
+    document.getElementById('navigate-show-all').value = values.navigateShowAll;
     document.getElementById('navigate-show-hour').value =
       values.navigateShowHour;
-    document.getElementById('navigate-show-day').value =
-      values.navigateShowDay;
+    document.getElementById('navigate-show-day').value = values.navigateShowDay;
     document.getElementById('navigate-show-week').value =
       values.navigateShowWeek;
     document.getElementById('navigate-show-month').value =
       values.navigateShowMonth;
     document.getElementById('navigate-show-year').value =
       values.navigateShowYear;
-    document.getElementById('toggle-sort').value =
-      values.toggleSort;
+    document.getElementById('toggle-sort').value = values.toggleSort;
   });
 };
 
