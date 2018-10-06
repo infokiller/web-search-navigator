@@ -37,8 +37,9 @@ Object.assign(extension, {
     const results = getGoogleSearchLinks();
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
-      // Highlight the first result when the page is loaded.
-      results.focus(0);
+      // Highlight the first result when the page is loaded, but don't scroll to
+      // it because there may be KP cards such as stock graphs.
+      results.focus(0, false);
     }
     if (location.href === lastNavigation.lastQueryUrl) {
       isFirstNavigation = false;
@@ -168,13 +169,11 @@ function SearchResultCollection(...results) {
     }
   });
   this.focusedIndex = 0;
-  this.focus = function(index) {
+  this.focus = function(index, scrollToResult=true) {
     if (this.focusedIndex >= 0) {
-      // ensure previous focused item
-      this.items[this.focusedIndex] &&
-        this.items[this.focusedIndex].anchor.classList.remove(
-          'highlighted-search-result'
-        );
+      let item = this.items[this.focusedIndex];
+      // Remove highlighting from previous item.
+      item && item.anchor.classList.remove('highlighted-search-result');
     }
     const newItem = this.items[index];
     // exit if no new item
@@ -189,22 +188,9 @@ function SearchResultCollection(...results) {
     newItem.anchor.focus({ preventScroll: true });
     // ensure whole search result container is visible in the viewport, not only
     // the search result link
-    const container = newItem.getContainer() || newItem.anchor;
-    const containerBounds = container.getBoundingClientRect();
-    // firefox displays tooltip at the bottom which obstructs the view
-    // as a workaround ensure extra space from the bottom in the viewport
-    // firefox detection (https://stackoverflow.com/a/7000222/2870889)
-    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    // hardcoded height of the tooltip plus some margin
-    const firefoxBottomDelta = 26;
-    const bottomDelta = isFirefox ? firefoxBottomDelta : 0;
-    if (containerBounds.top < 0) {
-      // scroll container to top
-      container.scrollIntoView(true);
-    } else if (containerBounds.bottom + bottomDelta > window.innerHeight) {
-      // scroll container to bottom
-      container.scrollIntoView(false);
-      window.scrollBy(0, bottomDelta);
+    if (scrollToResult) {
+      const container = newItem.getContainer() || newItem.anchor;
+      scrollToElement(container);
     }
     this.focusedIndex = index;
   };
@@ -228,6 +214,25 @@ function SearchResultCollection(...results) {
   };
 }
 
+const scrollToElement = (element) => {
+  const elementBounds = element.getBoundingClientRect();
+  // firefox displays tooltip at the bottom which obstructs the view
+  // as a workaround ensure extra space from the bottom in the viewport
+  // firefox detection (https://stackoverflow.com/a/7000222/2870889)
+  const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  // hardcoded height of the tooltip plus some margin
+  const firefoxBottomDelta = 26;
+  const bottomDelta = isFirefox ? firefoxBottomDelta : 0;
+  if (elementBounds.top < 0) {
+    // scroll element to top
+    element.scrollIntoView(true);
+  } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
+    // scroll element to bottom
+    element.scrollIntoView(false);
+    window.scrollBy(0, bottomDelta);
+  }
+};
+
 /**
  * @param {Element} anchor
  * @param {function|null} containerSelector
@@ -243,7 +248,7 @@ function SearchResult(anchor, containerSelector) {
   };
 }
 
-function getGoogleSearchLinks() {
+const getGoogleSearchLinks = () => {
   // The nodes are returned in the document order, which is what we want.
   return new SearchResultCollection(
     [
