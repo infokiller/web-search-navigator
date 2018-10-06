@@ -1,3 +1,8 @@
+New in 0.3.2
+* Scroll to top of the page when navigating to the "previous" result from the
+  first result and wrapping is off.
+* Remove "People also ask" results from navigable results.
+
 New in 0.3.1
 * Fixed unpredictable scrolling in results navigation.
   See also https://github.com/infokiller/web-search-navigator/issues/35
@@ -24,7 +29,6 @@ New in 0.2.11:
 * Fixed options not being configurable for Firefox.
 
 New in 0.2.9:
-
 * Removed tabs permission which caused a scary Chrome warning about a new
   permission in the extension to read "browsing history". The issue was related to a new feature for opening a search result in the background- see the discussion in https://github.com/infokiller/web-search-navigator/issues/53
 

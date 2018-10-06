@@ -138,23 +138,30 @@ Object.assign(extension, {
 });
 
 /**
- * @param {...[Element[], function|null]} results The array of tuples.
+ * @param {...[Element[], function|null]} includedNodeLists An array of tuples.
  * Each tuple contains collection of the search results optionally accompanied
  * with their container selector.
  * @constructor
  */
-function SearchResultCollection(...results) {
+function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   /**
    * @type {SearchResult[]}
    */
   this.items = [];
-  for (let i = 0; i < results.length; i++) {
-    const params = results[i];
-    const nodes = params[0];
-    const containerSelector = params[1];
+  excludedResultsSet = new Set();
+  for (const nodes of excludedNodeLists) {
+    for (const node of nodes) {
+      excludedResultsSet.add(node);
+    }
+  }
+  for (const result of includedNodeLists) {
+    const nodes = result[0];
+    const containerSelector = result[1];
     for (let j = 0; j < nodes.length; j++) {
       const node = nodes[j];
-      this.items.push(new SearchResult(node, containerSelector));
+      if (!excludedResultsSet.has(node)) {
+        this.items.push(new SearchResult(node, containerSelector));
+      }
     }
   }
   // Sort items by their document position.
@@ -169,7 +176,7 @@ function SearchResultCollection(...results) {
     }
   });
   this.focusedIndex = 0;
-  this.focus = function(index, scrollToResult=true) {
+  this.focus = function(index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
       let item = this.items[this.focusedIndex];
       // Remove highlighting from previous item.
@@ -195,26 +202,24 @@ function SearchResultCollection(...results) {
     this.focusedIndex = index;
   };
   this.focusNext = function(shouldWrap) {
-    let nextIndex = 0;
     if (this.focusedIndex < this.items.length - 1) {
-      nextIndex = this.focusedIndex + 1;
-    } else if (!shouldWrap) {
-      nextIndex = this.focusedIndex;
+      this.focus(this.focusedIndex + 1);
+    } else if (shouldWrap) {
+      this.focus(0);
     }
-    this.focus(nextIndex);
   };
   this.focusPrevious = function(shouldWrap) {
-    let previousIndex = this.items.length - 1;
     if (this.focusedIndex > 0) {
-      previousIndex = this.focusedIndex - 1;
-    } else if (!shouldWrap) {
-      previousIndex = this.focusedIndex;
+      this.focus(this.focusedIndex - 1);
+    } else if (shouldWrap) {
+      this.focus(this.items.length - 1);
+    } else {
+      window.scrollTo(window.scrollX, 0);
     }
-    this.focus(previousIndex);
   };
 }
 
-const scrollToElement = (element) => {
+const scrollToElement = element => {
   const elementBounds = element.getBoundingClientRect();
   // firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
@@ -252,13 +257,16 @@ const getGoogleSearchLinks = () => {
   // The nodes are returned in the document order, which is what we want.
   return new SearchResultCollection(
     [
-      document.querySelectorAll('#search .r > a:first-of-type'),
-      n => n.parentElement.parentElement
+      [
+        document.querySelectorAll('#search .r > a:first-of-type'),
+        n => n.parentElement.parentElement
+      ],
+      [document.querySelectorAll('div.zjbNbe > a'), null],
+      [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
+      [document.querySelectorAll('#pnprev, #pnnext'), null]
     ],
-    [document.querySelectorAll('div.zjbNbe > a'), null],
-    [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
-    [document.querySelectorAll('#pnprev, #pnnext'), null]
+    [document.querySelectorAll('#search .kp-blk .r > a:first-of-type')]
   );
-}
+};
 
 extension.init();
