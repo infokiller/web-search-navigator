@@ -16,6 +16,7 @@ rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
 cp -R src/* "$OBJ"
+cp -R assets/icons/* "$OBJ"
 
 echo "Creating package..."
 zip -FSj "$BIN/package.zip" $OBJ/*

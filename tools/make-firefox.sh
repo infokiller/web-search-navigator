@@ -26,6 +26,7 @@ rm -rf "$OBJ"
 mkdir -p "$OBJ"
 
 cp -R src/* "$OBJ"
+cp -R assets/icons/* "$OBJ"
 
 # build and pack the package
 # do not sign as it would result in signed add-on intended for self-distribution
