@@ -1,9 +1,18 @@
-Object.assign(extension, {
+import { extensionData } from './extension';
+import * as util from './util';
+
+const browser = util.getBrowser();
+
+class Extension {
+  data: typeof extensionData;
+  constructor() {
+    this.data = extensionData;
+  }
   init() {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
-    const loadOptions = this.options.load();
+    const loadOptions = this.data.load();
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
@@ -12,9 +21,9 @@ Object.assign(extension, {
       loadOptions.then(() => this.initResultsNavigation());
     }
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
-  },
+  }
 
-  changeTools(period) {
+  changeTools(period: string | null) {
     // Save current period and sort.
     const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);
     const currPeriod = (res && res[1]) || '';
@@ -29,11 +38,11 @@ Object.assign(extension, {
       location.href =
         strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1');
     }
-  },
+  }
 
   initResultsNavigation() {
-    const options = this.options.sync.values;
-    const lastNavigation = this.options.local.values;
+    const options = this.data.options.values;
+    const state = this.data.state.values;
     const results = getGoogleSearchLinks();
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
@@ -41,9 +50,9 @@ Object.assign(extension, {
       // it because there may be KP cards such as stock graphs.
       results.focus(0, false);
     }
-    if (location.href === lastNavigation.lastQueryUrl) {
+    if (location.href === state.lastQueryUrl) {
       isFirstNavigation = false;
-      results.focus(lastNavigation.lastFocusedIndex);
+      results.focus(state.lastFocusedIndex);
     }
     this.register(options.nextKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
@@ -63,9 +72,9 @@ Object.assign(extension, {
     });
     this.register(options.navigateKey, () => {
       const link = results.items[results.focusedIndex];
-      lastNavigation.lastQueryUrl = location.href;
-      lastNavigation.lastFocusedIndex = results.focusedIndex;
-      this.options.local.save();
+      state.lastQueryUrl = location.href;
+      state.lastFocusedIndex = results.focusedIndex;
+      this.data.options.save();
       link.anchor.click();
     });
     this.register(options.navigateNewTabKey, () => {
@@ -89,12 +98,14 @@ Object.assign(extension, {
     this.register(options.navigateShowMonth, () => this.changeTools('m'));
     this.register(options.navigateShowYear, () => this.changeTools('y'));
     this.register(options.toggleSort, () => this.changeTools(null));
-  },
+  }
 
   initCommonGoogleSearchNavigation() {
-    const options = this.options.sync.values;
+    const options = this.data.options.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = document.querySelector('#searchform input[name=q]');
+      const searchInput = document.querySelector(
+        '#searchform input[name=q]'
+      ) as HTMLInputElement;
       searchInput.focus();
       searchInput.select();
     });
@@ -123,10 +134,10 @@ Object.assign(extension, {
         }
       });
     }
-  },
+  }
 
-  register(shortcut, callback) {
-    key(shortcut, function(event) {
+  register(shortcut: string, callback: () => void) {
+    key(shortcut, event => {
       callback();
       if (event !== null) {
         event.stopPropagation();
@@ -135,52 +146,78 @@ Object.assign(extension, {
       return false;
     });
   }
-});
+}
 
-/**
- * @param {...[Element[], function|null]} includedNodeLists An array of tuples.
- * Each tuple contains collection of the search results optionally accompanied
- * with their container selector.
- * @constructor
- */
-function SearchResultCollection(includedNodeLists, excludedNodeLists) {
-  /**
-   * @type {SearchResult[]}
-   */
-  this.items = [];
-  excludedResultsSet = new Set();
-  for (const nodes of excludedNodeLists) {
-    for (const node of nodes) {
-      excludedResultsSet.add(node);
-    }
+type ContainerSelector = ((e: Node) => Element) | null;
+
+class SearchResult {
+  anchor: HTMLAnchorElement;
+  containerSelector: ContainerSelector;
+
+  constructor(anchor: HTMLAnchorElement, containerSelector: ContainerSelector) {
+    this.anchor = anchor;
+    this.containerSelector = containerSelector;
   }
-  for (const result of includedNodeLists) {
-    const nodes = result[0];
-    const containerSelector = result[1];
-    for (let j = 0; j < nodes.length; j++) {
-      const node = nodes[j];
-      if (!excludedResultsSet.has(node)) {
-        this.items.push(new SearchResult(node, containerSelector));
+
+  getContainer() {
+    if (!this.containerSelector) {
+      return this.anchor;
+    }
+    return this.containerSelector(this.anchor);
+  }
+}
+
+class SearchResultCollection {
+  items: SearchResult[];
+  focusedIndex: number;
+
+  constructor(
+    includedNodeLists: Array<[NodeList, ContainerSelector]>,
+    excludedNodeLists: NodeList[]
+  ) {
+    this.items = [];
+    this.focusedIndex = 0;
+    const excludedResultsSet: Set<Node> = new Set();
+    for (const nodes of excludedNodeLists) {
+      nodes.forEach(node => {
+        excludedResultsSet.add(node);
+      });
+      // for (const node of nodes) {
+      //   excludedResultsSet.add(node);
+      // }
+    }
+    for (const result of includedNodeLists) {
+      const nodes = result[0];
+      const containerSelector = result[1];
+      for (let j = 0; j < nodes.length; j++) {
+        const node = nodes[j];
+        if (!excludedResultsSet.has(node)) {
+          this.items.push(
+            new SearchResult(node as HTMLAnchorElement, containerSelector)
+          );
+        }
       }
     }
+    // Sort items by their document position.
+    this.items.sort((a, b) => {
+      const position = a.anchor.compareDocumentPosition(b.anchor);
+      if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
+        return -1;
+      } else if (position & Node.DOCUMENT_POSITION_PRECEDING) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
-  // Sort items by their document position.
-  this.items.sort((a, b) => {
-    const position = a.anchor.compareDocumentPosition(b.anchor);
-    if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
-      return -1;
-    } else if (position & Node.DOCUMENT_POSITION_PRECEDING) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-  this.focusedIndex = 0;
-  this.focus = function(index, scrollToResult = true) {
+
+  focus(index: number, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
-      let item = this.items[this.focusedIndex];
+      const item = this.items[this.focusedIndex];
       // Remove highlighting from previous item.
-      item && item.anchor.classList.remove('highlighted-search-result');
+      if (item) {
+        item.anchor.classList.remove('highlighted-search-result');
+      }
     }
     const newItem = this.items[index];
     // exit if no new item
@@ -200,15 +237,17 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
       scrollToElement(container);
     }
     this.focusedIndex = index;
-  };
-  this.focusNext = function(shouldWrap) {
+  }
+
+  focusNext(shouldWrap: boolean) {
     if (this.focusedIndex < this.items.length - 1) {
       this.focus(this.focusedIndex + 1);
     } else if (shouldWrap) {
       this.focus(0);
     }
-  };
-  this.focusPrevious = function(shouldWrap) {
+  }
+
+  focusPrevious(shouldWrap: boolean) {
     if (this.focusedIndex > 0) {
       this.focus(this.focusedIndex - 1);
     } else if (shouldWrap) {
@@ -216,10 +255,10 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     } else {
       window.scrollTo(window.scrollX, 0);
     }
-  };
+  }
 }
 
-const scrollToElement = element => {
+const scrollToElement = (element: Element): void => {
   const elementBounds = element.getBoundingClientRect();
   // firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
@@ -238,28 +277,13 @@ const scrollToElement = element => {
   }
 };
 
-/**
- * @param {Element} anchor
- * @param {function|null} containerSelector
- * @constructor
- */
-function SearchResult(anchor, containerSelector) {
-  this.anchor = anchor;
-  this.getContainer = function() {
-    if (!containerSelector) {
-      return this.anchor;
-    }
-    return containerSelector(this.anchor);
-  };
-}
-
 const getGoogleSearchLinks = () => {
   // The nodes are returned in the document order, which is what we want.
   return new SearchResultCollection(
     [
       [
         document.querySelectorAll('#search .r > a:first-of-type'),
-        n => n.parentElement.parentElement
+        (n: Node): Element => n.parentElement!.parentElement!
       ],
       [document.querySelectorAll('div.zjbNbe > a'), null],
       [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
@@ -269,4 +293,5 @@ const getGoogleSearchLinks = () => {
   );
 };
 
+const extension = new Extension();
 extension.init();

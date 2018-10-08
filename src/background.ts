@@ -1,6 +1,8 @@
-const browser = this.chrome && chrome.runtime ? chrome : this.browser;
+import * as util from './util';
 
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+const browser = util.getBrowser();
+
+browser.runtime.onMessage.addListener((request, {}, {}) => {
   if (request.type === 'tabsCreate') {
     browser.tabs.create({
       url: request.options.url,
