@@ -1,5 +1,5 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
-import { extensionData } from './extension';
+import {extensionData} from './extension';
 
 const getRequiredInput = (id: string): HTMLInputElement => {
   return document.getElementById(id) as HTMLInputElement;
@@ -21,15 +21,13 @@ const saveOptions = () => {
     autoSelectFirst: getRequiredInput('auto-select-first').checked,
     nextKey: getRequiredInput('next-key').value,
     previousKey: getRequiredInput('previous-key').value,
-    navigatePreviousResultPage: getRequiredInput(
-      'navigate-previous-result-page'
-    ).value,
+    navigatePreviousResultPage:
+        getRequiredInput('navigate-previous-result-page').value,
     navigateNextResultPage: getRequiredInput('navigate-next-result-page').value,
     navigateKey: getRequiredInput('navigate-key').value,
     navigateNewTabKey: getRequiredInput('navigate-new-tab-key').value,
-    navigateNewTabBackgroundKey: getRequiredInput(
-      'navigate-new-tab-background-key'
-    ).value,
+    navigateNewTabBackgroundKey:
+        getRequiredInput('navigate-new-tab-background-key').value,
     navigateSearchTab: getRequiredInput('navigate-search-tab').value,
     navigateImagesTab: getRequiredInput('navigate-images-tab').value,
     navigateVideosTab: getRequiredInput('navigate-videos-tab').value,
@@ -51,12 +49,9 @@ const saveOptions = () => {
   for (const [key, value] of Object.entries(values)) {
     extensionData.options.values[key] = value;
   }
-  return extensionData.options
-    .save()
-    .then(
+  return extensionData.options.save().then(
       () => flashMessage('Options saved.'),
-      () => flashMessage('Error when saving options.')
-    );
+      () => flashMessage('Error when saving options.'));
 };
 
 // Restores select box and checkbox state using the preferences
@@ -69,24 +64,24 @@ const restoreOptions = () => {
     getRequiredInput('next-key').value = values.nextKey;
     getRequiredInput('previous-key').value = values.previousKey;
     getRequiredInput('navigate-previous-result-page').value =
-      values.navigatePreviousResultPage;
+        values.navigatePreviousResultPage;
     getRequiredInput('navigate-next-result-page').value =
-      values.navigateNextResultPage;
+        values.navigateNextResultPage;
     getRequiredInput('navigate-key').value = values.navigateKey;
     getRequiredInput('navigate-new-tab-key').value = values.navigateNewTabKey;
     getRequiredInput('navigate-new-tab-background-key').value =
-      values.navigateNewTabBackgroundKey;
+        values.navigateNewTabBackgroundKey;
     getRequiredInput('navigate-search-tab').value = values.navigateSearchTab;
     getRequiredInput('navigate-images-tab').value = values.navigateImagesTab;
     getRequiredInput('navigate-videos-tab').value = values.navigateVideosTab;
     getRequiredInput('navigate-maps-tab').value = values.navigateMapsTab;
     getRequiredInput('navigate-news-tab').value = values.navigateNewsTab;
     getRequiredInput('navigate-shopping-tab').value =
-      values.navigateShoppingTab;
+        values.navigateShoppingTab;
     getRequiredInput('navigate-books-tab').value = values.navigateBooksTab;
     getRequiredInput('navigate-flights-tab').value = values.navigateFlightsTab;
     getRequiredInput('navigate-financial-tab').value =
-      values.navigateFinancialTab;
+        values.navigateFinancialTab;
     getRequiredInput('focus-search-input').value = values.focusSearchInput;
     getRequiredInput('navigate-show-all').value = values.navigateShowAll;
     getRequiredInput('navigate-show-hour').value = values.navigateShowHour;

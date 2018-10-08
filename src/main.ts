@@ -1,4 +1,4 @@
-import { extensionData } from './extension';
+import {extensionData} from './extension';
 import * as util from './util';
 
 const browser = util.getBrowser();
@@ -13,8 +13,8 @@ class Extension {
       return;
     }
     const loadOptions = this.data.load();
-    // Don't initialize results navigation on image search, since it doesn't work
-    // there.
+    // Don't initialize results navigation on image search, since it doesn't
+    // work there.
     if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
@@ -23,7 +23,7 @@ class Extension {
     loadOptions.then(() => this.initCommonGoogleSearchNavigation());
   }
 
-  changeTools(period: string | null) {
+  changeTools(period: string|null) {
     // Save current period and sort.
     const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);
     const currPeriod = (res && res[1]) || '';
@@ -31,12 +31,12 @@ class Extension {
     // Remove old period and sort.
     const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '');
     if (period) {
-      location.href =
-        strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort);
+      location.href = strippedHref +
+          (period === 'a' ? '' : '&tbs=qdr:' + period + currSort);
     } else if (currPeriod) {
       // Can't apply sort when not using period.
       location.href =
-        strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1');
+          strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1');
     }
   }
 
@@ -79,16 +79,14 @@ class Extension {
     });
     this.register(options.navigateNewTabKey, () => {
       const link = results.items[results.focusedIndex];
-      browser.runtime.sendMessage({
-        type: 'tabsCreate',
-        options: { url: link.anchor.href, active: true }
-      });
+      browser.runtime.sendMessage(
+          {type: 'tabsCreate', options: {url: link.anchor.href, active: true}});
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = results.items[results.focusedIndex];
       browser.runtime.sendMessage({
         type: 'tabsCreate',
-        options: { url: link.anchor.href, active: false }
+        options: {url: link.anchor.href, active: false}
       });
     });
     this.register(options.navigateShowAll, () => this.changeTools('a'));
@@ -103,9 +101,8 @@ class Extension {
   initCommonGoogleSearchNavigation() {
     const options = this.data.options.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = document.querySelector(
-        '#searchform input[name=q]'
-      ) as HTMLInputElement;
+      const searchInput = document.querySelector('#searchform input[name=q]') as
+          HTMLInputElement;
       searchInput.focus();
       searchInput.select();
     });
@@ -148,7 +145,7 @@ class Extension {
   }
 }
 
-type ContainerSelector = ((e: Node) => Element) | null;
+type ContainerSelector = ((e: Node) => Element)|null;
 
 class SearchResult {
   anchor: HTMLAnchorElement;
@@ -172,9 +169,8 @@ class SearchResultCollection {
   focusedIndex: number;
 
   constructor(
-    includedNodeLists: Array<[NodeList, ContainerSelector]>,
-    excludedNodeLists: NodeList[]
-  ) {
+      includedNodeLists: Array<[NodeList, ContainerSelector]>,
+      excludedNodeLists: NodeList[]) {
     this.items = [];
     this.focusedIndex = 0;
     const excludedResultsSet: Set<Node> = new Set();
@@ -193,8 +189,7 @@ class SearchResultCollection {
         const node = nodes[j];
         if (!excludedResultsSet.has(node)) {
           this.items.push(
-            new SearchResult(node as HTMLAnchorElement, containerSelector)
-          );
+              new SearchResult(node as HTMLAnchorElement, containerSelector));
         }
       }
     }
@@ -229,7 +224,7 @@ class SearchResultCollection {
     // We already scroll below, so no need for focus to scroll. The scrolling
     // behavior of `focus` also seems less predictable and caused an issue, see
     // also: https://github.com/infokiller/web-search-navigator/issues/35
-    newItem.anchor.focus({ preventScroll: true });
+    newItem.anchor.focus({preventScroll: true});
     // ensure whole search result container is visible in the viewport, not only
     // the search result link
     if (scrollToResult) {
@@ -280,17 +275,16 @@ const scrollToElement = (element: Element): void => {
 const getGoogleSearchLinks = () => {
   // The nodes are returned in the document order, which is what we want.
   return new SearchResultCollection(
-    [
       [
-        document.querySelectorAll('#search .r > a:first-of-type'),
-        (n: Node): Element => n.parentElement!.parentElement!
+        [
+          document.querySelectorAll('#search .r > a:first-of-type'),
+          (n: Node): Element => n.parentElement!.parentElement!
+        ],
+        [document.querySelectorAll('div.zjbNbe > a'), null],
+        [document.querySelectorAll('div.eIuuYe a'), null],  // shopping results
+        [document.querySelectorAll('#pnprev, #pnnext'), null]
       ],
-      [document.querySelectorAll('div.zjbNbe > a'), null],
-      [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
-      [document.querySelectorAll('#pnprev, #pnnext'), null]
-    ],
-    [document.querySelectorAll('#search .kp-blk .r > a:first-of-type')]
-  );
+      [document.querySelectorAll('#search .kp-blk .r > a:first-of-type')]);
 };
 
 const extension = new Extension();

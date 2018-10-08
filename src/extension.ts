@@ -12,7 +12,7 @@ const DEFAULT_OPTIONS = {
   navigateKey: 'return, space',
   navigateNewTabBackgroundKey: 'ctrl+return, command+return, ctrl+space',
   navigateNewTabKey:
-    'ctrl+shift+return, command+shift+return, ctrl+shift+space',
+      'ctrl+shift+return, command+shift+return, ctrl+shift+space',
   navigateSearchTab: 'a, s',
   navigateImagesTab: 'i',
   navigateVideosTab: 'v',
@@ -37,16 +37,16 @@ const DEFAULT_OPTIONS = {
  * @param {Object} defaultValues The default options.
  */
 class BrowserStorage {
-  storage: any;
-  values: any;
-  constructor(storage: any, defaultValues: any) {
+  storage: chrome.storage.StorageArea;
+  values: {};
+  constructor(storage: chrome.storage.StorageArea, defaultValues: {}) {
     this.storage = storage;
     this.values = defaultValues;
   }
 
   load() {
     return new Promise(resolve => {
-      this.storage.get(this.values, (values: any) => {
+      this.storage.get(this.values, (values: {}) => {
         if (!browser.runtime.lastError) {
           this.values = values;
         }
@@ -71,10 +71,8 @@ class BrowserStorage {
 export const extensionData = {
   options: new BrowserStorage(browser.storage.sync, DEFAULT_OPTIONS),
 
-  state: new BrowserStorage(browser.storage.local, {
-    lastQueryUrl: null,
-    lastFocusedIndex: 0
-  }),
+  state: new BrowserStorage(
+      browser.storage.local, {lastQueryUrl: null, lastFocusedIndex: 0}),
 
   load() {
     return Promise.all([this.state.load(), this.options.load()]);
