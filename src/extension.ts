@@ -37,12 +37,7 @@ const DEFAULT_OPTIONS = {
  * @param {Object} defaultValues The default options.
  */
 class BrowserStorage {
-  storage: chrome.storage.StorageArea;
-  values: {};
-  constructor(storage: chrome.storage.StorageArea, defaultValues: {}) {
-    this.storage = storage;
-    this.values = defaultValues;
-  }
+  constructor(public storage: chrome.storage.StorageArea, public values: any) {}
 
   load() {
     return new Promise(resolve => {

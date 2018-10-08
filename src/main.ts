@@ -122,8 +122,7 @@ class Extension {
       [options.navigatePreviousResultPage, '#pnprev'],
       [options.navigateNextResultPage, '#pnnext']
     ];
-    for (let i = 0; i < tabs.length; i++) {
-      const tabCommand = tabs[i];
+    for (const tabCommand of tabs) {
       this.register(tabCommand[0], () => {
         const node = document.querySelector(tabCommand[1]);
         if (node !== null) {
@@ -148,13 +147,9 @@ class Extension {
 type ContainerSelector = ((e: Node) => Element)|null;
 
 class SearchResult {
-  anchor: HTMLAnchorElement;
-  containerSelector: ContainerSelector;
-
-  constructor(anchor: HTMLAnchorElement, containerSelector: ContainerSelector) {
-    this.anchor = anchor;
-    this.containerSelector = containerSelector;
-  }
+  constructor(
+      public anchor: HTMLAnchorElement,
+      public containerSelector: ContainerSelector) {}
 
   getContainer() {
     if (!this.containerSelector) {
