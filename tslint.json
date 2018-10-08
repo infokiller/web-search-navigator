@@ -1,6 +1,10 @@
 {
   "extends": [
-    "gts/tslint.json"
-  ]
+    "gts/tslint.json",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-any": false
+  }
 }
 
