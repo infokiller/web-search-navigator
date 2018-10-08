@@ -1,3 +1,5 @@
+import keymaster = require('keymaster');
+
 import {extensionData} from './extension';
 import * as util from './util';
 
@@ -133,7 +135,7 @@ class Extension {
   }
 
   register(shortcut: string, callback: () => void) {
-    key(shortcut, event => {
+    keymaster(shortcut, (event: KeyboardEvent): boolean => {
       callback();
       if (event !== null) {
         event.stopPropagation();
