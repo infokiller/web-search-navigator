@@ -31,7 +31,7 @@ be back in the store in [this URL](https://chrome.google.com/webstore/detail/enh
 
 ### Firefox
 
-Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-web-search-navigator/).
+Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
 
 ### Edge
 
