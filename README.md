@@ -11,9 +11,10 @@ more vim like (j/k for navigation).
 
 ### Chrome
 
-The extension is not available in the Chrome Web Store (see [explanation below](#why-is-the-extension-not-in-the-store)), so you will need to install it manually.
+Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
+See below for downloading a release and installing it manually (not recommended since you won't get updates automatically).
 
-#### Chrome manual installation
+#### Installing from a release
 
 1. Download the latest release from https://github.com/infokiller/web-search-navigator/releases
 1. Extract the zip file to any directory you'd like, though you need to make sure the directory is not deleted while you want to use the extension
@@ -21,13 +22,6 @@ The extension is not available in the Chrome Web Store (see [explanation below](
 1. Enable developer mode if needed
 1. Disable other existing instances of Google Search Navigator (from the store or from loading another unpacked version)
 1. Click "Load Unpacked" and select the directory you extracted the release zip into
-
-#### Why is the extension not in the store?
-
-The extension used to be available in the Chrome Web Store but was removed
-because of copyright issues (see issue #60 for background). As of 2018-10-01, it
-is pending a legal review from Google. Assuming it passes the review, it should
-be back in the store in [this URL](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
 
 ### Firefox
 
