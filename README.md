@@ -11,7 +11,8 @@ more vim like (j/k for navigation).
 
 ### Chrome
 
-Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek)
+Install from the [Chrome Web Store](https://chrome.google.com/webstore/detail/enhanced-keyboard-navigat/cohamjploocgoejdfanacfgkhjkhdkek).
+
 See below for downloading a release and installing it manually (not recommended since you won't get updates automatically).
 
 #### Installing from a release
