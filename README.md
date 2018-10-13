@@ -30,9 +30,7 @@ Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/
 
 ### Edge
 
-The extension is not in the store and needs to be installed manually because of
-the same issue mentioned in the [Chrome instructions](#chrome).
-Once it will be added to the store, you will be able to install it [from here](https://www.microsoft.com/store/apps/9P0PTV58KND9).
+Install from the [Microsoft Store](https://www.microsoft.com/store/apps/9P0PTV58KND9).
 
 ## Keybindings
 
