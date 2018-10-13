@@ -95,6 +95,9 @@ The automated build scripts are currently not implemented so manual process is r
 *   Remove Keymaster dependency and add functions for validation user provided
     Keybindings
 
+## Privacy policy
+[Click here to read our privacy policy](./Privacy%20policy.md).
+
 ## Trademarks notice
 
 This project is not affiliated with Google LLC.
