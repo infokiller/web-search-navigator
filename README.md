@@ -96,7 +96,8 @@ The automated build scripts are currently not implemented so manual process is r
     Keybindings
 
 ## Privacy policy
-[Click here to read our privacy policy](./Privacy%20policy.md).
+
+See [PRIVACY_POLICY.md](./docs/PRIVACY_POLICY.md).
 
 ## Trademarks notice
 
