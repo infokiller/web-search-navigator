@@ -26,7 +26,7 @@ See below for downloading a release and installing it manually (not recommended 
 
 ### Firefox
 
-Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/the-google-search-navigator/).
+Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/web-search-navigator/).
 
 ### Edge
 
