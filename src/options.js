@@ -16,11 +16,20 @@ const saveOptions = () => {
     autoSelectFirst: document.getElementById('auto-select-first').checked,
     nextKey: document.getElementById('next-key').value,
     previousKey: document.getElementById('previous-key').value,
-    navigatePreviousResultPage: document.getElementById(
-      'navigate-previous-result-page'
-    ).value,
-    navigateNextResultPage: document.getElementById('navigate-next-result-page')
-      .value,
+    focusSpecificResult: [
+      document.getElementById('focus-0th-result').value,
+      document.getElementById('focus-1th-result').value,
+      document.getElementById('focus-2th-result').value,
+      document.getElementById('focus-3th-result').value,
+      document.getElementById('focus-4th-result').value,
+      document.getElementById('focus-5th-result').value,
+      document.getElementById('focus-6th-result').value,
+      document.getElementById('focus-7th-result').value,
+      document.getElementById('focus-8th-result').value,
+      document.getElementById('focus-9th-result').value,
+    ],
+    navigatePreviousResultPage: document.getElementById('navigate-previous-result-page').value,
+    navigateNextResultPage: document.getElementById('navigate-next-result-page').value,
     navigateKey: document.getElementById('navigate-key').value,
     navigateNewTabKey: document.getElementById('navigate-new-tab-key').value,
     navigateNewTabBackgroundKey: document.getElementById(
@@ -66,6 +75,16 @@ const restoreOptions = () => {
       values.autoSelectFirst;
     document.getElementById('next-key').value = values.nextKey;
     document.getElementById('previous-key').value = values.previousKey;
+    document.getElementById('focus-0th-result').value = values.focusSpecificResult[0];
+    document.getElementById('focus-1th-result').value = values.focusSpecificResult[1];
+    document.getElementById('focus-2th-result').value = values.focusSpecificResult[2];
+    document.getElementById('focus-3th-result').value = values.focusSpecificResult[3];
+    document.getElementById('focus-4th-result').value = values.focusSpecificResult[4];
+    document.getElementById('focus-5th-result').value = values.focusSpecificResult[5];
+    document.getElementById('focus-6th-result').value = values.focusSpecificResult[6];
+    document.getElementById('focus-7th-result').value = values.focusSpecificResult[7];
+    document.getElementById('focus-8th-result').value = values.focusSpecificResult[8];
+    document.getElementById('focus-9th-result').value = values.focusSpecificResult[9];
     document.getElementById('navigate-previous-result-page').value =
       values.navigatePreviousResultPage;
     document.getElementById('navigate-next-result-page').value =

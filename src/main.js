@@ -61,6 +61,11 @@ Object.assign(extension, {
         results.focusPrevious(options.wrapNavigation);
       }
     });
+    options.focusSpecificResult.forEach((focusNthResult, index) => {
+      this.register(focusNthResult, () => {
+        results.focus(index);
+      });
+    });
     this.register(options.navigateKey, () => {
       const link = results.items[results.focusedIndex];
       lastNavigation.lastQueryUrl = location.href;
