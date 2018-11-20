@@ -41,14 +41,16 @@ Object.assign(extension, {
    */
   getElementToActivate(results, linkOnly = false) {
     const focusedElement = document.activeElement;
-    const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
 
-    if (focusedElement !== null && (!linkOnly || isLink)) {
-      return focusedElement;
+    if (focusedElement !== null) {
+      const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
+
+      if (!linkOnly || isLink) {
+        return focusedElement;
+      }
     }
-    else {
-      return results.items[results.focusedIndex].anchor;
-    }
+
+    return results.items[results.focusedIndex].anchor;
   },
 
   initResultsNavigation() {
