@@ -33,7 +33,7 @@ Object.assign(extension, {
 
   /**
    * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
-   * over the highlighted result. Note that focused element does not have to be anchor <a> element.
+   * over the highlighted result. Note that the focused element does not have to be an anchor <a> element.
    *
    * @param {SearchResultCollection} results
    * @param {boolean} linkOnly If true the focused element is preferred only when it is a link with "href" attribute.
