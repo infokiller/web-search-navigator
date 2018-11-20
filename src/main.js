@@ -31,6 +31,26 @@ Object.assign(extension, {
     }
   },
 
+  /**
+   * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
+   * over the highlighted result. Note that focused element does not have to be anchor <a> element.
+   *
+   * @param {SearchResultCollection} results
+   * @param {boolean} linkOnly If true the focused element is preferred only when it is a link with "href" attribute.
+   * @return {Element}
+   */
+  getElementToActivate(results, linkOnly = false) {
+    const focusedElement = document.activeElement;
+    const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
+
+    if (focusedElement !== null && (!linkOnly || isLink)) {
+      return focusedElement;
+    }
+    else {
+      return results.items[results.focusedIndex].anchor;
+    }
+  },
+
   initResultsNavigation() {
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
@@ -62,24 +82,24 @@ Object.assign(extension, {
       }
     });
     this.register(options.navigateKey, () => {
-      const link = results.items[results.focusedIndex];
+      const link = this.getElementToActivate(results);
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = results.focusedIndex;
       this.options.local.save();
-      link.anchor.click();
+      link.click();
     });
     this.register(options.navigateNewTabKey, () => {
-      const link = results.items[results.focusedIndex];
+      const link = this.getElementToActivate(results, true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
-        options: { url: link.anchor.href, active: true }
+        options: { url: link.href, active: true }
       });
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
-      const link = results.items[results.focusedIndex];
+      const link = this.getElementToActivate(results, true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
-        options: { url: link.anchor.href, active: false }
+        options: { url: link.href, active: false }
       });
     });
     this.register(options.navigateShowAll, () => this.changeTools('a'));
