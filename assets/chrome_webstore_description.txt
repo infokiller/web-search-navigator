@@ -1,3 +1,8 @@
+New in 0.3.3
+* Link-opening shortcuts now prefer focused element over the highlighted
+  result. Hence it is possible to navigate to sub-results and other links
+  using the <tab> key.
+
 New in 0.3.2
 * Scroll to top of the page when navigating to the "previous" result from the
   first result and wrapping is off.
