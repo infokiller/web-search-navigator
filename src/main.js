@@ -1,8 +1,31 @@
 Object.assign(extension, {
+  searchboxSelector: '#searchform input[name=q]',
+
+  scopes: {
+    searchbox: 'searchbox',
+    other: 'other'
+  },
+
   init() {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
+
+    // initialize scoping
+    const defaultFilter = key.filter;
+    key.filter = (e) => {
+      const target = e.target || e.srcElement;
+
+      if (target.matches(this.searchboxSelector) ) {
+        key.setScope(this.scopes.searchbox);
+        return true;
+      }
+      else {
+        key.setScope(this.scopes.other);
+        return defaultFilter(e);
+      }
+    };
+
     const loadOptions = this.options.load();
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
@@ -116,10 +139,30 @@ Object.assign(extension, {
   initCommonGoogleSearchNavigation() {
     const options = this.options.sync.values;
     this.register(options.focusSearchInput, () => {
-      const searchInput = document.querySelector('#searchform input[name=q]');
-      searchInput.focus();
+      const searchInput = document.querySelector(this.searchboxSelector);
       searchInput.select();
+      searchInput.click();
     });
+    this.register(options.focusSearchInput, () => {
+      const searchInput = document.querySelector(this.searchboxSelector);
+      if (searchInput.selectionStart === 0 && searchInput.selectionEnd === searchInput.value.length) {
+        // everything is selected
+        // deselect all
+        searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+      }
+      else {
+        // closing search suggestions via document.body.click() or searchInput.blur() breaks the state of the google's
+        // controller. suggestion box is closed yet it won't re-appear on the next search box focus event.
+
+        // input can be blurred only when suggestion box is already closed hence blur event is queued
+        window.setTimeout(() => searchInput.blur());
+
+        // invoke the default handler which will close-up search suggestions properly (google's controller won't break)
+        // but it won't remove the focus
+        return true;
+      }
+    }, this.scopes.searchbox);
+
     const tabs = [
       [
         options.navigateSearchTab,
@@ -147,14 +190,16 @@ Object.assign(extension, {
     }
   },
 
-  register(shortcut, callback) {
-    key(shortcut, function(event) {
-      callback();
-      if (event !== null) {
+  register(shortcut, callback, scope = this.scopes.other) {
+    key(shortcut, scope, function(event) {
+      const result = callback();
+
+      if (result !== true && event !== null) {
         event.stopPropagation();
         event.preventDefault();
       }
-      return false;
+
+      return (result === undefined ? false : result);
     });
   }
 });
