@@ -2,6 +2,7 @@
 .envrc
 build/
 node_modules/
-src/keymaster.js
 yarn-error.log
 package-lock.json
+.DS_Store
+src/mousetrap.js

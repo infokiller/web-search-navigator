@@ -11,21 +11,6 @@ Object.assign(extension, {
       return;
     }
 
-    // initialize scoping
-    const defaultFilter = key.filter;
-    key.filter = (e) => {
-      const target = e.target || e.srcElement;
-
-      if (target.matches(this.searchboxSelector) ) {
-        key.setScope(this.scopes.searchbox);
-        return true;
-      }
-      else {
-        key.setScope(this.scopes.other);
-        return defaultFilter(e);
-      }
-    };
-
     const loadOptions = this.options.load();
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
@@ -161,7 +146,7 @@ Object.assign(extension, {
         // but it won't remove the focus
         return true;
       }
-    }, this.scopes.searchbox);
+    });
 
     const tabs = [
       [
@@ -190,8 +175,8 @@ Object.assign(extension, {
     }
   },
 
-  register(shortcut, callback, scope = this.scopes.other) {
-    key(shortcut, scope, function(event) {
+  register(shortcut, callback) {
+    Mousetrap.bind(shortcut, function(event) {
       const result = callback();
 
       if (result !== true && event !== null) {

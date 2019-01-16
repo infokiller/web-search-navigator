@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Web Search Navigator",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "description": "Keyboard shortcuts for Google™ search.",
     "author": "Web Search Navigator",
     "icons": {
@@ -28,7 +28,7 @@
     "content_scripts": [
         {
             "js": [
-                "keymaster.js",
+                "mousetrap.js",
                 "extension.js",
                 "main.js"
             ],
