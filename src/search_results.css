@@ -1,5 +1,5 @@
 .highlighted-search-result {
-  outline: none;
+  /* background-color: rgba(255, 49, 49, 0.3); */
 }
 
 .highlighted-search-result::before {
