@@ -25,6 +25,6 @@
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.8",
-    "prettier": "1.15.3"
+    "prettier": "1.16.0"
   }
 }
