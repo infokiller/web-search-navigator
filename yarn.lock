@@ -2209,10 +2209,10 @@ set-value@^2.0.0:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
-shellcheck@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-0.1.0.tgz#2f573383214b0f24d44fa4e61cfadb6183066815"
-  integrity sha512-/ACVouhFqVnwU2x1GxVicxvplOu9QeWihJIMApkVbdYmvbl1iTf2rSo/dXzDDadF8n+zbqYn3v981LUvMj86OA==
+shellcheck@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-0.2.2.tgz#70624245dba35220575bb67d796cd7b70e9ce888"
+  integrity sha512-pWZ9EgG3oMK2dRMgRWdMshWT3MgNVj7zlrPWzuelBf/N0N4zpQ7a4g4cHA1u9yS50tMrErp3eMEx7C5es1jg7Q==
 
 signal-exit@^3.0.0:
   version "3.0.2"
