@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "keymaster": "^1.6.2",
-    "shellcheck": "^0.1.0"
+    "shellcheck": "^0.2.3"
   },
   "devDependencies": {
     "gulp": "^4.0.0",
