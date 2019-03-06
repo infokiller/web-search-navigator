@@ -325,7 +325,7 @@ const getGoogleSearchLinks = () => {
   return new SearchResultCollection(
     [
       [
-        document.querySelectorAll('#search .r > a:first-of-type'),
+        document.querySelectorAll('#search .r > a:first-of-type, #search .r g-link > a:first-of-type'),
         n => n.parentElement.parentElement
       ],
       [document.querySelectorAll('div.zjbNbe > a'), null],
