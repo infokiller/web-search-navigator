@@ -1,30 +1,10 @@
 Object.assign(extension, {
   searchboxSelector: '#searchform input[name=q]',
 
-  scopes: {
-    searchbox: 'searchbox',
-    other: 'other'
-  },
-
   init() {
     if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
       return;
     }
-
-    // initialize scoping
-    const defaultFilter = key.filter;
-    key.filter = (e) => {
-      const target = e.target || e.srcElement;
-
-      if (target.matches(this.searchboxSelector) ) {
-        key.setScope(this.scopes.searchbox);
-        return true;
-      }
-      else {
-        key.setScope(this.scopes.other);
-        return defaultFilter(e);
-      }
-    };
 
     const loadOptions = this.options.load();
     // Don't initialize results navigation on image search, since it doesn't work
@@ -138,30 +118,36 @@ Object.assign(extension, {
 
   initCommonGoogleSearchNavigation() {
     const options = this.options.sync.values;
-    this.register(options.focusSearchInput, () => {
+
+    // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
+    this.registerGlobal(options.focusSearchInput, (event) => {
+      const target = event.target || event.srcElement;
       const searchInput = document.querySelector(this.searchboxSelector);
-      searchInput.select();
-      searchInput.click();
-    });
-    this.register(options.focusSearchInput, () => {
-      const searchInput = document.querySelector(this.searchboxSelector);
-      if (searchInput.selectionStart === 0 && searchInput.selectionEnd === searchInput.value.length) {
-        // everything is selected
-        // deselect all
-        searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+
+      // Handle keypress inside the search box.
+      if(target.matches(this.searchboxSelector) ) {
+        if (searchInput.selectionStart === 0 && searchInput.selectionEnd === searchInput.value.length) {
+          // Everything is selected; deselect all.
+          searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+        }
+        else {
+          // Closing search suggestions via document.body.click() or searchInput.blur() breaks the state of the google's
+          // controller. Suggestion box is closed yet it won't re-appear on the next search box focus event.
+
+          // Input can be blurred only when suggestion box is already closed hence blur event is queued.
+          window.setTimeout(() => searchInput.blur());
+
+          // Invoke the default handler which will close-up search suggestions properly (google's controller won't break),
+          // but it won't remove the focus.
+          return true;
+        }
       }
+      // Handle keypress outside search box.
       else {
-        // closing search suggestions via document.body.click() or searchInput.blur() breaks the state of the google's
-        // controller. suggestion box is closed yet it won't re-appear on the next search box focus event.
-
-        // input can be blurred only when suggestion box is already closed hence blur event is queued
-        window.setTimeout(() => searchInput.blur());
-
-        // invoke the default handler which will close-up search suggestions properly (google's controller won't break)
-        // but it won't remove the focus
-        return true;
+        searchInput.select();
+        searchInput.click();
       }
-    }, this.scopes.searchbox);
+    });
 
     const tabs = [
       [
@@ -190,16 +176,21 @@ Object.assign(extension, {
     }
   },
 
-  register(shortcut, callback, scope = this.scopes.other) {
-    key(shortcut, scope, function(event) {
-      const result = callback();
-
-      if (result !== true && event !== null) {
-        event.stopPropagation();
-        event.preventDefault();
+  registerGlobal(shortcut, callback) {
+    Mousetrap.bindGlobal(shortcut, function(event) {
+      const result = callback(event);
+      if(result !== true && event !== null) {
+        return false;
       }
+    });
+  },
 
-      return (result === undefined ? false : result);
+  register(shortcut, callback) {
+    Mousetrap.bind(shortcut, function(event) {
+      const result = callback();
+      if (result !== true && event !== null) {
+        return false;
+      }
     });
   }
 });
@@ -246,22 +237,28 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   this.focus = function(index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
       let item = this.items[this.focusedIndex];
-      // Remove highlighting from previous item.
-      item && item.anchor.classList.remove('highlighted-search-result');
+      // Remove focus outline from previous item.
+      item && item.anchor.classList.remove('focused-search-result');
+      item && item.anchor.classList.remove('no-outline');
     }
     const newItem = this.items[index];
-    // exit if no new item
+    // Exit if no new item.
     if (!newItem) {
       this.focusedIndex = -1;
       return;
     }
-    newItem.anchor.classList.add('highlighted-search-result');
+    // Add the focus outline and caret.
+    newItem.anchor.classList.add('focused-search-result');
+    // Hide focus outline if requested in options.
+    if(extension.options.sync.values.hideOutline) {
+      newItem.anchor.classList.add('no-outline');
+    }
     // We already scroll below, so no need for focus to scroll. The scrolling
     // behavior of `focus` also seems less predictable and caused an issue, see
-    // also: https://github.com/infokiller/web-search-navigator/issues/35
+    // also: https://github.com/infokiller/web-search-navigator/issues/35./
     newItem.anchor.focus({ preventScroll: true });
-    // ensure whole search result container is visible in the viewport, not only
-    // the search result link
+    // Ensure whole search result container is visible in the viewport, not only
+    // the search result link.
     if (scrollToResult) {
       const container = newItem.getContainer() || newItem.anchor;
       scrollToElement(container);
@@ -288,9 +285,9 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
 
 const scrollToElement = element => {
   const elementBounds = element.getBoundingClientRect();
-  // firefox displays tooltip at the bottom which obstructs the view
+  // Firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
-  // firefox detection (https://stackoverflow.com/a/7000222/2870889)
+  // firefox detection (https://stackoverflow.com/a/7000222/2870889).
   const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   // hardcoded height of the tooltip plus some margin
   const firefoxBottomDelta = 26;

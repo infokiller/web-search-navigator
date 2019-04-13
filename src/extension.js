@@ -5,32 +5,32 @@ const extension = {
   options: {
     sync: new OptionSection(browser.storage.sync, {
       wrapNavigation: false,
+      hideOutline: false,
       autoSelectFirst: true,
-      nextKey: 'down, j',
-      previousKey: 'up, k',
-      navigatePreviousResultPage: 'left, h',
-      navigateNextResultPage: 'right, l',
-      navigateKey: 'return, space',
-      navigateNewTabBackgroundKey: 'ctrl+return, command+return, ctrl+space',
-      navigateNewTabKey:
-        'ctrl+shift+return, command+shift+return, ctrl+shift+space',
-      navigateSearchTab: 'a, s',
-      navigateImagesTab: 'i',
-      navigateVideosTab: 'v',
-      navigateMapsTab: 'm',
-      navigateNewsTab: 'n',
-      navigateShoppingTab: 'alt+s',
-      navigateBooksTab: 'b',
-      navigateFlightsTab: 'alt+l',
-      navigateFinancialTab: 'f',
-      focusSearchInput: '/, escape',
-      navigateShowAll: 'ctrl+shift+a',
-      navigateShowHour: 'ctrl+shift+h',
-      navigateShowDay: 'ctrl+shift+d',
-      navigateShowWeek: 'ctrl+shift+w',
-      navigateShowMonth: 'ctrl+shift+m',
-      navigateShowYear: 'ctrl+shift+y',
-      toggleSort: 'ctrl+shift+s'
+      nextKey: ['down', 'j'],
+      previousKey: ['up', 'k'],
+      navigatePreviousResultPage: ['left', 'h'],
+      navigateNextResultPage: ['right', 'l'],
+      navigateKey: ['return', 'space'],
+      navigateNewTabBackgroundKey: ['ctrl+return', 'command+return', 'ctrl+space'],
+      navigateNewTabKey: ['ctrl+shift+return', 'command+shift+return', 'ctrl+shift+space'],
+      navigateSearchTab: ['a', 's'],
+      navigateImagesTab: ['i'],
+      navigateVideosTab: ['v'],
+      navigateMapsTab: ['m'],
+      navigateNewsTab: ['n'],
+      navigateShoppingTab: ['alt+s'],
+      navigateBooksTab: ['b'],
+      navigateFlightsTab: ['alt+l'],
+      navigateFinancialTab: ['f'],
+      focusSearchInput: ['/', 'escape'],
+      navigateShowAll: ['z z', 'ctrl+shift+a', 'command+shift+a'],
+      navigateShowHour: ['z h', 'ctrl+shift+h', 'command+shift+h'],
+      navigateShowDay: ['z d', 'ctrl+shift+d', 'command+shift+d'],
+      navigateShowWeek: ['z w', 'ctrl+shift+w', 'command+shift+w'],
+      navigateShowMonth: ['z m', 'ctrl+shift+m', 'command+shift+m'],
+      navigateShowYear: ['z y', 'ctrl+shift+y', 'command+shift+y'],
+      toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s']
     }),
 
     local: new OptionSection(browser.storage.local, {
@@ -45,8 +45,8 @@ const extension = {
 };
 
 /**
- * @param {StorageArea} storage The storage area to which this section will write.
- * @param {Object} defaultValues The default options.
+ * @param {StorageArea} Storage The storage area to which this section will write.
+ * @param {Object} DefaultValues The default options.
  * @constructor
  */
 function OptionSection(storage, defaultValues) {

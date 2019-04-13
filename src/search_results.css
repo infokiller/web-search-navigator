@@ -1,10 +1,11 @@
-.highlighted-search-result {
-  /* background-color: rgba(255, 49, 49, 0.3); */
-}
-
-.highlighted-search-result::before {
+.focused-search-result::before {
   content: "\25BA";
   margin-right: 25px;
   left: -25px;
   position: absolute;
+}
+
+.no-outline,
+.no-outline:focus  {
+  outline: none;
 }
