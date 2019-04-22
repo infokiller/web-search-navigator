@@ -21,7 +21,7 @@
     "shellcheck": "^0.2.3"
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
