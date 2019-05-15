@@ -11,7 +11,7 @@ const extension = {
       previousKey: ['up', 'k'],
       navigatePreviousResultPage: ['left', 'h'],
       navigateNextResultPage: ['right', 'l'],
-      navigateKey: ['return', 'space'],
+      navigateKey: ['return', 'space', 'o'],
       navigateNewTabBackgroundKey: ['ctrl+return', 'command+return', 'ctrl+space'],
       navigateNewTabKey: ['ctrl+shift+return', 'command+shift+return', 'ctrl+shift+space'],
       navigateSearchTab: ['a', 's'],
