@@ -14,9 +14,19 @@ const options = extension.options.sync.values;
  * Optionnal :
  *  - {CSS selector} HighlightedParentSelector
  */
+
 const searchEngines = [
     // Google
     {
+        init(loadOptions) {
+            // Don't initialize results navigation on image search, since it doesn't work
+            // there.
+            if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
+                // This file is loaded only after the DOM is ready, so no need to wait for
+                // DOMContentLoaded.
+                loadOptions.then(() => this.initResultsNavigation());
+            }
+        },
         // Must match search engine url
         urlPattern: /^(www|encrypted)\.google\./,
         // Must match search engine search box
@@ -88,6 +98,15 @@ const searchEngines = [
 
     // Startpage
     {
+        init(loadOptions) {
+            // Don't initialize results navigation on image search, since it doesn't work
+            // there.
+            if (!document.querySelector('div.layout-images')) {
+                // This file is loaded only after the DOM is ready, so no need to wait for
+                // DOMContentLoaded.
+                loadOptions.then(() => extension.initResultsNavigation());
+            }
+        },
         urlPattern: /^www\.startpage\./,
         searchBoxSelector: '.search-form__form input[id=q]',
         HighlightClass: 'startpage-focused-search-result',

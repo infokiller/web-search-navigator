@@ -1,14 +1,8 @@
 Object.assign(extension, {
   searchEngine: getSearchEngine(),
 
-   init(loadOptions) {
-    // Don't initialize results navigation on image search, since it doesn't work
-    // there.
-    if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
-      // This file is loaded only after the DOM is ready, so no need to wait for
-      // DOMContentLoaded.
-      loadOptions.then(() => this.initResultsNavigation());
-    }
+  init(loadOptions) {
+    this.searchEngine.init(loadOptions);
     loadOptions.then(() => this.initCommonSearchNavigation());
   },
   /**
