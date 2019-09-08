@@ -7,9 +7,9 @@ Object.assign(extension, {
     if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
-      loadOptions.then(() => this.initResultsNavigation(this.searchEngine));
+      loadOptions.then(() => this.initResultsNavigation());
     }
-    loadOptions.then(() => this.initCommonSearchNavigation(this.searchEngine.tabs));
+    loadOptions.then(() => this.initCommonSearchNavigation());
   },
   /**
    * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
@@ -33,10 +33,10 @@ Object.assign(extension, {
         return results.items[results.focusedIndex].anchor;
   },
 
-  initResultsNavigation(searchEngine) {
+  initResultsNavigation() {
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
-    const results = searchEngine.getSearchLinks();
+    const results = this.searchEngine.getSearchLinks();
 
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
@@ -91,16 +91,17 @@ Object.assign(extension, {
         }
       });
     });
-    this.register(options.navigateShowAll, () => searchEngine.changeTools('a'));
-    this.register(options.navigateShowHour, () => searchEngine.changeTools('h'));
-    this.register(options.navigateShowDay, () => searchEngine.changeTools('d'));
-    this.register(options.navigateShowWeek, () => searchEngine.changeTools('w'));
-    this.register(options.navigateShowMonth, () => searchEngine.changeTools('m'));
-    this.register(options.navigateShowYear, () => searchEngine.changeTools('y'));
-    this.register(options.toggleSort, () => searchEngine.changeTools(null));
+    this.register(options.navigateShowAll, () => this.searchEngine.changeTools('a'));
+    this.register(options.navigateShowHour, () => this.searchEngine.changeTools('h'));
+    this.register(options.navigateShowDay, () => this.searchEngine.changeTools('d'));
+    this.register(options.navigateShowWeek, () => this.searchEngine.changeTools('w'));
+    this.register(options.navigateShowMonth, () => this.searchEngine.changeTools('m'));
+    this.register(options.navigateShowYear, () => this.searchEngine.changeTools('y'));
+    this.register(options.toggleSort, () => this.searchEngine.changeTools(null));
   },
 
-  initCommonSearchNavigation(tabs) {
+  initCommonSearchNavigation() {
+    const tabs = this.searchEngine.tabs;
     const options = this.options.sync.values;
 
     // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
