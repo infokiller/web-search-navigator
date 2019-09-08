@@ -9,7 +9,7 @@ Object.assign(extension, {
       // DOMContentLoaded.
       loadOptions.then(() => this.initResultsNavigation(this.searchEngine));
     }
-    loadOptions.then(() => this.initCommonGoogleSearchNavigation(this.searchEngine.tabs));
+    loadOptions.then(() => this.initCommonSearchNavigation(this.searchEngine.tabs));
   },
   /**
    * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
@@ -100,7 +100,7 @@ Object.assign(extension, {
     this.register(options.toggleSort, () => searchEngine.changeTools(null));
   },
 
-  initCommonGoogleSearchNavigation(tabs) {
+  initCommonSearchNavigation(tabs) {
     const options = this.options.sync.values;
 
     // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
@@ -224,7 +224,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
       item.classList.remove(extension.searchEngine.HighlightClass);
       item.classList.remove('no-outline');
     }
-    const Highlighted = this.getHighlightedElement(index);
+    const highlighted = this.getHighlightedElement(index);
     const newItem = this.items[index]
     // Exit if no new item.
     if (!newItem) {
@@ -232,7 +232,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
       return;
     }
     // Add the focus outline and caret.
-    Highlighted.classList.add(extension.searchEngine.HighlightClass);
+    highlighted.classList.add(extension.searchEngine.HighlightClass);
     // Hide focus outline if requested in options.
     if (extension.options.sync.values.hideOutline) {
       newItem.anchor.classList.add('no-outline');
