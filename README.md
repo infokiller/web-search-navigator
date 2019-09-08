@@ -82,7 +82,7 @@ extension manually on every change. Hence the `src` directory is used for the co
 To deploy the production sources use:
 
 ```
-yarn build --production
+yarn build --env production
 ```
 
 The automated build scripts are currently not implemented so manual process is required afterward.
