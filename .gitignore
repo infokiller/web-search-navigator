@@ -8,3 +8,4 @@ package-lock.json
 src/mousetrap.js
 src/mousetrap-global-bind.js
 .eslintrc.js
+.vscode/

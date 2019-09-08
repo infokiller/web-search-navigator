@@ -31,6 +31,7 @@
                 "mousetrap.js",
                 "mousetrap-global-bind.js",
                 "extension.js",
+                "searchEngines.js",
                 "main.js"
             ],
             "css": [
@@ -38,6 +39,8 @@
             ],
             "run_at": "document_end",
             "matches": [
+                "*://www.startpage.com/sp/search*",
+                "*://www.startpage.com/do/dsearch*",
                 "*://www.google.com/search*",
                 "*://www.google.ad/search*",
                 "*://www.google.ae/search*",

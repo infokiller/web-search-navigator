@@ -4,6 +4,7 @@ const browser = this.chrome && chrome.runtime ? chrome : this.browser;
 const extension = {
   options: {
     sync: new OptionSection(browser.storage.sync, {
+      delay: 900,
       wrapNavigation: false,
       hideOutline: false,
       autoSelectFirst: true,

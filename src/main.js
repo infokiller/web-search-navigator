@@ -1,39 +1,16 @@
 Object.assign(extension, {
-  searchboxSelector: '#searchform input[name=q]',
+  searchEngine: getSearchEngine(),
 
-  init() {
-    if (!/^(www|encrypted)\.google\./.test(window.location.hostname)) {
-      return;
-    }
-
-    const loadOptions = this.options.load();
+   init(loadOptions) {
     // Don't initialize results navigation on image search, since it doesn't work
     // there.
     if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
       // This file is loaded only after the DOM is ready, so no need to wait for
       // DOMContentLoaded.
-      loadOptions.then(() => this.initResultsNavigation());
+      loadOptions.then(() => this.initResultsNavigation(this.searchEngine));
     }
-    loadOptions.then(() => this.initCommonGoogleSearchNavigation());
+    loadOptions.then(() => this.initCommonGoogleSearchNavigation(this.searchEngine.tabs));
   },
-
-  changeTools(period) {
-    // Save current period and sort.
-    const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);
-    const currPeriod = (res && res[1]) || '';
-    const currSort = (res && res[2]) || '';
-    // Remove old period and sort.
-    const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '');
-    if (period) {
-      location.href =
-        strippedHref + (period === 'a' ? '' : '&tbs=qdr:' + period + currSort);
-    } else if (currPeriod) {
-      // Can't apply sort when not using period.
-      location.href =
-        strippedHref + '&' + currPeriod + (currSort ? '' : ',sbd:1');
-    }
-  },
-
   /**
    * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
    * over the highlighted result. Note that the focused element does not have to be an anchor <a> element.
@@ -56,10 +33,11 @@ Object.assign(extension, {
     return results.items[results.focusedIndex].anchor;
   },
 
-  initResultsNavigation() {
+  initResultsNavigation(searchEngine) {
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
-    const results = getGoogleSearchLinks();
+    const results = searchEngine.getSearchLinks();
+
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded, but don't scroll to
@@ -97,40 +75,45 @@ Object.assign(extension, {
       const link = this.getElementToActivate(results, true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
-        options: { url: link.href, active: true }
+        options: {
+          url: link.href,
+          active: true
+        }
       });
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = this.getElementToActivate(results, true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
-        options: { url: link.href, active: false }
+        options: {
+          url: link.href,
+          active: false
+        }
       });
     });
-    this.register(options.navigateShowAll, () => this.changeTools('a'));
-    this.register(options.navigateShowHour, () => this.changeTools('h'));
-    this.register(options.navigateShowDay, () => this.changeTools('d'));
-    this.register(options.navigateShowWeek, () => this.changeTools('w'));
-    this.register(options.navigateShowMonth, () => this.changeTools('m'));
-    this.register(options.navigateShowYear, () => this.changeTools('y'));
-    this.register(options.toggleSort, () => this.changeTools(null));
+    this.register(options.navigateShowAll, () => searchEngine.changeTools('a'));
+    this.register(options.navigateShowHour, () => searchEngine.changeTools('h'));
+    this.register(options.navigateShowDay, () => searchEngine.changeTools('d'));
+    this.register(options.navigateShowWeek, () => searchEngine.changeTools('w'));
+    this.register(options.navigateShowMonth, () => searchEngine.changeTools('m'));
+    this.register(options.navigateShowYear, () => searchEngine.changeTools('y'));
+    this.register(options.toggleSort, () => searchEngine.changeTools(null));
   },
 
-  initCommonGoogleSearchNavigation() {
+  initCommonGoogleSearchNavigation(tabs) {
     const options = this.options.sync.values;
 
     // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
     this.registerGlobal(options.focusSearchInput, (event) => {
       const target = event.target || event.srcElement;
-      const searchInput = document.querySelector(this.searchboxSelector);
+      const searchInput = document.querySelector(this.searchEngine.searchBoxSelector);
 
       // Handle keypress inside the search box.
-      if(target.matches(this.searchboxSelector) ) {
+      if (target.matches(this.searchboxSelector)) {
         if (searchInput.selectionStart === 0 && searchInput.selectionEnd === searchInput.value.length) {
           // Everything is selected; deselect all.
           searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
-        }
-        else {
+        } else {
           // Closing search suggestions via document.body.click() or searchInput.blur() breaks the state of the google's
           // controller. Suggestion box is closed yet it won't re-appear on the next search box focus event.
 
@@ -149,44 +132,33 @@ Object.assign(extension, {
       }
     });
 
-    const tabs = [
-      [
-        options.navigateSearchTab,
-        'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'
-      ],
-      [options.navigateImagesTab, 'a.q.qs[href*="&tbm=isch"]'],
-      [options.navigateVideosTab, 'a.q.qs[href*="&tbm=vid"]'],
-      [options.navigateMapsTab, 'a.q.qs[href*="maps.google."]'],
-      [options.navigateNewsTab, 'a.q.qs[href*="&tbm=nws"]'],
-      [options.navigateShoppingTab, 'a.q.qs[href*="&tbm=shop"]'],
-      [options.navigateBooksTab, 'a.q.qs[href*="&tbm=bks"]'],
-      [options.navigateFlightsTab, 'a.q.qs[href*="&tbm=flm"]'],
-      [options.navigateFinancialTab, 'a.q.qs[href*="&tbm=fin"]'],
-      [options.navigatePreviousResultPage, '#pnprev'],
-      [options.navigateNextResultPage, '#pnnext']
-    ];
     for (let i = 0; i < tabs.length; i++) {
       const tabCommand = tabs[i];
       this.register(tabCommand[0], () => {
         const node = document.querySelector(tabCommand[1]);
         if (node !== null) {
-          location.href = node.href;
+          // Some search engines use forms instead of links for navigation
+          if (node.tagName == "FORM") {
+            node.submit()
+          } else {
+            location.href = node.href;
+          }
         }
       });
     }
   },
 
   registerGlobal(shortcut, callback) {
-    Mousetrap.bindGlobal(shortcut, function(event) {
+    Mousetrap.bindGlobal(shortcut, function (event) {
       const result = callback(event);
-      if(result !== true && event !== null) {
+      if (result !== true && event !== null) {
         return false;
       }
     });
   },
 
   register(shortcut, callback) {
-    Mousetrap.bind(shortcut, function(event) {
+    Mousetrap.bind(shortcut, function (event) {
       const result = callback();
       if (result !== true && event !== null) {
         return false;
@@ -207,11 +179,15 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
    */
   this.items = [];
   excludedResultsSet = new Set();
-  for (const nodes of excludedNodeLists) {
-    for (const node of nodes) {
-      excludedResultsSet.add(node);
+
+  if (excludedNodeLists !== undefined) {
+    for (const nodes of excludedNodeLists) {
+      for (const node of nodes) {
+        excludedResultsSet.add(node);
+      }
     }
   }
+
   for (const result of includedNodeLists) {
     const nodes = result[0];
     const containerSelector = result[1];
@@ -234,7 +210,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     }
   });
   this.focusedIndex = 0;
-  this.focus = function(index, scrollToResult = true) {
+  this.focus = function (index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
       let item = this.items[this.focusedIndex];
       // Remove focus outline from previous item.
@@ -250,13 +226,15 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     // Add the focus outline and caret.
     newItem.anchor.classList.add('focused-search-result');
     // Hide focus outline if requested in options.
-    if(extension.options.sync.values.hideOutline) {
+    if (extension.options.sync.values.hideOutline) {
       newItem.anchor.classList.add('no-outline');
     }
     // We already scroll below, so no need for focus to scroll. The scrolling
     // behavior of `focus` also seems less predictable and caused an issue, see
     // also: https://github.com/infokiller/web-search-navigator/issues/35./
-    newItem.anchor.focus({ preventScroll: true });
+    newItem.anchor.focus({
+      preventScroll: true
+    });
     // Ensure whole search result container is visible in the viewport, not only
     // the search result link.
     if (scrollToResult) {
@@ -265,14 +243,14 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     }
     this.focusedIndex = index;
   };
-  this.focusNext = function(shouldWrap) {
+  this.focusNext = function (shouldWrap) {
     if (this.focusedIndex < this.items.length - 1) {
       this.focus(this.focusedIndex + 1);
     } else if (shouldWrap) {
       this.focus(0);
     }
   };
-  this.focusPrevious = function(shouldWrap) {
+  this.focusPrevious = function (shouldWrap) {
     if (this.focusedIndex > 0) {
       this.focus(this.focusedIndex - 1);
     } else if (shouldWrap) {
@@ -309,7 +287,7 @@ const scrollToElement = element => {
  */
 function SearchResult(anchor, containerSelector) {
   this.anchor = anchor;
-  this.getContainer = function() {
+  this.getContainer = function () {
     if (!containerSelector) {
       return this.anchor;
     }
@@ -317,20 +295,27 @@ function SearchResult(anchor, containerSelector) {
   };
 }
 
-const getGoogleSearchLinks = () => {
-  // The nodes are returned in the document order, which is what we want.
-  return new SearchResultCollection(
-    [
-      [
-        document.querySelectorAll('#search .r > a:first-of-type, #search .r g-link > a:first-of-type'),
-        n => n.parentElement.parentElement
-      ],
-      [document.querySelectorAll('div.zjbNbe > a'), null],
-      [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
-      [document.querySelectorAll('#pnprev, #pnnext'), null]
-    ],
-    [document.querySelectorAll('#search .kp-blk .r > a:first-of-type')]
-  );
-};
+ /**
+  * Make functions sleeps
+  *
+  * Can be used with then() callback :
+  * sleep.then(() => { stuff to do after sleeps }),
+  * Or in an async function, like we do below extension initialization
+  * @param {*} milliseconds, How long you want your function to sleep
+  * @returns a Promise resolving a timeout
+  */
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
 
-extension.init();
+const loadOptions = extension.options.load();
+
+// Entry Point
+// Be sure to load options in order to read the delay and apply it
+loadOptions.then(() => {
+    const init = async () => {
+        await sleep(extension.options.sync.values.delay)
+        extension.init(loadOptions)
+    }
+    init()
+})

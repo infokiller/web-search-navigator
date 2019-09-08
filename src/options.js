@@ -43,8 +43,9 @@ const saveOptions = () => {
   extension.options.sync.values.wrapNavigation = document.getElementById('wrap-navigation').checked
   extension.options.sync.values.autoSelectFirst = document.getElementById('auto-select-first').checked
   extension.options.sync.values.hideOutline = document.getElementById('hide-outline').checked
+  extension.options.sync.values.delay = document.getElementById('delay').value
 
-  // Save options from divs. 
+  // Save options from divs.
   for(let key in divToOptionName) {
 
     // Options take commands as strings separated by commas.
@@ -69,8 +70,9 @@ const restoreOptions = () => {
     document.getElementById('wrap-navigation').checked = extension.options.sync.values.wrapNavigation;
     document.getElementById('auto-select-first').checked = extension.options.sync.values.autoSelectFirst;
     document.getElementById('hide-outline').checked = extension.options.sync.values.hideOutline;
+    document.getElementById('delay').value = extension.options.sync.values.delay;
 
-    // Restore options from divs. 
+    // Restore options from divs.
     for(let key in divToOptionName) {
 
       // Options are stored as arrays.
