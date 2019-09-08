@@ -1,8 +1,15 @@
-.focused-search-result::before {
+.default-focused-search-result::before {
   content: "\25BA";
   margin-right: 25px;
   left: -25px;
   position: absolute;
+}
+
+.startpage-focused-search-result {
+    border-color: #4caf50!important;
+    border-width: 2px;
+    border-style: double;
+    border-radius: 9px;
 }
 
 .no-outline,

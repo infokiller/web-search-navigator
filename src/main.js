@@ -20,17 +20,17 @@ Object.assign(extension, {
    * @return {Element}
    */
   getElementToActivate(results, linkOnly = false) {
-    const focusedElement = document.activeElement;
+        const focusedElement = document.activeElement;
 
-    if (focusedElement !== null) {
-      const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
+        if (focusedElement !== null) {
+          const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
 
-      if (!linkOnly || isLink) {
-        return focusedElement;
-      }
-    }
+          if (!linkOnly || isLink) {
+            return focusedElement;
+          }
+        }
 
-    return results.items[results.focusedIndex].anchor;
+        return results.items[results.focusedIndex].anchor;
   },
 
   initResultsNavigation(searchEngine) {
@@ -210,21 +210,29 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     }
   });
   this.focusedIndex = 0;
+  this.getHighlightedElement = function (index) {
+    if (extension.searchEngine.HighlightedParentSelector !== undefined) {
+        return this.items[index].anchor.closest(extension.searchEngine.HighlightedParentSelector)
+    } else {
+        return this.items[index].anchor
+    }
+  }
   this.focus = function (index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
-      let item = this.items[this.focusedIndex];
+      let item = this.getHighlightedElement(this.focusedIndex);
       // Remove focus outline from previous item.
-      item && item.anchor.classList.remove('focused-search-result');
-      item && item.anchor.classList.remove('no-outline');
+      item.classList.remove(extension.searchEngine.HighlightClass);
+      item.classList.remove('no-outline');
     }
-    const newItem = this.items[index];
+    const Highlighted = this.getHighlightedElement(index);
+    const newItem = this.items[index]
     // Exit if no new item.
     if (!newItem) {
       this.focusedIndex = -1;
       return;
     }
     // Add the focus outline and caret.
-    newItem.anchor.classList.add('focused-search-result');
+    Highlighted.classList.add(extension.searchEngine.HighlightClass);
     // Hide focus outline if requested in options.
     if (extension.options.sync.values.hideOutline) {
       newItem.anchor.classList.add('no-outline');

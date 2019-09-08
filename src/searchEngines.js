@@ -9,6 +9,10 @@ const options = extension.options.sync.values;
  *  - {CSS selector} searchBoxSelector
  *  - {SearchResultCollection} getSearchLinks()
  *  - {None} changeTools(period)
+ *  - {CSS class name} HighlightClass
+ *
+ * Optionnal :
+ *  - {CSS selector} HighlightedParentSelector
  */
 const searchEngines = [
     // Google
@@ -17,6 +21,7 @@ const searchEngines = [
         urlPattern: /^(www|encrypted)\.google\./,
         // Must match search engine search box
         searchBoxSelector: '#searchform input[name=q]',
+        HighlightClass: 'default-focused-search-result',
         /**
          * Array storing tuples of tabs name and their corresponding CSS selector
          */
@@ -85,13 +90,18 @@ const searchEngines = [
     {
         urlPattern: /^(www|encrypted)\.startpage\./,
         searchBoxSelector: '.search-form__form input[id=q]',
+        HighlightClass: 'startpage-focused-search-result',
+        // The HighlightClass style will be applied on the closest parent of the focused element matching this selector
+        // When not set, HighlightClass style is applied on the focused element itself
+        HighlightedParentSelector: '.w-gl__result',
+
         getSearchLinks () {
             return new SearchResultCollection(
                 [
                   [
-                    document.querySelectorAll('.w-gl--default.w-gl .w-gl__result > a.w-gl__result-url'),
-                    n => n.parentElement.parentElement
-                  ]
+                    document.querySelectorAll('.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
+                    n => n.parentElement.parentElement,
+                  ],
                 ]
               );
         },
