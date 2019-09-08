@@ -88,7 +88,7 @@ const searchEngines = [
 
     // Startpage
     {
-        urlPattern: /^(www|encrypted)\.startpage\./,
+        urlPattern: /^www\.startpage\./,
         searchBoxSelector: '.search-form__form input[id=q]',
         HighlightClass: 'startpage-focused-search-result',
         // The HighlightClass style will be applied on the closest parent of the focused element matching this selector
