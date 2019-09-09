@@ -24,7 +24,7 @@ const searchEngines = [
             if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
                 // This file is loaded only after the DOM is ready, so no need to wait for
                 // DOMContentLoaded.
-                loadOptions.then(() => this.initResultsNavigation());
+                loadOptions.then(() => extension.initResultsNavigation());
             }
         },
         // Must match search engine url
