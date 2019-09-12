@@ -242,7 +242,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     // the search result link.
     if (scrollToResult) {
       const container = newItem.getContainer() || newItem.anchor;
-      scrollToElement(container);
+      scrollToElement(container, extension.searchEngine.marginTop, extension.searchEngine.marginBottom);
     }
     this.focusedIndex = index;
   };
@@ -264,7 +264,10 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   };
 }
 
-const scrollToElement = element => {
+const scrollToElement = (element, marginTop, marginBottom) => {
+  // Only use margins if they exists
+  marginTop = marginTop || 0;
+  marginBottom = marginBottom || 0;
   const elementBounds = element.getBoundingClientRect();
   // Firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
@@ -272,10 +275,11 @@ const scrollToElement = element => {
   const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   // hardcoded height of the tooltip plus some margin
   const firefoxBottomDelta = 26;
-  const bottomDelta = isFirefox ? firefoxBottomDelta : 0;
-  if (elementBounds.top < 0) {
+  const bottomDelta = (isFirefox ? firefoxBottomDelta : 0) + marginBottom;
+  if (elementBounds.top < 0 + marginTop) {
     // scroll element to top
     element.scrollIntoView(true);
+    window.scrollBy(0, -marginTop);
   } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
     // scroll element to bottom
     element.scrollIntoView(false);

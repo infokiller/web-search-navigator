@@ -13,6 +13,9 @@ const options = extension.options.sync.values;
  *
  * Optionnal :
  *  - {CSS selector} HighlightedParentSelector
+ *  - {number} marginTop, Set this if top results are not entirely visisble
+ *  - {number} marginBottom, Set this if bottom results are not entirely visisble
+ *
  */
 
 const searchEngines = [
@@ -113,13 +116,13 @@ const searchEngines = [
         // The HighlightClass style will be applied on the closest parent of the focused element matching this selector
         // When not set, HighlightClass style is applied on the focused element itself
         HighlightedParentSelector: '.w-gl__result',
-
+        marginTop: document.querySelector('body > div.layout.layout--default > div.layout__header > div > div').offsetHeight,
         getSearchLinks () {
             return new SearchResultCollection(
                 [
                   [
                     document.querySelectorAll('.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
-                    n => n.parentElement.parentElement,
+                    n => n.parentElement,
                   ],
                 ]
               );
