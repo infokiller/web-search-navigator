@@ -11,9 +11,36 @@ const options = extension.options.sync.values;
  *  - {SearchResultCollection} getSearchLinks()
  *  - {None} changeTools(period)
  *  - {CSS class name} HighlightClass
+ *  - {Array} tabs
  *
- * Optionnal :
+ * Contexts :
+ *
+ * Some properties can be setted on specified context.
+ * For this, you need a contexts object inside your search engine object.
+ * As the name suggest, it hold contexts, that are function returning
+ * a boulean if a specified context is matched.
+ * For example, a context can be the presence of a special element in the
+ * page, indicating that you are on a page where you need the property.
+ *
+ * A context-able property must follow this structure :
+ *
+ * property: [value, [contextA, contextB], defaultValue]
+ *
+ * property will be setted to value when contextA or contextB will be true.
+ * If all contexts are false, it will be setted to defaultValue
+ *
+ * Note that context-able properties MUST have a context array containing
+ * at least one context. If you want to set the same value for all context
+ * You can use 'all' keyword :
+ *
+ * property: [value, ['all']]
+ *
+ * Context-able properties :
+ *
  *  - {CSS selector} HighlightedParentSelector
+ *      When setted, the closest parent element of the focused one matching this
+ *      Selector will be highlighted
+ *
  *  - {number} marginTop, Set this if top results are not entirely visisble
  *  - {number} marginBottom, Set this if bottom results are not entirely visisble
  *
@@ -22,6 +49,10 @@ const options = extension.options.sync.values;
 const searchEngines = [
     // Google
     {
+        /**
+         * @returns {boolean} true if result navigation keybindings can be,
+         *  initialized or false if only global keybindings can be initialized
+         */
         canInit() {
             // Don't initialize results navigation on image search, since it doesn't work
             // there.
@@ -136,6 +167,7 @@ const searchEngines = [
                     document.querySelectorAll('.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
                     n => n.parentElement,
                   ],
+                  [document.querySelectorAll('.vo-sp.vo-sp--default > a.vo-sp__link'), null],
                 ]
               );
         },
