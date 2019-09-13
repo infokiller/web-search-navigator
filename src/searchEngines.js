@@ -5,6 +5,7 @@ const options = extension.options.sync.values;
  *
  * A search engine object has to provide the following :
  *
+ *  - {boolean} canInit()
  *  - {regex} urlPattern
  *  - {CSS selector} searchBoxSelector
  *  - {SearchResultCollection} getSearchLinks()
@@ -21,7 +22,7 @@ const options = extension.options.sync.values;
 const searchEngines = [
     // Google
     {
-        init() {
+        canInit() {
             // Don't initialize results navigation on image search, since it doesn't work
             // there.
             return !this.contexts.images()
@@ -102,7 +103,7 @@ const searchEngines = [
 
     // Startpage
     {
-        init() {
+        canInit() {
             // Don't initialize results navigation on image search, since it doesn't work
             // there.
             return !this.contexts.images();
@@ -126,8 +127,8 @@ const searchEngines = [
         HighlightClass: 'startpage-focused-search-result',
         // The HighlightClass style will be applied on the closest parent of the focused element matching this selector
         // When not set, HighlightClass style is applied on the focused element itself
-        HighlightedParentSelector: '.w-gl__result',
-        marginTop: getFromContext('search', 113, 0),
+        HighlightedParentSelector: ['.w-gl__result', ['search'], null],
+        marginTop: [113, ['search'], 0],
         getSearchLinks () {
             return new SearchResultCollection(
                 [
@@ -188,15 +189,4 @@ function getSearchEngine() {
         }
     }
     return null;
-}
-
-/**
- * Return value if context is valid
- * @param {boolean} context, the returned value on valid context *
- * @param {*} value, the returned value on valid context
- * @param {*} defaultValue, the returned value on invalid context
- * @return {*} either value or defaultValue depending on context
- */
-function getFromContext(context, value, defaultValue) {
-  return (context ? value : defaultValue);
 }

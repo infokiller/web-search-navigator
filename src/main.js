@@ -2,7 +2,7 @@ Object.assign(extension, {
   searchEngine: getSearchEngine(),
 
   init(loadOptions) {
-    if (this.searchEngine.init()) {
+    if (extension.searchEngine.canInit()) {
       loadOptions.then(() => this.initResultsNavigation());
     }
     loadOptions.then(() => this.initCommonSearchNavigation());
@@ -208,8 +208,9 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   });
   this.focusedIndex = 0;
   this.getHighlightedElement = function (index) {
-    if (extension.searchEngine.HighlightedParentSelector !== undefined) {
-        return this.items[index].anchor.closest(extension.searchEngine.HighlightedParentSelector)
+    const selector = getFromContext(extension.searchEngine.HighlightedParentSelector);
+    if (selector != null) {
+        return this.items[index].anchor.closest(selector);
     } else {
         return this.items[index].anchor
     }
@@ -268,8 +269,8 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
 
 const scrollToElement = (element) => {
   // Only use margins if they exists
-  const marginTop = extension.searchEngine.marginTop || 0;
-  const marginBottom = extension.searchEngine.marginBottom || 0;
+  const marginTop = getFromContext(extension.searchEngine.marginTop, 0);
+  const marginBottom = getFromContext(extension.searchEngine.marginBottom, 0);
   const elementBounds = element.getBoundingClientRect();
   // Firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
@@ -302,6 +303,27 @@ function SearchResult(anchor, containerSelector) {
     }
     return containerSelector(this.anchor);
   };
+}
+
+/**
+ * Return value if context is valid
+ * @param {boolean} prop, the returned value on valid context
+ * @param {boolean} defaultValue, the returned value when property does not exist
+ * @return {*} either value or defaultValue depending on context
+ */
+function getFromContext(prop, defaultValue=null) {
+  if (prop == null) {
+    return defaultValue;
+  } else if (prop[1] === 'all') {
+    return prop[0];
+  } else {
+    for (const context of prop[1]) {
+      if (extension.searchEngine.contexts[context]()) {
+        return prop[0];
+      }
+    }
+    return prop[2];
+  }
 }
 
  /**
