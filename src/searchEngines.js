@@ -21,13 +21,14 @@ const options = extension.options.sync.values;
 const searchEngines = [
     // Google
     {
-        init(loadOptions) {
+        init() {
             // Don't initialize results navigation on image search, since it doesn't work
             // there.
-            if (!/[?&]tbm=isch(&|$)/.test(location.search)) {
-                // This file is loaded only after the DOM is ready, so no need to wait for
-                // DOMContentLoaded.
-                loadOptions.then(() => extension.initResultsNavigation());
+            return !this.contexts.images()
+        },
+        contexts: {
+            images: () => {
+                return (/[?&]tbm=isch(&|$)/.test(location.search));
             }
         },
         // Must match search engine url
@@ -101,13 +102,23 @@ const searchEngines = [
 
     // Startpage
     {
-        init(loadOptions) {
+        init() {
             // Don't initialize results navigation on image search, since it doesn't work
             // there.
-            if (!document.querySelector('div.layout-images')) {
-                // This file is loaded only after the DOM is ready, so no need to wait for
-                // DOMContentLoaded.
-                loadOptions.then(() => extension.initResultsNavigation());
+            return !this.contexts.images();
+        },
+        contexts: {
+            search: () => {
+                const searchLayoutDiv = document.querySelector('div.layout.layout--default');
+                return (typeof(searchLayoutDiv) != 'undefined' && searchLayoutDiv != null);
+            },
+            videos: () => {
+                const vidsLayoutDiv = document.querySelector('div.layout-video.layout-video--default');
+                return (typeof(vidsLayoutDiv) != 'undefined' && vidsLayoutDiv != null);
+            },
+            images: () => {
+                const imgLayoutDiv = document.querySelector('div.layout-images.layout-images--default');
+                return (typeof(imgLayoutDiv) != 'undefined' && imgLayoutDiv != null);
             }
         },
         urlPattern: /^www\.startpage\./,
@@ -116,7 +127,7 @@ const searchEngines = [
         // The HighlightClass style will be applied on the closest parent of the focused element matching this selector
         // When not set, HighlightClass style is applied on the focused element itself
         HighlightedParentSelector: '.w-gl__result',
-        marginTop: document.querySelector('body > div.layout.layout--default > div.layout__header > div > div').offsetHeight,
+        marginTop: getFromContext('search', 113, 0),
         getSearchLinks () {
             return new SearchResultCollection(
                 [
@@ -177,4 +188,15 @@ function getSearchEngine() {
         }
     }
     return null;
+}
+
+/**
+ * Return value if context is valid
+ * @param {boolean} context, the returned value on valid context *
+ * @param {*} value, the returned value on valid context
+ * @param {*} defaultValue, the returned value on invalid context
+ * @return {*} either value or defaultValue depending on context
+ */
+function getFromContext(context, value, defaultValue) {
+  return (context ? value : defaultValue);
 }

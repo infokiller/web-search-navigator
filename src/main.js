@@ -2,7 +2,9 @@ Object.assign(extension, {
   searchEngine: getSearchEngine(),
 
   init(loadOptions) {
-    this.searchEngine.init(loadOptions);
+    if (this.searchEngine.init()) {
+      loadOptions.then(() => this.initResultsNavigation());
+    }
     loadOptions.then(() => this.initCommonSearchNavigation());
   },
   /**
@@ -242,7 +244,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     // the search result link.
     if (scrollToResult) {
       const container = newItem.getContainer() || newItem.anchor;
-      scrollToElement(container, extension.searchEngine.marginTop, extension.searchEngine.marginBottom);
+      scrollToElement(container);
     }
     this.focusedIndex = index;
   };
@@ -264,10 +266,10 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   };
 }
 
-const scrollToElement = (element, marginTop, marginBottom) => {
+const scrollToElement = (element) => {
   // Only use margins if they exists
-  marginTop = marginTop || 0;
-  marginBottom = marginBottom || 0;
+  const marginTop = extension.searchEngine.marginTop || 0;
+  const marginBottom = extension.searchEngine.marginBottom || 0;
   const elementBounds = element.getBoundingClientRect();
   // Firefox displays tooltip at the bottom which obstructs the view
   // as a workaround ensure extra space from the bottom in the viewport
