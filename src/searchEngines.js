@@ -176,4 +176,5 @@ function getSearchEngine() {
             return searchEngines[i]
         }
     }
+    return null;
 }
