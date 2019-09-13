@@ -16,13 +16,20 @@
         }
     },
     "permissions": ["storage"],
+    "optional_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
     "options_page": "options.html",
     "options_ui": {
         "page": "options.html",
         "chrome_style": true
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "webext-dynamic-content-scripts.js",
+            "background.js"
+        ],
         "persistent": false
     },
     "content_scripts": [
@@ -39,8 +46,6 @@
             ],
             "run_at": "document_end",
             "matches": [
-                "*://www.startpage.com/sp/search*",
-                "*://www.startpage.com/do/dsearch*",
                 "*://www.google.com/search*",
                 "*://www.google.ad/search*",
                 "*://www.google.ae/search*",
