@@ -7,3 +7,5 @@ package-lock.json
 .DS_Store
 src/mousetrap.js
 src/mousetrap-global-bind.js
+.eslintrc.js
+.vscode/

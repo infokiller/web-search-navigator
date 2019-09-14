@@ -16,13 +16,20 @@
         }
     },
     "permissions": ["storage"],
+    "optional_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
     "options_page": "options.html",
     "options_ui": {
         "page": "options.html",
         "chrome_style": true
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "webext-dynamic-content-scripts.js",
+            "background.js"
+        ],
         "persistent": false
     },
     "content_scripts": [
@@ -31,6 +38,7 @@
                 "mousetrap.js",
                 "mousetrap-global-bind.js",
                 "extension.js",
+                "searchEngines.js",
                 "main.js"
             ],
             "css": [

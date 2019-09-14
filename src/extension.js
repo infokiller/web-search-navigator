@@ -4,6 +4,7 @@ const browser = this.chrome && chrome.runtime ? chrome : this.browser;
 const extension = {
   options: {
     sync: new OptionSection(browser.storage.sync, {
+      delay: 0,
       wrapNavigation: false,
       hideOutline: false,
       autoSelectFirst: true,
@@ -30,7 +31,10 @@ const extension = {
       navigateShowWeek: ['z w', 'ctrl+shift+w', 'command+shift+w'],
       navigateShowMonth: ['z m', 'ctrl+shift+m', 'command+shift+m'],
       navigateShowYear: ['z y', 'ctrl+shift+y', 'command+shift+y'],
-      toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s']
+      toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s'],
+      searchEngines: {
+        startpage: false,
+      },
     }),
 
     local: new OptionSection(browser.storage.local, {
@@ -42,6 +46,13 @@ const extension = {
       return Promise.all([this.local.load(), this.sync.load()]);
     }
   }
+};
+
+// Authorized urls for compatible search engines
+const searchEnginesUrls = {
+  startpage: [
+    'https://www.startpage.com/*/*search*',
+  ],
 };
 
 /**

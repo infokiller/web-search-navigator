@@ -36,6 +36,8 @@ const divToOptionName = {
   toggleSort: 'toggle-sort'
 };
 
+const startpage = document.getElementById('startpage');
+
 // Saves options to chrome.storage.sync.
 const saveOptions = () => {
 
@@ -43,8 +45,10 @@ const saveOptions = () => {
   extension.options.sync.values.wrapNavigation = document.getElementById('wrap-navigation').checked
   extension.options.sync.values.autoSelectFirst = document.getElementById('auto-select-first').checked
   extension.options.sync.values.hideOutline = document.getElementById('hide-outline').checked
+  extension.options.sync.values.delay = document.getElementById('delay').value
+  extension.options.sync.values.searchEngines.startpage = startpage.checked;
 
-  // Save options from divs. 
+  // Save options from divs.
   for(let key in divToOptionName) {
 
     // Options take commands as strings separated by commas.
@@ -69,8 +73,10 @@ const restoreOptions = () => {
     document.getElementById('wrap-navigation').checked = extension.options.sync.values.wrapNavigation;
     document.getElementById('auto-select-first').checked = extension.options.sync.values.autoSelectFirst;
     document.getElementById('hide-outline').checked = extension.options.sync.values.hideOutline;
+    document.getElementById('delay').value = extension.options.sync.values.delay;
+    startpage.checked = extension.options.sync.values.searchEngines.startpage;
 
-    // Restore options from divs. 
+    // Restore options from divs.
     for(let key in divToOptionName) {
 
       // Options are stored as arrays.
@@ -83,3 +89,23 @@ const restoreOptions = () => {
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('save').addEventListener('click', saveOptions);
+
+startpage.addEventListener('change', () => {
+  addSearchEnginePermission(startpage);
+});
+
+/**
+ * Add other search engines domain on user input
+ * @param {Element} checkbox
+ */
+const addSearchEnginePermission = (checkbox) => {
+  if (checkbox.checked) {
+    browser.permissions.request({
+      origins: searchEnginesUrls[checkbox.name],
+    });
+  } else {
+    browser.permissions.remove({
+      origins: searchEnginesUrls[checkbox.name],
+    });
+  }
+};
