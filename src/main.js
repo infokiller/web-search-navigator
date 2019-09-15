@@ -225,8 +225,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     const highlighted = this.getHighlightedElement(index);
     const newItem = this.items[index]
     // Exit if no new item.
-    if (!newItem) {
-      this.focusedIndex = -1;
+    if (!newItem) {ex = -1;
       return;
     }
     // Add the focus outline and caret.
