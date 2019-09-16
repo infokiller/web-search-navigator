@@ -102,7 +102,7 @@ const searchEngines = [
                     [document.querySelectorAll('div.eIuuYe a'), null], // shopping results
                     [document.querySelectorAll('#pnprev, #pnnext'), null]
                 ],
-                [document.querySelectorAll('#search .kp-blk .r > a:first-of-type')]
+                [document.querySelectorAll('#search .kp-blk:not(.c2xzTb) .r > a:first-of-type')]
                 );
         },
         /**
