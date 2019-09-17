@@ -205,6 +205,33 @@ const searchEngines = [
                     break;
             }
         }
+    },
+    {
+        canInit(){
+            return true;
+        }, 
+        urlPattern: /^(www|encrypted)\.youtube\./,
+        searchBoxSelector: 'input#search',
+        HighlightClass: "youtube-focused-search-result",
+        tabs: [
+            //Leave this empty for now
+        ],
+        getSearchLinks() {
+            return new SearchResultCollection([
+                //Videos
+                [document.querySelectorAll("#title-wrapper h3 a#video-title"),
+                n => n.parentElement.parentElement
+                ],
+                //Playlists
+                [document.querySelectorAll("div#content a.ytd-playlist-renderer"), null],
+                //Channels
+                [document.querySelectorAll("ytd-channel-renderer > a"), null]
+            ],[])
+        },
+        changeTools(period){
+
+        }
+
     }
 ]
 

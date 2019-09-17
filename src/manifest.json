@@ -239,7 +239,8 @@
                 "*://www.google.co.zm/search*",
                 "*://www.google.co.zw/search*",
                 "*://www.google.cat/search*",
-                "*://encrypted.google.com/*"
+                "*://encrypted.google.com/*",
+                "*://www.youtube.com/*"
             ]
         }
     ]
