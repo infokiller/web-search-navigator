@@ -5,7 +5,7 @@ Object.assign(extension, {
   
   init(loadOptions) {
     if(extension.searchEngine.endlessScrolling){
-      this.supportEndlessScrolling()
+      this.supportEndlessScrolling(extension.searchEngine.endlessScrolling.container)
     }
     if (extension.searchEngine.canInit()) {
       loadOptions.then(() => this.initResultsNavigation());
@@ -169,11 +169,16 @@ Object.assign(extension, {
       }
     });
   },
-  supportEndlessScrolling(){
-    //The search engine uses endless scrolling, so a Mutationobserver is needed
-    container = document.querySelector(extension.searchEngine.endlessScrolling.container);
-    //Observe the number of childnodes of container and the number of items
-    //in known_results.items. If they aren't the same, reload the navigation 
+  /**
+   * Observes the number of childnodes of container_selector
+   * and compares them with this.known_results.items. Automatically
+   * inits a reload of the navigation when they don't match up. This 
+   * ensures that all search_links are always up to date when scrolling.
+   * 
+   * @param {String} container_selector 
+   */
+  supportEndlessScrolling(container_selector){
+    container = document.querySelector(container_selector);
     const config = { attributes: false, childList: true, subtree: false };
     let first_obversation = true;
     const observer = new MutationObserver((mutationsList, observer) => {
