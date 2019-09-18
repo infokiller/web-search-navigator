@@ -207,12 +207,14 @@ const searchEngines = [
         }
     },
     {
+        name: "Youtube",
         canInit(){
             return true;
         }, 
         urlPattern: /^(www|encrypted)\.youtube\./,
         searchBoxSelector: 'input#search',
         HighlightClass: "youtube-focused-search-result",
+        HighlightedParentSelector: ["a.ytd-playlist-renderer, div#meta", "all"],
         tabs: [
             //Leave this empty for now
         ],
