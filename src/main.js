@@ -4,22 +4,8 @@ Object.assign(extension, {
   known_results: null,
   
   init(loadOptions) {
-    if(extension.searchEngine.name && extension.searchEngine.name == "Youtube"){
-      //Youtube uses infinite scrolling, so a Mutationobserver is needed
-      container = document.querySelector("div#contents div#contents");
-      const config = { attributes: false, childList: true, subtree: false };
-      let first_obversation = true;
-      const observer = new MutationObserver((mutationsList, observer) => {
-        if (first_obversation && this.known_results){
-          this.observedAdditions = this.known_results.items.length
-          first_obversation = false;
-        }
-        this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
-        if(this.known_results && this.known_results.items.length < this.observedAdditions){
-          loadOptions.then(() => this.initResultsNavigation());
-        }
-      })
-      observer.observe(container, config)
+    if(extension.searchEngine.endlessScrolling){
+      this.supportEndlessScrolling()
     }
     if (extension.searchEngine.canInit()) {
       loadOptions.then(() => this.initResultsNavigation());
@@ -182,6 +168,27 @@ Object.assign(extension, {
         return false;
       }
     });
+  },
+  supportEndlessScrolling(){
+    //The search engine uses endless scrolling, so a Mutationobserver is needed
+    container = document.querySelector(extension.searchEngine.endlessScrolling.container);
+    //Observe the number of childnodes of container and the number of items
+    //in known_results.items. If they aren't the same, reload the navigation 
+    const config = { attributes: false, childList: true, subtree: false };
+    let first_obversation = true;
+    const observer = new MutationObserver((mutationsList, observer) => {
+      if (first_obversation && this.known_results){
+        this.observedAdditions = this.known_results.items.length
+        first_obversation = false;
+      }
+      this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
+      if(this.known_results && this.known_results.items.length < this.observedAdditions){
+        loadOptions.then(() => this.initResultsNavigation());
+      }
+    })
+    observer.observe(container, config)
+  
+
   }
 });
 

@@ -230,6 +230,9 @@ const searchEngines = [
                 [document.querySelectorAll("ytd-channel-renderer > a"), null]
             ],[])
         },
+        endlessScrolling: {
+            container: "div#contents div#contents"
+        },
         changeTools(period){
 
         }
