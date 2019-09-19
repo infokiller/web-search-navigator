@@ -234,7 +234,31 @@ const searchEngines = [
             container: "div#contents div#contents"
         },
         changeTools(period){
-
+            let toggle_btn = document.querySelectorAll("a.ytd-toggle-button-renderer")[0];
+            toggle_btn.click();
+            toggle_btn.click();
+            let forms = document.querySelectorAll("div#collapse-content > *:first-of-type ytd-search-filter-renderer")
+            let neededForm = null;
+            switch(period){
+                case "h": 
+                    neededForm = forms[0];
+                    break;
+                case "d":
+                    neededForm = forms[1];
+                    break;
+                case "w":
+                    neededForm = forms[2];
+                    break;
+                case "m":
+                    neededForm = forms[3];
+                    break;
+                case "y":
+                    neededForm = forms[4];
+                    break;
+            }
+            if(neededForm){
+                neededForm.childNodes[1].click()
+            }
         }
 
     }
