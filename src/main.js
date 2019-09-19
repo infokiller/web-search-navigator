@@ -11,7 +11,6 @@ Object.assign(extension, {
       loadOptions.then(() => this.initResultsNavigation());
     }
     loadOptions.then(() => this.initCommonSearchNavigation());
-    
   },
   /**
    * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
@@ -188,6 +187,7 @@ Object.assign(extension, {
       }
       this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
       if(this.known_results && this.known_results.items.length < this.observedAdditions){
+        //Initialize a reload of navigation, save local values 
         this.options.local.values.lastQueryUrl = location.href;
         this.options.local.values.lastFocusedIndex = this.known_results.focusedIndex;
         extension.options.local.save().then(()=>{
@@ -197,8 +197,6 @@ Object.assign(extension, {
       }
     })
     observer.observe(container, config)
-  
-
   }
 });
 

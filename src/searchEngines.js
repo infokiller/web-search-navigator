@@ -207,7 +207,6 @@ const searchEngines = [
         }
     },
     {
-        name: "Youtube",
         canInit(){
             return true;
         }, 
@@ -233,9 +232,12 @@ const searchEngines = [
             container: "div#contents div#contents"
         },
         changeTools(period){
-            let toggle_btn = document.querySelectorAll("a.ytd-toggle-button-renderer")[0];
-            toggle_btn.click();
-            toggle_btn.click();
+            if(!document.querySelector("div#collapse-content")){
+                let toggle_btn = document.querySelectorAll("a.ytd-toggle-button-renderer")[0];
+                //Toggling the buttons ensures that div#collapse-content is loaded 
+                toggle_btn.click();
+                toggle_btn.click();
+            }
             let forms = document.querySelectorAll("div#collapse-content > *:first-of-type ytd-search-filter-renderer")
             let neededForm = null;
             switch(period){
