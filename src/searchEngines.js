@@ -214,7 +214,6 @@ const searchEngines = [
         urlPattern: /^(www|encrypted)\.youtube\./,
         searchBoxSelector: 'input#search',
         HighlightClass: "youtube-focused-search-result",
-        HighlightedParentSelector: ["a.ytd-playlist-renderer, div#meta", "all"],
         tabs: [
             //Leave this empty for now
         ],
@@ -227,7 +226,7 @@ const searchEngines = [
                 //Playlists
                 [document.querySelectorAll("div#content a.ytd-playlist-renderer"), null],
                 //Channels
-                [document.querySelectorAll("ytd-channel-renderer > a"), null]
+                [document.querySelectorAll("div#info.ytd-channel-renderer"), null]
             ],[])
         },
         endlessScrolling: {

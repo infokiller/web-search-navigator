@@ -188,8 +188,12 @@ Object.assign(extension, {
       }
       this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
       if(this.known_results && this.known_results.items.length < this.observedAdditions){
-        loadOptions.then(() => this.initResultsNavigation());
-        loadOptions.then(() => this.initCommonSearchNavigation());
+        this.options.local.values.lastQueryUrl = location.href;
+        this.options.local.values.lastFocusedIndex = this.known_results.focusedIndex;
+        extension.options.local.save().then(()=>{
+          loadOptions.then(() => this.initResultsNavigation());
+          loadOptions.then(() => this.initCommonSearchNavigation());
+        })
       }
     })
     observer.observe(container, config)
