@@ -180,10 +180,18 @@ Object.assign(extension, {
     container = document.querySelector(container_selector);
     const config = { attributes: false, childList: true, subtree: false };
     let first_obversation = true;
+    let observed_href = undefined;
     const observer = new MutationObserver((mutationsList, observer) => {
       if (first_obversation && this.known_results){
+        observed_href = location.href;
         this.observedAdditions = this.known_results.items.length
         first_obversation = false;
+      }
+      if(observed_href && observed_href != location.href){
+        //Mutation Server was triggered due too loading a new url -> disconnect the observer
+        observer.disconnect();
+        startExt();
+        return; 
       }
       this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
       if(this.known_results && this.known_results.items.length < this.observedAdditions){
@@ -375,14 +383,18 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-const loadOptions = extension.options.load();
+const startExt = () => {
+  const loadOptions = extension.options.load();
+  
+  // Entry Point
+  // Be sure to load options in order to read the delay and apply it
+  loadOptions.then(() => {
+      const init = async () => {
+          await sleep(extension.options.sync.values.delay)
+          extension.init(loadOptions)
+      }
+      init()
+  })
+}
 
-// Entry Point
-// Be sure to load options in order to read the delay and apply it
-loadOptions.then(() => {
-    const init = async () => {
-        await sleep(extension.options.sync.values.delay)
-        extension.init(loadOptions)
-    }
-    init()
-})
+startExt();

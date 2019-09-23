@@ -224,6 +224,8 @@ const searchEngines = [
                 ],
                 //Playlists
                 [document.querySelectorAll("div#content a.ytd-playlist-renderer"), null],
+                //Mixes
+                [document.querySelectorAll("div#content a.ytd-radio-renderer"), null],
                 //Channels
                 [document.querySelectorAll("div#info.ytd-channel-renderer"), null]
             ],[])
