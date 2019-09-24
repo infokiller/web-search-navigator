@@ -55,7 +55,7 @@ const searchEnginesUrls = {
     'https://www.startpage.com/*/*search*',
   ],
   youtube: [
-    "*://www.youtube.com/*"
+    "https://www.youtube.com/*"
   ]
 };
 
