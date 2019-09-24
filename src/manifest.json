@@ -18,7 +18,7 @@
     "permissions": ["storage"],
     "optional_permissions": [
         "http://*/*",
-        "https://*/*"
+        "https://*/*" 
     ],
     "options_page": "options.html",
     "options_ui": {
@@ -239,8 +239,7 @@
                 "*://www.google.co.zm/search*",
                 "*://www.google.co.zw/search*",
                 "*://www.google.cat/search*",
-                "*://encrypted.google.com/*",
-                "*://www.youtube.com/*"
+                "*://encrypted.google.com/*"
             ]
         }
     ]

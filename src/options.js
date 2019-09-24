@@ -37,6 +37,7 @@ const divToOptionName = {
 };
 
 const startpage = document.getElementById('startpage');
+const youtube = document.getElementById("youtube")
 
 // Saves options to chrome.storage.sync.
 const saveOptions = () => {
@@ -47,6 +48,7 @@ const saveOptions = () => {
   extension.options.sync.values.hideOutline = document.getElementById('hide-outline').checked
   extension.options.sync.values.delay = document.getElementById('delay').value
   extension.options.sync.values.searchEngines.startpage = startpage.checked;
+  extension.options.sync.values.searchEngines.youtube = youtube.checked;
 
   // Save options from divs.
   for(let key in divToOptionName) {
@@ -75,6 +77,7 @@ const restoreOptions = () => {
     document.getElementById('hide-outline').checked = extension.options.sync.values.hideOutline;
     document.getElementById('delay').value = extension.options.sync.values.delay;
     startpage.checked = extension.options.sync.values.searchEngines.startpage;
+    youtube.checked = extension.options.sync.values.searchEngines.youtube;
 
     // Restore options from divs.
     for(let key in divToOptionName) {
@@ -93,6 +96,10 @@ document.getElementById('save').addEventListener('click', saveOptions);
 startpage.addEventListener('change', () => {
   addSearchEnginePermission(startpage);
 });
+
+youtube.addEventListener("change", () => {
+  addSearchEnginePermission(youtube);
+})
 
 /**
  * Add other search engines domain on user input
