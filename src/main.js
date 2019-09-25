@@ -1,7 +1,12 @@
 Object.assign(extension, {
   searchEngine: getSearchEngine(),
-
+  observedAdditions: 0,
+  known_results: null,
+  
   init(loadOptions) {
+    if(extension.searchEngine.endlessScrolling){
+      this.supportEndlessScrolling(extension.searchEngine.endlessScrolling.container)
+    }
     if (extension.searchEngine.canInit()) {
       loadOptions.then(() => this.initResultsNavigation());
     }
@@ -33,6 +38,7 @@ Object.assign(extension, {
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
     const results = this.searchEngine.getSearchLinks();
+    this.known_results = results; //Find a better way to solve this
 
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
@@ -161,6 +167,44 @@ Object.assign(extension, {
         return false;
       }
     });
+  },
+  /**
+   * Observes the number of childnodes of container_selector
+   * and compares them with this.known_results.items. Automatically
+   * inits a reload of the navigation when they don't match up. This 
+   * ensures that all search_links are always up to date when scrolling.
+   * 
+   * @param {String} container_selector 
+   */
+  supportEndlessScrolling(container_selector){
+    container = document.querySelector(container_selector);
+    const config = { attributes: false, childList: true, subtree: false };
+    let first_obversation = true;
+    let observed_href = undefined;
+    const observer = new MutationObserver((mutationsList, observer) => {
+      if (first_obversation && this.known_results){
+        observed_href = location.href;
+        this.observedAdditions = this.known_results.items.length
+        first_obversation = false;
+      }
+      if(observed_href && observed_href != location.href){
+        //Mutation Server was triggered due too loading a new url -> disconnect the observer
+        observer.disconnect();
+        startExtension();
+        return; 
+      }
+      this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
+      if(this.known_results && this.known_results.items.length < this.observedAdditions){
+        //Initialize a reload of navigation, save local values 
+        this.options.local.values.lastQueryUrl = location.href;
+        this.options.local.values.lastFocusedIndex = this.known_results.focusedIndex;
+        extension.options.local.save().then(()=>{
+          loadOptions.then(() => this.initResultsNavigation());
+          loadOptions.then(() => this.initCommonSearchNavigation());
+        })
+      }
+    })
+    observer.observe(container, config)
   }
 });
 
@@ -339,14 +383,18 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-const loadOptions = extension.options.load();
+const startExtension = () => {
+  const loadOptions = extension.options.load();
+  
+  // Entry Point
+  // Be sure to load options in order to read the delay and apply it
+  loadOptions.then(() => {
+      const init = async () => {
+          await sleep(extension.options.sync.values.delay)
+          extension.init(loadOptions)
+      }
+      init()
+  })
+}
 
-// Entry Point
-// Be sure to load options in order to read the delay and apply it
-loadOptions.then(() => {
-    const init = async () => {
-        await sleep(extension.options.sync.values.delay)
-        extension.init(loadOptions)
-    }
-    init()
-})
+startExtension();

@@ -205,6 +205,65 @@ const searchEngines = [
                     break;
             }
         }
+    },
+    {
+        canInit(){
+            return true;
+        }, 
+        urlPattern: /^(www)\.youtube\./,
+        searchBoxSelector: 'input#search',
+        HighlightClass: "youtube-focused-search-result",
+        tabs: [
+            //Leave this empty for now
+        ],
+        getSearchLinks() {
+            return new SearchResultCollection([
+                //Videos
+                [document.querySelectorAll("#title-wrapper h3 a#video-title"),
+                n => n.parentElement.parentElement
+                ],
+                //Playlists
+                [document.querySelectorAll("div#content a.ytd-playlist-renderer"), null],
+                //Mixes
+                [document.querySelectorAll("div#content a.ytd-radio-renderer"), null],
+                //Channels
+                [document.querySelectorAll("div#info.ytd-channel-renderer"), null]
+            ],[])
+        },
+        endlessScrolling: {
+            container: "div#contents div#contents"
+        },
+        changeTools(period){
+            if(!document.querySelector("div#collapse-content")){
+                let toggle_btn = document.querySelectorAll("a.ytd-toggle-button-renderer")[0];
+                //Toggling the buttons ensures that div#collapse-content is loaded 
+                toggle_btn.click();
+                toggle_btn.click();
+            }
+            let forms = document.querySelectorAll("div#collapse-content > *:first-of-type ytd-search-filter-renderer")
+            let neededForm = null;
+            switch(period){
+                case "h": 
+                    neededForm = forms[0];
+                    break;
+                case "d":
+                    neededForm = forms[1];
+                    break;
+                case "w":
+                    neededForm = forms[2];
+                    break;
+                case "m":
+                    neededForm = forms[3];
+                    break;
+                case "y":
+                    neededForm = forms[4];
+                    break;
+            }
+            if(neededForm){
+                neededForm.childNodes[1].click()
+            }
+        }
+
     }
 ]
 

@@ -12,6 +12,13 @@
     border-radius: 9px;
 }
 
+.youtube-focused-search-result{
+  border-color: #c4302b!important;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
 .no-outline,
 .no-outline:focus  {
   outline: none;

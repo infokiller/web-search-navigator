@@ -34,6 +34,7 @@ const extension = {
       toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s'],
       searchEngines: {
         startpage: false,
+        youtube: false
       },
     }),
 
@@ -53,6 +54,9 @@ const searchEnginesUrls = {
   startpage: [
     'https://www.startpage.com/*/*search*',
   ],
+  youtube: [
+    "https://www.youtube.com/*"
+  ]
 };
 
 /**
