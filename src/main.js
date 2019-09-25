@@ -190,7 +190,7 @@ Object.assign(extension, {
       if(observed_href && observed_href != location.href){
         //Mutation Server was triggered due too loading a new url -> disconnect the observer
         observer.disconnect();
-        startExt();
+        startExtension();
         return; 
       }
       this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
@@ -383,7 +383,7 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-const startExt = () => {
+const startExtension = () => {
   const loadOptions = extension.options.load();
   
   // Entry Point
@@ -397,4 +397,4 @@ const startExt = () => {
   })
 }
 
-startExt();
+startExtension();

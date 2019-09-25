@@ -18,7 +18,7 @@
     "permissions": ["storage"],
     "optional_permissions": [
         "http://*/*",
-        "https://*/*" 
+        "https://*/*"
     ],
     "options_page": "options.html",
     "options_ui": {

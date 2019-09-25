@@ -210,7 +210,7 @@ const searchEngines = [
         canInit(){
             return true;
         }, 
-        urlPattern: /^(www|encrypted)\.youtube\./,
+        urlPattern: /^(www)\.youtube\./,
         searchBoxSelector: 'input#search',
         HighlightClass: "youtube-focused-search-result",
         tabs: [
