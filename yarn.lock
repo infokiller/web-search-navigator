@@ -2027,10 +2027,10 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
-shellcheck@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-0.3.0.tgz#e5d36f7cf09dfc48bc16e641eac025686c7205d2"
-  integrity sha512-6I/5hSgP433kUNYL0HLNm3wu/w89Em5mYqfPEut/NIfyd9Wv8R3Y+Uupu1iTdzxwomMqJIR+DzH9NIGskpkRoA==
+shellcheck@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-0.4.0.tgz#1f09fa7488523c90191a54e4bd9b48a1afc6a7d3"
+  integrity sha512-YGm0x5L4Gnl6UYFr0U+JXoyEYKP8Kj/Y2bMUp2flzstqpeXUhtae9eBEVxxOP1MmTRjqEvIDO7CGPAbiU5PHkA==
 
 signal-exit@^3.0.0:
   version "3.0.2"
