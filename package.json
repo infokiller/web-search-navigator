@@ -17,7 +17,7 @@
     "build": "gulp"
   },
   "dependencies": {
-    "mousetrap": "^1.6.3",
+    "mousetrap": "^1.6.5",
     "shellcheck": "^0.4.1"
   },
   "devDependencies": {
