@@ -24,7 +24,7 @@
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "minimist": "^1.2.4",
+    "minimist": "^1.2.5",
     "prettier": "1.19.1"
   }
 }
