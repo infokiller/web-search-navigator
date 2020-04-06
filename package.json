@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "mousetrap": "^1.6.5",
-    "shellcheck": "^0.4.1"
+    "shellcheck": "^0.4.2"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
