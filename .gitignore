@@ -5,7 +5,7 @@ node_modules/
 yarn-error.log
 package-lock.json
 .DS_Store
-src/mousetrap.js
-src/mousetrap-global-bind.js
-.eslintrc.js
+src/mousetrap*.js
+src/mousetrap-global-bind*.js
+src/browser-polyfill*.js
 .vscode/
