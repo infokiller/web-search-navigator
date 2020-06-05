@@ -9,7 +9,7 @@
         "48": "icon48.png",
         "128": "icon128.png"
     },
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "{ffadac89-63bb-4b04-be90-8cb2aa323171}",
             "strict_min_version": "48.0"
@@ -17,8 +17,10 @@
     },
     "permissions": ["storage"],
     "optional_permissions": [
-        "http://*/*",
-        "https://*/*"
+        "tabs",
+        "https://startpage.com/*",
+        "https://www.startpage.com/*",
+        "https://www.youtube.com/*"
     ],
     "options_page": "options.html",
     "options_ui": {
@@ -27,6 +29,7 @@
     },
     "background": {
         "scripts": [
+            "browser-polyfill.js",
             "webext-dynamic-content-scripts.js",
             "background.js"
         ],
@@ -35,6 +38,7 @@
     "content_scripts": [
         {
             "js": [
+                "browser-polyfill.js",
                 "mousetrap.js",
                 "mousetrap-global-bind.js",
                 "extension.js",

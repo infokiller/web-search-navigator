@@ -1,44 +1,49 @@
 Object.assign(extension, {
   searchEngine: getSearchEngine(),
   observedAdditions: 0,
-  known_results: null,
-  
-  init(loadOptions) {
-    if(extension.searchEngine.endlessScrolling){
-      this.supportEndlessScrolling(extension.searchEngine.endlessScrolling.container)
+  knownResults: null,
+
+  init() {
+    if (extension.searchEngine.endlessScrolling) {
+      this.supportEndlessScrolling(
+          extension.searchEngine.endlessScrolling.container,
+      );
     }
     if (extension.searchEngine.canInit()) {
-      loadOptions.then(() => this.initResultsNavigation());
+      this.initResultsNavigation();
     }
-    loadOptions.then(() => this.initCommonSearchNavigation());
+    this.initCommonSearchNavigation();
   },
   /**
-   * Gets the element to activate upon navigation. The focused element in the document is preferred (if there is one)
-   * over the highlighted result. Note that the focused element does not have to be an anchor <a> element.
+   * Gets the element to activate upon navigation. The focused element in the
+   * document is preferred (if there is one) over the highlighted result. Note
+   * that the focused element does not have to be an anchor <a> element.
    *
    * @param {SearchResultCollection} results
-   * @param {boolean} linkOnly If true the focused element is preferred only when it is a link with "href" attribute.
+   * @param {boolean} linkOnly If true the focused element is preferred only
+   * when it is a link with "href" attribute.
    * @return {Element}
    */
   getElementToActivate(results, linkOnly = false) {
-        const focusedElement = document.activeElement;
+    const focusedElement = document.activeElement;
 
-        if (focusedElement !== null) {
-          const isLink = (focusedElement.localName === 'a' && focusedElement.hasAttribute('href'));
+    if (focusedElement !== null) {
+      const isLink =
+        focusedElement.localName === 'a' && focusedElement.hasAttribute('href');
 
-          if (!linkOnly || isLink) {
-            return focusedElement;
-          }
-        }
+      if (!linkOnly || isLink) {
+        return focusedElement;
+      }
+    }
 
-        return results.items[results.focusedIndex].anchor;
+    return results.items[results.focusedIndex].anchor;
   },
 
   initResultsNavigation() {
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
     const results = this.searchEngine.getSearchLinks();
-    this.known_results = results; //Find a better way to solve this
+    this.knownResults = results; // Find a better way to solve this
 
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
@@ -79,8 +84,8 @@ Object.assign(extension, {
         type: 'tabsCreate',
         options: {
           url: link.href,
-          active: true
-        }
+          active: true,
+        },
       });
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
@@ -89,47 +94,72 @@ Object.assign(extension, {
         type: 'tabsCreate',
         options: {
           url: link.href,
-          active: false
-        }
+          active: false,
+        },
       });
     });
-    this.register(options.navigateShowAll, () => this.searchEngine.changeTools('a'));
-    this.register(options.navigateShowHour, () => this.searchEngine.changeTools('h'));
-    this.register(options.navigateShowDay, () => this.searchEngine.changeTools('d'));
-    this.register(options.navigateShowWeek, () => this.searchEngine.changeTools('w'));
-    this.register(options.navigateShowMonth, () => this.searchEngine.changeTools('m'));
-    this.register(options.navigateShowYear, () => this.searchEngine.changeTools('y'));
-    this.register(options.toggleSort, () => this.searchEngine.changeTools(null));
+    this.register(options.navigateShowAll, () =>
+      this.searchEngine.changeTools('a'),
+    );
+    this.register(options.navigateShowHour, () =>
+      this.searchEngine.changeTools('h'),
+    );
+    this.register(options.navigateShowDay, () =>
+      this.searchEngine.changeTools('d'),
+    );
+    this.register(options.navigateShowWeek, () =>
+      this.searchEngine.changeTools('w'),
+    );
+    this.register(options.navigateShowMonth, () =>
+      this.searchEngine.changeTools('m'),
+    );
+    this.register(options.navigateShowYear, () =>
+      this.searchEngine.changeTools('y'),
+    );
+    this.register(options.toggleSort, () =>
+      this.searchEngine.changeTools(null),
+    );
   },
 
   initCommonSearchNavigation() {
-    const tabs = this.searchEngine.tabs;
+    const tabs = this.searchEngine.getTabs();
     const options = this.options.sync.values;
 
     // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
     this.registerGlobal(options.focusSearchInput, (event) => {
       const target = event.target || event.srcElement;
-      const searchInput = document.querySelector(this.searchEngine.searchBoxSelector);
+      const searchInput = document.querySelector(
+          this.searchEngine.searchBoxSelector,
+      );
 
       // Handle keypress inside the search box.
       if (target.matches(this.searchboxSelector)) {
-        if (searchInput.selectionStart === 0 && searchInput.selectionEnd === searchInput.value.length) {
+        if (
+          searchInput.selectionStart === 0 &&
+          searchInput.selectionEnd === searchInput.value.length
+        ) {
           // Everything is selected; deselect all.
-          searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+          searchInput.setSelectionRange(
+              searchInput.value.length,
+              searchInput.value.length,
+          );
         } else {
-          // Closing search suggestions via document.body.click() or searchInput.blur() breaks the state of the google's
-          // controller. Suggestion box is closed yet it won't re-appear on the next search box focus event.
+          // Closing search suggestions via document.body.click() or
+          // searchInput.blur() breaks the state of the google's controller.
+          // Suggestion box is closed yet it won't re-appear on the next search
+          // box focus event.
 
-          // Input can be blurred only when suggestion box is already closed hence blur event is queued.
+          // Input can be blurred only when suggestion box is already closed
+          // hence blur event is queued.
           window.setTimeout(() => searchInput.blur());
 
-          // Invoke the default handler which will close-up search suggestions properly (google's controller won't break),
+          // Invoke the default handler which will close-up search suggestions
+          // properly (google's controller won't break),
           // but it won't remove the focus.
           return true;
         }
-      }
       // Handle keypress outside search box.
-      else {
+      } else {
         searchInput.select();
         searchInput.click();
       }
@@ -141,8 +171,8 @@ Object.assign(extension, {
         const node = document.querySelector(tabCommand[1]);
         if (node !== null) {
           // Some search engines use forms instead of links for navigation
-          if (node.tagName == "FORM") {
-            node.submit()
+          if (node.tagName == 'FORM') {
+            node.submit();
           } else {
             location.href = node.href;
           }
@@ -152,7 +182,7 @@ Object.assign(extension, {
   },
 
   registerGlobal(shortcut, callback) {
-    Mousetrap.bindGlobal(shortcut, function (event) {
+    Mousetrap.bindGlobal(shortcut, function(event) {
       const result = callback(event);
       if (result !== true && event !== null) {
         return false;
@@ -161,7 +191,7 @@ Object.assign(extension, {
   },
 
   register(shortcut, callback) {
-    Mousetrap.bind(shortcut, function (event) {
+    Mousetrap.bind(shortcut, function(event) {
       const result = callback();
       if (result !== true && event !== null) {
         return false;
@@ -169,51 +199,59 @@ Object.assign(extension, {
     });
   },
   /**
-   * Observes the number of childnodes of container_selector
-   * and compares them with this.known_results.items. Automatically
-   * inits a reload of the navigation when they don't match up. This 
+   * Observes the number of childnodes of containerSelector
+   * and compares them with this.knownResults.items. Automatically
+   * inits a reload of the navigation when they don't match up. This
    * ensures that all search_links are always up to date when scrolling.
-   * 
-   * @param {String} container_selector 
+   *
+   * @param {String} containerSelector
    */
-  supportEndlessScrolling(container_selector){
-    container = document.querySelector(container_selector);
-    const config = { attributes: false, childList: true, subtree: false };
-    let first_obversation = true;
-    let observed_href = undefined;
-    const observer = new MutationObserver((mutationsList, observer) => {
-      if (first_obversation && this.known_results){
-        observed_href = location.href;
-        this.observedAdditions = this.known_results.items.length
-        first_obversation = false;
+  // TODO: Fix this
+  supportEndlessScrolling(containerSelector) {
+    container = document.querySelector(containerSelector);
+    const config = {attributes: false, childList: true, subtree: false};
+    let firstObversation = true;
+    let observedHref = undefined;
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      if (firstObversation && this.knownResults) {
+        observedHref = location.href;
+        this.observedAdditions = this.knownResults.items.length;
+        firstObversation = false;
       }
-      if(observed_href && observed_href != location.href){
-        //Mutation Server was triggered due too loading a new url -> disconnect the observer
+      if (observedHref && observedHref != location.href) {
+        // Mutation Server was triggered due too loading a new url -> disconnect
+        // the observer
         observer.disconnect();
         startExtension();
-        return; 
+        return;
       }
-      this.observedAdditions = this.observedAdditions + mutationsList[0].addedNodes.length;
-      if(this.known_results && this.known_results.items.length < this.observedAdditions){
-        //Initialize a reload of navigation, save local values 
+      this.observedAdditions =
+        this.observedAdditions + mutationsList[0].addedNodes.length;
+      if (
+        this.knownResults &&
+        this.knownResults.items.length < this.observedAdditions
+      ) {
+        // Initialize a reload of navigation, save local values
         this.options.local.values.lastQueryUrl = location.href;
-        this.options.local.values.lastFocusedIndex = this.known_results.focusedIndex;
-        extension.options.local.save().then(()=>{
-          loadOptions.then(() => this.initResultsNavigation());
-          loadOptions.then(() => this.initCommonSearchNavigation());
-        })
+        this.options.local.values.lastFocusedIndex =
+          this.knownResults.focusedIndex;
+        await this.options.local.save()
+        this.initResultsNavigation();
+        this.initCommonSearchNavigation();
       }
-    })
-    observer.observe(container, config)
-  }
+    });
+    observer.observe(container, config);
+  },
 });
 
+// eslint-disable-next-line
 /**
  * @param {...[Element[], function|null]} includedNodeLists An array of tuples.
  * Each tuple contains collection of the search results optionally accompanied
  * with their container selector.
  * @constructor
  */
+// eslint-disable-next-line
 function SearchResultCollection(includedNodeLists, excludedNodeLists) {
   /**
    * @type {SearchResult[]}
@@ -251,23 +289,25 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     }
   });
   this.focusedIndex = 0;
-  this.getHighlightedElement = function (index) {
-    const selector = getFromContext(extension.searchEngine.HighlightedParentSelector);
+  this.getHighlightedElement = function(index) {
+    const selector = getFromContext(
+        extension.searchEngine.HighlightedParentSelector,
+    );
     if (selector != null) {
-        return this.items[index].anchor.closest(selector);
+      return this.items[index].anchor.closest(selector);
     } else {
-        return this.items[index].anchor
+      return this.items[index].anchor;
     }
-  }
-  this.focus = function (index, scrollToResult = true) {
+  };
+  this.focus = function(index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
-      let item = this.getHighlightedElement(this.focusedIndex);
+      const item = this.getHighlightedElement(this.focusedIndex);
       // Remove focus outline from previous item.
       item.classList.remove(extension.searchEngine.HighlightClass);
       item.classList.remove('no-outline');
     }
     const highlighted = this.getHighlightedElement(index);
-    const newItem = this.items[index]
+    const newItem = this.items[index];
     // Exit if no new item.
     if (!newItem) {
       this.focusedIndex = -1;
@@ -283,7 +323,7 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     // behavior of `focus` also seems less predictable and caused an issue, see
     // also: https://github.com/infokiller/web-search-navigator/issues/35./
     newItem.anchor.focus({
-      preventScroll: true
+      preventScroll: true,
     });
     // Ensure whole search result container is visible in the viewport, not only
     // the search result link.
@@ -293,14 +333,14 @@ function SearchResultCollection(includedNodeLists, excludedNodeLists) {
     }
     this.focusedIndex = index;
   };
-  this.focusNext = function (shouldWrap) {
+  this.focusNext = function(shouldWrap) {
     if (this.focusedIndex < this.items.length - 1) {
       this.focus(this.focusedIndex + 1);
     } else if (shouldWrap) {
       this.focus(0);
     }
   };
-  this.focusPrevious = function (shouldWrap) {
+  this.focusPrevious = function(shouldWrap) {
     if (this.focusedIndex > 0) {
       this.focus(this.focusedIndex - 1);
     } else if (shouldWrap) {
@@ -341,7 +381,7 @@ const scrollToElement = (element) => {
  */
 function SearchResult(anchor, containerSelector) {
   this.anchor = anchor;
-  this.getContainer = function () {
+  this.getContainer = function() {
     if (!containerSelector) {
       return this.anchor;
     }
@@ -352,10 +392,11 @@ function SearchResult(anchor, containerSelector) {
 /**
  * Return value if context is valid
  * @param {boolean} prop, the returned value on valid context
- * @param {boolean} defaultValue, the returned value when property does not exist
+ * @param {boolean} defaultValue, the returned value when property does not
+ * exist
  * @return {*} either value or defaultValue depending on context
  */
-function getFromContext(prop, defaultValue=null) {
+function getFromContext(prop, defaultValue = null) {
   if (prop == null) {
     return defaultValue;
   } else if (prop[1] === 'all') {
@@ -370,31 +411,25 @@ function getFromContext(prop, defaultValue=null) {
   }
 }
 
- /**
-  * Make functions sleeps
-  *
-  * Can be used with then() callback :
-  * sleep.then(() => { stuff to do after sleeps }),
-  * Or in an async function, like we do below extension initialization
-  * @param {*} milliseconds, How long you want your function to sleep
-  * @returns a Promise resolving a timeout
-  */
+/**
+ * Make functions sleeps
+ *
+ * Can be used with then() callback :
+ * sleep.then(() => { stuff to do after sleeps }),
+ * Or in an async function, like we do below extension initialization
+ * @param {*} milliseconds, How long you want your function to sleep
+ * @return {Promise} a Promise resolving a timeout
+ */
 const sleep = (milliseconds) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
-const startExtension = () => {
-  const loadOptions = extension.options.load();
-  
-  // Entry Point
-  // Be sure to load options in order to read the delay and apply it
-  loadOptions.then(() => {
-      const init = async () => {
-          await sleep(extension.options.sync.values.delay)
-          extension.init(loadOptions)
-      }
-      init()
-  })
-}
+// Entry Point
+// Be sure to load options in order to read the delay and apply it
+const startExtension = async () => {
+  await extension.options.load();
+  await sleep(extension.options.sync.values.delay);
+  extension.init(options);
+};
 
 startExtension();

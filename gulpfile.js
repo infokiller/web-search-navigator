@@ -26,7 +26,8 @@ const getExtraFiles = (env) => {
 
 exports.default = () => {
   return gulp
-    .src(getExtraFiles(argv.env))
-    .pipe(gulpif(argv.env === 'production', uglify())) // only minify in production
-    .pipe(gulp.dest('./src'));
+      .src(getExtraFiles(argv.env))
+      // only minify in production
+      .pipe(gulpif(argv.env === 'production', uglify()))
+      .pipe(gulp.dest('./src'));
 };
