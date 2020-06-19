@@ -12,15 +12,15 @@ const getExtraFiles = (env) => {
     return [
       'node_modules/mousetrap/mousetrap.min.js',
       // Global bind requires to handle keypresses inside search box
-      'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
-      'node_modules/webextension-polyfill/dist/browser-polyfill.js',
+      'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.min.js',
+      'node_modules/webextension-polyfill/dist/browser-polyfill.min.js',
     ];
   }
   return [
     'node_modules/mousetrap/mousetrap.js',
     // Global bind requires to handle keypresses inside search box
-    'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.min.js',
-    'node_modules/webextension-polyfill/dist/browser-polyfill.min.js',
+    'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
+    'node_modules/webextension-polyfill/dist/browser-polyfill.js',
   ];
 };
 
