@@ -1,85 +1,221 @@
-Object.assign(extension, {
-  searchEngine: getSearchEngine(),
-  observedAdditions: 0,
-  knownResults: null,
+class SearchResultsManager {
+  constructor(searchEngine, options) {
+    this.searchEngine = searchEngine;
+    this.options = options;
+    this.focusedIndex = 0;
+  }
 
-  init() {
-    if (extension.searchEngine.endlessScrolling) {
-      this.supportEndlessScrolling(
-          extension.searchEngine.endlessScrolling.container,
-      );
-    }
-    if (extension.searchEngine.canInit()) {
-      this.initResultsNavigation();
-    }
-    this.initCommonSearchNavigation();
-  },
+  reloadSearchResults() {
+    this.searchResults = this.searchEngine.getSearchResults();
+  }
+
   /**
-   * Gets the element to activate upon navigation. The focused element in the
+   * Returns the element to click on upon navigation. The focused element in the
    * document is preferred (if there is one) over the highlighted result. Note
    * that the focused element does not have to be an anchor <a> element.
    *
-   * @param {SearchResultCollection} results
    * @param {boolean} linkOnly If true the focused element is preferred only
    * when it is a link with "href" attribute.
    * @return {Element}
    */
-  getElementToActivate(results, linkOnly = false) {
+  getElementToNavigate(linkOnly = false) {
     const focusedElement = document.activeElement;
-
-    if (focusedElement !== null) {
-      const isLink =
-        focusedElement.localName === 'a' && focusedElement.hasAttribute('href');
-
-      if (!linkOnly || isLink) {
-        return focusedElement;
-      }
+    if (focusedElement == null) {
+      return this.searchResults[this.focusedIndex].anchor;
     }
+    const isLink = focusedElement.localName === 'a' &&
+        focusedElement.hasAttribute('href');
+    if (!linkOnly || isLink) {
+      return focusedElement;
+    }
+  }
 
-    return results.items[results.focusedIndex].anchor;
-  },
+  focus(index, scrollToResult = true) {
+    if (this.focusedIndex >= 0) {
+      const searchResult = this.searchResults[this.focusedIndex];
+      const highlighted = searchResult.highlightedElement;
+      // Remove highlighting from previous item.
+      highlighted.classList.remove(searchResult.highlightClass);
+      highlighted.classList.remove('no-outline');
+    }
+    const searchResult = this.searchResults[index];
+    const highlighted = searchResult.highlightedElement;
+    if (!searchResult) {
+      this.focusedIndex = -1;
+      return;
+    }
+    // Add the focus outline and caret.
+    highlighted.classList.add(searchResult.highlightClass);
+    if (this.options.hideOutline) {
+      searchResult.anchor.classList.add('no-outline');
+    }
+    // We already scroll below, so no need for focus to scroll. The scrolling
+    // behavior of `focus` also seems less predictable and caused an issue, see:
+    // https://github.com/infokiller/web-search-navigator/issues/35
+    searchResult.anchor.focus({preventScroll: true});
+    // Ensure whole search result container is visible in the viewport, not only
+    // the search result link.
+    if (scrollToResult) {
+      this.scrollToElement(searchResult.container);
+    }
+    this.focusedIndex = index;
+  }
+
+  scrollToElement(element) {
+    const marginTop = this.searchEngine.marginTop || 0;
+    const marginBottom = this.searchEngine.marginBottom || 0;
+    const elementBounds = element.getBoundingClientRect();
+    // Firefox displays tooltip at the bottom which obstructs the view
+    // as a workaround ensure extra space from the bottom in the viewport
+    // firefox detection (https://stackoverflow.com/a/7000222/2870889).
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    // hardcoded height of the tooltip plus some margin
+    const firefoxBottomDelta = 26;
+    const bottomDelta = (isFirefox ? firefoxBottomDelta : 0) + marginBottom;
+    if (elementBounds.top < marginTop) {
+      // scroll element to top
+      element.scrollIntoView(true);
+      window.scrollBy(0, -marginTop);
+    } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
+      // scroll element to bottom
+      element.scrollIntoView(false);
+      window.scrollBy(0, bottomDelta);
+    }
+  }
+
+  focusNext(shouldWrap) {
+    if (this.focusedIndex < this.searchResults.length - 1) {
+      this.focus(this.focusedIndex + 1);
+    } else if (shouldWrap) {
+      this.focus(0);
+    }
+  }
+
+  focusPrevious(shouldWrap) {
+    if (this.focusedIndex > 0) {
+      this.focus(this.focusedIndex - 1);
+    } else if (shouldWrap) {
+      this.focus(this.searchResults.length - 1);
+    } else {
+      window.scrollTo(window.scrollX, 0);
+    }
+  }
+}
+
+class WebSearchNavigator {
+  async init() {
+    this.options = new ExtensionOptions();
+    await this.options.load();
+    this.searchEngine = await getSearchEngine(this.options.sync.values);
+    if (this.searchEngine == null) {
+      return;
+    }
+    await sleep(this.options.sync.values.delay);
+    this.initSearchInputNavigation();
+    this.initTabsNavigation();
+    this.initResultsNavigation();
+    this.initChangeToolsNavigation();
+    this.initEndlessScrolling();
+  }
+
+  initSearchInputNavigation() {
+    // Bind globally, otherwise Mousetrap ignores keypresses inside inputs.
+    this.registerGlobal(this.options.sync.values.focusSearchInput, (event) => {
+      const target = event.target || event.srcElement;
+      const searchInput = document.querySelector(
+          this.searchEngine.searchBoxSelector);
+      // Handle keypress outside search box.
+      if (!target.matches(this.searchEngine.searchboxSelector)) {
+        searchInput.select();
+        searchInput.click();
+        return;
+      }
+      // Handle keypress inside the search box.
+      if (searchInput.selectionStart === 0 &&
+          searchInput.selectionEnd === searchInput.value.length) {
+        // Everything is selected; deselect all.
+        searchInput.setSelectionRange(
+            searchInput.value.length, searchInput.value.length);
+      } else {
+        // Closing search suggestions via document.body.click() or
+        // searchInput.blur() breaks the state of google's controller.
+        // The suggestion box is closed, yet it won't re-appear on the next
+        // search box focus event.
+
+        // Input can be blurred only when the suggestion box is already
+        // closed, hence the blur event is queued.
+        window.setTimeout(() => searchInput.blur());
+
+        // Invoke the default handler which will close-up search suggestions
+        // properly (google's controller won't break), but it won't remove the
+        // focus.
+        return true;
+      }
+    });
+  }
+
+  initTabsNavigation() {
+    const tabs = this.searchEngine.tabs || [];
+    for (const tab of tabs) {
+      this.register(tab[0], () => {
+        const node = document.querySelector(tab[1]);
+        if (node == null) {
+          return;
+        }
+        // Some search engines use forms instead of links for navigation
+        if (node.tagName == 'FORM') {
+          node.submit();
+        } else {
+          location.href = node.href;
+        }
+      });
+    }
+  }
 
   initResultsNavigation() {
+    this.resultsManager = new SearchResultsManager(this.searchEngine,
+        this.options.sync.values);
+    this.resultsManager.reloadSearchResults();
+    if (this.resultsManager.searchResults.length === 0) {
+      return;
+    }
     const options = this.options.sync.values;
     const lastNavigation = this.options.local.values;
-    const results = this.searchEngine.getSearchLinks();
-    this.knownResults = results; // Find a better way to solve this
-
     let isFirstNavigation = true;
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded, but don't scroll to
       // it because there may be KP cards such as stock graphs.
-      results.focus(0, false);
+      this.resultsManager.focus(0, false);
     }
     if (location.href === lastNavigation.lastQueryUrl) {
       isFirstNavigation = false;
-      results.focus(lastNavigation.lastFocusedIndex);
+      this.resultsManager.focus(lastNavigation.lastFocusedIndex);
     }
     this.register(options.nextKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
-        results.focus(0);
+        this.resultsManager.focus(0);
         isFirstNavigation = false;
       } else {
-        results.focusNext(options.wrapNavigation);
+        this.resultsManager.focusNext(options.wrapNavigation);
       }
     });
     this.register(options.previousKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
-        results.focus(0);
+        this.resultsManager.focus(0);
         isFirstNavigation = false;
       } else {
-        results.focusPrevious(options.wrapNavigation);
+        this.resultsManager.focusPrevious(options.wrapNavigation);
       }
     });
     this.register(options.navigateKey, () => {
-      const link = this.getElementToActivate(results);
+      const link = this.resultsManager.getElementToNavigate();
       lastNavigation.lastQueryUrl = location.href;
-      lastNavigation.lastFocusedIndex = results.focusedIndex;
+      lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
       this.options.local.save();
       link.click();
     });
     this.register(options.navigateNewTabKey, () => {
-      const link = this.getElementToActivate(results, true);
+      const link = this.resultsManager.getElementToNavigate(true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -89,7 +225,7 @@ Object.assign(extension, {
       });
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
-      const link = this.getElementToActivate(results, true);
+      const link = this.resultsManager.getElementToNavigate(true);
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -98,316 +234,81 @@ Object.assign(extension, {
         },
       });
     });
-    this.register(options.navigateShowAll, () =>
-      this.searchEngine.changeTools('a'),
-    );
-    this.register(options.navigateShowHour, () =>
-      this.searchEngine.changeTools('h'),
-    );
-    this.register(options.navigateShowDay, () =>
-      this.searchEngine.changeTools('d'),
-    );
-    this.register(options.navigateShowWeek, () =>
-      this.searchEngine.changeTools('w'),
-    );
-    this.register(options.navigateShowMonth, () =>
-      this.searchEngine.changeTools('m'),
-    );
-    this.register(options.navigateShowYear, () =>
-      this.searchEngine.changeTools('y'),
-    );
-    this.register(options.toggleSort, () =>
-      this.searchEngine.changeTools(null),
-    );
-  },
+  }
 
-  initCommonSearchNavigation() {
-    const tabs = this.searchEngine.getTabs();
+  initChangeToolsNavigation() {
     const options = this.options.sync.values;
-
-    // Bind globally otherwise Mousetrap ignores keypresses inside inputs.
-    this.registerGlobal(options.focusSearchInput, (event) => {
-      const target = event.target || event.srcElement;
-      const searchInput = document.querySelector(
-          this.searchEngine.searchBoxSelector,
-      );
-
-      // Handle keypress inside the search box.
-      if (target.matches(this.searchboxSelector)) {
-        if (
-          searchInput.selectionStart === 0 &&
-          searchInput.selectionEnd === searchInput.value.length
-        ) {
-          // Everything is selected; deselect all.
-          searchInput.setSelectionRange(
-              searchInput.value.length,
-              searchInput.value.length,
-          );
-        } else {
-          // Closing search suggestions via document.body.click() or
-          // searchInput.blur() breaks the state of the google's controller.
-          // Suggestion box is closed yet it won't re-appear on the next search
-          // box focus event.
-
-          // Input can be blurred only when suggestion box is already closed
-          // hence blur event is queued.
-          window.setTimeout(() => searchInput.blur());
-
-          // Invoke the default handler which will close-up search suggestions
-          // properly (google's controller won't break),
-          // but it won't remove the focus.
-          return true;
-        }
-      // Handle keypress outside search box.
-      } else {
-        searchInput.select();
-        searchInput.click();
-      }
-    });
-
-    for (let i = 0; i < tabs.length; i++) {
-      const tabCommand = tabs[i];
-      this.register(tabCommand[0], () => {
-        const node = document.querySelector(tabCommand[1]);
-        if (node !== null) {
-          // Some search engines use forms instead of links for navigation
-          if (node.tagName == 'FORM') {
-            node.submit();
-          } else {
-            location.href = node.href;
-          }
-        }
-      });
-    }
-  },
+    this.register(options.navigateShowAll, () =>
+      this.searchEngine.changeTools('a'));
+    this.register(options.navigateShowHour, () =>
+      this.searchEngine.changeTools('h'));
+    this.register(options.navigateShowDay, () =>
+      this.searchEngine.changeTools('d'));
+    this.register(options.navigateShowWeek, () =>
+      this.searchEngine.changeTools('w'));
+    this.register(options.navigateShowMonth, () =>
+      this.searchEngine.changeTools('m'));
+    this.register(options.navigateShowYear, () =>
+      this.searchEngine.changeTools('y'));
+    this.register(options.toggleSort, () =>
+      this.searchEngine.changeTools(null));
+  }
 
   registerGlobal(shortcut, callback) {
-    Mousetrap.bindGlobal(shortcut, function(event) {
+    Mousetrap.bindGlobal(shortcut, (event) => {
       const result = callback(event);
       if (result !== true && event !== null) {
         return false;
       }
     });
-  },
+  }
 
   register(shortcut, callback) {
-    Mousetrap.bind(shortcut, function(event) {
+    Mousetrap.bind(shortcut, (event) => {
       const result = callback();
       if (result !== true && event !== null) {
         return false;
       }
     });
-  },
+  }
   /**
-   * Observes the number of childnodes of containerSelector
-   * and compares them with this.knownResults.items. Automatically
-   * inits a reload of the navigation when they don't match up. This
-   * ensures that all search_links are always up to date when scrolling.
-   *
-   * @param {String} containerSelector
+   * Observes the number of childnodes of endlessScrollingContainer and compares
+   * them with this.results.items. Automatically inits a reload of the
+   * navigation when they don't match up. This ensures that all results are
+   * always up to date when scrolling.
    */
   // TODO: Fix this
-  supportEndlessScrolling(containerSelector) {
-    container = document.querySelector(containerSelector);
-    const config = {attributes: false, childList: true, subtree: false};
-    let firstObversation = true;
-    let observedHref = undefined;
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      if (firstObversation && this.knownResults) {
-        observedHref = location.href;
-        this.observedAdditions = this.knownResults.items.length;
-        firstObversation = false;
-      }
-      if (observedHref && observedHref != location.href) {
-        // Mutation Server was triggered due too loading a new url -> disconnect
-        // the observer
-        observer.disconnect();
-        startExtension();
-        return;
-      }
-      this.observedAdditions =
-        this.observedAdditions + mutationsList[0].addedNodes.length;
-      if (
-        this.knownResults &&
-        this.knownResults.items.length < this.observedAdditions
-      ) {
-        // Initialize a reload of navigation, save local values
-        this.options.local.values.lastQueryUrl = location.href;
-        this.options.local.values.lastFocusedIndex =
-          this.knownResults.focusedIndex;
-        await this.options.local.save()
-        this.initResultsNavigation();
-        this.initCommonSearchNavigation();
-      }
-    });
-    observer.observe(container, config);
-  },
-});
-
-// eslint-disable-next-line
-/**
- * @param {...[Element[], function|null]} includedNodeLists An array of tuples.
- * Each tuple contains collection of the search results optionally accompanied
- * with their container selector.
- * @constructor
- */
-// eslint-disable-next-line
-function SearchResultCollection(includedNodeLists, excludedNodeLists) {
-  /**
-   * @type {SearchResult[]}
-   */
-  this.items = [];
-  excludedResultsSet = new Set();
-
-  if (excludedNodeLists !== undefined) {
-    for (const nodes of excludedNodeLists) {
-      for (const node of nodes) {
-        excludedResultsSet.add(node);
-      }
-    }
-  }
-
-  for (const result of includedNodeLists) {
-    const nodes = result[0];
-    const containerSelector = result[1];
-    for (let j = 0; j < nodes.length; j++) {
-      const node = nodes[j];
-      if (!excludedResultsSet.has(node)) {
-        this.items.push(new SearchResult(node, containerSelector));
-      }
-    }
-  }
-  // Sort items by their document position.
-  this.items.sort((a, b) => {
-    const position = a.anchor.compareDocumentPosition(b.anchor);
-    if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
-      return -1;
-    } else if (position & Node.DOCUMENT_POSITION_PRECEDING) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-  this.focusedIndex = 0;
-  this.getHighlightedElement = function(index) {
-    const selector = getFromContext(
-        extension.searchEngine.HighlightedParentSelector,
-    );
-    if (selector != null) {
-      return this.items[index].anchor.closest(selector);
-    } else {
-      return this.items[index].anchor;
-    }
-  };
-  this.focus = function(index, scrollToResult = true) {
-    if (this.focusedIndex >= 0) {
-      const item = this.getHighlightedElement(this.focusedIndex);
-      // Remove focus outline from previous item.
-      item.classList.remove(extension.searchEngine.HighlightClass);
-      item.classList.remove('no-outline');
-    }
-    const highlighted = this.getHighlightedElement(index);
-    const newItem = this.items[index];
-    // Exit if no new item.
-    if (!newItem) {
-      this.focusedIndex = -1;
+  initEndlessScrolling() {
+    if (!this.searchEngine.endlessScrollingContainer) {
       return;
     }
-    // Add the focus outline and caret.
-    highlighted.classList.add(extension.searchEngine.HighlightClass);
-    // Hide focus outline if requested in options.
-    if (extension.options.sync.values.hideOutline) {
-      newItem.anchor.classList.add('no-outline');
-    }
-    // We already scroll below, so no need for focus to scroll. The scrolling
-    // behavior of `focus` also seems less predictable and caused an issue, see
-    // also: https://github.com/infokiller/web-search-navigator/issues/35./
-    newItem.anchor.focus({
-      preventScroll: true,
-    });
-    // Ensure whole search result container is visible in the viewport, not only
-    // the search result link.
-    if (scrollToResult) {
-      const container = newItem.getContainer() || newItem.anchor;
-      scrollToElement(container);
-    }
-    this.focusedIndex = index;
-  };
-  this.focusNext = function(shouldWrap) {
-    if (this.focusedIndex < this.items.length - 1) {
-      this.focus(this.focusedIndex + 1);
-    } else if (shouldWrap) {
-      this.focus(0);
-    }
-  };
-  this.focusPrevious = function(shouldWrap) {
-    if (this.focusedIndex > 0) {
-      this.focus(this.focusedIndex - 1);
-    } else if (shouldWrap) {
-      this.focus(this.items.length - 1);
-    } else {
-      window.scrollTo(window.scrollX, 0);
-    }
-  };
-}
-
-const scrollToElement = (element) => {
-  // Only use margins if they exists
-  const marginTop = getFromContext(extension.searchEngine.marginTop, 0);
-  const marginBottom = getFromContext(extension.searchEngine.marginBottom, 0);
-  const elementBounds = element.getBoundingClientRect();
-  // Firefox displays tooltip at the bottom which obstructs the view
-  // as a workaround ensure extra space from the bottom in the viewport
-  // firefox detection (https://stackoverflow.com/a/7000222/2870889).
-  const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-  // hardcoded height of the tooltip plus some margin
-  const firefoxBottomDelta = 26;
-  const bottomDelta = (isFirefox ? firefoxBottomDelta : 0) + marginBottom;
-  if (elementBounds.top < 0 + marginTop) {
-    // scroll element to top
-    element.scrollIntoView(true);
-    window.scrollBy(0, -marginTop);
-  } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
-    // scroll element to bottom
-    element.scrollIntoView(false);
-    window.scrollBy(0, bottomDelta);
-  }
-};
-
-/**
- * @param {Element} anchor
- * @param {function|null} containerSelector
- * @constructor
- */
-function SearchResult(anchor, containerSelector) {
-  this.anchor = anchor;
-  this.getContainer = function() {
-    if (!containerSelector) {
-      return this.anchor;
-    }
-    return containerSelector(this.anchor);
-  };
-}
-
-/**
- * Return value if context is valid
- * @param {boolean} prop, the returned value on valid context
- * @param {boolean} defaultValue, the returned value when property does not
- * exist
- * @return {*} either value or defaultValue depending on context
- */
-function getFromContext(prop, defaultValue = null) {
-  if (prop == null) {
-    return defaultValue;
-  } else if (prop[1] === 'all') {
-    return prop[0];
-  } else {
-    for (const context of prop[1]) {
-      if (extension.searchEngine.contexts[context]()) {
-        return prop[0];
+    this.observedAdditions = 0;
+    const config = {attributes: false, childList: true, subtree: false};
+    let firstObservation = true;
+    let observedHref = undefined;
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      if (firstObservation && this.resultsManager) {
+        observedHref = location.href;
+        this.observedAdditions = this.resultsManager.searchResults.length;
+        firstObservation = false;
       }
-    }
-    return prop[2];
+      if (observedHref && observedHref != location.href) {
+        // Mutation Server was triggered due to loading a new url -> disconnect
+        // the observer
+        observer.disconnect();
+        return;
+      }
+      this.observedAdditions += mutationsList[0].addedNodes.length;
+      if (this.resultsManager &&
+          this.resultsManager.searchResults.length < this.observedAdditions) {
+        // Initialize a reload of navigation, save local values
+        this.options.local.values.lastQueryUrl = location.href;
+        this.options.local.values.lastFocusedIndex = this.results.focusedIndex;
+        await this.options.local.save();
+        this.resultsManager.reloadSearchResults();
+      }
+    });
+    observer.observe(this.searchEngine.endlessScrollingContainer, config);
   }
 }
 
@@ -424,12 +325,5 @@ const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-// Entry Point
-// Be sure to load options in order to read the delay and apply it
-const startExtension = async () => {
-  await extension.options.load();
-  await sleep(extension.options.sync.values.delay);
-  extension.init(options);
-};
-
-startExtension();
+const extension = new WebSearchNavigator();
+extension.init();

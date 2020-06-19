@@ -3,32 +3,43 @@
 
 <head>
     <title>Options for Web Search Navigator</title>
-    <link rel="stylesheet" href="options.css">
+    <link rel="stylesheet" href="options_page.css">
 </head>
 
 <body>
-    <div class="option">
-        <label for="wrap-navigation">
-            <input type="checkbox" id="wrap-navigation"> Wrap around when navigating before/after the first/last search result
-        </label>
+    <div id="general-settings-container">
+        <h3>General settings</h3>
+        <div class="option">
+            <label for="wrap-navigation">
+                <input type="checkbox" id="wrap-navigation"> Wrap around when navigating before/after the first/last search result
+            </label>
+        </div>
+        <div class="option">
+            <label for="auto-select-first">
+                <input type="checkbox" id="auto-select-first"> Focus on first search result automatically after the page loads
+            </label>
+        </div>
+        <div class="option">
+            <label for="hide-outline">
+                <input type="checkbox" id="hide-outline"> Hide outline on selected search result
+            </label>
+        </div>
+        <div class="option">
+            <label for="delay">
+                <input type="number" id="delay"> Delay extension initialization
+            </label>
+        </div>
     </div>
-    <div class="option">
-        <label for="auto-select-first">
-            <input type="checkbox" id="auto-select-first"> Focus on first search result automatically after the page loads
-        </label>
+    <div id="google-settings-container">
+        <h3>Google specific settings</h3>
+        <div class="option">
+            <label for="google-include-cards">
+                <input type="checkbox" id="google-include-cards"> Include cards (top stories, twitter, videos) in regular Google search page
+            </label>
+        </div>
     </div>
-    <div class="option">
-        <label for="hide-outline">
-            <input type="checkbox" id="hide-outline"> Hide outline on selected search result
-        </label>
-    </div>
-    <div class="option">
-        <label for="delay">
-            <input type="number" id="delay"> Delay extension initialization
-        </label>
-    </div>
-    <div id="searchEngines-container">
-        <h3>Search engines</h3>
+    <div id="search-engines-container">
+        <h3>Alternative search engines</h3>
         <div class="option">
             <input type="checkbox" id="startpage" name="startpage">Add Startpage</input>
             <input type="checkbox" id="youtube" name="youtube">Add Youtube</input>
@@ -57,6 +68,8 @@
             </ul>
             Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown,
             del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
+
+            Note that not all search engines support all the keybindings.
         </div>
         <div class="option">
             <label for="next-key" class="option-desc">Next search result</label>
@@ -160,8 +173,8 @@
     <button id="save">Save</button>
 
     <script src="browser-polyfill.js"></script>
-    <script src="extension.js"></script>
     <script src="options.js"></script>
+    <script src="options_page.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Web Search Navigator",
-    "version": "0.3.4",
+    "version": "0.4.0",
     "description": "Keyboard shortcuts for Google™ search.",
     "author": "Web Search Navigator",
     "icons": {
@@ -22,9 +22,9 @@
         "https://www.startpage.com/*",
         "https://www.youtube.com/*"
     ],
-    "options_page": "options.html",
+    "options_page": "options_page.html",
     "options_ui": {
-        "page": "options.html",
+        "page": "options_page.html",
         "chrome_style": true
     },
     "background": {
@@ -41,8 +41,8 @@
                 "browser-polyfill.js",
                 "mousetrap.js",
                 "mousetrap-global-bind.js",
-                "extension.js",
-                "searchEngines.js",
+                "options.js",
+                "search_engines.js",
                 "main.js"
             ],
             "css": [

@@ -1,3 +1,10 @@
+New in 0.4.0
+* Support for navigating to Top Stories, Twitter, Videos, and callouts
+* Support for remapping keys with key sequences
+* Initial support for Youtube and Startpage (optional, needs to be enabled in
+  options)
+* Bugfixes
+
 New in 0.3.3
 * Link-opening shortcuts now prefer focused element over the highlighted
   result. Hence it is possible to navigate to sub-results and other links

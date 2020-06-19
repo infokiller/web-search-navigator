@@ -17,6 +17,10 @@ div {
   width: 200px;
 }
 
+#delay {
+  width: 50px;
+}
+
 #status {
   font-weight: bold;
 }
