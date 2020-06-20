@@ -1,3 +1,12 @@
+/* eslint-disable no-var */
+// Declare external dependencies so that eslint won't complain about undefined
+// variables.
+var browser;
+var ExtensionOptions;
+var getSearchEngine;
+var Mousetrap;
+/* eslint-disable no-var */
+
 class SearchResultsManager {
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;

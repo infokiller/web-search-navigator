@@ -62,13 +62,13 @@ class SearchResult {
 
 // eslint-disable-next-line
 /**
- * @param {...[Element[], function|null]} includedSearchResults An array of tuples.
- * Each tuple contains collection of the search results optionally accompanied
- * with their container selector.
+ * @param {...[Element[], function|null]} includedSearchResults An array of
+ * tuples.  Each tuple contains collection of the search results optionally
+ * accompanied with their container selector.
  * @constructor
  */
-// eslint-disable-next-line no-unused-vars
-const getSortedSearchResults = (includedSearchResults, excludedNodeList = []) => {
+const getSortedSearchResults = (
+    includedSearchResults, excludedNodeList = []) => {
   const excludedResultsSet = new Set();
   for (const node of excludedNodeList) {
     excludedResultsSet.add(node);
@@ -83,8 +83,8 @@ const getSortedSearchResults = (includedSearchResults, excludedNodeList = []) =>
             node,
             results.anchorSelector,
             results.highlightClass,
-            results.containerSelector,
             results.highlightedElementSelector,
+            results.containerSelector,
         ));
       }
     }
@@ -172,12 +172,17 @@ class GoogleSearch {
         }
         return element.closest('a');
       };
+      const nearestCardContainer = (element) => {
+        return element.closest('g-inner-card');
+      };
       includedElements.push(
           // Top stories, Twitter, and videos.
           {
             nodes: document.querySelectorAll(
                 '[data-init-vis=true] [role=heading]'),
             anchorSelector: nearestChildOrParentAnchor,
+            highlightedElementSelector: nearestCardContainer,
+            highlightClass: 'google-focused-card',
           },
           // Small top stories section.
           {
@@ -299,13 +304,15 @@ class StartPage {
     };
     const includedElements = [
       {
-        nodes: document.querySelectorAll('.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
+        nodes: document.querySelectorAll(
+            '.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
         highlightedElementSelector: highlightedElementSelector,
         highlightClass: 'startpage-focused-search-result',
         containerSelector: (n) => n.parentElement,
       },
       {
-        nodes: document.querySelectorAll('.vo-sp.vo-sp--default > a.vo-sp__link'),
+        nodes: document.querySelectorAll(
+            '.vo-sp.vo-sp--default > a.vo-sp__link'),
         highlightedElementSelector: highlightedElementSelector,
         highlightClass: 'startpage-focused-search-result',
       },
@@ -401,12 +408,14 @@ class Youtube {
 
   changeTools(period) {
     if (!document.querySelector('div#collapse-content')) {
-      const toggleButton = document.querySelectorAll('a.ytd-toggle-button-renderer')[0];
+      const toggleButton = document.querySelectorAll(
+          'a.ytd-toggle-button-renderer')[0];
       // Toggling the buttons ensures that div#collapse-content is loaded
       toggleButton.click();
       toggleButton.click();
     }
-    const forms = document.querySelectorAll('div#collapse-content > *:first-of-type ytd-search-filter-renderer');
+    const forms = document.querySelectorAll(
+        'div#collapse-content > *:first-of-type ytd-search-filter-renderer');
     let neededForm = null;
     switch (period) {
       case 'h':
