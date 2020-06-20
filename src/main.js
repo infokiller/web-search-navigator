@@ -39,11 +39,11 @@ class SearchResultsManager {
       highlighted.classList.remove('no-outline');
     }
     const searchResult = this.searchResults[index];
-    const highlighted = searchResult.highlightedElement;
     if (!searchResult) {
       this.focusedIndex = -1;
       return;
     }
+    const highlighted = searchResult.highlightedElement;
     // Add the focus outline and caret.
     highlighted.classList.add(searchResult.highlightClass);
     if (this.options.hideOutline || searchResult.anchor !== highlighted) {

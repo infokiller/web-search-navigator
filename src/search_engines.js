@@ -108,7 +108,7 @@ class GoogleSearch {
     this.options = options;
   }
   get urlPattern() {
-    return /^(www|encrypted)\.google\./;
+    return /(www|encrypted)\.google\./;
   }
   get searchBoxSelector() {
     // Must match search engine search box
@@ -231,13 +231,14 @@ class GoogleSearch {
   }
 
   /**
-   *  Filter the results based on date
+   *  Filter the results based on special properties
    * @param {*} period, filter identifier. Accpeted filter are :
    *  'h' : get results from last hour
    *  'd' : get result from last day
    *  'w' : get results from last week
    *  'm' : get result from last month
    *  'y' : get result from last year
+   *  'v' : verbatim search
    */
   changeTools(period) {
     // Save current period and sort.
@@ -262,7 +263,7 @@ class StartPage {
     this.options = options;
   }
   get urlPattern() {
-    return /^(www\.)?startpage\./;
+    return /(www\.)?startpage\./;
   }
   get searchBoxSelector() {
     return '.search-form__form input[id=q]';
@@ -363,7 +364,7 @@ class Youtube {
     this.options = options;
   }
   get urlPattern() {
-    return /^(www)\.youtube\./;
+    return /(www)\.youtube\./;
   }
   get searchBoxSelector() {
     return 'input#search';
@@ -406,7 +407,7 @@ class Youtube {
 
   get tabs() {
     // TODO: Support tabs in Youtube.
-    return [];
+    return {};
   }
 
   changeTools(period) {
@@ -443,6 +444,46 @@ class Youtube {
   }
 }
 
+class GoogleScholar {
+  constructor(options) {
+    this.options = options;
+  }
+  get urlPattern() {
+    return /scholar\.google\.com\/scholar/;
+  }
+  get searchBoxSelector() {
+    return '#gs_hdr_tsi';
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('.gs_rt a'),
+        highlightClass: 'default-focused-search-result',
+        containerSelector: (n) => n.parentElement.parentElement,
+      },
+      {
+        nodes: document.querySelectorAll(
+            '.gs_ico_nav_previous, .gs_ico_nav_next'),
+        anchorSelector: (n) => n.parentElement,
+        highlightClass: 'google-scholar-next-page',
+        highlightedElementSelector: (n) => n.parentElement.children[1],
+        containerSelector: (n) => n.parentElement.children[1],
+      },
+    ];
+    return getSortedSearchResults(includedElements, []);
+  }
+
+  get tabs() {
+    return {
+      navigatePreviousResultPage:
+          document.querySelector('.gs_ico_nav_previous').parentElement,
+      navigateNextResultPage:
+          document.querySelector('.gs_ico_nav_next').parentElement,
+    };
+  }
+}
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -450,11 +491,12 @@ const getSearchEngine = (options) => {
     new GoogleSearch(options),
     new StartPage(options),
     new Youtube(options),
+    new GoogleScholar(options),
   ];
   // Switch over all compatible search engines
-  const host = window.location.hostname;
+  const href = window.location.href;
   for (let i = 0; i < searchEngines.length; i++) {
-    if (host.match(searchEngines[i].urlPattern)) {
+    if (href.match(searchEngines[i].urlPattern)) {
       return searchEngines[i];
     }
   }

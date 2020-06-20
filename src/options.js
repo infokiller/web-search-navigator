@@ -30,9 +30,11 @@ const DEFAULT_OPTIONS = {
   navigateShowMonth: ['z m', 'ctrl+shift+m', 'command+shift+m'],
   navigateShowYear: ['z y', 'ctrl+shift+y', 'command+shift+y'],
   toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s'],
+  toggleVerbatimSearch: ['z v'],
   searchEngines: {
     startpage: false,
     youtube: false,
+    googleScholar: false,
   }};
 
 /**

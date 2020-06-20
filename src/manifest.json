@@ -20,7 +20,8 @@
         "tabs",
         "https://startpage.com/*",
         "https://www.startpage.com/*",
-        "https://www.youtube.com/*"
+        "https://www.youtube.com/*",
+        "https://scholar.google.com/*"
     ],
     "options_page": "options_page.html",
     "options_ui": {

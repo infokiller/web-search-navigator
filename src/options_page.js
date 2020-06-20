@@ -2,7 +2,7 @@
 
 // Authorized urls for compatible search engines
 const OPTIONAL_PERMISSIONS_URLS = {
-  startpage: [
+  'startpage': [
     // It used to be 'https://www.startpage.com/*/*search*' but when requesting
     // this URL chrome actually grants permission to the URL below. This
     // discrepancy causes the options page to think that we don't have
@@ -10,9 +10,10 @@ const OPTIONAL_PERMISSIONS_URLS = {
     'https://www.startpage.com/*',
     'https://startpage.com/*',
   ],
-  youtube: [
+  'youtube': [
     'https://www.youtube.com/*',
   ],
+  'google-scholar': ['https://scholar.google.com/*'],
 };
 
 const DIV_TO_OPTION_NAME = {
@@ -53,6 +54,10 @@ class OptionsPageManager {
     youtube.addEventListener('change', () => {
       this.setSearchEnginePermission(youtube);
     });
+    const googleScholar = document.getElementById('google-scholar');
+    googleScholar.addEventListener('change', () => {
+      this.setSearchEnginePermission(googleScholar);
+    });
     // NOTE: this.saveOptions cannot be passed directly or otherwise `this`
     // won't be bound to the object.
     document.getElementById('save').addEventListener('click', () => {
@@ -75,6 +80,8 @@ class OptionsPageManager {
         'startpage').checked;
     options.searchEngines.youtube = document.getElementById(
         'youtube').checked;
+    options.searchEngines.googleScholar = document.getElementById(
+        'google-scholar').checked;
     // Handle keybinding options
     for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
       // Options take commands as strings separated by commas.
@@ -92,9 +99,11 @@ class OptionsPageManager {
 
   // Load options from browser.storage.sync to the DOM.
   async loadOptions() {
+    // eslint-disable-next-line no-undef
     this.options = createSyncedOptions();
     const [, permissions] = await Promise.all([
       this.options.load(),
+      // eslint-disable-next-line no-undef
       browser.permissions.getAll(),
     ]);
     const options = this.options.values;
@@ -117,13 +126,18 @@ class OptionsPageManager {
     }
     // Check what URLs we have permission for.
     const startpage = document.getElementById('startpage');
-    startpage.checked = OPTIONAL_PERMISSIONS_URLS.startpage.every((url) => {
+    startpage.checked = OPTIONAL_PERMISSIONS_URLS['startpage'].every((url) => {
       return permissions.origins.includes(url);
     });
     const youtube = document.getElementById('youtube');
-    youtube.checked = OPTIONAL_PERMISSIONS_URLS.youtube.every((url) => {
+    youtube.checked = OPTIONAL_PERMISSIONS_URLS['youtube'].every((url) => {
       return permissions.origins.includes(url);
     });
+    const googleScholar = document.getElementById('google-scholar');
+    googleScholar.checked = OPTIONAL_PERMISSIONS_URLS['google-scholar'].every(
+        (url) => {
+          return permissions.origins.includes(url);
+        });
   }
 
   /**
@@ -134,10 +148,12 @@ class OptionsPageManager {
     const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.name];
     if (checkbox.checked) {
       checkbox.checked = false;
+      // eslint-disable-next-line no-undef
       const granted = await browser.permissions.request(
           {permissions: ['tabs'], origins: urls});
       checkbox.checked = granted;
     } else {
+      // eslint-disable-next-line no-undef
       browser.permissions.remove({origins: urls});
     }
   }

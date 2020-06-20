@@ -11,10 +11,10 @@
 }
 
 .startpage-focused-search-result {
-    border-color: #4caf50!important;
-    border-width: 2px;
-    border-style: double;
-    border-radius: 9px;
+  border-color: #4caf50!important;
+  border-width: 2px;
+  border-style: double;
+  border-radius: 9px;
 }
 
 .youtube-focused-search-result{
@@ -27,4 +27,8 @@
 .no-outline,
 .no-outline:focus  {
   outline: none;
+}
+
+.google-scholar-next-page {
+  border: 1px solid black!important;
 }
