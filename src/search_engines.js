@@ -484,6 +484,47 @@ class GoogleScholar {
   }
 }
 
+class Amazon {
+  constructor(options) {
+    this.options = options;
+  }
+  get urlPattern() {
+    return /(www\.)?amazon\.com\/s\?/;
+  }
+  get searchBoxSelector() {
+    return '#twotabsearchtextbox';
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll(
+            '.s-search-results h2 .a-link-normal.a-text-normal'),
+        highlightClass: 'amazon-focused-search-result',
+        // containerSelector: (n) => n.closest('.sg-row').parentElement.closest('.sg-row')
+      },
+      {
+        nodes: document.querySelectorAll('.a-pagination a'),
+        highlightClass: 'amazon-focused-search-result',
+      },
+    ];
+    return getSortedSearchResults(includedElements, []);
+  }
+
+  get tabs() {
+    const pagesTabs = {
+      navigateNextResultPage:
+          document.querySelector('.a-pagination .a-last a'),
+    };
+    const paginationContainer = document.querySelector('.a-pagination');
+    if (paginationContainer && paginationContainer.children[0] && !paginationContainer.children[0].classList.contains('a-normal')) {
+      pagesTabs.navigatePreviousResultPage =
+        paginationContainer.children[0].querySelector('a');
+    }
+    return pagesTabs;
+  }
+}
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -492,6 +533,7 @@ const getSearchEngine = (options) => {
     new StartPage(options),
     new Youtube(options),
     new GoogleScholar(options),
+    new Amazon(options),
   ];
   // Switch over all compatible search engines
   const href = window.location.href;

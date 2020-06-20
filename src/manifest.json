@@ -21,7 +21,8 @@
         "https://startpage.com/*",
         "https://www.startpage.com/*",
         "https://www.youtube.com/*",
-        "https://scholar.google.com/*"
+        "https://scholar.google.com/*",
+        "https://www.amazon.com/*"
     ],
     "options_page": "options_page.html",
     "options_ui": {

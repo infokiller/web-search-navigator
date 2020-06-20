@@ -14,6 +14,10 @@ const OPTIONAL_PERMISSIONS_URLS = {
     'https://www.youtube.com/*',
   ],
   'google-scholar': ['https://scholar.google.com/*'],
+  'amazon': [
+    'https://www.amazon.com/*',
+    // TODO: Add other Amazon domains (UK etc).
+  ],
 };
 
 const DIV_TO_OPTION_NAME = {
@@ -58,6 +62,10 @@ class OptionsPageManager {
     googleScholar.addEventListener('change', () => {
       this.setSearchEnginePermission(googleScholar);
     });
+    const amazon = document.getElementById('amazon');
+    amazon.addEventListener('change', () => {
+      this.setSearchEnginePermission(amazon);
+    });
     // NOTE: this.saveOptions cannot be passed directly or otherwise `this`
     // won't be bound to the object.
     document.getElementById('save').addEventListener('click', () => {
@@ -82,6 +90,8 @@ class OptionsPageManager {
         'youtube').checked;
     options.searchEngines.googleScholar = document.getElementById(
         'google-scholar').checked;
+    options.searchEngines.amazon = document.getElementById(
+        'amazon').checked;
     // Handle keybinding options
     for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
       // Options take commands as strings separated by commas.
@@ -138,6 +148,10 @@ class OptionsPageManager {
         (url) => {
           return permissions.origins.includes(url);
         });
+    const amazon = document.getElementById('amazon');
+    amazon.checked = OPTIONAL_PERMISSIONS_URLS['amazon'].every((url) => {
+      return permissions.origins.includes(url);
+    });
   }
 
   /**

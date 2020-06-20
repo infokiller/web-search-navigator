@@ -5,7 +5,9 @@
   position: absolute;
 }
 
-.google-focused-card {
+.google-focused-card,
+.google-scholar-next-page,
+.amazon-focused-search-result {
   /* NOTE: Without !important the style is overridden by Google stylesheets */
   border: 1px solid black!important;
 }
@@ -27,8 +29,4 @@
 .no-outline,
 .no-outline:focus  {
   outline: none;
-}
-
-.google-scholar-next-page {
-  border: 1px solid black!important;
 }
