@@ -202,17 +202,18 @@ class GoogleSearch {
   // CSS selector
   get tabs() {
     if (this.isImagesTab()) {
-      // TODO: Make tabs work in the images tab. The code below doesn't quite
-      // work because it seems that the order of tabs is dependent on the query.
-      // return {
-      //   navigateSearchTab: document.querySelector('.T47uwc > a:nth-child(1)'),
-      //   navigateMapsTab: document.querySelector('.T47uwc > a:nth-child(3)'),
-      //   navigateVideosTab: document.querySelector('.T47uwc > a:nth-child(4)'),
-      //   navigateNewsTab: document.querySelector('.T47uwc > a:nth-child(5)'),
-      //   navigatePreviousResultPage: document.querySelector('#pnprev'),
-      //   navigateNextResultPage: document.querySelector('#pnnext'),
-      // };
-      return {};
+      const visibleTabs = document.querySelectorAll('.T47uwc > a');
+      // NOTE: The order of the tabs after the first two is dependent on the
+      // query. For example:
+      // - "cats": videos, news, maps
+      // - "trump": news, videos, maps
+      // - "california": maps, news, videos
+      return {
+        navigateSearchTab: visibleTabs[0],
+        navigateMapsTab: document.querySelector('.T47uwc > a[href*="maps.google."]'),
+        navigateVideosTab: document.querySelector('.T47uwc > a[href*="&tbm=vid"]'),
+        navigateNewsTab: document.querySelector('.T47uwc > a[href*="&tbm=nws"]'),
+      };
     }
     return {
       navigateSearchTab: document.querySelector(
