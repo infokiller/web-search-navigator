@@ -22,8 +22,6 @@
  *    Default: null
 */
 
-/* eslint-disable max-len */
-
 class SearchResult {
   /**
   * @param {Element} element
@@ -513,7 +511,8 @@ class Amazon {
         nodes: document.querySelectorAll(
             '.s-search-results h2 .a-link-normal.a-text-normal'),
         highlightClass: 'amazon-focused-search-result',
-        // containerSelector: (n) => n.closest('.sg-row').parentElement.closest('.sg-row')
+        // containerSelector: (n) => n.closest(
+        //    '.sg-row').parentElement.closest('.sg-row')
       },
       {
         nodes: document.querySelectorAll('.a-pagination a'),
