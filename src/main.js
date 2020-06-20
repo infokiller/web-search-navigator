@@ -1,4 +1,15 @@
 class SearchResultsManager {
+  static get browserBottomDelta() {
+    // Firefox displays tooltip at the bottom which obstructs the view.
+    // As a workaround ensure extra space from the bottom in the viewport
+    // firefox detection (https://stackoverflow.com/a/7000222/2870889).
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
+      // Hardcoded height of the tooltip plus some margin
+      return 26;
+    }
+    return 0;
+  }
+
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;
     this.options = options;
@@ -33,6 +44,11 @@ class SearchResultsManager {
   focus(index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
       const searchResult = this.searchResults[this.focusedIndex];
+      // If the current result is outside the viewport and scrolling was
+      // requested, only scroll to it, but don't focus on the new result.
+      if (scrollToResult && this.scrollToElement(searchResult.container)) {
+        return;
+      }
       const highlighted = searchResult.highlightedElement;
       // Remove highlighting from previous item.
       highlighted.classList.remove(searchResult.highlightClass);
@@ -61,26 +77,24 @@ class SearchResultsManager {
     this.focusedIndex = index;
   }
 
+  // Returns true if scrolling was needed.
   scrollToElement(element) {
     const marginTop = this.searchEngine.marginTop || 0;
     const marginBottom = this.searchEngine.marginBottom || 0;
+    const bottomDelta = SearchResultsManager.browserBottomDelta + marginBottom;
     const elementBounds = element.getBoundingClientRect();
-    // Firefox displays tooltip at the bottom which obstructs the view
-    // as a workaround ensure extra space from the bottom in the viewport
-    // firefox detection (https://stackoverflow.com/a/7000222/2870889).
-    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    // hardcoded height of the tooltip plus some margin
-    const firefoxBottomDelta = 26;
-    const bottomDelta = (isFirefox ? firefoxBottomDelta : 0) + marginBottom;
     if (elementBounds.top < marginTop) {
       // scroll element to top
       element.scrollIntoView(true);
       window.scrollBy(0, -marginTop);
+      return true;
     } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
       // scroll element to bottom
       element.scrollIntoView(false);
       window.scrollBy(0, bottomDelta);
+      return true;
     }
+    return false;
   }
 
   focusNext(shouldWrap) {
