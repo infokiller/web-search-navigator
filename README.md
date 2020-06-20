@@ -109,8 +109,16 @@ To build the extension for development run:
 yarn install && yarn build
 ```
 
-The extension will be deployed directly to the `src` directory. You can load this directory as an unpacked extensions to
-your browser.
+The extension will be deployed directly to the `src` directory.
+
+The easiest way to run the built extension is to use `web-ext` which will run a separate it in a separate browser profile. From the project root directory:
+
+```sh
+# Replace '--target chromium' with "--target firefox-desktop" for Firefox.
+yarn run web-ext run --source-dir src --start-url 'https://www.google.com/search?q=whatever' --target chromium
+```
+
+Alternatively, you can load this directory as an unpacked extensions to your browser.
 
 _It would be better to deploy for example to `build/deploy` and add `gulp-watch` to update the deployed files
 automatically. However when done so the browser's (Chrome) auto-reload extension gets broken and one has to reload the
