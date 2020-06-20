@@ -8,4 +8,5 @@ package-lock.json
 src/mousetrap*.js
 src/mousetrap-global-bind*.js
 src/browser-polyfill*.js
+src/webext-dynamic-content-scripts.js
 .vscode/

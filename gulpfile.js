@@ -13,6 +13,7 @@ const minimalist = require('minimist');
 const argv = minimalist(process.argv.slice(2));
 
 const extraFiles = [
+  'vendor/webext-dynamic-content-scripts.js',
   'node_modules/mousetrap/mousetrap.js',
   // Global bind requires to handle keypresses inside search box
   'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
