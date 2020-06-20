@@ -210,9 +210,20 @@ class GoogleSearch {
       // - "california": maps, news, videos
       return {
         navigateSearchTab: visibleTabs[0],
-        navigateMapsTab: document.querySelector('.T47uwc > a[href*="maps.google."]'),
-        navigateVideosTab: document.querySelector('.T47uwc > a[href*="&tbm=vid"]'),
-        navigateNewsTab: document.querySelector('.T47uwc > a[href*="&tbm=nws"]'),
+        navigateMapsTab: document.querySelector(
+            '.T47uwc > a[href*="maps.google."]'),
+        navigateVideosTab: document.querySelector(
+            '.T47uwc > a[href*="&tbm=vid"]'),
+        navigateNewsTab: document.querySelector(
+            '.T47uwc > a[href*="&tbm=nws"]'),
+        navigateShoppingTab: document.querySelector(
+            'a[role="menuitem"][href*="&tbm=shop"]'),
+        navigateBooksTab: document.querySelector(
+            'a[role="menuitem"][href*="&tbm=bks"]'),
+        navigateFlightsTab: document.querySelector(
+            'a[role="menuitem"][href*="&tbm=flm"]'),
+        navigateFinancialTab: document.querySelector(
+            'a[role="menuitem"][href*="&tbm=fin"]'),
       };
     }
     return {
