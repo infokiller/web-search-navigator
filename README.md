@@ -87,10 +87,6 @@ yarn build --env production
 
 The automated build scripts are currently not implemented so manual process is required afterward.
 
-## TODO
-
-*   Add option for navigating "Top stories"
-
 ## Privacy policy
 
 See [PRIVACY_POLICY.md](./docs/PRIVACY_POLICY.md).

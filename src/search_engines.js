@@ -369,7 +369,7 @@ class Youtube {
     return 'input#search';
   }
   get endlessScrollingContainer() {
-    return 'div#contents div#contents';
+    return document.querySelector('div#contents div#contents');
   }
 
   getSearchResults() {
@@ -383,6 +383,11 @@ class Youtube {
       // Playlists
       {
         nodes: document.querySelectorAll('div#content a.ytd-playlist-renderer'),
+        highlightClass: 'youtube-focused-search-result',
+      },
+      {
+        nodes: document.querySelectorAll(
+            'div#content a.ytd-playlist-video-renderer'),
         highlightClass: 'youtube-focused-search-result',
       },
       // Mixes

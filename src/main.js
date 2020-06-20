@@ -282,9 +282,9 @@ class WebSearchNavigator {
    * navigation when they don't match up. This ensures that all results are
    * always up to date when scrolling.
    */
-  // TODO: Fix this
   initEndlessScrolling() {
-    if (!this.searchEngine.endlessScrollingContainer) {
+    const container = this.searchEngine.endlessScrollingContainer;
+    if (!container) {
       return;
     }
     this.observedAdditions = 0;
@@ -292,7 +292,7 @@ class WebSearchNavigator {
     let firstObservation = true;
     let observedHref = undefined;
     const observer = new MutationObserver(async (mutationsList, observer) => {
-      if (firstObservation && this.resultsManager) {
+      if (firstObservation) {
         observedHref = location.href;
         this.observedAdditions = this.resultsManager.searchResults.length;
         firstObservation = false;
@@ -303,17 +303,14 @@ class WebSearchNavigator {
         observer.disconnect();
         return;
       }
-      this.observedAdditions += mutationsList[0].addedNodes.length;
-      if (this.resultsManager &&
-          this.resultsManager.searchResults.length < this.observedAdditions) {
-        // Initialize a reload of navigation, save local values
-        this.options.local.values.lastQueryUrl = location.href;
-        this.options.local.values.lastFocusedIndex = this.results.focusedIndex;
-        await this.options.local.save();
+      for (const mutations of mutationsList) {
+        this.observedAdditions += mutations.addedNodes.length;
+      }
+      if (this.resultsManager.searchResults.length < this.observedAdditions) {
         this.resultsManager.reloadSearchResults();
       }
     });
-    observer.observe(this.searchEngine.endlessScrollingContainer, config);
+    observer.observe(container, config);
   }
 }
 
