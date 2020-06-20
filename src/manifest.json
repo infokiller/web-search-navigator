@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Web Search Navigator",
-    "version": "0.4.0",
-    "description": "Keyboard shortcuts for Google™ search.",
+    "version": "0.4.1",
+    "description": "Keyboard shortcuts for Google™ search, YouTube, Scholar, and Startpage.",
     "author": "Web Search Navigator",
     "icons": {
         "16": "icon16.png",
@@ -12,7 +12,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "{ffadac89-63bb-4b04-be90-8cb2aa323171}",
-            "strict_min_version": "48.0"
+            "strict_min_version": "68.0"
         }
     },
     "permissions": ["storage"],
@@ -244,8 +244,7 @@
                 "*://www.google.co.za/search*",
                 "*://www.google.co.zm/search*",
                 "*://www.google.co.zw/search*",
-                "*://www.google.cat/search*",
-                "*://encrypted.google.com/*"
+                "*://www.google.cat/search*"
             ]
         }
     ]

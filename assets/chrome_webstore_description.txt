@@ -1,8 +1,11 @@
+New in 0.4.1
+* *Very* experimental support for Amazon.
+
 New in 0.4.0
 * Support for navigating to Top Stories, Twitter, Videos, and callouts
 * Support for remapping keys with key sequences
-* Experimental support for Youtube and Startpage (optional, needs to be enabled
-  in options)
+* Experimental support for Youtube, Startpage, and Scholar (optional, needs to
+  be enabled in options)
 * Bugfixes
 
 New in 0.3.3
@@ -90,4 +93,4 @@ wanted to add new keyboard shortcuts and the existing ones to be more vim like
 *	`Ctrl+Shift+a`: Turn off filter (show all results)
 *	`Ctrl+Shift+s`: Toggle sort by date/relevance (only when filtering)
 
-©2018 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
+©2020 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.

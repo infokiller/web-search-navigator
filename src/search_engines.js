@@ -529,7 +529,8 @@ class Amazon {
           document.querySelector('.a-pagination .a-last a'),
     };
     const paginationContainer = document.querySelector('.a-pagination');
-    if (paginationContainer && paginationContainer.children[0] && !paginationContainer.children[0].classList.contains('a-normal')) {
+    if (paginationContainer && paginationContainer.children[0] &&
+        !paginationContainer.children[0].classList.contains('a-normal')) {
       pagesTabs.navigatePreviousResultPage =
         paginationContainer.children[0].querySelector('a');
     }
