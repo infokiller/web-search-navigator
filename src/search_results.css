@@ -5,6 +5,11 @@
   position: absolute;
 }
 
+.google-focused-card {
+  /* NOTE: Without !important the style is overridden by Google stylesheets */
+  border: 1px solid black!important;
+}
+
 .startpage-focused-search-result {
     border-color: #4caf50!important;
     border-width: 2px;

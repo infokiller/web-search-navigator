@@ -1,12 +1,3 @@
-/* eslint-disable no-var */
-// Declare external dependencies so that eslint won't complain about undefined
-// variables.
-var browser;
-var ExtensionOptions;
-var getSearchEngine;
-var Mousetrap;
-/* eslint-disable no-var */
-
 class SearchResultsManager {
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;
@@ -55,7 +46,7 @@ class SearchResultsManager {
     }
     // Add the focus outline and caret.
     highlighted.classList.add(searchResult.highlightClass);
-    if (this.options.hideOutline) {
+    if (this.options.hideOutline || searchResult.anchor !== highlighted) {
       searchResult.anchor.classList.add('no-outline');
     }
     // We already scroll below, so no need for focus to scroll. The scrolling
@@ -113,8 +104,10 @@ class SearchResultsManager {
 
 class WebSearchNavigator {
   async init() {
+    /* eslint-disable-next-line no-undef */
     this.options = new ExtensionOptions();
     await this.options.load();
+    /* eslint-disable-next-line no-undef */
     this.searchEngine = await getSearchEngine(this.options.sync.values);
     if (this.searchEngine == null) {
       return;
@@ -164,18 +157,17 @@ class WebSearchNavigator {
   }
 
   initTabsNavigation() {
-    const tabs = this.searchEngine.tabs || [];
-    for (const tab of tabs) {
-      this.register(tab[0], () => {
-        const node = document.querySelector(tab[1]);
-        if (node == null) {
+    const tabs = this.searchEngine.tabs || {};
+    for (const [optionName, element] of Object.entries(tabs)) {
+      this.register(this.options.sync.values[optionName], () => {
+        if (element == null) {
           return;
         }
         // Some search engines use forms instead of links for navigation
-        if (node.tagName == 'FORM') {
-          node.submit();
+        if (element.tagName == 'FORM') {
+          element.submit();
         } else {
-          location.href = node.href;
+          element.click();
         }
       });
     }
@@ -225,6 +217,7 @@ class WebSearchNavigator {
     });
     this.register(options.navigateNewTabKey, () => {
       const link = this.resultsManager.getElementToNavigate(true);
+      /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -235,6 +228,7 @@ class WebSearchNavigator {
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = this.resultsManager.getElementToNavigate(true);
+      /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -264,6 +258,7 @@ class WebSearchNavigator {
   }
 
   registerGlobal(shortcut, callback) {
+    /* eslint-disable-next-line no-undef */
     Mousetrap.bindGlobal(shortcut, (event) => {
       const result = callback(event);
       if (result !== true && event !== null) {
@@ -273,6 +268,7 @@ class WebSearchNavigator {
   }
 
   register(shortcut, callback) {
+    /* eslint-disable-next-line no-undef */
     Mousetrap.bind(shortcut, (event) => {
       const result = callback();
       if (result !== true && event !== null) {

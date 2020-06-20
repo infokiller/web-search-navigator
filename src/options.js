@@ -49,6 +49,7 @@ class OptionSection {
   load() {
     return new Promise((resolve) => {
       this.storage.get(this.values).then((values) => {
+        // eslint-disable-next-line no-undef
         if (!browser.runtime.lastError) {
           this.values = values;
         }
@@ -62,12 +63,15 @@ class OptionSection {
 }
 
 const createSyncedOptions = () => {
+  // eslint-disable-next-line no-undef
   return new OptionSection(browser.storage.sync, DEFAULT_OPTIONS);
 };
 
+// eslint-disable-next-line no-unused-vars
 class ExtensionOptions {
   constructor() {
     this.sync = createSyncedOptions();
+    // eslint-disable-next-line no-undef
     this.local = new OptionSection(browser.storage.local, {
       lastQueryUrl: null,
       lastFocusedIndex: 0,

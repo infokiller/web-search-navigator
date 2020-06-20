@@ -200,39 +200,34 @@ class GoogleSearch {
 
   // Array storing tuples of tabs navigation keybindings and their corresponding
   // CSS selector
-  // TODO: Only return the selectors for each tab, not the keybindings which
-  // should only be used in a higher level scope.
   get tabs() {
-    const options = this.options;
     if (this.isImagesTab()) {
-      return [
-        [options.navigateSearchTab, '.T47uwc > a:nth-child(1)'],
-        [options.navigateMapsTab, '.T47uwc > a:nth-child(3)'],
-        [options.navigateVideosTab, '.T47uwc > a:nth-child(4)'],
-        [options.navigateNewsTab, '.T47uwc > a:nth-child(5)'],
-        // [options.navigateBooksTab, '.T47uwc div a:nth-child(1)'],
-        // [options.navigateFlightsTab, '.T47uwc div a:nth-child(2)'],
-        // [options.navigateFinancialTab, '.T47uwc div a:nth-child(3)'],
-        [options.navigatePreviousResultPage, '#pnprev'],
-        [options.navigateNextResultPage, '#pnnext'],
-      ];
+      // TODO: Make tabs work in the images tab. The code below doesn't quite
+      // work because it seems that the order of tabs is dependent on the query.
+      // return {
+      //   navigateSearchTab: document.querySelector('.T47uwc > a:nth-child(1)'),
+      //   navigateMapsTab: document.querySelector('.T47uwc > a:nth-child(3)'),
+      //   navigateVideosTab: document.querySelector('.T47uwc > a:nth-child(4)'),
+      //   navigateNewsTab: document.querySelector('.T47uwc > a:nth-child(5)'),
+      //   navigatePreviousResultPage: document.querySelector('#pnprev'),
+      //   navigateNextResultPage: document.querySelector('#pnnext'),
+      // };
+      return {};
     }
-    return [
-      [
-        options.navigateSearchTab,
-        'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])',
-      ],
-      [options.navigateImagesTab, 'a.q.qs[href*="&tbm=isch"]'],
-      [options.navigateVideosTab, 'a.q.qs[href*="&tbm=vid"]'],
-      [options.navigateMapsTab, 'a.q.qs[href*="maps.google."]'],
-      [options.navigateNewsTab, 'a.q.qs[href*="&tbm=nws"]'],
-      [options.navigateShoppingTab, 'a.q.qs[href*="&tbm=shop"]'],
-      [options.navigateBooksTab, 'a.q.qs[href*="&tbm=bks"]'],
-      [options.navigateFlightsTab, 'a.q.qs[href*="&tbm=flm"]'],
-      [options.navigateFinancialTab, 'a.q.qs[href*="&tbm=fin"]'],
-      [options.navigatePreviousResultPage, '#pnprev'],
-      [options.navigateNextResultPage, '#pnnext'],
-    ];
+    return {
+      navigateSearchTab: document.querySelector(
+          'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'),
+      navigateImagesTab: document.querySelector('a.q.qs[href*="&tbm=isch"]'),
+      navigateVideosTab: document.querySelector('a.q.qs[href*="&tbm=vid"]'),
+      navigateMapsTab: document.querySelector('a.q.qs[href*="maps.google."]'),
+      navigateNewsTab: document.querySelector('a.q.qs[href*="&tbm=nws"]'),
+      navigateShoppingTab: document.querySelector('a.q.qs[href*="&tbm=shop"]'),
+      navigateBooksTab: document.querySelector('a.q.qs[href*="&tbm=bks"]'),
+      navigateFlightsTab: document.querySelector('a.q.qs[href*="&tbm=flm"]'),
+      navigateFinancialTab: document.querySelector('a.q.qs[href*="&tbm=fin"]'),
+      navigatePreviousResultPage: document.querySelector('#pnprev'),
+      navigateNextResultPage: document.querySelector('#pnnext'),
+    };
   }
 
   /**
@@ -280,14 +275,10 @@ class StartPage {
   }
 
   isSearchTab() {
-    const searchLayoutDiv =
-            document.querySelector('div.layout.layout--default');
-    return (typeof(searchLayoutDiv) != 'undefined' && searchLayoutDiv != null);
+    return document.querySelector('div.layout-web') != null;
   }
   isImagesTab() {
-    const imgLayoutDiv =
-          document.querySelector('div.layout-images.layout-images--default');
-    return (typeof(imgLayoutDiv) != 'undefined' && imgLayoutDiv != null);
+    return document.querySelector('div.layout-images') != null;
   }
 
   getSearchResults() {
@@ -305,11 +296,12 @@ class StartPage {
     const includedElements = [
       {
         nodes: document.querySelectorAll(
-            '.w-gl--default.w-gl .w-gl__result > .w-gl__result-title'),
+            '.w-gl--default.w-gl .w-gl__result a.w-gl__result-url'),
         highlightedElementSelector: highlightedElementSelector,
         highlightClass: 'startpage-focused-search-result',
         containerSelector: (n) => n.parentElement,
       },
+      // As of 2020-06-20, this doesn't seem to match anything.
       {
         nodes: document.querySelectorAll(
             '.vo-sp.vo-sp--default > a.vo-sp__link'),
@@ -321,14 +313,20 @@ class StartPage {
   }
 
   get tabs() {
-    const options = this.options;
-    return [
-      [options.navigateSearchTab, 'div.inline-nav-menu__container > form.inline[action="/sp/search"]:first-of-type'],
-      [options.navigateImagesTab, 'div.inline-nav-menu__container > form.inline[action="/sp/search"]:nth-of-type(2)'],
-      [options.navigateVideosTab, 'div.inline-nav-menu__container > form.inline[action="/sp/search"]:last-of-type'],
-      [options.navigatePreviousResultPage, 'form.pagination__form.next-prev-form--desktop:first-of-type'],
-      [options.navigateNextResultPage, 'form.pagination__form.next-prev-form--desktop:last-of-type'],
-    ];
+    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    if (!menuLinks || menuLinks.length < 4) {
+      return {};
+    }
+    return {
+      navigateSearchTab: menuLinks[0],
+      navigateImagesTab: menuLinks[1],
+      navigateVideosTab: menuLinks[2],
+      navigateNewsTab: menuLinks[3],
+      navigatePreviousResultPage: document.querySelector(
+          'form.pagination__form.next-prev-form--desktop:first-of-type'),
+      navigateNextResultPage: document.querySelector(
+          'form.pagination__form.next-prev-form--desktop:last-of-type'),
+    };
   }
 
   changeTools(period) {
