@@ -17,6 +17,7 @@ more vim like (j/k for navigation).
   - [Edge](#edge)
 - [Keybindings](#keybindings)
 - [Development](#development)
+  - [Coding style](#coding-style)
   - [Building for development](#building-for-development)
   - [Building a release](#building-a-release)
   - [Adding a new search engine](#adding-a-new-search-engine)
@@ -94,6 +95,10 @@ _Note: All shortcuts can be customized to your liking via options._
 - `z s` / `Ctrl+Shift+s`: Toggle sort by date/relevance (only when filtering)
 
 ## Development
+
+### Coding style
+
+We use a coding style based on [Google's](https://google.github.io/styleguide/jsguide.html) that is enforced with [eslint](https://eslint.org/). Please try to write your code in a similar style, and run eslint before sending a pull request.
 
 ### Building for development
 
