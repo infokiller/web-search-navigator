@@ -77,24 +77,24 @@ class SearchResultsManager {
     this.focusedIndex = index;
   }
 
-  // Returns true if scrolling was needed.
+  // Returns true if scrolling was done.
   scrollToElement(element) {
     const marginTop = this.searchEngine.marginTop || 0;
     const marginBottom = this.searchEngine.marginBottom || 0;
     const bottomDelta = SearchResultsManager.browserBottomDelta + marginBottom;
     const elementBounds = element.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    // It seems that it's only possible to scroll by
     if (elementBounds.top < marginTop) {
       // scroll element to top
       element.scrollIntoView(true);
       window.scrollBy(0, -marginTop);
-      return true;
     } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
       // scroll element to bottom
       element.scrollIntoView(false);
       window.scrollBy(0, bottomDelta);
-      return true;
     }
-    return false;
+    return Math.abs(window.scrollY - scrollY) > 0.01;
   }
 
   focusNext(shouldWrap) {
