@@ -108,7 +108,7 @@ class GoogleSearch {
     this.options = options;
   }
   get urlPattern() {
-    return /(www|encrypted)\.google\./;
+    return /^https:\/\/(www)\.google\./;
   }
   get searchBoxSelector() {
     // Must match search engine search box
@@ -275,7 +275,7 @@ class StartPage {
     this.options = options;
   }
   get urlPattern() {
-    return /(www\.)?startpage\./;
+    return /^https:\/\/(www\.)?startpage\./;
   }
   get searchBoxSelector() {
     return '.search-form__form input[id=q]';
@@ -376,7 +376,7 @@ class Youtube {
     this.options = options;
   }
   get urlPattern() {
-    return /(www)\.youtube\./;
+    return /^https:\/\/(www)\.youtube\./;
   }
   get searchBoxSelector() {
     return 'input#search';
@@ -461,7 +461,7 @@ class GoogleScholar {
     this.options = options;
   }
   get urlPattern() {
-    return /scholar\.google\.com\/scholar/;
+    return /^https:\/\/scholar\.google\.com\/scholar/;
   }
   get searchBoxSelector() {
     return '#gs_hdr_tsi';
@@ -501,7 +501,7 @@ class Amazon {
     this.options = options;
   }
   get urlPattern() {
-    return /(www\.)?amazon\.com\/s\?/;
+    return /^https:\/\/(www\.)?amazon\.com\/s\?/;
   }
   get searchBoxSelector() {
     return '#twotabsearchtextbox';
