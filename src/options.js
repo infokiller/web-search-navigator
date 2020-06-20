@@ -41,7 +41,7 @@ const DEFAULT_OPTIONS = {
  * @param {Object} defaultValues The default options.
  * @constructor
  */
-class OptionSection {
+class BrowserStorage {
   constructor(storage, defaultValues) {
     this.storage = storage;
     this.defaultValues = defaultValues;
@@ -51,7 +51,8 @@ class OptionSection {
       this.storage.get(this.values).then((values) => {
         // eslint-disable-next-line no-undef
         if (!browser.runtime.lastError) {
-          this.values = values;
+          // Merge options from storage with defaults.
+          this.values = {...this.defaultValues, ...values};
         }
         resolve();
       });
@@ -64,7 +65,7 @@ class OptionSection {
 
 const createSyncedOptions = () => {
   // eslint-disable-next-line no-undef
-  return new OptionSection(browser.storage.sync, DEFAULT_OPTIONS);
+  return new BrowserStorage(browser.storage.sync, DEFAULT_OPTIONS);
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -72,7 +73,7 @@ class ExtensionOptions {
   constructor() {
     this.sync = createSyncedOptions();
     // eslint-disable-next-line no-undef
-    this.local = new OptionSection(browser.storage.local, {
+    this.local = new BrowserStorage(browser.storage.local, {
       lastQueryUrl: null,
       lastFocusedIndex: 0,
     });
