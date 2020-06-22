@@ -47,24 +47,42 @@ const DIV_TO_OPTION_NAME = {
   toggleSort: 'toggle-sort',
 };
 
+/**
+* Add other search engines domain on user input
+* @param {Element} checkbox
+*/
+const setSearchEnginePermission_ = async (checkbox) => {
+  const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.name];
+  if (checkbox.checked) {
+    checkbox.checked = false;
+    // eslint-disable-next-line no-undef
+    const granted = await browser.permissions.request(
+        {permissions: ['tabs'], origins: urls});
+    checkbox.checked = granted;
+  } else {
+    // eslint-disable-next-line no-undef
+    browser.permissions.remove({origins: urls});
+  }
+};
+
 class OptionsPageManager {
   async init() {
     await this.loadOptions();
     const startpage = document.getElementById('startpage');
     startpage.addEventListener('change', () => {
-      this.setSearchEnginePermission(startpage);
+      setSearchEnginePermission_(startpage);
     });
     const youtube = document.getElementById('youtube');
     youtube.addEventListener('change', () => {
-      this.setSearchEnginePermission(youtube);
+      setSearchEnginePermission_(youtube);
     });
     const googleScholar = document.getElementById('google-scholar');
     googleScholar.addEventListener('change', () => {
-      this.setSearchEnginePermission(googleScholar);
+      setSearchEnginePermission_(googleScholar);
     });
     const amazon = document.getElementById('amazon');
     amazon.addEventListener('change', () => {
-      this.setSearchEnginePermission(amazon);
+      setSearchEnginePermission_(amazon);
     });
     // NOTE: this.saveOptions cannot be passed directly or otherwise `this`
     // won't be bound to the object.
@@ -84,20 +102,17 @@ class OptionsPageManager {
     options.delay = document.getElementById('delay').value;
     options.googleIncludeCards = document.getElementById(
         'google-include-cards').value;
-    options.searchEngines.startpage = document.getElementById(
-        'startpage').checked;
-    options.searchEngines.youtube = document.getElementById(
-        'youtube').checked;
-    options.searchEngines.googleScholar = document.getElementById(
-        'google-scholar').checked;
-    options.searchEngines.amazon = document.getElementById(
-        'amazon').checked;
     // Handle keybinding options
     for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
       // Options take commands as strings separated by commas.
       // Split them into the arrays Moustrap requires.
       options[key] = document.getElementById(optName).value.split(',').map(
           (t) => t.trim());
+    }
+    const customCSS = document.getElementById('custom-css-textarea').value;
+    // eslint-disable-next-line no-undef
+    if (customCSS !== DEFAULT_CSS) {
+      options.customCSS = customCSS;
     }
     try {
       await this.options.save();
@@ -107,33 +122,7 @@ class OptionsPageManager {
     }
   }
 
-  // Load options from browser.storage.sync to the DOM.
-  async loadOptions() {
-    // eslint-disable-next-line no-undef
-    this.options = createSyncedOptions();
-    const [, permissions] = await Promise.all([
-      this.options.load(),
-      // eslint-disable-next-line no-undef
-      browser.permissions.getAll(),
-    ]);
-    const options = this.options.values;
-    // Handle checks separately.
-    document.getElementById('wrap-navigation').checked = options.wrapNavigation;
-    document.getElementById('auto-select-first').checked =
-      options.autoSelectFirst;
-    document.getElementById('hide-outline').checked =
-      options.hideOutline;
-    document.getElementById('delay').value = options.delay;
-    document.getElementById('google-include-cards').checked =
-      options.googleIncludeCards;
-    // Restore options from divs.
-    for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
-      // Options are stored as arrays.
-      // Split them into comma-separated string for the user.
-      const optTemp = options[key];
-      document.getElementById(optName).value =
-          Array.isArray(optTemp) ? optTemp.join(', ') : optTemp;
-    }
+  loadSearchEnginePermissions_(permissions) {
     // Check what URLs we have permission for.
     const startpage = document.getElementById('startpage');
     startpage.checked = OPTIONAL_PERMISSIONS_URLS['startpage'].every((url) => {
@@ -154,22 +143,36 @@ class OptionsPageManager {
     });
   }
 
-  /**
-  * Add other search engines domain on user input
-  * @param {Element} checkbox
-  */
-  async setSearchEnginePermission(checkbox) {
-    const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.name];
-    if (checkbox.checked) {
-      checkbox.checked = false;
+  // Load options from browser.storage.sync to the DOM.
+  async loadOptions() {
+    // eslint-disable-next-line no-undef
+    this.options = createSyncedOptions();
+    const [, permissions] = await Promise.all([
+      this.options.load(),
       // eslint-disable-next-line no-undef
-      const granted = await browser.permissions.request(
-          {permissions: ['tabs'], origins: urls});
-      checkbox.checked = granted;
-    } else {
-      // eslint-disable-next-line no-undef
-      browser.permissions.remove({origins: urls});
+      browser.permissions.getAll(),
+    ]);
+    this.loadSearchEnginePermissions_(permissions);
+    const options = this.options.values;
+    // Handle checks separately.
+    document.getElementById('wrap-navigation').checked = options.wrapNavigation;
+    document.getElementById('auto-select-first').checked =
+      options.autoSelectFirst;
+    document.getElementById('hide-outline').checked =
+      options.hideOutline;
+    document.getElementById('delay').value = options.delay;
+    document.getElementById('google-include-cards').checked =
+      options.googleIncludeCards;
+    // Restore options from divs.
+    for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
+      // Options are stored as arrays.
+      // Split them into comma-separated string for the user.
+      const optTemp = options[key];
+      document.getElementById(optName).value =
+          Array.isArray(optTemp) ? optTemp.join(', ') : optTemp;
     }
+    // Load custom CSS
+    document.getElementById('custom-css-textarea').value = options.customCSS;
   }
 
   flashMessage(message) {

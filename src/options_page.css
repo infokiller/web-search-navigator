@@ -2,7 +2,7 @@ body {
   width: 400px;
 }
 
-div {
+div, summary {
   margin-bottom: 10px;
 }
 
@@ -10,6 +10,11 @@ div {
   position: absolute;
   left: 220px;
   width: 100px;
+}
+
+#custom-css-textarea {
+  min-width: 400px;
+  min-height: 800px;
 }
 
 .option-desc {

@@ -1,3 +1,53 @@
+const DEFAULT_CSS = `/* NOTE:
+ *
+ * - Using !important is needed for some styles because otherwise they get
+ *   overriden by the search engine stylesheets
+ * - Using outline works better than border sometimes because creating the
+ *   border can move other elements, for example the page numbers are moved in
+ *   Google Scholar when highlighting the prev/next buttons.
+ */
+
+.wsn-google-focused-link::before,
+.wsn-startpage-focused-link::before {
+    content: "\u25BA";
+    margin-right: 25px;
+    left: -25px;
+    position: absolute;
+}
+
+.wsn-google-focused-image {
+    /* Images are less visible with a thin outline, so we use 2px here  */
+    outline: 2px solid black !important;
+}
+
+.wsn-google-focused-card,
+.wsn-amazon-focused-product {
+    border: 1px solid black !important;
+}
+
+.wsn-startpage-focused-link {
+    outline: 1px solid black !important;
+    outline-offset: 3px;
+}
+
+.wsn-youtube-focused-video {
+    outline: 1px solid black !important;
+    outline-offset: 1px;
+}
+
+.wsn-google-scholar-next-page {
+    /* Using outline works better than border for the Scholar previous/next
+     * buttons because border moves the page numbers a bit. */
+    outline: 1px solid black !important;
+}
+
+/* This rule is only used when the "hide outline" option is enabled, and is used
+ * to disable the website's default search result outlining */
+.wsn-no-outline,
+.wsn-no-outline:focus {
+    outline: none;
+}`;
+
 const DEFAULT_OPTIONS = {
   wrapNavigation: false,
   autoSelectFirst: true,
@@ -31,11 +81,8 @@ const DEFAULT_OPTIONS = {
   navigateShowYear: ['z y', 'ctrl+shift+y', 'command+shift+y'],
   toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s'],
   toggleVerbatimSearch: ['z v'],
-  searchEngines: {
-    startpage: false,
-    youtube: false,
-    googleScholar: false,
-  }};
+  customCSS: DEFAULT_CSS,
+};
 
 /**
  * @param {StorageArea} storage The storage area to which this section will

@@ -1,3 +1,7 @@
+New in 0.4.4
+* Support for custom CSS rules in options page
+* Bugfixes
+
 New in 0.4.3
 * Google image search results navigation support
 

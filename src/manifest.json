@@ -47,9 +47,6 @@
                 "search_engines.js",
                 "main.js"
             ],
-            "css": [
-                "search_results.css"
-            ],
             "run_at": "document_end",
             "matches": [
                 "*://www.google.com/search*",

@@ -6,10 +6,13 @@
  *  - {CSS selector} searchBoxSelector
  *  - {SearchResult[]} getSearchResults()
  *  - {None} changeTools(period)
+ *  - {CSS class name} highlightClass
  *
  * Optional functions/properties:
- *  - {CSS class name} highlightClass:
- *    Default: "wsn-default-focused-result"
+ *  - {Callback} anchorSelector
+ *    Default: the element itself (from getSearchResults)
+ *  - {Callback} highlightedElementSelector
+ *    Default: the element itself (from getSearchResults)
  *  - {Array} tabs
  *    Default: []
  *  - {int} getTopMargin: used if top results are not entirely visible
@@ -163,27 +166,27 @@ class GoogleSearch {
     const includedElements = [
       {
         nodes: document.querySelectorAll('#search .r > a:first-of-type'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
         nodes: document.querySelectorAll('#search .r g-link > a:first-of-type'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
         nodes: document.querySelectorAll('div.zjbNbe > a'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
       },
       // Shopping results
       {
         nodes: document.querySelectorAll('div.eIuuYe a'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
       },
       // Next/previous results page
       {
         nodes: document.querySelectorAll('#pnprev, #pnnext'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
       },
     ];
     if (this.options.googleIncludeCards) {
@@ -210,7 +213,7 @@ class GoogleSearch {
           {
             nodes: document.querySelectorAll('.P5BnJb'),
             anchorSelector: (n) => n.parentElement,
-            highlightClass: 'wsn-default-focused-result',
+            highlightClass: 'wsn-google-focused-link',
           },
       );
     }
@@ -351,7 +354,7 @@ class StartPage {
         nodes: document.querySelectorAll(
             '.w-gl--default.w-gl .w-gl__result a.w-gl__result-url'),
         highlightedElementSelector: highlightedElementSelector,
-        highlightClass: 'wsn-startpage-focused-result',
+        highlightClass: 'wsn-startpage-focused-link',
         containerSelector: (n) => n.parentElement,
       },
       // As of 2020-06-20, this doesn't seem to match anything.
@@ -359,7 +362,7 @@ class StartPage {
         nodes: document.querySelectorAll(
             '.vo-sp.vo-sp--default > a.vo-sp__link'),
         highlightedElementSelector: highlightedElementSelector,
-        highlightClass: 'wsn-startpage-focused-result',
+        highlightClass: 'wsn-startpage-focused-link',
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -434,28 +437,29 @@ class Youtube {
       // Videos
       {
         nodes: document.querySelectorAll('#title-wrapper h3 a#video-title'),
-        highlightClass: 'wsn-youtube-focused-result',
-        containerSelector: (n) => n.parentElement.parentElement,
+        highlightClass: 'wsn-youtube-focused-video',
+        highlightedElementSelector: (n) => n.closest('ytd-video-renderer'),
+        containerSelector: (n) => n.closest('ytd-video-renderer'),
       },
       // Playlists
       {
         nodes: document.querySelectorAll('div#content a.ytd-playlist-renderer'),
-        highlightClass: 'wsn-youtube-focused-result',
+        highlightClass: 'wsn-youtube-focused-video',
       },
       {
         nodes: document.querySelectorAll(
             'div#content a.ytd-playlist-video-renderer'),
-        highlightClass: 'wsn-youtube-focused-result',
+        highlightClass: 'wsn-youtube-focused-video',
       },
       // Mixes
       {
         nodes: document.querySelectorAll('div#content a.ytd-radio-renderer'),
-        highlightClass: 'wsn-youtube-focused-result',
+        highlightClass: 'wsn-youtube-focused-video',
       },
       // Channels
       {
         nodes: document.querySelectorAll('div#info.ytd-channel-renderer'),
-        highlightClass: 'wsn-youtube-focused-result',
+        highlightClass: 'wsn-youtube-focused-video',
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -515,7 +519,7 @@ class GoogleScholar {
     const includedElements = [
       {
         nodes: document.querySelectorAll('.gs_rt a'),
-        highlightClass: 'wsn-default-focused-result',
+        highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
@@ -560,13 +564,13 @@ class Amazon {
       {
         nodes: document.querySelectorAll(
             '.s-search-results h2 .a-link-normal.a-text-normal'),
-        highlightClass: 'wsn-amazon-focused-result',
+        highlightClass: 'wsn-amazon-focused-product',
         // containerSelector: (n) => n.closest(
         //    '.sg-row').parentElement.closest('.sg-row')
       },
       {
         nodes: document.querySelectorAll('.a-pagination a'),
-        highlightClass: 'wsn-amazon-focused-result',
+        highlightClass: 'wsn-amazon-focused-product',
       },
     ];
     return getSortedSearchResults(includedElements, []);

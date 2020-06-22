@@ -130,11 +130,18 @@ class WebSearchNavigator {
       return;
     }
     await sleep(this.options.sync.values.delay);
+    this.injectCSS();
     this.initSearchInputNavigation();
     this.initTabsNavigation();
     this.initResultsNavigation();
     this.initChangeToolsNavigation();
     this.initEndlessScrolling();
+  }
+
+  injectCSS() {
+    const style = document.createElement('style');
+    style.textContent = this.options.sync.values.customCSS;
+    document.head.append(style);
   }
 
   initSearchInputNavigation() {

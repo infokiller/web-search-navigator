@@ -55,130 +55,145 @@
     </div>
     <div id="keybindings-container">
         <h3>Keybindings</h3>
-        <div id="keybindings-help">
-            All keybindings should be specified in
-            <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
-            <ul>
-                <li>
-                    <kbd class="keybinding">a</kbd>
-                </li>
-                <li>
-                    <kbd class="keybinding">z y</kbd>
-                </li>
-                <li>
-                    <kbd class="keybinding">ctrl+a</kbd>
-                </li>
-                <li>
-                    <kbd class="keybinding">command+a</kbd>
-                </li>
-                <li>
-                    <kbd class="keybinding">a, ctrl+b, z y, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
-            </ul>
-            Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown,
-            del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
+        <details>
+            <summary>Documentation</summary>
+            <div id="keybindings-help">
+                All keybindings should be specified in
+                <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
+                <ul>
+                    <li>
+                        <kbd class="keybinding">a</kbd>
+                    </li>
+                    <li>
+                        <kbd class="keybinding">z y</kbd>
+                    </li>
+                    <li>
+                        <kbd class="keybinding">ctrl+a</kbd>
+                    </li>
+                    <li>
+                        <kbd class="keybinding">command+a</kbd>
+                    </li>
+                    <li>
+                        <kbd class="keybinding">a, ctrl+b, z y, command+c</kbd> - multiple shortcuts that will be treated equivalently</li>
+                </ul>
+                Special keys names: backspace, tab, clear, enter, return, esc, escape, space, up, down, left, right, home, end, pageup, pagedown,
+                del, delete, and f1 through f19. In order to disable a keybinding, delete its keybinding in the textbox.
 
-            Note that not all search engines support all the keybindings.
-        </div>
-        <div class="option">
-            <label for="next-key" class="option-desc">Next search result</label>
-            <input id="next-key" class="input-keybinding" type="text" value="down, j">
-        </div>
-        <div class="option">
-            <label for="previous-key" class="option-desc">Previous search result</label>
-            <input id="previous-key" class="input-keybinding" type="text" value="up, k">
-        </div>
-        <div class="option">
-            <label for="navigate-key" class="option-desc">Open</label>
-            <input id="navigate-key" class="input-keybinding" type="text" value="return, space">
-        </div>
-        <div class="option">
-            <label for="navigate-new-tab-background-key" class="option-desc">Open in a new background tab</label>
-            <input id="navigate-new-tab-background-key" class="input-keybinding" type="text" value="ctrl+shift+return, command+shift+return, ctrl+shift+space">
-        </div>
-        <div class="option">
-            <label for="navigate-new-tab-key" class="option-desc">Open in a new window/tab</label>
-            <input id="navigate-new-tab-key" class="input-keybinding" type="text" value="ctrl+return, command+return, ctrl+space">
-        </div>
-        <div class="option">
-            <label for="focus-search-input" class="option-desc">Focus search box</label>
-            <input id="focus-search-input" class="input-keybinding" type="text" value="/, escape">
-        </div>
-        <div class="option">
-            <label for="navigate-next-result-page" class="option-desc">Next page</label>
-            <input id="navigate-next-result-page" class="input-keybinding" type="text" value="right">
-        </div>
-        <div class="option">
-            <label for="navigate-previous-result-page" class="option-desc">Previous page</label>
-            <input id="navigate-previous-result-page" class="input-keybinding" type="text" value="left">
-        </div>
-        <div class="option">
-            <label for="navigate-search-tab" class="option-desc">Go to All (= default search tab)</label>
-            <input id="navigate-search-tab" class="input-keybinding" type="text" value="a, s">
-        </div>
-        <div class="option">
-            <label for="navigate-images-tab" class="option-desc">Go to Images</label>
-            <input id="navigate-images-tab" class="input-keybinding" type="text" value="i">
-        </div>
-        <div class="option">
-            <label for="navigate-videos-tab" class="option-desc">Go to Videos</label>
-            <input id="navigate-videos-tab" class="input-keybinding" type="text" value="v">
-        </div>
-        <div class="option">
-            <label for="navigate-maps-tab" class="option-desc">Go to Maps</label>
-            <input id="navigate-maps-tab" class="input-keybinding" type="text" value="m">
-        </div>
-        <div class="option">
-            <label for="navigate-news-tab" class="option-desc">Go to News</label>
-            <input id="navigate-news-tab" class="input-keybinding" type="text" value="n">
-        </div>
-        <div class="option">
-            <label for="navigate-shopping-tab" class="option-desc">Go to Shopping</label>
-            <input id="navigate-shopping-tab" class="input-keybinding" type="text" value="alt+n">
-        </div>
-        <div class="option">
-            <label for="navigate-books-tab" class="option-desc">Go to Books</label>
-            <input id="navigate-books-tab" class="input-keybinding" type="text" value="b">
-        </div>
-        <div class="option">
-            <label for="navigate-flights-tab" class="option-desc">Go to Flights</label>
-            <input id="navigate-flights-tab" class="input-keybinding" type="text" value="alt+l">
-        </div>
-        <div class="option">
-            <label for="navigate-financial-tab" class="option-desc">Go to Financial</label>
-            <input id="navigate-financial-tab" class="input-keybinding" type="text" value="f">
-        </div>
-        <div class="option">
-            <label for="navigate-show-all" class="option-desc">Turn off filter (show all results)</label>
-            <input id="navigate-show-all" class="input-keybinding" type="text" value="z z,ctrl-shift-a">
-        </div>
-        <div class="option">
-            <label for="navigate-show-hour" class="option-desc">Filter results by past hour</label>
-            <input id="navigate-show-hour" class="input-keybinding" type="text" value="z h,ctrl-shift-h">
-        </div>
-        <div class="option">
-            <label for="navigate-show-day" class="option-desc">Filter results by past 24 hours</label>
-            <input id="navigate-show-day" class="input-keybinding" type="text" value="z d,ctrl-shift-d">
-        </div>
-        <div class="option">
-            <label for="navigate-show-week" class="option-desc">Filter results by past week</label>
-            <input id="navigate-show-week" class="input-keybinding" type="text" value="z w,ctrl-shift-w">
-        </div>
-        <div class="option">
-            <label for="navigate-show-month" class="option-desc">Filter results by past month</label>
-            <input id="navigate-show-month" class="input-keybinding" type="text" value="z m,ctrl-shift-m">
-        </div>
-        <div class="option">
-            <label for="navigate-show-year" class="option-desc">Filter results by past year</label>
-            <input id="navigate-show-year" class="input-keybinding" type="text" value="z y,ctrl-shift-y">
-        </div>
-        <div class="option">
-            <label for="toggle-sort" class="option-desc">Toggle sort by date/relevance</label>
-            <input id="toggle-sort" class="input-keybinding" type="text" value="z s,ctrl-shift-s">
-        </div>
-        <div class="option">
-            <label for="toggle-verbatim-search" class="option-desc">Toggle verbatim search</label>
-            <input id="toggle-verbatim-search" class="input-keybinding" type="text" value="z v">
-        </div>
+                Note that not all search engines support all the keybindings.
+            </div>
+        </details>
+        <details>
+            <summary>Definitions</summary>
+            <div class="option">
+                <label for="next-key" class="option-desc">Next search result</label>
+                <input id="next-key" class="input-keybinding" type="text" value="down, j">
+            </div>
+            <div class="option">
+                <label for="previous-key" class="option-desc">Previous search result</label>
+                <input id="previous-key" class="input-keybinding" type="text" value="up, k">
+            </div>
+            <div class="option">
+                <label for="navigate-key" class="option-desc">Open</label>
+                <input id="navigate-key" class="input-keybinding" type="text" value="return, space">
+            </div>
+            <div class="option">
+                <label for="navigate-new-tab-background-key" class="option-desc">Open in a new background tab</label>
+                <input id="navigate-new-tab-background-key" class="input-keybinding" type="text" value="ctrl+shift+return, command+shift+return, ctrl+shift+space">
+            </div>
+            <div class="option">
+                <label for="navigate-new-tab-key" class="option-desc">Open in a new window/tab</label>
+                <input id="navigate-new-tab-key" class="input-keybinding" type="text" value="ctrl+return, command+return, ctrl+space">
+            </div>
+            <div class="option">
+                <label for="focus-search-input" class="option-desc">Focus search box</label>
+                <input id="focus-search-input" class="input-keybinding" type="text" value="/, escape">
+            </div>
+            <div class="option">
+                <label for="navigate-next-result-page" class="option-desc">Next page</label>
+                <input id="navigate-next-result-page" class="input-keybinding" type="text" value="right">
+            </div>
+            <div class="option">
+                <label for="navigate-previous-result-page" class="option-desc">Previous page</label>
+                <input id="navigate-previous-result-page" class="input-keybinding" type="text" value="left">
+            </div>
+            <div class="option">
+                <label for="navigate-search-tab" class="option-desc">Go to All (= default search tab)</label>
+                <input id="navigate-search-tab" class="input-keybinding" type="text" value="a, s">
+            </div>
+            <div class="option">
+                <label for="navigate-images-tab" class="option-desc">Go to Images</label>
+                <input id="navigate-images-tab" class="input-keybinding" type="text" value="i">
+            </div>
+            <div class="option">
+                <label for="navigate-videos-tab" class="option-desc">Go to Videos</label>
+                <input id="navigate-videos-tab" class="input-keybinding" type="text" value="v">
+            </div>
+            <div class="option">
+                <label for="navigate-maps-tab" class="option-desc">Go to Maps</label>
+                <input id="navigate-maps-tab" class="input-keybinding" type="text" value="m">
+            </div>
+            <div class="option">
+                <label for="navigate-news-tab" class="option-desc">Go to News</label>
+                <input id="navigate-news-tab" class="input-keybinding" type="text" value="n">
+            </div>
+            <div class="option">
+                <label for="navigate-shopping-tab" class="option-desc">Go to Shopping</label>
+                <input id="navigate-shopping-tab" class="input-keybinding" type="text" value="alt+n">
+            </div>
+            <div class="option">
+                <label for="navigate-books-tab" class="option-desc">Go to Books</label>
+                <input id="navigate-books-tab" class="input-keybinding" type="text" value="b">
+            </div>
+            <div class="option">
+                <label for="navigate-flights-tab" class="option-desc">Go to Flights</label>
+                <input id="navigate-flights-tab" class="input-keybinding" type="text" value="alt+l">
+            </div>
+            <div class="option">
+                <label for="navigate-financial-tab" class="option-desc">Go to Financial</label>
+                <input id="navigate-financial-tab" class="input-keybinding" type="text" value="f">
+            </div>
+            <div class="option">
+                <label for="navigate-show-all" class="option-desc">Turn off filter (show all results)</label>
+                <input id="navigate-show-all" class="input-keybinding" type="text" value="z z,ctrl-shift-a">
+            </div>
+            <div class="option">
+                <label for="navigate-show-hour" class="option-desc">Filter results by past hour</label>
+                <input id="navigate-show-hour" class="input-keybinding" type="text" value="z h,ctrl-shift-h">
+            </div>
+            <div class="option">
+                <label for="navigate-show-day" class="option-desc">Filter results by past 24 hours</label>
+                <input id="navigate-show-day" class="input-keybinding" type="text" value="z d,ctrl-shift-d">
+            </div>
+            <div class="option">
+                <label for="navigate-show-week" class="option-desc">Filter results by past week</label>
+                <input id="navigate-show-week" class="input-keybinding" type="text" value="z w,ctrl-shift-w">
+            </div>
+            <div class="option">
+                <label for="navigate-show-month" class="option-desc">Filter results by past month</label>
+                <input id="navigate-show-month" class="input-keybinding" type="text" value="z m,ctrl-shift-m">
+            </div>
+            <div class="option">
+                <label for="navigate-show-year" class="option-desc">Filter results by past year</label>
+                <input id="navigate-show-year" class="input-keybinding" type="text" value="z y,ctrl-shift-y">
+            </div>
+            <div class="option">
+                <label for="toggle-sort" class="option-desc">Toggle sort by date/relevance</label>
+                <input id="toggle-sort" class="input-keybinding" type="text" value="z s,ctrl-shift-s">
+            </div>
+            <div class="option">
+                <label for="toggle-verbatim-search" class="option-desc">Toggle verbatim search</label>
+                <input id="toggle-verbatim-search" class="input-keybinding" type="text" value="z v">
+            </div>
+        </details>
+    </div>
+    <div id="appearance-container">
+        <h3>EXPERIMENTAL: Appearance settings</h3>
+        You can set custom CSS rules to change how the focused search results are highlighted. The textarea below contains the default CSS rules.
+        If you want to reset the CSS to the defaults, set the textarea content to an empty string and save.
+        <details>
+            <summary>Edit CSS rules</summary>
+            <textarea name="custom-css-textarea" id="custom-css-textarea"></textarea>
+        </details>
     </div>
 
     <div id="status"></div>
