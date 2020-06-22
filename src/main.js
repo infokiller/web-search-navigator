@@ -198,7 +198,7 @@ class WebSearchNavigator {
     for (const [optionName, element] of Object.entries(tabs)) {
       this.register(this.options.sync.values[optionName], () => {
         if (element == null) {
-          return;
+          return true;
         }
         // Some search engines use forms instead of links for navigation
         if (element.tagName == 'FORM') {
@@ -236,6 +236,7 @@ class WebSearchNavigator {
       } else {
         this.resultsManager.focusNext(options.wrapNavigation);
       }
+      return false;
     });
     this.register(options.previousKey, () => {
       if (!options.autoSelectFirst && isFirstNavigation) {
@@ -244,6 +245,7 @@ class WebSearchNavigator {
       } else {
         this.resultsManager.focusPrevious(options.wrapNavigation);
       }
+      return false;
     });
     this.register(options.navigateKey, () => {
       const link = this.resultsManager.getElementToNavigate();
@@ -251,6 +253,7 @@ class WebSearchNavigator {
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
       this.options.local.save();
       link.click();
+      return false;
     });
     this.register(options.navigateNewTabKey, () => {
       const link = this.resultsManager.getElementToNavigate(true);
@@ -262,6 +265,7 @@ class WebSearchNavigator {
           active: true,
         },
       });
+      return false;
     });
     this.register(options.navigateNewTabBackgroundKey, () => {
       const link = this.resultsManager.getElementToNavigate(true);
@@ -273,6 +277,7 @@ class WebSearchNavigator {
           active: false,
         },
       });
+      return false;
     });
   }
 
