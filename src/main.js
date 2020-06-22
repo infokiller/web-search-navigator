@@ -135,39 +135,44 @@ class WebSearchNavigator {
   }
 
   initSearchInputNavigation() {
-    // Bind globally, otherwise Mousetrap ignores keypresses inside inputs.
-    this.registerGlobal(this.options.sync.values.focusSearchInput, (event) => {
-      const target = event.target || event.srcElement;
-      const searchInput = document.querySelector(
-          this.searchEngine.searchBoxSelector);
-      // Handle keypress outside search box.
-      if (!target.matches(this.searchEngine.searchboxSelector)) {
-        searchInput.select();
-        searchInput.click();
-        return;
-      }
+    const searchInput = document.querySelector(
+        this.searchEngine.searchBoxSelector);
+    const outsideSearchboxHandler = (event) => {
+      searchInput.select();
+      searchInput.click();
+      return false;
+    };
+    const insideSearchboxHandler = (event) => {
       // Handle keypress inside the search box.
       if (searchInput.selectionStart === 0 &&
           searchInput.selectionEnd === searchInput.value.length) {
         // Everything is selected; deselect all.
         searchInput.setSelectionRange(
             searchInput.value.length, searchInput.value.length);
-      } else {
-        // Closing search suggestions via document.body.click() or
-        // searchInput.blur() breaks the state of google's controller.
-        // The suggestion box is closed, yet it won't re-appear on the next
-        // search box focus event.
-
-        // Input can be blurred only when the suggestion box is already
-        // closed, hence the blur event is queued.
-        window.setTimeout(() => searchInput.blur());
-
-        // Invoke the default handler which will close-up search suggestions
-        // properly (google's controller won't break), but it won't remove the
-        // focus.
-        return true;
+        return false;
       }
-    });
+      // Closing search suggestions via document.body.click() or
+      // searchInput.blur() breaks the state of google's controller.
+      // The suggestion box is closed, yet it won't re-appear on the next
+      // search box focus event.
+
+      // Input can be blurred only when the suggestion box is already
+      // closed, hence the blur event is queued.
+      window.setTimeout(() => searchInput.blur());
+      // Invoke the default handler which will close-up search suggestions
+      // properly (google's controller won't break), but it won't remove the
+      // focus.
+      return true;
+    };
+    this.register(this.options.sync.values.focusSearchInput,
+        outsideSearchboxHandler);
+    // Bind globally, otherwise Mousetrap ignores keypresses inside inputs.
+    // We must bind it separately to the search box element, or otherwise the
+    // key event won't always be captured (for example this is the case on
+    // Google Search as of 2020-06-22), presumably because the javascript in the
+    // page will disable further processing.
+    this.registerGlobal(this.options.sync.values.focusSearchInput,
+        insideSearchboxHandler, searchInput);
   }
 
   initTabsNavigation() {
@@ -271,9 +276,9 @@ class WebSearchNavigator {
       this.searchEngine.changeTools(null));
   }
 
-  registerGlobal(shortcut, callback) {
-    /* eslint-disable-next-line no-undef */
-    Mousetrap.bindGlobal(shortcut, (event) => {
+  registerGlobal(shortcut, callback, element = document) {
+    /* eslint-disable-next-line no-undef,new-cap */
+    Mousetrap(element).bindGlobal(shortcut, (event) => {
       const result = callback(event);
       if (result !== true && event !== null) {
         return false;
@@ -281,9 +286,9 @@ class WebSearchNavigator {
     });
   }
 
-  register(shortcut, callback) {
-    /* eslint-disable-next-line no-undef */
-    Mousetrap.bind(shortcut, (event) => {
+  register(shortcut, callback, element = document) {
+    /* eslint-disable-next-line no-undef,new-cap */
+    Mousetrap(element).bind(shortcut, (event) => {
       const result = callback();
       if (result !== true && event !== null) {
         return false;
