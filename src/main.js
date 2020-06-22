@@ -18,6 +18,7 @@ class SearchResultsManager {
 
   reloadSearchResults() {
     this.searchResults = this.searchEngine.getSearchResults();
+    console.log('wsn: search results from engine: %o', this.searchResults);
   }
 
   /**
@@ -118,17 +119,25 @@ class SearchResultsManager {
 
 class WebSearchNavigator {
   async init() {
+    console.log('wsn: creating options object');
     /* eslint-disable-next-line no-undef */
     this.options = new ExtensionOptions();
+    console.log('wsn: loading options');
     await this.options.load();
+    console.log('wsn: finished loading options');
     /* eslint-disable-next-line no-undef */
     this.searchEngine = await getSearchEngine(this.options.sync.values);
+    console.log('wsn: created search engine object: %s', this.searchEngine);
     if (this.searchEngine == null) {
+      console.log('wsn: search engine object is null, bailing out');
       return;
     }
     await sleep(this.options.sync.values.delay);
+    console.log('wsn: initializing search input navigation');
     this.initSearchInputNavigation();
+    console.log('wsn: initializing search input navigation');
     this.initTabsNavigation();
+    console.log('wsn: initializing results navigation');
     this.initResultsNavigation();
     this.initChangeToolsNavigation();
     this.initEndlessScrolling();
@@ -192,6 +201,7 @@ class WebSearchNavigator {
         this.options.sync.values);
     this.resultsManager.reloadSearchResults();
     if (this.resultsManager.searchResults.length === 0) {
+      console.log('wsn: no search results returned');
       return;
     }
     const options = this.options.sync.values;
@@ -341,5 +351,7 @@ const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
+console.log('wsn: about to init extension');
 const extension = new WebSearchNavigator();
 extension.init();
+console.log('wsn: finished init extension');
