@@ -1,3 +1,10 @@
+New in 0.4.3
+* Google image search results navigation support
+
+New in 0.4.2
+* Don't focus on another element if the current one is not visible, only scroll
+  to it
+
 New in 0.4.1
 * *Very* experimental support for Amazon.
 
