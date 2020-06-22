@@ -99,6 +99,16 @@ const getSortedSearchResults = (
   return searchResults;
 };
 
+
+const getFixedSearchBoxTopMargin = (searchBoxContainer, element) => {
+  // When scrolling down, the search box can have a fixed position and can hide
+  // search results, so we try to compensate for it.
+  if (!searchBoxContainer || searchBoxContainer.contains(element)) {
+    return 0;
+  }
+  return searchBoxContainer.getBoundingClientRect().height;
+};
+
 class GoogleSearch {
   constructor(options) {
     this.options = options;
@@ -116,13 +126,8 @@ class GoogleSearch {
     return 'form[role=search] input[name=q]';
   }
   getTopMargin(element) {
-    // When scrolling down, the search box can hide some of the search results,
-    // so we try to compensate for it.
-    const searchBoxContainer = document.querySelector('#searchform.minidiv');
-    if (!searchBoxContainer || searchBoxContainer.contains(element)) {
-      return 0;
-    }
-    return searchBoxContainer.getBoundingClientRect().height;
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('#searchform.minidiv'), element);
   }
   get endlessScrollingContainer() {
     if (this.isImagesTab_()) {
@@ -318,10 +323,8 @@ class StartPage {
     return '.search-form__form input[id=q]';
   }
   getTopMargin(element) {
-    if (this.isSearchTab_()) {
-      return 113;
-    }
-    return 0;
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('div.layout-web__header'), element);
   }
 
   isSearchTab_() {
@@ -419,13 +422,8 @@ class Youtube {
     return 'input#search';
   }
   getTopMargin(element) {
-    // When scrolling down, the search box can hide some of the search results,
-    // so we try to compensate for it.
-    const searchBoxContainer = document.querySelector('#masthead-container');
-    if (!searchBoxContainer || searchBoxContainer.contains(element)) {
-      return 0;
-    }
-    return searchBoxContainer.getBoundingClientRect().height;
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('#masthead-container'), element);
   }
   get endlessScrollingContainer() {
     return document.querySelector('div#contents div#contents');
