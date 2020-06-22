@@ -140,6 +140,12 @@ class WebSearchNavigator {
   initSearchInputNavigation() {
     const searchInput = document.querySelector(
         this.searchEngine.searchBoxSelector);
+    // Only apply the extension logic if the key is not something the user may
+    // have wanted to type into the searchbox, so that we don't interfere with
+    // regular typing.
+    const shouldHandleSearchInputKey = (event) => {
+      return event.ctrlKey || event.metaKey || event.key === 'Escape';
+    };
     // If insideSearchboxHandler returns true, outsideSearchboxHandler will also
     // be called (because it's defined on document, hence has lower priority),
     // in which case we don't want to handle the event. Therefore, we store the
@@ -148,7 +154,7 @@ class WebSearchNavigator {
     let lastEvent;
     const outsideSearchboxHandler = (event) => {
       if (event === lastEvent) {
-        return false;
+        return !shouldHandleSearchInputKey(event);
       }
       // Scroll to the search box in case it's outside the viewport so that it's
       // clear to the user that it has focus.
@@ -159,6 +165,9 @@ class WebSearchNavigator {
     };
     const insideSearchboxHandler = (event) => {
       lastEvent = event;
+      if (!shouldHandleSearchInputKey(event)) {
+        return true;
+      }
       // Everything is selected; deselect all.
       if (searchInput.selectionStart === 0 &&
           searchInput.selectionEnd === searchInput.value.length) {
