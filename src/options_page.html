@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <div id="general-settings-container">
-        <h3>General settings</h3>
+    <section id="general-settings-container">
+        <h2>General settings</h2>
         <div class="option">
             <label for="wrap-navigation">
                 <input type="checkbox" id="wrap-navigation"> Wrap around when navigating before/after the first/last search result
@@ -26,37 +26,22 @@
         </div>
         <div class="option">
             <label for="delay">
-                <input type="number" id="delay"> Delay extension initialization
+                <input type="number" id="delay" step="0.01"> Delay extension initialization
             </label>
         </div>
-    </div>
-    <div id="google-settings-container">
-        <h3>Google specific settings</h3>
+    </section>
+    <section id="google-settings-container">
+        <h2>Google specific settings</h2>
         <div class="option">
             <label for="google-include-cards">
                 <input type="checkbox" id="google-include-cards"> Include cards (top stories, twitter, videos) in regular Google search page
             </label>
         </div>
-    </div>
-    <div id="search-engines-container">
-        <h3>EXPERIMENTAL: Alternative search engines</h3>
-        <div class="option">
-            <input type="checkbox" id="startpage" name="startpage"> Add Startpage</input>
-        </div>
-        <div class="option">
-            <input type="checkbox" id="youtube" name="youtube"> Add Youtube</input>
-        </div>
-        <div class="option">
-            <input type="checkbox" id="google-scholar" name="google-scholar"> Add Google Scholar</input>
-        </div>
-        <div class="option">
-            <input type="checkbox" id="amazon" name="amazon"> Add Amazon</input>
-        </div>
-    </div>
-    <div id="keybindings-container">
-        <h3>Keybindings</h3>
+    </section>
+    <section id="keybindings-container">
+        <h2>Keybindings</h2>
         <details>
-            <summary>Documentation</summary>
+            <summary><h3>Documentation</h3></summary>
             <div id="keybindings-help">
                 All keybindings should be specified in
                 <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
@@ -83,7 +68,7 @@
             </div>
         </details>
         <details>
-            <summary>Definitions</summary>
+            <summary><h3>Common actions</h3></summary>
             <div class="option">
                 <label for="next-key" class="option-desc">Next search result</label>
                 <input id="next-key" class="input-keybinding" type="text" value="down, j">
@@ -116,6 +101,40 @@
                 <label for="navigate-previous-result-page" class="option-desc">Previous page</label>
                 <input id="navigate-previous-result-page" class="input-keybinding" type="text" value="left">
             </div>
+        </details>
+        <details>
+            <summary><h3>Results filtering</h3></summary>
+            <div class="option">
+                <label for="navigate-show-all" class="option-desc">Turn off filter (show all results)</label>
+                <input id="navigate-show-all" class="input-keybinding" type="text" value="z z,ctrl-shift-a">
+            </div>
+            <div class="option">
+                <label for="navigate-show-hour" class="option-desc">Filter results by past hour</label>
+                <input id="navigate-show-hour" class="input-keybinding" type="text" value="z h,ctrl-shift-h">
+            </div>
+            <div class="option">
+                <label for="navigate-show-day" class="option-desc">Filter results by past 24 hours</label>
+                <input id="navigate-show-day" class="input-keybinding" type="text" value="z d,ctrl-shift-d">
+            </div>
+            <div class="option">
+                <label for="navigate-show-week" class="option-desc">Filter results by past week</label>
+                <input id="navigate-show-week" class="input-keybinding" type="text" value="z w,ctrl-shift-w">
+            </div>
+            <div class="option">
+                <label for="navigate-show-month" class="option-desc">Filter results by past month</label>
+                <input id="navigate-show-month" class="input-keybinding" type="text" value="z m,ctrl-shift-m">
+            </div>
+            <div class="option">
+                <label for="navigate-show-year" class="option-desc">Filter results by past year</label>
+                <input id="navigate-show-year" class="input-keybinding" type="text" value="z y,ctrl-shift-y">
+            </div>
+            <div class="option">
+                <label for="toggle-sort" class="option-desc">Toggle sort by date/relevance</label>
+                <input id="toggle-sort" class="input-keybinding" type="text" value="z s,ctrl-shift-s">
+            </div>
+        </details>
+        <details>
+            <summary><h3>Google and Startpage</h3></summary>
             <div class="option">
                 <label for="navigate-search-tab" class="option-desc">Go to All (= default search tab)</label>
                 <input id="navigate-search-tab" class="input-keybinding" type="text" value="a, s">
@@ -152,49 +171,40 @@
                 <label for="navigate-financial-tab" class="option-desc">Go to Financial</label>
                 <input id="navigate-financial-tab" class="input-keybinding" type="text" value="f">
             </div>
-            <div class="option">
-                <label for="navigate-show-all" class="option-desc">Turn off filter (show all results)</label>
-                <input id="navigate-show-all" class="input-keybinding" type="text" value="z z,ctrl-shift-a">
-            </div>
-            <div class="option">
-                <label for="navigate-show-hour" class="option-desc">Filter results by past hour</label>
-                <input id="navigate-show-hour" class="input-keybinding" type="text" value="z h,ctrl-shift-h">
-            </div>
-            <div class="option">
-                <label for="navigate-show-day" class="option-desc">Filter results by past 24 hours</label>
-                <input id="navigate-show-day" class="input-keybinding" type="text" value="z d,ctrl-shift-d">
-            </div>
-            <div class="option">
-                <label for="navigate-show-week" class="option-desc">Filter results by past week</label>
-                <input id="navigate-show-week" class="input-keybinding" type="text" value="z w,ctrl-shift-w">
-            </div>
-            <div class="option">
-                <label for="navigate-show-month" class="option-desc">Filter results by past month</label>
-                <input id="navigate-show-month" class="input-keybinding" type="text" value="z m,ctrl-shift-m">
-            </div>
-            <div class="option">
-                <label for="navigate-show-year" class="option-desc">Filter results by past year</label>
-                <input id="navigate-show-year" class="input-keybinding" type="text" value="z y,ctrl-shift-y">
-            </div>
-            <div class="option">
-                <label for="toggle-sort" class="option-desc">Toggle sort by date/relevance</label>
-                <input id="toggle-sort" class="input-keybinding" type="text" value="z s,ctrl-shift-s">
-            </div>
-            <div class="option">
-                <label for="toggle-verbatim-search" class="option-desc">Toggle verbatim search</label>
-                <input id="toggle-verbatim-search" class="input-keybinding" type="text" value="z v">
-            </div>
         </details>
-    </div>
-    <div id="appearance-container">
-        <h3>EXPERIMENTAL: Appearance settings</h3>
+    </section>
+    <section id="search-engines-container">
+        <h2>EXPERIMENTAL: Alternative search engines</h2>
+        <div class="option">
+            <label for="startpage">
+                <input type="checkbox" id="startpage"> Enable on Startpage
+            </label>
+        </div>
+        <div class="option">
+            <label for="youtube">
+                <input type="checkbox" id="youtube"> Enable on YouTube
+            </label>
+        </div>
+        <div class="option">
+            <label for="google-scholar">
+                <input type="checkbox" id="google-scholar"> Enable on Google Scholar
+            </label>
+        </div>
+        <div class="option">
+            <label for="amazon">
+                <input type="checkbox" id="amazon"> Enable on Amazon.com
+            </label>
+        </div>
+    </section>
+    <section id="appearance-container">
+        <h2>EXPERIMENTAL: Appearance settings</h2>
         You can set custom CSS rules to change how the focused search results are highlighted. The textarea below contains the default CSS rules.
         If you want to reset the CSS to the defaults, set the textarea content to an empty string and save.
         <details>
-            <summary>Edit CSS rules</summary>
+            <summary><h3>Edit CSS rules</h3></summary>
             <textarea name="custom-css-textarea" id="custom-css-textarea"></textarea>
         </details>
-    </div>
+    </section>
 
     <div id="status"></div>
     <button id="save">Save</button>

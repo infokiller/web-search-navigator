@@ -289,7 +289,7 @@ class GoogleSearch {
 
   /**
    *  Filter the results based on special properties
-   * @param {*} period, filter identifier. Accpeted filter are :
+   * @param {*} period, filter identifier. Accepted filter are :
    *  'h' : get results from last hour
    *  'd' : get result from last day
    *  'w' : get results from last week
@@ -297,6 +297,7 @@ class GoogleSearch {
    *  'y' : get result from last year
    *  'v' : verbatim search
    */
+  // TODO: Refactor this function to get enums after migrating to typescript.
   changeTools(period) {
     // Save current period and sort.
     const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);

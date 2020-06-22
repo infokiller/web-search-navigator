@@ -2,19 +2,32 @@ body {
   width: 400px;
 }
 
-div, summary {
+summary {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
+summary h3 {
+  display: inline;
+}
+
+.option {
+  margin-bottom: 2px;
+}
+
 .input-keybinding {
-  position: absolute;
-  left: 220px;
-  width: 100px;
+  margin-left: auto; 
+  margin-right: 0;
+  width: 45%;
 }
 
 #custom-css-textarea {
-  width: 400px;
+  width: 100%;
   height: 400px;
+}
+
+.search-engine-checkbox {
+  display: block;
 }
 
 .option-desc {
@@ -29,3 +42,30 @@ div, summary {
 #status {
   font-weight: bold;
 }
+
+#save {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+/* Firefox specific overrides */
+@-moz-document url-prefix() {
+  body {
+    width: 600px;
+    /* Without setting the margin, the Firefox options are too close to the border */
+    margin-left: 10px;
+  }
+  /* Hide spinner in delay field */
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+  .option-desc {
+    width: 280px;
+  }
+  #custom-css-textarea {
+    width: 600px;
+    height: 600px;
+  }
+}
+
