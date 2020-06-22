@@ -9,7 +9,7 @@
  *
  * Optional functions/properties:
  *  - {CSS class name} highlightClass:
- *    Default: "default-focused-search-result"
+ *    Default: "wsn-default-focused-result"
  *  - {Array} tabs
  *    Default: []
  *  - {int} marginTop: used if top results are not entirely visible
@@ -19,7 +19,7 @@
  *  - {CSS selector} endlessScrollingContainer: CSS selector of the container
  *    containing search results that need tracking for endless scrolling
  *    support.
- *    Default: null
+ *    Default: null (meaning there's no endless scrolling)
 */
 
 class SearchResult {
@@ -126,40 +126,61 @@ class GoogleSearch {
     }
     return searchBoxContainer.getBoundingClientRect().height;
   }
+  get endlessScrollingContainer() {
+    if (this.isImagesTab_()) {
+      return document.querySelector('.islrc');
+    }
+    return null;
+  }
 
-  isImagesTab() {
+  isImagesTab_() {
     return /[?&]tbm=isch(&|$)/.test(location.search);
   }
 
+  getImagesTabResults_() {
+    const includedElements = [
+      // Image links
+      {
+        nodes: document.querySelectorAll('.islrc a[data-nav="1"]'),
+        highlightClass: 'wsn-google-focused-image',
+      },
+      // Show more results button
+      {
+        nodes: document.querySelectorAll('#islmp [type="button"]'),
+        highlightClass: 'wsn-google-focused-image',
+      },
+    ];
+    return getSortedSearchResults(includedElements, []);
+  }
+
   getSearchResults() {
-    // Don't initialize results navigation on image search, since it doesn't
-    // work there.
-    if (this.isImagesTab()) {
-      return [];
+    if (this.isImagesTab_()) {
+      return this.getImagesTabResults_();
     }
     const includedElements = [
       {
         nodes: document.querySelectorAll('#search .r > a:first-of-type'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
         nodes: document.querySelectorAll('#search .r g-link > a:first-of-type'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
         nodes: document.querySelectorAll('div.zjbNbe > a'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
       },
       // Shopping results
       {
         nodes: document.querySelectorAll('div.eIuuYe a'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
       },
+      // Next/previous results page
       {
         nodes: document.querySelectorAll('#pnprev, #pnnext'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
       },
     ];
     if (this.options.googleIncludeCards) {
@@ -180,49 +201,64 @@ class GoogleSearch {
                 '[data-init-vis=true] [role=heading]'),
             anchorSelector: nearestChildOrParentAnchor,
             highlightedElementSelector: nearestCardContainer,
-            highlightClass: 'google-focused-card',
+            highlightClass: 'wsn-google-focused-card',
           },
           // Small top stories section.
           {
             nodes: document.querySelectorAll('.P5BnJb'),
             anchorSelector: (n) => n.parentElement,
-            highlightClass: 'default-focused-search-result',
+            highlightClass: 'wsn-default-focused-result',
           },
       );
     }
-    return getSortedSearchResults(includedElements,
-        document.querySelectorAll(
-            '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type'),
-    );
+    // People also ask. Each one of the used selectors should be sufficient,
+    // but we use both to be more robust to upstream DOM changes.
+    const excludedElements = document.querySelectorAll([
+      '.related-question-pair a',
+      '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type',
+    ].join(', '));
+    return getSortedSearchResults(includedElements, excludedElements);
+  }
+
+  get imageSearchTabs_() {
+    const visibleTabs = document.querySelectorAll('.T47uwc > a');
+    // NOTE: The order of the tabs after the first two is dependent on the
+    // query. For example:
+    // - "cats": videos, news, maps
+    // - "trump": news, videos, maps
+    // - "california": maps, news, videos
+    return {
+      navigateSearchTab: visibleTabs[0],
+      navigateMapsTab: document.querySelector(
+          '.T47uwc > a[href*="maps.google."]'),
+      navigateVideosTab: document.querySelector(
+          '.T47uwc > a[href*="&tbm=vid"]'),
+      navigateNewsTab: document.querySelector(
+          '.T47uwc > a[href*="&tbm=nws"]'),
+      navigateShoppingTab: document.querySelector(
+          'a[role="menuitem"][href*="&tbm=shop"]'),
+      navigateBooksTab: document.querySelector(
+          'a[role="menuitem"][href*="&tbm=bks"]'),
+      navigateFlightsTab: document.querySelector(
+          'a[role="menuitem"][href*="&tbm=flm"]'),
+      navigateFinancialTab: document.querySelector(
+          'a[role="menuitem"][href*="&tbm=fin"]'),
+      // TODO: Disable image search's default keybindings to avoid confusing the
+      // user, because the default keybindings can cause an indenepdent
+      // navigation of the image results with another outline. The code below
+      // doesn't work as it seems that the key event is captured by both
+      // Mousetrap and the image search page, even though the Moustrap handler
+      // returns false.
+      // navigatePreviousResultPage: null,
+      // navigateNextResultPage: null,
+    };
   }
 
   // Array storing tuples of tabs navigation keybindings and their corresponding
   // CSS selector
   get tabs() {
-    if (this.isImagesTab()) {
-      const visibleTabs = document.querySelectorAll('.T47uwc > a');
-      // NOTE: The order of the tabs after the first two is dependent on the
-      // query. For example:
-      // - "cats": videos, news, maps
-      // - "trump": news, videos, maps
-      // - "california": maps, news, videos
-      return {
-        navigateSearchTab: visibleTabs[0],
-        navigateMapsTab: document.querySelector(
-            '.T47uwc > a[href*="maps.google."]'),
-        navigateVideosTab: document.querySelector(
-            '.T47uwc > a[href*="&tbm=vid"]'),
-        navigateNewsTab: document.querySelector(
-            '.T47uwc > a[href*="&tbm=nws"]'),
-        navigateShoppingTab: document.querySelector(
-            'a[role="menuitem"][href*="&tbm=shop"]'),
-        navigateBooksTab: document.querySelector(
-            'a[role="menuitem"][href*="&tbm=bks"]'),
-        navigateFlightsTab: document.querySelector(
-            'a[role="menuitem"][href*="&tbm=flm"]'),
-        navigateFinancialTab: document.querySelector(
-            'a[role="menuitem"][href*="&tbm=fin"]'),
-      };
+    if (this.isImagesTab_()) {
+      return this.imageSearchTabs_;
     }
     return {
       navigateSearchTab: document.querySelector(
@@ -279,27 +315,27 @@ class StartPage {
     return '.search-form__form input[id=q]';
   }
   get marginTop() {
-    if (this.isSearchTab()) {
+    if (this.isSearchTab_()) {
       return 113;
     }
     return 0;
   }
 
-  isSearchTab() {
+  isSearchTab_() {
     return document.querySelector('div.layout-web') != null;
   }
-  isImagesTab() {
+  isImagesTab_() {
     return document.querySelector('div.layout-images') != null;
   }
 
   getSearchResults() {
     // Don't initialize results navigation on image search, since it doesn't
     // work there.
-    if (this.isImagesTab()) {
+    if (this.isImagesTab_()) {
       return [];
     }
     const highlightedElementSelector = (element) => {
-      if (this.isSearchTab()) {
+      if (this.isSearchTab_()) {
         return element.closest('.w-gl__result');
       }
       return element;
@@ -309,7 +345,7 @@ class StartPage {
         nodes: document.querySelectorAll(
             '.w-gl--default.w-gl .w-gl__result a.w-gl__result-url'),
         highlightedElementSelector: highlightedElementSelector,
-        highlightClass: 'startpage-focused-search-result',
+        highlightClass: 'wsn-startpage-focused-result',
         containerSelector: (n) => n.parentElement,
       },
       // As of 2020-06-20, this doesn't seem to match anything.
@@ -317,7 +353,7 @@ class StartPage {
         nodes: document.querySelectorAll(
             '.vo-sp.vo-sp--default > a.vo-sp__link'),
         highlightedElementSelector: highlightedElementSelector,
-        highlightClass: 'startpage-focused-search-result',
+        highlightClass: 'wsn-startpage-focused-result',
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -388,28 +424,28 @@ class Youtube {
       // Videos
       {
         nodes: document.querySelectorAll('#title-wrapper h3 a#video-title'),
-        highlightClass: 'youtube-focused-search-result',
+        highlightClass: 'wsn-youtube-focused-result',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       // Playlists
       {
         nodes: document.querySelectorAll('div#content a.ytd-playlist-renderer'),
-        highlightClass: 'youtube-focused-search-result',
+        highlightClass: 'wsn-youtube-focused-result',
       },
       {
         nodes: document.querySelectorAll(
             'div#content a.ytd-playlist-video-renderer'),
-        highlightClass: 'youtube-focused-search-result',
+        highlightClass: 'wsn-youtube-focused-result',
       },
       // Mixes
       {
         nodes: document.querySelectorAll('div#content a.ytd-radio-renderer'),
-        highlightClass: 'youtube-focused-search-result',
+        highlightClass: 'wsn-youtube-focused-result',
       },
       // Channels
       {
         nodes: document.querySelectorAll('div#info.ytd-channel-renderer'),
-        highlightClass: 'youtube-focused-search-result',
+        highlightClass: 'wsn-youtube-focused-result',
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -469,7 +505,7 @@ class GoogleScholar {
     const includedElements = [
       {
         nodes: document.querySelectorAll('.gs_rt a'),
-        highlightClass: 'default-focused-search-result',
+        highlightClass: 'wsn-default-focused-result',
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {
@@ -510,13 +546,13 @@ class Amazon {
       {
         nodes: document.querySelectorAll(
             '.s-search-results h2 .a-link-normal.a-text-normal'),
-        highlightClass: 'amazon-focused-search-result',
+        highlightClass: 'wsn-amazon-focused-result',
         // containerSelector: (n) => n.closest(
         //    '.sg-row').parentElement.closest('.sg-row')
       },
       {
         nodes: document.querySelectorAll('.a-pagination a'),
-        highlightClass: 'amazon-focused-search-result',
+        highlightClass: 'wsn-amazon-focused-result',
       },
     ];
     return getSortedSearchResults(includedElements, []);

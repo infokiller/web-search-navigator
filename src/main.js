@@ -52,7 +52,7 @@ class SearchResultsManager {
       const highlighted = searchResult.highlightedElement;
       // Remove highlighting from previous item.
       highlighted.classList.remove(searchResult.highlightClass);
-      highlighted.classList.remove('no-outline');
+      highlighted.classList.remove('wsn-no-outline');
     }
     const searchResult = this.searchResults[index];
     if (!searchResult) {
@@ -63,7 +63,7 @@ class SearchResultsManager {
     // Add the focus outline and caret.
     highlighted.classList.add(searchResult.highlightClass);
     if (this.options.hideOutline || searchResult.anchor !== highlighted) {
-      searchResult.anchor.classList.add('no-outline');
+      searchResult.anchor.classList.add('wsn-no-outline');
     }
     // We already scroll below, so no need for focus to scroll. The scrolling
     // behavior of `focus` also seems less predictable and caused an issue, see:

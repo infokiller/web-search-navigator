@@ -1,32 +1,38 @@
-.default-focused-search-result::before {
-  content: "\25BA";
-  margin-right: 25px;
-  left: -25px;
-  position: absolute;
+.wsn-default-focused-result::before {
+    content: "\25BA";
+    margin-right: 25px;
+    left: -25px;
+    position: absolute;
 }
 
-.google-focused-card,
-.google-scholar-next-page,
-.amazon-focused-search-result {
-  /* NOTE: Without !important the style is overridden by Google stylesheets */
-  border: 1px solid black!important;
+.wsn-google-focused-image {
+    outline: 2px solid black !important;
+    /* border: 5px solid green !important; */
 }
 
-.startpage-focused-search-result {
-  border-color: #4caf50!important;
-  border-width: 2px;
-  border-style: double;
-  border-radius: 9px;
+.wsn-google-focused-card,
+.wsn-google-focused-image,
+.wsn-google-scholar-next-page,
+.wsn-amazon-focused-result {
+    /* NOTE: Without !important the style is overridden by Google stylesheets */
+    border: 1px solid black !important;
 }
 
-.youtube-focused-search-result{
-  border-color: #c4302b!important;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 2px;
+.wsn-startpage-focused-result {
+    border-color: #4caf50 !important;
+    border-width: 2px;
+    border-style: double;
+    border-radius: 9px;
 }
 
-.no-outline,
-.no-outline:focus  {
-  outline: none;
+.wsn-youtube-focused-result {
+    border-color: #c4302b !important;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 2px;
+}
+
+.wsn-no-outline,
+.wsn-no-outline:focus {
+    outline: none;
 }
