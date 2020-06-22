@@ -418,6 +418,15 @@ class Youtube {
   get searchBoxSelector() {
     return 'input#search';
   }
+  getTopMargin(element) {
+    // When scrolling down, the search box can hide some of the search results,
+    // so we try to compensate for it.
+    const searchBoxContainer = document.querySelector('#masthead-container');
+    if (!searchBoxContainer || searchBoxContainer.contains(element)) {
+      return 0;
+    }
+    return searchBoxContainer.getBoundingClientRect().height;
+  }
   get endlessScrollingContainer() {
     return document.querySelector('div#contents div#contents');
   }

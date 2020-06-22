@@ -12,8 +12,8 @@ const getBrowserBottomDelta = () => {
 // Returns true if scrolling was done.
 const scrollToElement = (searchEngine, element) => {
   let topMargin = 0;
-  if (searchEngine.getMarginTop) {
-    topMargin = searchEngine.getMarginTop(element);
+  if (searchEngine.getTopMargin) {
+    topMargin = searchEngine.getTopMargin(element);
   }
   const bottomMargin = getBrowserBottomDelta();
   const elementBounds = element.getBoundingClientRect();
