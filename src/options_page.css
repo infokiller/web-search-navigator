@@ -13,8 +13,8 @@ div, summary {
 }
 
 #custom-css-textarea {
-  min-width: 400px;
-  min-height: 800px;
+  width: 400px;
+  height: 400px;
 }
 
 .option-desc {

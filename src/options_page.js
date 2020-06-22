@@ -111,8 +111,13 @@ class OptionsPageManager {
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
     // eslint-disable-next-line no-undef
-    if (customCSS !== DEFAULT_CSS) {
-      options.customCSS = customCSS;
+    if (options.customCSS !== DEFAULT_CSS || customCSS !== DEFAULT_CSS) {
+      if (customCSS.trim()) {
+        options.customCSS = customCSS;
+      } else {
+        // eslint-disable-next-line no-undef
+        options.customCSS = DEFAULT_CSS;
+      }
     }
     try {
       await this.options.save();
