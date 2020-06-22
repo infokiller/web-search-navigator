@@ -1,3 +1,6 @@
+/* NOTE: Using !important is needed for some styles because otherwise they get
+ * overriden by Google stylesheets */
+
 .wsn-default-focused-result::before {
     content: "\25BA";
     margin-right: 25px;
@@ -12,10 +15,15 @@
 
 .wsn-google-focused-card,
 .wsn-google-focused-image,
-.wsn-google-scholar-next-page,
 .wsn-amazon-focused-result {
-    /* NOTE: Without !important the style is overridden by Google stylesheets */
     border: 1px solid black !important;
+}
+
+.wsn-google-scholar-next-page {
+    /* Using outline works better than border for the Scholar previous/next
+     * buttons because border moves the page numbers a bit.
+     * */
+    outline: 1px solid black !important;
 }
 
 .wsn-startpage-focused-result {

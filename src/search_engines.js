@@ -512,7 +512,7 @@ class GoogleScholar {
         nodes: document.querySelectorAll(
             '.gs_ico_nav_previous, .gs_ico_nav_next'),
         anchorSelector: (n) => n.parentElement,
-        highlightClass: 'google-scholar-next-page',
+        highlightClass: 'wsn-google-scholar-next-page',
         highlightedElementSelector: (n) => n.parentElement.children[1],
         containerSelector: (n) => n.parentElement.children[1],
       },
@@ -521,12 +521,16 @@ class GoogleScholar {
   }
 
   get tabs() {
-    return {
-      navigatePreviousResultPage:
-          document.querySelector('.gs_ico_nav_previous').parentElement,
-      navigateNextResultPage:
-          document.querySelector('.gs_ico_nav_next').parentElement,
-    };
+    const tabs = {};
+    const previousPageElement = document.querySelector('.gs_ico_nav_previous');
+    if (previousPageElement !== null) {
+      tabs.navigatePreviousResultPage = previousPageElement.parentElement;
+    }
+    const nextPageElement = document.querySelector('.gs_ico_nav_next');
+    if (nextPageElement !== null) {
+      tabs.navigateNextResultPage = nextPageElement.parentElement;
+    }
+    return tabs;
   }
 }
 
