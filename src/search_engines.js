@@ -12,9 +12,7 @@
  *    Default: "wsn-default-focused-result"
  *  - {Array} tabs
  *    Default: []
- *  - {int} marginTop: used if top results are not entirely visible
- *    Default: 0
- *  - {int} marginBottom: used if bottom results are not entirely visible
+ *  - {int} getTopMargin: used if top results are not entirely visible
  *    Default: 0
  *  - {CSS selector} endlessScrollingContainer: CSS selector of the container
  *    containing search results that need tracking for endless scrolling
@@ -117,11 +115,11 @@ class GoogleSearch {
     // return '#searchform input[name=q]',
     return 'form[role=search] input[name=q]';
   }
-  get marginTop() {
+  getTopMargin(element) {
     // When scrolling down, the search box can hide some of the search results,
     // so we try to compensate for it.
     const searchBoxContainer = document.querySelector('#searchform.minidiv');
-    if (!searchBoxContainer) {
+    if (!searchBoxContainer || searchBoxContainer.contains(element)) {
       return 0;
     }
     return searchBoxContainer.getBoundingClientRect().height;
@@ -246,9 +244,14 @@ class GoogleSearch {
       // TODO: Disable image search's default keybindings to avoid confusing the
       // user, because the default keybindings can cause an indenepdent
       // navigation of the image results with another outline. The code below
-      // doesn't work as it seems that the key event is captured by both
-      // Mousetrap and the image search page, even though the Moustrap handler
-      // returns false.
+      // doesn't work because the key event is captured by the image search
+      // code, since Moustrap is bound on document, instead of a more specific
+      // container. The following does work, but the code needs some changes to
+      // support binding on a specific container per search engine:
+      //
+      // Mousetrap(document.querySelector('.islrc')).bind ...
+      // Mousetrap(document.querySelector('#Sva75c')).bind ...
+      //
       // navigatePreviousResultPage: null,
       // navigateNextResultPage: null,
     };
@@ -314,7 +317,7 @@ class StartPage {
   get searchBoxSelector() {
     return '.search-form__form input[id=q]';
   }
-  get marginTop() {
+  getTopMargin(element) {
     if (this.isSearchTab_()) {
       return 113;
     }

@@ -1,15 +1,37 @@
-class SearchResultsManager {
-  static get browserBottomDelta() {
-    // Firefox displays tooltip at the bottom which obstructs the view.
-    // As a workaround ensure extra space from the bottom in the viewport
-    // firefox detection (https://stackoverflow.com/a/7000222/2870889).
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
-      // Hardcoded height of the tooltip plus some margin
-      return 26;
-    }
-    return 0;
+const getBrowserBottomDelta = () => {
+  // Firefox displays tooltip at the bottom which obstructs the view.
+  // As a workaround ensure extra space from the bottom in the viewport
+  // firefox detection (https://stackoverflow.com/a/7000222/2870889).
+  if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
+    // Hardcoded height of the tooltip plus some margin
+    return 26;
   }
+  return 0;
+};
 
+// Returns true if scrolling was done.
+const scrollToElement = (searchEngine, element) => {
+  let topMargin = 0;
+  if (searchEngine.getMarginTop) {
+    topMargin = searchEngine.getMarginTop(element);
+  }
+  const bottomMargin = getBrowserBottomDelta();
+  const elementBounds = element.getBoundingClientRect();
+  const scrollY = window.scrollY;
+  // It seems that it's only possible to scroll by
+  if (elementBounds.top < topMargin) {
+    // scroll element to top
+    element.scrollIntoView(true);
+    window.scrollBy(0, -topMargin);
+  } else if (elementBounds.bottom + bottomMargin > window.innerHeight) {
+    // scroll element to bottom
+    element.scrollIntoView(false);
+    window.scrollBy(0, bottomMargin);
+  }
+  return Math.abs(window.scrollY - scrollY) > 0.01;
+};
+
+class SearchResultsManager {
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;
     this.options = options;
@@ -46,7 +68,8 @@ class SearchResultsManager {
       const searchResult = this.searchResults[this.focusedIndex];
       // If the current result is outside the viewport and scrolling was
       // requested, only scroll to it, but don't focus on the new result.
-      if (scrollToResult && this.scrollToElement(searchResult.container)) {
+      if (scrollToResult && scrollToElement(this.searchEngine,
+          searchResult.container)) {
         return;
       }
       const highlighted = searchResult.highlightedElement;
@@ -72,29 +95,9 @@ class SearchResultsManager {
     // Ensure whole search result container is visible in the viewport, not only
     // the search result link.
     if (scrollToResult) {
-      this.scrollToElement(searchResult.container);
+      scrollToElement(this.searchEngine, searchResult.container);
     }
     this.focusedIndex = index;
-  }
-
-  // Returns true if scrolling was done.
-  scrollToElement(element) {
-    const marginTop = this.searchEngine.marginTop || 0;
-    const marginBottom = this.searchEngine.marginBottom || 0;
-    const bottomDelta = SearchResultsManager.browserBottomDelta + marginBottom;
-    const elementBounds = element.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    // It seems that it's only possible to scroll by
-    if (elementBounds.top < marginTop) {
-      // scroll element to top
-      element.scrollIntoView(true);
-      window.scrollBy(0, -marginTop);
-    } else if (elementBounds.bottom + bottomDelta > window.innerHeight) {
-      // scroll element to bottom
-      element.scrollIntoView(false);
-      window.scrollBy(0, bottomDelta);
-    }
-    return Math.abs(window.scrollY - scrollY) > 0.01;
   }
 
   focusNext(shouldWrap) {
@@ -137,16 +140,31 @@ class WebSearchNavigator {
   initSearchInputNavigation() {
     const searchInput = document.querySelector(
         this.searchEngine.searchBoxSelector);
+    // If insideSearchboxHandler returns true, outsideSearchboxHandler will also
+    // be called (because it's defined on document, hence has lower priority),
+    // in which case we don't want to handle the event. Therefore, we store the
+    // last event handled in insideSearchboxHandler, and only handle the event
+    // in outsideSearchboxHandler if it's not the same one.
+    let lastEvent;
     const outsideSearchboxHandler = (event) => {
+      if (event === lastEvent) {
+        return false;
+      }
+      // Scroll to the search box in case it's outside the viewport so that it's
+      // clear to the user that it has focus.
+      scrollToElement(this.searchEngine, searchInput);
       searchInput.select();
       searchInput.click();
       return false;
     };
     const insideSearchboxHandler = (event) => {
-      // Handle keypress inside the search box.
+      lastEvent = event;
+      // Everything is selected; deselect all.
       if (searchInput.selectionStart === 0 &&
           searchInput.selectionEnd === searchInput.value.length) {
-        // Everything is selected; deselect all.
+        // Scroll to the search box in case it's outside the viewport so that
+        // it's clear to the user that it has focus.
+        scrollToElement(this.searchEngine, searchInput);
         searchInput.setSelectionRange(
             searchInput.value.length, searchInput.value.length);
         return false;
@@ -279,20 +297,14 @@ class WebSearchNavigator {
   registerGlobal(shortcut, callback, element = document) {
     /* eslint-disable-next-line no-undef,new-cap */
     Mousetrap(element).bindGlobal(shortcut, (event) => {
-      const result = callback(event);
-      if (result !== true && event !== null) {
-        return false;
-      }
+      return callback(event);
     });
   }
 
   register(shortcut, callback, element = document) {
     /* eslint-disable-next-line no-undef,new-cap */
     Mousetrap(element).bind(shortcut, (event) => {
-      const result = callback();
-      if (result !== true && event !== null) {
-        return false;
-      }
+      return callback(event);
     });
   }
   /**
