@@ -75,7 +75,9 @@ const getSortedSearchResults = (
   const searchResults = [];
   for (const results of includedSearchResults) {
     for (const node of results.nodes) {
-      if (!excludedResultsSet.has(node)) {
+      // Use offsetParent to exclude hidden elements, see:
+      // https://stackoverflow.com/a/21696585/1014208
+      if (!excludedResultsSet.has(node) && node.offsetParent !== null) {
         // Prevent adding the same node multiple times.
         excludedResultsSet.add(node);
         searchResults.push(new SearchResult(
