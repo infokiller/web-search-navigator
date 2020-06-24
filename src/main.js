@@ -149,6 +149,9 @@ class WebSearchNavigator {
   initSearchInputNavigation() {
     const searchInput = document.querySelector(
         this.searchEngine.searchBoxSelector);
+    if (searchInput == null) {
+      return;
+    }
     // Only apply the extension logic if the key is not something the user may
     // have wanted to type into the searchbox, so that we don't interfere with
     // regular typing.
@@ -327,6 +330,9 @@ class WebSearchNavigator {
   }
 
   initChangeToolsNavigation() {
+    if (this.searchEngine.changeTools == null) {
+      return;
+    }
     const getOpt = (key) => {
       return this.options.sync.get(key);
     };

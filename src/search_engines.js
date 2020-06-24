@@ -5,22 +5,28 @@
  *  - {regex} urlPattern
  *  - {CSS selector} searchBoxSelector
  *  - {SearchResult[]} getSearchResults()
- *  - {None} changeTools(period)
- *  - {CSS class name} highlightClass
  *
  * Optional functions/properties:
- *  - {Callback} anchorSelector
- *    Default: the element itself (from getSearchResults)
- *  - {Callback} highlightedElementSelector
- *    Default: the element itself (from getSearchResults)
  *  - {Array} tabs
- *    Default: []
+ *    Default: {}
  *  - {int} getTopMargin: used if top results are not entirely visible
  *    Default: 0
  *  - {Function} onChangedResults: function for registering a callback on
  *    changed search results. The callback gets a single boolean parameter that
  *    is set to true if the only change is newly appended results.
  *    Default: null (meaning there's no support for such events)
+ *  - {None} changeTools(period)
+ *
+ * Every SearchResult must provide the element and highlightClass properties and
+ * optionally the following:
+ *  - {Callback} anchorSelector: callback for getting the anchor
+ *    Default: the element itself
+ *  - {Callback} highlightedElementSelector: callback for getting the
+ *    highlighted element
+ *    Default: the element itself
+ *  - {Callback} containerSelector: callback for getting the container that
+ *    needs to be visible when an element is selected.
+ *    Default: the element itself
 */
 
 class SearchResult {
@@ -692,7 +698,8 @@ class Github {
     return /^https:\/\/(www\.)?github\.com/;
   }
   get searchBoxSelector() {
-    return '.header-search input[name="q"]';
+    // TODO: This only works the first time the keybinding is used, fix this.
+    return '[role="combobox"] input[name="q"]';
   }
 
   getCommitSearchLinks_() {
@@ -778,7 +785,9 @@ class Github {
   }
 
   onChangedResults(callback) {
-    const container = document.querySelector('body');
+    // NOTE: Using body breaks the search box: when it's clicked on, it is
+    // briefly expanded and then automatically closed with no way to type in it.
+    const container = document.querySelector('.application-main ');
     if (!container) {
       return;
     }
