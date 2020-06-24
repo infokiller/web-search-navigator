@@ -16,7 +16,19 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'google-scholar': ['https://scholar.google.com/*'],
   'amazon': [
     'https://www.amazon.com/*',
-    // TODO: Add other Amazon domains (UK etc).
+    'https://www.amazon.cn/*',
+    'https://www.amazon.in/*',
+    'https://www.amazon.co.jp/*',
+    'https://www.amazon.co.uk/*',
+    'https://www.amazon.ca/*',
+    'https://www.amazon.fr/*',
+    'https://www.amazon.de/*',
+    'https://www.amazon.it/*',
+    'https://www.amazon.es/*',
+    'https://www.amazon.com.au/*',
+    'https://www.amazon.com.mx/*',
+    'https://www.amazon.com.br/*',
+    'https://www.amazon.nl/*',
   ],
 };
 
@@ -52,7 +64,7 @@ const DIV_TO_OPTION_NAME = {
 * @param {Element} checkbox
 */
 const setSearchEnginePermission_ = async (checkbox) => {
-  const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.name];
+  const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.id];
   if (checkbox.checked) {
     checkbox.checked = false;
     // eslint-disable-next-line no-undef

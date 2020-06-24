@@ -20,8 +20,7 @@ const DEFAULT_CSS = `/* NOTE:
     outline: 2px solid black !important;
 }
 
-.wsn-google-focused-card,
-.wsn-amazon-focused-product {
+.wsn-google-focused-card {
     border: 1px solid black !important;
 }
 
@@ -35,10 +34,23 @@ const DEFAULT_CSS = `/* NOTE:
     outline-offset: 1px;
 }
 
+.wsn-youtube-focused-grid-video {
+    border: 1px solid black !important;
+}
+
 .wsn-google-scholar-next-page {
     /* Using outline works better than border for the Scholar previous/next
      * buttons because border moves the page numbers a bit. */
     outline: 1px solid black !important;
+}
+
+.wsn-amazon-focused-product {
+    outline: 1px solid black !important;
+    outline-offset: 3px;
+}
+
+.wsn-amazon-focused-carousel-product {
+    border: 1px solid black !important;
 }
 
 /* This rule is only used when the "hide outline" option is enabled, and is used

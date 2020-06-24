@@ -131,11 +131,10 @@ class WebSearchNavigator {
     }
     await sleep(this.options.sync.values.delay);
     this.injectCSS();
+    this.initResultsNavigation();
     this.initSearchInputNavigation();
     this.initTabsNavigation();
-    this.initResultsNavigation();
     this.initChangeToolsNavigation();
-    this.initEndlessScrolling();
   }
 
   injectCSS() {
@@ -227,6 +226,21 @@ class WebSearchNavigator {
   }
 
   initResultsNavigation() {
+    this.resetResultsManager();
+    this.registerResultsNavigationKeybindings();
+    if (!this.searchEngine.onChangedResults) {
+      return;
+    }
+    this.searchEngine.onChangedResults((appendedOnly) => {
+      if (appendedOnly) {
+        this.resultsManager.reloadSearchResults();
+      } else {
+        this.resetResultsManager();
+      }
+    });
+  }
+
+  resetResultsManager() {
     this.resultsManager = new SearchResultsManager(this.searchEngine,
         this.options.sync.values);
     this.resultsManager.reloadSearchResults();
@@ -234,30 +248,34 @@ class WebSearchNavigator {
       return;
     }
     const options = this.options.sync.values;
-    const lastNavigation = this.options.local.values;
-    let isFirstNavigation = true;
+    this.isFirstNavigation = true;
     if (options.autoSelectFirst) {
       // Highlight the first result when the page is loaded, but don't scroll to
       // it because there may be KP cards such as stock graphs.
       this.resultsManager.focus(0, false);
     }
+    const lastNavigation = this.options.local.values;
     if (location.href === lastNavigation.lastQueryUrl) {
-      isFirstNavigation = false;
+      this.isFirstNavigation = false;
       this.resultsManager.focus(lastNavigation.lastFocusedIndex);
     }
+  }
+
+  registerResultsNavigationKeybindings() {
+    const options = this.options.sync.values;
     this.register(options.nextKey, () => {
-      if (!options.autoSelectFirst && isFirstNavigation) {
+      if (!options.autoSelectFirst && this.isFirstNavigation) {
         this.resultsManager.focus(0);
-        isFirstNavigation = false;
+        this.isFirstNavigation = false;
       } else {
         this.resultsManager.focusNext(options.wrapNavigation);
       }
       return false;
     });
     this.register(options.previousKey, () => {
-      if (!options.autoSelectFirst && isFirstNavigation) {
+      if (!options.autoSelectFirst && this.isFirstNavigation) {
         this.resultsManager.focus(0);
-        isFirstNavigation = false;
+        this.isFirstNavigation = false;
       } else {
         this.resultsManager.focusPrevious(options.wrapNavigation);
       }
@@ -265,6 +283,7 @@ class WebSearchNavigator {
     });
     this.register(options.navigateKey, () => {
       const link = this.resultsManager.getElementToNavigate();
+      const lastNavigation = this.options.local.values;
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
       this.options.local.save();
@@ -327,42 +346,6 @@ class WebSearchNavigator {
     Mousetrap(element).bind(shortcut, (event) => {
       return callback(event);
     });
-  }
-  /**
-   * Observes the number of childnodes of endlessScrollingContainer and compares
-   * them with this.results.items. Automatically inits a reload of the
-   * navigation when they don't match up. This ensures that all results are
-   * always up to date when scrolling.
-   */
-  initEndlessScrolling() {
-    const container = this.searchEngine.endlessScrollingContainer;
-    if (!container) {
-      return;
-    }
-    this.observedAdditions = 0;
-    const config = {attributes: false, childList: true, subtree: false};
-    let firstObservation = true;
-    let observedHref = undefined;
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      if (firstObservation) {
-        observedHref = location.href;
-        this.observedAdditions = this.resultsManager.searchResults.length;
-        firstObservation = false;
-      }
-      if (observedHref && observedHref != location.href) {
-        // Mutation Server was triggered due to loading a new url -> disconnect
-        // the observer
-        observer.disconnect();
-        return;
-      }
-      for (const mutations of mutationsList) {
-        this.observedAdditions += mutations.addedNodes.length;
-      }
-      if (this.resultsManager.searchResults.length < this.observedAdditions) {
-        this.resultsManager.reloadSearchResults();
-      }
-    });
-    observer.observe(container, config);
   }
 }
 

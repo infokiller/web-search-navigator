@@ -17,10 +17,10 @@
  *    Default: []
  *  - {int} getTopMargin: used if top results are not entirely visible
  *    Default: 0
- *  - {CSS selector} endlessScrollingContainer: CSS selector of the container
- *    containing search results that need tracking for endless scrolling
- *    support.
- *    Default: null (meaning there's no endless scrolling)
+ *  - {Function} onChangedResults: function for registering a callback on
+ *    changed search results. The callback gets a single boolean parameter that
+ *    is set to true if the only change is newly appended results.
+ *    Default: null (meaning there's no support for such events)
 */
 
 class SearchResult {
@@ -112,6 +112,21 @@ const getFixedSearchBoxTopMargin = (searchBoxContainer, element) => {
   return searchBoxContainer.getBoundingClientRect().height;
 };
 
+const onChangedChildList = (container, callback) => {
+  const config = {attributes: false, childList: true, subtree: false};
+  const observer = new MutationObserver(async (mutationsList, observer) => {
+    callback();
+    // let additions = 0;
+    // for (const mutations of mutationsList) {
+    //   additions += mutations.addedNodes.length;
+    // }
+    // if (additions > 0) {
+    //   callback();
+    // }
+  });
+  observer.observe(container, config);
+};
+
 class GoogleSearch {
   constructor(options) {
     this.options = options;
@@ -132,11 +147,19 @@ class GoogleSearch {
     return getFixedSearchBoxTopMargin(
         document.querySelector('#searchform.minidiv'), element);
   }
-  get endlessScrollingContainer() {
-    if (this.isImagesTab_()) {
-      return document.querySelector('.islrc');
+  onChangedResults(callback) {
+    if (!this.isImagesTab_()) {
+      return;
     }
-    return null;
+    const container = document.querySelector('.islrc');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    observer.observe(container,
+        {attributes: false, childList: true, subtree: false});
   }
 
   isImagesTab_() {
@@ -344,7 +367,7 @@ class StartPage {
     if (this.isImagesTab_()) {
       return [];
     }
-    const highlightedElementSelector = (element) => {
+    const containerSelector = (element) => {
       if (this.isSearchTab_()) {
         return element.closest('.w-gl__result');
       }
@@ -354,15 +377,20 @@ class StartPage {
       {
         nodes: document.querySelectorAll(
             '.w-gl--default.w-gl .w-gl__result a.w-gl__result-url'),
-        highlightedElementSelector: highlightedElementSelector,
+        highlightedElementSelector: containerSelector,
         highlightClass: 'wsn-startpage-focused-link',
-        containerSelector: (n) => n.parentElement,
+        containerSelector: containerSelector,
+      },
+      {
+        nodes: document.querySelectorAll(
+            '.pagination__next-prev-button'),
+        highlightClass: 'wsn-startpage-focused-link',
       },
       // As of 2020-06-20, this doesn't seem to match anything.
       {
         nodes: document.querySelectorAll(
             '.vo-sp.vo-sp--default > a.vo-sp__link'),
-        highlightedElementSelector: highlightedElementSelector,
+        highlightedElementSelector: containerSelector,
         highlightClass: 'wsn-startpage-focused-link',
       },
     ];
@@ -429,28 +457,35 @@ class Youtube {
     return getFixedSearchBoxTopMargin(
         document.querySelector('#masthead-container'), element);
   }
-  get endlessScrollingContainer() {
-    return document.querySelector('div#contents div#contents');
+
+  onChangedResults(callback) {
+    const containers = document.querySelectorAll(
+        'div#contents div#contents, #grid-container');
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    for (const container of containers) {
+      observer.observe(container,
+          {attributes: false, childList: true, subtree: false});
+    }
   }
 
   getSearchResults() {
     const includedElements = [
       // Videos
       {
-        nodes: document.querySelectorAll('#title-wrapper h3 a#video-title'),
+        nodes: document.querySelectorAll('a#video-title.ytd-video-renderer'),
         highlightClass: 'wsn-youtube-focused-video',
         highlightedElementSelector: (n) => n.closest('ytd-video-renderer'),
         containerSelector: (n) => n.closest('ytd-video-renderer'),
       },
       // Playlists
       {
-        nodes: document.querySelectorAll('div#content a.ytd-playlist-renderer'),
+        nodes: document.querySelectorAll('a.ytd-playlist-video-renderer'),
         highlightClass: 'wsn-youtube-focused-video',
-      },
-      {
-        nodes: document.querySelectorAll(
-            'div#content a.ytd-playlist-video-renderer'),
-        highlightClass: 'wsn-youtube-focused-video',
+        highlightedElementSelector: (n) => n.closest(
+            'ytd-playlist-video-renderer'),
+        containerSelector: (n) => n.closest('ytd-playlist-video-renderer'),
       },
       // Mixes
       {
@@ -459,8 +494,12 @@ class Youtube {
       },
       // Channels
       {
-        nodes: document.querySelectorAll('div#info.ytd-channel-renderer'),
-        highlightClass: 'wsn-youtube-focused-video',
+        nodes: document.querySelectorAll(
+            'ytd-grid-video-renderer a#video-title:not([aria-hidden="true"])'),
+        highlightClass: 'wsn-youtube-focused-grid-video',
+        highlightedElementSelector: (n) => n.closest(
+            'ytd-grid-video-renderer'),
+        containerSelector: (n) => n.closest('ytd-grid-video-renderer'),
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -554,21 +593,48 @@ class Amazon {
     this.options = options;
   }
   get urlPattern() {
-    return /^https:\/\/(www\.)?amazon\.com\/s\?/;
+    return /^https:\/\/(www\.)?amazon\./;
   }
   get searchBoxSelector() {
     return '#twotabsearchtextbox';
   }
+  onChangedResults(callback) {
+    const container = document.querySelector('.s-main-slot');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(false);
+    });
+    observer.observe(container,
+        {attributes: false, childList: true, subtree: false});
+  }
 
   getSearchResults() {
     const includedElements = [
+      // Carousel items
       {
         nodes: document.querySelectorAll(
-            '.s-search-results h2 .a-link-normal.a-text-normal'),
-        highlightClass: 'wsn-amazon-focused-product',
-        // containerSelector: (n) => n.closest(
-        //    '.sg-row').parentElement.closest('.sg-row')
+            '.s-main-slot .a-carousel-card:not([aria-hidden="true"])' +
+            ' h2 .a-link-normal.a-text-normal'),
+        highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
+        highlightClass: 'wsn-amazon-focused-carousel-product',
+        containerSelector: (n) => n.closest('.a-carousel-card'),
       },
+      // Regular items.
+      // NOTE: Must appear after the carousel items because this selector is
+      // more general.
+      {
+        nodes: document.querySelectorAll(
+            '.s-main-slot h2 .a-link-normal.a-text-normal'),
+        // highlightedElementSelector: (n) => n.parentElement.children[1],
+        highlightedElementSelector: (n) => n.closest(
+            '.a-section').parentElement.closest('.a-section'),
+        highlightClass: 'wsn-amazon-focused-product',
+        containerSelector: (n) => n.closest(
+            '.a-section').parentElement.closest('.a-section'),
+      },
+      // Next/previous and page numbers.
       {
         nodes: document.querySelectorAll('.a-pagination a'),
         highlightClass: 'wsn-amazon-focused-product',
