@@ -629,8 +629,7 @@ class Amazon {
       // Carousel items
       {
         nodes: document.querySelectorAll(
-            '.s-main-slot .a-carousel-card:not([aria-hidden="true"])' +
-            ' h2 .a-link-normal.a-text-normal'),
+            '.s-main-slot .a-carousel-card h2 .a-link-normal.a-text-normal'),
         highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
         highlightClass: 'wsn-amazon-focused-carousel-product',
         containerSelector: (n) => n.closest('.a-carousel-card'),
@@ -654,9 +653,11 @@ class Amazon {
         highlightClass: 'wsn-amazon-focused-product',
       },
     ];
-    // Exclude active page number.
+    // Exclude active page number and hidden carousel elements.
+    // TODO: The hidden carousel elements do not match at page load because
+    // they don't yet have the aria-hidden property set.
     const excludedElements = document.querySelectorAll(
-        '.a-pagination .a-selected a');
+        '.a-pagination .a-selected a, .a-carousel-card[aria-hidden="true"] a');
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
