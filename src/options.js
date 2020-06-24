@@ -45,12 +45,13 @@ const DEFAULT_CSS = `/* NOTE:
     outline: 1px solid black !important;
 }
 
-.wsn-amazon-focused-product {
+.wsn-amazon-focused-item {
     outline: 1px solid black !important;
     outline-offset: 3px;
 }
 
-.wsn-amazon-focused-carousel-product {
+.wsn-amazon-focused-cart-item,
+.wsn-amazon-focused-carousel-item {
     border: 1px solid black !important;
 }
 
@@ -93,7 +94,7 @@ const DEFAULT_OPTIONS = {
   navigateShowMonth: ['z m', 'ctrl+shift+m', 'command+shift+m'],
   navigateShowYear: ['z y', 'ctrl+shift+y', 'command+shift+y'],
   toggleSort: ['z s', 'ctrl+shift+s', 'command+shift+s'],
-  toggleVerbatimSearch: ['z v'],
+  toggleVerbatimSearch: ['z v', 'ctrl+shift+v', 'command+shift+v'],
   customCSS: DEFAULT_CSS,
 };
 

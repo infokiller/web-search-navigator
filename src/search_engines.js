@@ -200,7 +200,7 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
       },
     ];
-    if (this.options.get('googleIncludeCards')) {
+    if (this.options.googleIncludeCards) {
       const nearestChildOrParentAnchor = (element) => {
         const childAnchor = element.querySelector('a');
         if (childAnchor && childAnchor.href) {
@@ -631,7 +631,7 @@ class Amazon {
         nodes: document.querySelectorAll(
             '.s-main-slot .a-carousel-card h2 .a-link-normal.a-text-normal'),
         highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
-        highlightClass: 'wsn-amazon-focused-carousel-product',
+        highlightClass: 'wsn-amazon-focused-carousel-item',
         containerSelector: (n) => n.closest('.a-carousel-card'),
       },
       // Regular items.
@@ -643,14 +643,22 @@ class Amazon {
         // highlightedElementSelector: (n) => n.parentElement.children[1],
         highlightedElementSelector: (n) => n.closest(
             '.a-section').parentElement.closest('.a-section'),
-        highlightClass: 'wsn-amazon-focused-product',
+        highlightClass: 'wsn-amazon-focused-item',
         containerSelector: (n) => n.closest(
             '.a-section').parentElement.closest('.a-section'),
       },
       // Next/previous and page numbers.
       {
         nodes: document.querySelectorAll('.a-pagination a'),
-        highlightClass: 'wsn-amazon-focused-product',
+        highlightClass: 'wsn-amazon-focused-item',
+      },
+      // Shopping card items
+      {
+        nodes: document.querySelectorAll(
+            '.sc-list-item-content .a-list-item .a-link-normal'),
+        highlightClass: 'wsn-amazon-focused-cart-item',
+        highlightedElementSelector: (n) => n.closest('.sc-list-item-content'),
+        containerSelector: (n) => n.closest('.sc-list-item-content'),
       },
     ];
     // Exclude active page number and hidden carousel elements.
