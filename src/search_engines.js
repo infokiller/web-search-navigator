@@ -654,7 +654,10 @@ class Amazon {
         highlightClass: 'wsn-amazon-focused-product',
       },
     ];
-    return getSortedSearchResults(includedElements, []);
+    // Exclude active page number.
+    const excludedElements = document.querySelectorAll(
+        '.a-pagination .a-selected a');
+    return getSortedSearchResults(includedElements, excludedElements);
   }
 
   get tabs() {
