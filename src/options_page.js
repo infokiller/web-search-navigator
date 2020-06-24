@@ -32,7 +32,7 @@ const OPTIONAL_PERMISSIONS_URLS = {
   ],
 };
 
-const DIV_TO_OPTION_NAME = {
+const DIV_TO_KEYBINDING_NAME = {
   nextKey: 'next-key',
   previousKey: 'previous-key',
   navigatePreviousResultPage: 'navigate-previous-result-page',
@@ -97,39 +97,50 @@ class OptionsPageManager {
     amazon.addEventListener('change', () => {
       setSearchEnginePermission_(amazon);
     });
-    // NOTE: this.saveOptions cannot be passed directly or otherwise `this`
-    // won't be bound to the object.
+    // NOTE: this.saveOptions and this.resetToDefaults cannot be passed directly
+    // or otherwise `this` won't be bound to the object.
     document.getElementById('save').addEventListener('click', () => {
       this.saveOptions();
+    });
+    document.getElementById('reset').addEventListener('click', () => {
+      this.resetToDefaults();
     });
   }
 
   // Saves options from the DOM to browser.storage.sync.
   async saveOptions() {
-    const options = this.options.values;
+    const getOpt = (key) => {
+      return this.options.get(key);
+    };
+    const setOpt = (key, value) => {
+      this.options.set(key, value);
+    };
     // Handle non-keybindings settings first
-    options.wrapNavigation = document.getElementById('wrap-navigation').checked;
-    options.autoSelectFirst = document.getElementById(
-        'auto-select-first').checked;
-    options.hideOutline = document.getElementById('hide-outline').checked;
-    options.delay = document.getElementById('delay').value;
-    options.googleIncludeCards = document.getElementById(
-        'google-include-cards').value;
+    setOpt('wrapNavigation',
+        document.getElementById('wrap-navigation').checked);
+    setOpt('autoSelectFirst',
+        document.getElementById( 'auto-select-first').checked);
+    setOpt('hideOutline',
+        document.getElementById('hide-outline').checked);
+    setOpt('delay',
+        document.getElementById('delay').value);
+    setOpt('googleIncludeCards',
+        document.getElementById('google-include-cards').value);
     // Handle keybinding options
-    for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
+    for (const [key, optName] of Object.entries(DIV_TO_KEYBINDING_NAME)) {
       // Options take commands as strings separated by commas.
       // Split them into the arrays Moustrap requires.
-      options[key] = document.getElementById(optName).value.split(',').map(
-          (t) => t.trim());
+      setOpt(key, document.getElementById(optName).value.split(',').map(
+          (t) => t.trim()));
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
     // eslint-disable-next-line no-undef
-    if (options.customCSS !== DEFAULT_CSS || customCSS !== DEFAULT_CSS) {
+    if (getOpt('customCSS') !== DEFAULT_CSS || customCSS !== DEFAULT_CSS) {
       if (customCSS.trim()) {
-        options.customCSS = customCSS;
+        setOpt('customCSS', customCSS);
       } else {
         // eslint-disable-next-line no-undef
-        options.customCSS = DEFAULT_CSS;
+        setOpt('customCSS', DEFAULT_CSS);
       }
     }
     try {
@@ -171,26 +182,39 @@ class OptionsPageManager {
       browser.permissions.getAll(),
     ]);
     this.loadSearchEnginePermissions_(permissions);
-    const options = this.options.values;
+    const getOpt = (key) => {
+      return this.options.get(key);
+    };
     // Handle checks separately.
-    document.getElementById('wrap-navigation').checked = options.wrapNavigation;
+    document.getElementById('wrap-navigation').checked =
+      getOpt('wrapNavigation');
     document.getElementById('auto-select-first').checked =
-      options.autoSelectFirst;
+      getOpt('autoSelectFirst');
     document.getElementById('hide-outline').checked =
-      options.hideOutline;
-    document.getElementById('delay').value = options.delay;
+      getOpt('hideOutline');
+    document.getElementById('delay').value = getOpt('delay');
     document.getElementById('google-include-cards').checked =
-      options.googleIncludeCards;
+      getOpt('googleIncludeCards');
     // Restore options from divs.
-    for (const [key, optName] of Object.entries(DIV_TO_OPTION_NAME)) {
-      // Options are stored as arrays.
+    for (const [key, optName] of Object.entries(DIV_TO_KEYBINDING_NAME)) {
+      // Keybindings are stored as arrays.
       // Split them into comma-separated string for the user.
-      const optTemp = options[key];
+      const optTemp = getOpt(key);
       document.getElementById(optName).value =
           Array.isArray(optTemp) ? optTemp.join(', ') : optTemp;
     }
     // Load custom CSS
-    document.getElementById('custom-css-textarea').value = options.customCSS;
+    document.getElementById('custom-css-textarea').value = getOpt('customCSS');
+  }
+
+  async resetToDefaults() {
+    try {
+      await this.options.clear();
+      await this.loadOptions();
+      this.flashMessage('Options set to defaults');
+    } catch (e) {
+      this.flashMessage('Error when setting options to defaults');
+    }
   }
 
   flashMessage(message) {

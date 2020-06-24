@@ -200,7 +200,7 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
       },
     ];
-    if (this.options.googleIncludeCards) {
+    if (this.options.get('googleIncludeCards')) {
       const nearestChildOrParentAnchor = (element) => {
         const childAnchor = element.querySelector('a');
         if (childAnchor && childAnchor.href) {
@@ -395,8 +395,7 @@ class StartPage {
     };
     const includedElements = [
       {
-        nodes: document.querySelectorAll(
-            '.w-gl--default.w-gl .w-gl__result a.w-gl__result-url'),
+        nodes: document.querySelectorAll('a.w-gl__result-url'),
         highlightedElementSelector: containerSelector,
         highlightClass: 'wsn-startpage-focused-link',
         containerSelector: containerSelector,

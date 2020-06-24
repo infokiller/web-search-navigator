@@ -112,8 +112,7 @@ class BrowserStorage {
       this.storage.get(this.values).then((values) => {
         // eslint-disable-next-line no-undef
         if (!browser.runtime.lastError) {
-          // Merge options from storage with defaults.
-          this.values = {...this.defaultValues, ...values};
+          this.values = values;
         }
         resolve();
       });
@@ -121,6 +120,25 @@ class BrowserStorage {
   }
   save() {
     return this.storage.set(this.values);
+  }
+  get(key) {
+    const value = this.values[key];
+    if (value != null) {
+      return value;
+    }
+    return this.defaultValues[key];
+  }
+  set(key, value) {
+    this.values[key] = value;
+  }
+  clear() {
+    return this.storage.clear().then(() => {
+      this.values = {};
+    });
+  }
+  getAll() {
+    // Merge options from storage with defaults.
+    return {...this.defaultValues, ...this.values};
   }
 }
 

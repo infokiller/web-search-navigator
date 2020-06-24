@@ -43,10 +43,10 @@ summary h3 {
   font-weight: bold;
 }
 
-#save {
+#buttons-container button {
   margin-top: 5px;
   margin-bottom: 10px;
-  width: 100px;
+  width: 120px;
 }
 
 /* Firefox specific overrides */

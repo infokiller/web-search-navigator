@@ -125,11 +125,11 @@ class WebSearchNavigator {
     this.options = new ExtensionOptions();
     await this.options.load();
     /* eslint-disable-next-line no-undef */
-    this.searchEngine = await getSearchEngine(this.options.sync.values);
+    this.searchEngine = await getSearchEngine(this.options.sync.getAll());
     if (this.searchEngine == null) {
       return;
     }
-    await sleep(this.options.sync.values.delay);
+    await sleep(this.options.sync.get('delay'));
     this.injectCSS();
     this.initResultsNavigation();
     this.initSearchInputNavigation();
@@ -139,7 +139,7 @@ class WebSearchNavigator {
 
   injectCSS() {
     const style = document.createElement('style');
-    style.textContent = this.options.sync.values.customCSS;
+    style.textContent = this.options.sync.get('customCSS');
     document.head.append(style);
   }
 
@@ -197,21 +197,21 @@ class WebSearchNavigator {
       // focus.
       return true;
     };
-    this.register(this.options.sync.values.focusSearchInput,
+    this.register(this.options.sync.get('focusSearchInput'),
         outsideSearchboxHandler);
     // Bind globally, otherwise Mousetrap ignores keypresses inside inputs.
     // We must bind it separately to the search box element, or otherwise the
     // key event won't always be captured (for example this is the case on
     // Google Search as of 2020-06-22), presumably because the javascript in the
     // page will disable further processing.
-    this.registerGlobal(this.options.sync.values.focusSearchInput,
+    this.registerGlobal(this.options.sync.get('focusSearchInput'),
         insideSearchboxHandler, searchInput);
   }
 
   initTabsNavigation() {
     const tabs = this.searchEngine.tabs || {};
     for (const [optionName, element] of Object.entries(tabs)) {
-      this.register(this.options.sync.values[optionName], () => {
+      this.register(this.options.sync.get(optionName), () => {
         if (element == null) {
           return true;
         }
@@ -242,14 +242,13 @@ class WebSearchNavigator {
 
   resetResultsManager() {
     this.resultsManager = new SearchResultsManager(this.searchEngine,
-        this.options.sync.values);
+        this.options.sync.getAll());
     this.resultsManager.reloadSearchResults();
     if (this.resultsManager.searchResults.length === 0) {
       return;
     }
-    const options = this.options.sync.values;
     this.isFirstNavigation = true;
-    if (options.autoSelectFirst) {
+    if (this.options.sync.get('autoSelectFirst')) {
       // Highlight the first result when the page is loaded, but don't scroll to
       // it because there may be KP cards such as stock graphs.
       this.resultsManager.focus(0, false);
@@ -262,26 +261,28 @@ class WebSearchNavigator {
   }
 
   registerResultsNavigationKeybindings() {
-    const options = this.options.sync.values;
-    this.register(options.nextKey, () => {
-      if (!options.autoSelectFirst && this.isFirstNavigation) {
+    const getOpt = (key) => {
+      return this.options.sync.get(key);
+    };
+    this.register(getOpt('nextKey'), () => {
+      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
         this.resultsManager.focus(0);
         this.isFirstNavigation = false;
       } else {
-        this.resultsManager.focusNext(options.wrapNavigation);
+        this.resultsManager.focusNext(getOpt('wrapNavigation'));
       }
       return false;
     });
-    this.register(options.previousKey, () => {
-      if (!options.autoSelectFirst && this.isFirstNavigation) {
+    this.register(getOpt('previousKey'), () => {
+      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
         this.resultsManager.focus(0);
         this.isFirstNavigation = false;
       } else {
-        this.resultsManager.focusPrevious(options.wrapNavigation);
+        this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
       }
       return false;
     });
-    this.register(options.navigateKey, () => {
+    this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
       const lastNavigation = this.options.local.values;
       lastNavigation.lastQueryUrl = location.href;
@@ -290,7 +291,7 @@ class WebSearchNavigator {
       link.click();
       return false;
     });
-    this.register(options.navigateNewTabKey, () => {
+    this.register(getOpt('navigateNewTabKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
       /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
@@ -302,7 +303,7 @@ class WebSearchNavigator {
       });
       return false;
     });
-    this.register(options.navigateNewTabBackgroundKey, () => {
+    this.register(getOpt('navigateNewTabBackgroundKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
       /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
@@ -317,22 +318,24 @@ class WebSearchNavigator {
   }
 
   initChangeToolsNavigation() {
-    const options = this.options.sync.values;
-    this.register(options.navigateShowAll, () =>
+    const getOpt = (key) => {
+      return this.options.sync.get(key);
+    };
+    this.register(getOpt('navigateShowAll'), () =>
       this.searchEngine.changeTools('a'));
-    this.register(options.navigateShowHour, () =>
+    this.register(getOpt('navigateShowHour'), () =>
       this.searchEngine.changeTools('h'));
-    this.register(options.navigateShowDay, () =>
+    this.register(getOpt('navigateShowDay'), () =>
       this.searchEngine.changeTools('d'));
-    this.register(options.navigateShowWeek, () =>
+    this.register(getOpt('navigateShowWeek'), () =>
       this.searchEngine.changeTools('w'));
-    this.register(options.navigateShowMonth, () =>
+    this.register(getOpt('navigateShowMonth'), () =>
       this.searchEngine.changeTools('m'));
-    this.register(options.navigateShowYear, () =>
+    this.register(getOpt('navigateShowYear'), () =>
       this.searchEngine.changeTools('y'));
-    this.register(options.toggleVerbatimSearch, () =>
+    this.register(getOpt('toggleVerbatimSearch'), () =>
       this.searchEngine.changeTools('v'));
-    this.register(options.toggleSort, () =>
+    this.register(getOpt('toggleSort'), () =>
       this.searchEngine.changeTools(null));
   }
 
