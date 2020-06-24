@@ -698,7 +698,9 @@ class Github {
     return /^https:\/\/(www\.)?github\.com/;
   }
   get searchBoxSelector() {
-    // TODO: This only works the first time the keybinding is used, fix this.
+    // TODO: With the escape key, this only works the first time the keybinding
+    // is used, Since Github seem to capture this as well, which causes it to
+    // leave the search box.
     return '[role="combobox"] input[name="q"]';
   }
 
