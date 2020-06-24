@@ -695,14 +695,69 @@ class Github {
     return '.header-search input[name="q"]';
   }
 
+  getCommitSearchLinks_() {
+    const commitsContainers = document.querySelectorAll(
+        '#commit_search_results .text-normal');
+    const commits = [];
+    for (const con of commitsContainers) {
+      const links = con.querySelectorAll('a');
+      if (links.length === 0) {
+        continue;
+      }
+      if (links.length === 1) {
+        commits.push(links[0]);
+      } else {
+        const prLink = con.querySelector(
+            'a[data-hovercard-type="pull_request"]');
+        if (prLink != null) {
+          commits.push(prLink);
+        }
+      }
+    }
+    return commits;
+  }
+
   getSearchResults() {
     const includedElements = [
       // Repos
       {
         nodes: document.querySelectorAll('.repo-list a'),
-        highlightClass: 'wsn-github-focused-repo',
-        // highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
-        // containerSelector: (n) => n.closest('.a-carousel-card'),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Commits/PRs
+      {
+        nodes: this.getCommitSearchLinks_(),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Issues
+      {
+        nodes: document.querySelectorAll(
+            '#issue_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Marketplace
+      {
+        nodes: document.querySelectorAll(
+            '#marketplace_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Topics
+      {
+        nodes: document.querySelectorAll(
+            '#topic_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Wikis
+      {
+        nodes: document.querySelectorAll(
+            '#wiki_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
+      },
+      // Users
+      {
+        nodes: document.querySelectorAll(
+            '#user_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
       },
       // Next/previous and page numbers.
       {
@@ -710,10 +765,28 @@ class Github {
         highlightClass: 'wsn-github-focused-pagination',
       },
     ];
-    // Exclude topics and other links.
-    const excludedElements = document.querySelectorAll(
-        '.muted-link, .topic-tag');
+    const excludedElements = [
+      // Exclude small links
+      ...document.querySelectorAll('.muted-link'),
+      // Exclude topic tags
+      ...document.querySelectorAll('.topic-tag'),
+      // Exclude small links in commits
+      // ...document.querySelectorAll(
+      //     '#commit_search_results .text-normal a.message'),
+    ];
     return getSortedSearchResults(includedElements, excludedElements);
+  }
+
+  onChangedResults(callback) {
+    const container = document.querySelector('body');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(false);
+    });
+    observer.observe(container,
+        {attributes: false, childList: true, subtree: true});
   }
 
   // TODO: Add tabs to Github.

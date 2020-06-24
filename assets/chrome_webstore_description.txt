@@ -1,3 +1,7 @@
+New in 0.4.5
+* Github support
+* Better highlighting in startpage non-default themes
+
 New in 0.4.4
 * Support for custom CSS rules in options page
 * Add keybinding for toggling verbatim search

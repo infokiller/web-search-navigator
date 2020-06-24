@@ -55,7 +55,7 @@ const DEFAULT_CSS = `/* NOTE:
     border: 1px solid black !important;
 }
 
-.wsn-github-focused-repo,
+.wsn-github-focused-item,
 .wsn-github-focused-pagination {
     outline: 1px solid black !important;
     outline-offset: 2px;
