@@ -57,6 +57,7 @@ const DIV_TO_OPTION_NAME = {
   navigateShowMonth: 'navigate-show-month',
   navigateShowYear: 'navigate-show-year',
   toggleSort: 'toggle-sort',
+  toggleVerbatimSearch: 'toggle-verbatim-search',
 };
 
 /**

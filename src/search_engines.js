@@ -182,8 +182,9 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
+      // Large Youtube video as top result.
       {
-        nodes: document.querySelectorAll('div.zjbNbe > a'),
+        nodes: document.querySelectorAll('h3 a[href*="youtube.com"]'),
         highlightClass: 'wsn-google-focused-link',
       },
       // Shopping results
