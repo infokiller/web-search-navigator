@@ -129,6 +129,9 @@ class WebSearchNavigator {
     if (this.searchEngine == null) {
       return;
     }
+    const sleep = (milliseconds) => {
+      return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    };
     await sleep(this.options.sync.get('delay'));
     this.injectCSS();
     this.initResultsNavigation();
@@ -359,19 +362,6 @@ class WebSearchNavigator {
     });
   }
 }
-
-/**
- * Make functions sleeps
- *
- * Can be used with then() callback :
- * sleep.then(() => { stuff to do after sleeps }),
- * Or in an async function, like we do below extension initialization
- * @param {*} milliseconds, How long you want your function to sleep
- * @return {Promise} a Promise resolving a timeout
- */
-const sleep = (milliseconds) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
 
 const extension = new WebSearchNavigator();
 extension.init();
