@@ -2,10 +2,11 @@
 
 ![Demo flow](./assets/demo.gif?raw=true)
 
-Simple browser extension that adds keyboard shortcuts to Google search™,
-Google search™ used to provide experimental keyboard navigation, but it was [often broken](https://goo.gl/1zMkYu), and was [removed as of 2017-07-31](https://stackoverflow.com/a/45513198/1014208).
-In addition, I wanted to add new keyboard shortcuts and the existing ones to be
-more vim like (j/k for navigation).
+Browser extension that adds keyboard shortcuts to Google search, Youtube, Github, Amazon, Google Scholar, and Startpage.
+
+Google used to provide experimental keyboard navigation, but it was [often broken](https://goo.gl/1zMkYu), and was [removed as of 2017-07-31](https://stackoverflow.com/a/45513198/1014208).
+In addition, I wanted to add new keyboard shortcuts and change the existing ones to be
+vim-like (j/k for navigation).
 
 ## Table of contents
 
