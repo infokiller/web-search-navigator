@@ -1,5 +1,6 @@
 New in 0.4.4
 * Support for custom CSS rules in options page
+* Add keybinding for toggling verbatim search
 * Support Amazon next pages
 * Bugfixes
 

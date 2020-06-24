@@ -112,21 +112,6 @@ const getFixedSearchBoxTopMargin = (searchBoxContainer, element) => {
   return searchBoxContainer.getBoundingClientRect().height;
 };
 
-const onChangedChildList = (container, callback) => {
-  const config = {attributes: false, childList: true, subtree: false};
-  const observer = new MutationObserver(async (mutationsList, observer) => {
-    callback();
-    // let additions = 0;
-    // for (const mutations of mutationsList) {
-    //   additions += mutations.addedNodes.length;
-    // }
-    // if (additions > 0) {
-    //   callback();
-    // }
-  });
-  observer.observe(container, config);
-};
-
 class GoogleSearch {
   constructor(options) {
     this.options = options;
@@ -313,28 +298,60 @@ class GoogleSearch {
   /**
    *  Filter the results based on special properties
    * @param {*} period, filter identifier. Accepted filter are :
-   *  'h' : get results from last hour
-   *  'd' : get result from last day
-   *  'w' : get results from last week
-   *  'm' : get result from last month
-   *  'y' : get result from last year
+   *  'a' : all results
+   *  'h' : last hour
+   *  'd' : last day
+   *  'w' : last week
+   *  'm' : last month
+   *  'y' : last year
    *  'v' : verbatim search
+   *  null : toggle sort
    */
   // TODO: Refactor this function to get enums after migrating to typescript.
   changeTools(period) {
-    // Save current period and sort.
-    const res = /&(tbs=qdr:.)(,sbd:.)?/.exec(location.href);
-    const currPeriod = (res && res[1]) || '';
-    const currSort = (res && res[2]) || '';
-    // Remove old period and sort.
-    const strippedHref = location.href.replace(/&tbs=qdr:.(,sbd:.)?/, '');
-    if (period) {
-      location.href = strippedHref +
-          (period === 'a' ? '' : '&tbs=qdr:' + period + currSort);
-    } else if (currPeriod) {
-      // Can't apply sort when not using period.
-      location.href = strippedHref +
-          '&' + currPeriod + (currSort ? '' : ',sbd:1');
+    const params = location.search.split('&');
+    // Get the index of the last tbs param in case there are multiple ones.
+    let tbsIndex = null;
+    for (let i = 0; i < params.length; i++) {
+      const parts = params[i].split('=');
+      if (parts[0] === 'tbs') {
+        tbsIndex = i;
+      }
+    }
+    const match = /(qdr:.|li:1)(,sbd:.)?/.exec(params[tbsIndex] || '');
+    const currentPeriod = (match && match[1]) || '';
+    const currentSort = (match && match[2]) || '';
+    if (period === 'a') {
+      const nonTbsParams = [];
+      for (let i = 0; i < params.length; i++) {
+        const key = params[i].split('=')[0];
+        if (key !== 'tbs') {
+          nonTbsParams.push(params[i]);
+        }
+      }
+      location.search = nonTbsParams.join('&');
+    } else if (period) {
+      let newTbs = '';
+      if (period === 'v') {
+        if (currentPeriod === 'li:1') {
+          newTbs = '';
+        } else {
+          newTbs = 'li:1';
+        }
+      } else {
+        newTbs = `qdr:${period}`;
+      }
+      newTbs = `tbs=${newTbs}${currentSort}`;
+      if (tbsIndex != null) {
+        params[tbsIndex] = newTbs;
+      } else {
+        params.push(newTbs);
+      }
+      location.search = params.join('&');
+    // Can't apply sort when not using period.
+    } else if (currentPeriod) {
+      params[tbsIndex] = `tbs=${currentPeriod}` + (currentSort ? '' : ',sbd:1');
+      location.search = params.join('&');
     }
   }
 }
@@ -503,11 +520,6 @@ class Youtube {
       },
     ];
     return getSortedSearchResults(includedElements, []);
-  }
-
-  get tabs() {
-    // TODO: Support tabs in Youtube.
-    return {};
   }
 
   changeTools(period) {

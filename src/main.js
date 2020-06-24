@@ -330,6 +330,8 @@ class WebSearchNavigator {
       this.searchEngine.changeTools('m'));
     this.register(options.navigateShowYear, () =>
       this.searchEngine.changeTools('y'));
+    this.register(options.toggleVerbatimSearch, () =>
+      this.searchEngine.changeTools('v'));
     this.register(options.toggleSort, () =>
       this.searchEngine.changeTools(null));
   }
