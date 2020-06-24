@@ -14,6 +14,7 @@ const OPTIONAL_PERMISSIONS_URLS = {
     'https://www.youtube.com/*',
   ],
   'google-scholar': ['https://scholar.google.com/*'],
+  'github': ['https://github.com/*'],
   'amazon': [
     'https://www.amazon.com/*',
     'https://www.amazon.cn/*',
@@ -93,6 +94,10 @@ class OptionsPageManager {
     googleScholar.addEventListener('change', () => {
       setSearchEnginePermission_(googleScholar);
     });
+    const github = document.getElementById('github');
+    github.addEventListener('change', () => {
+      setSearchEnginePermission_(github);
+    });
     const amazon = document.getElementById('amazon');
     amazon.addEventListener('change', () => {
       setSearchEnginePermission_(amazon);
@@ -168,6 +173,10 @@ class OptionsPageManager {
         });
     const amazon = document.getElementById('amazon');
     amazon.checked = OPTIONAL_PERMISSIONS_URLS['amazon'].every((url) => {
+      return permissions.origins.includes(url);
+    });
+    const github = document.getElementById('github');
+    github.checked = OPTIONAL_PERMISSIONS_URLS['github'].every((url) => {
       return permissions.origins.includes(url);
     });
   }

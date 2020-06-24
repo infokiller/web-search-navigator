@@ -684,6 +684,44 @@ class Amazon {
   }
 }
 
+class Github {
+  constructor(options) {
+    this.options = options;
+  }
+  get urlPattern() {
+    return /^https:\/\/(www\.)?github\.com/;
+  }
+  get searchBoxSelector() {
+    return '.header-search input[name="q"]';
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      // Repos
+      {
+        nodes: document.querySelectorAll('.repo-list a'),
+        highlightClass: 'wsn-github-focused-repo',
+        // highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
+        // containerSelector: (n) => n.closest('.a-carousel-card'),
+      },
+      // Next/previous and page numbers.
+      {
+        nodes: document.querySelectorAll('.paginate-container a'),
+        highlightClass: 'wsn-github-focused-pagination',
+      },
+    ];
+    // Exclude topics and other links.
+    const excludedElements = document.querySelectorAll(
+        '.muted-link, .topic-tag');
+    return getSortedSearchResults(includedElements, excludedElements);
+  }
+
+  // TODO: Add tabs to Github.
+  get tabs() {
+    return {};
+  }
+}
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -693,6 +731,7 @@ const getSearchEngine = (options) => {
     new Youtube(options),
     new GoogleScholar(options),
     new Amazon(options),
+    new Github(options),
   ];
   // Switch over all compatible search engines
   const href = window.location.href;

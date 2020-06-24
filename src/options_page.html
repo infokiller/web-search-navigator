@@ -41,7 +41,7 @@
     <section id="keybindings-container">
         <h2>Keybindings</h2>
         <details>
-            <summary><h3>Documentation</h3></summary>
+            <summary><h3>Help</h3></summary>
             <div id="keybindings-help">
                 All keybindings should be specified in
                 <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
@@ -179,6 +179,13 @@
     </section>
     <section id="search-engines-container">
         <h2>EXPERIMENTAL: Alternative search engines</h2>
+        <details>
+            <summary><h3>Help</h3></summary>
+            There is experimental support for using this extension in the websites below.
+            Note that some features are still buggy in certain websites.
+            You can enable or disable the extension of these websites at any time by clicking on the checkboxes.
+            When you enable a website, the browser will prompt you for additional permissions which are needed to be able to run this extension on that website.
+        </details>
         <div class="option">
             <label for="startpage">
                 <input type="checkbox" id="startpage"> Enable on Startpage
@@ -196,7 +203,12 @@
         </div>
         <div class="option">
             <label for="amazon">
-                <input type="checkbox" id="amazon"> Enable on Amazon.com
+                <input type="checkbox" id="amazon"> Enable on Amazon
+            </label>
+        </div>
+        <div class="option">
+            <label for="github">
+                <input type="checkbox" id="github"> Enable on Github
             </label>
         </div>
     </section>

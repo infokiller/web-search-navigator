@@ -7,6 +7,10 @@ summary {
   margin-bottom: 10px;
 }
 
+details {
+  margin-bottom: 10px;
+}
+
 summary h3 {
   display: inline;
 }
@@ -36,7 +40,7 @@ summary h3 {
 }
 
 #delay {
-  width: 50px;
+  width: 40px;
 }
 
 #status {
@@ -46,7 +50,6 @@ summary h3 {
 #buttons-container button {
   margin-top: 5px;
   margin-bottom: 10px;
-  width: 120px;
 }
 
 /* Firefox specific overrides */

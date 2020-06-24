@@ -55,6 +55,12 @@ const DEFAULT_CSS = `/* NOTE:
     border: 1px solid black !important;
 }
 
+.wsn-github-focused-repo,
+.wsn-github-focused-pagination {
+    outline: 1px solid black !important;
+    outline-offset: 2px;
+}
+
 /* This rule is only used when the "hide outline" option is enabled, and is used
  * to disable the website's default search result outlining */
 .wsn-no-outline,
