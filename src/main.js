@@ -288,7 +288,13 @@ class WebSearchNavigator {
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
       this.options.local.save();
-      link.click();
+      // If the element is a link, use the href to directly navigate, since some
+      // websites will open it in a new tab.
+      if (link.localName === 'a' && link.href) {
+        document.location.href = link.href;
+      } else {
+        link.click();
+      }
       return false;
     });
     this.register(getOpt('navigateNewTabKey'), () => {
