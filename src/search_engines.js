@@ -401,8 +401,7 @@ class StartPage {
         containerSelector: containerSelector,
       },
       {
-        nodes: document.querySelectorAll(
-            '.pagination__next-prev-button'),
+        nodes: document.querySelectorAll('.pagination--desktop button'),
         highlightClass: 'wsn-startpage-focused-link',
       },
       // As of 2020-06-20, this doesn't seem to match anything.
@@ -413,7 +412,8 @@ class StartPage {
         highlightClass: 'wsn-startpage-focused-link',
       },
     ];
-    return getSortedSearchResults(includedElements, []);
+    const excludedElements = document.querySelectorAll('button[disabled]');
+    return getSortedSearchResults(includedElements, excludedElements);
   }
 
   get tabs() {

@@ -16,7 +16,7 @@ const DEFAULT_CSS = `/* NOTE:
 }
 
 .wsn-google-focused-image {
-    /* Images are less visible with a thin outline, so we use 2px here  */
+    /* Images are less visible with a thin outline, so we use 2px here */
     outline: 2px solid black !important;
 }
 
@@ -24,8 +24,9 @@ const DEFAULT_CSS = `/* NOTE:
     border: 1px solid black !important;
 }
 
+/* Startpage has dark themes where a black outline won't be visible */
 .wsn-startpage-focused-link {
-    outline: 1px solid black !important;
+    outline: 1px solid #435a69 !important;
     outline-offset: 3px;
 }
 
