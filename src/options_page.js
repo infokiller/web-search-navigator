@@ -70,8 +70,7 @@ const setSearchEnginePermission_ = async (checkbox) => {
   if (checkbox.checked) {
     checkbox.checked = false;
     // eslint-disable-next-line no-undef
-    const granted = await browser.permissions.request(
-        {permissions: ['tabs'], origins: urls});
+    const granted = await browser.permissions.request({origins: urls});
     checkbox.checked = granted;
   } else {
     // eslint-disable-next-line no-undef

@@ -17,7 +17,6 @@
     },
     "permissions": ["storage"],
     "optional_permissions": [
-        "tabs",
         "https://startpage.com/*",
         "https://www.startpage.com/*",
         "https://www.youtube.com/*",
