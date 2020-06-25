@@ -19,16 +19,6 @@
                 <input type="checkbox" id="auto-select-first"> Focus on first search result automatically after the page loads
             </label>
         </div>
-        <div class="option">
-            <label for="hide-outline">
-                <input type="checkbox" id="hide-outline"> Hide outline on selected search result
-            </label>
-        </div>
-        <div class="option">
-            <label for="delay">
-                <input type="number" id="delay" step="0.01"> Delay extension initialization
-            </label>
-        </div>
     </section>
     <section id="google-settings-container">
         <h2>Google specific settings</h2>
@@ -42,7 +32,7 @@
         <h2>Keybindings</h2>
         <details>
             <summary><h3>Help</h3></summary>
-            <div id="keybindings-help">
+            <div class="help">
                 All keybindings should be specified in
                 <a href="https://github.com/ccampbell/mousetrap" target="_blank">Mousetrap</a> format. Examples:
                 <ul>
@@ -179,7 +169,7 @@
     </section>
     <section id="search-engines-container">
         <h2>EXPERIMENTAL: Alternative search engines</h2>
-        <details>
+        <details class="help">
             <summary><h3>Help</h3></summary>
             There is experimental support for using this extension in the websites below.
             Note that some features are still buggy in certain websites.
@@ -213,12 +203,35 @@
         </div>
     </section>
     <section id="appearance-container">
-        <h2>EXPERIMENTAL: Appearance settings</h2>
-        You can set custom CSS rules to change how the focused search results are highlighted. The textarea below contains the default CSS rules.
-        If you want to reset the CSS to the defaults, set the textarea content to an empty string and save.
+        <h2>Appearance settings</h2>
+        <div class="option">
+            <label for="hide-outline">
+                <input type="checkbox" id="hide-outline"> Hide outline on selected search result
+            </label>
+        </div>
+        <div class="option">
+            <h3>EXPERIMENTAL: Custom CSS</h3>
+            You can set custom CSS rules to change how the focused search results are highlighted. The textarea below contains the default CSS rules.
+            If you want to reset the CSS to the defaults, set the textarea content to an empty string and save.
+            <details>
+                <summary><h3>Edit CSS rules</h3></summary>
+                <textarea name="custom-css-textarea" id="custom-css-textarea"></textarea>
+            </details>
+        </div>
+    </section>
+    <section id="advanced-settings-container">
         <details>
-            <summary><h3>Edit CSS rules</h3></summary>
-            <textarea name="custom-css-textarea" id="custom-css-textarea"></textarea>
+            <summary><h2>Advanced settings</h2></summary>
+            <div class="option">
+                <div class="help">
+                    This option can be used as a workaround for some websites.
+                </div>
+                <div id="delay-container">
+                    <label for="delay">
+                        <input type="number" id="delay">Delay extension initialization in milliseconds
+                    </label>
+                </div>
+            </div>
         </details>
     </section>
 

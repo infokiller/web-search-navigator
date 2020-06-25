@@ -2,27 +2,54 @@ body {
   width: 400px;
 }
 
-summary {
+section {
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.4em;
+  font-weight: 550;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-details {
-  margin-bottom: 10px;
+h3 {
+  font-size: 1.2em;
+  font-weight: 450;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-summary h3 {
+summary {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+details {
+  margin-bottom: 5px;
+}
+
+summary h3, summary h2 {
   display: inline;
 }
 
 .option {
-  margin-bottom: 2px;
+  margin-bottom: 5px;
+}
+
+.option-desc {
+  display: inline-block;
+  width: 48%;
 }
 
 .input-keybinding {
   margin-left: auto; 
   margin-right: 0;
   width: 48%;
+}
+
+.help {
+  font-weight: 350;
 }
 
 #custom-css-textarea {
@@ -34,13 +61,13 @@ summary h3 {
   display: block;
 }
 
-.option-desc {
-  display: inline-block;
-  width: 48%;
+#delay-container {
+  margin-top: 5px;
 }
 
 #delay {
-  width: 40px;
+  width: 75px;
+  margin-right: 5px;
 }
 
 #status {
@@ -49,14 +76,14 @@ summary h3 {
 
 #buttons-container button {
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 /* Firefox specific overrides */
 @-moz-document url-prefix() {
   body {
     width: 600px;
-    /* Without setting the margin, the Firefox options are too close to the border */
+    /* Without this, the Firefox options page body is close to the border */
     margin-left: 10px;
   }
   /* Hide spinner in delay field */
