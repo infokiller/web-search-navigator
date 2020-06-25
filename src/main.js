@@ -53,7 +53,8 @@ class SearchResultsManager {
    */
   getElementToNavigate(linkOnly = false) {
     const focusedElement = document.activeElement;
-    if (focusedElement == null) {
+    // StartPage seems to still focus and change it to body when the page loads.
+    if (focusedElement == null || focusedElement.localName === 'body') {
       return this.searchResults[this.focusedIndex].anchor;
     }
     const isLink = focusedElement.localName === 'a' &&
