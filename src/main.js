@@ -64,6 +64,20 @@ class SearchResultsManager {
     }
   }
 
+  highlight(searchResult) {
+    const highlighted = searchResult.highlightedElement;
+    highlighted.classList.add(searchResult.highlightClass);
+    if (this.options.hideOutline || searchResult.anchor !== highlighted) {
+      searchResult.anchor.classList.add('wsn-no-outline');
+    }
+  }
+
+  unhighlight(searchResult) {
+    const highlighted = searchResult.highlightedElement;
+    highlighted.classList.remove(searchResult.highlightClass);
+    highlighted.classList.remove('wsn-no-outline');
+  }
+
   focus(index, scrollToResult = true) {
     if (this.focusedIndex >= 0) {
       const searchResult = this.searchResults[this.focusedIndex];
@@ -73,22 +87,15 @@ class SearchResultsManager {
           searchResult.container)) {
         return;
       }
-      const highlighted = searchResult.highlightedElement;
       // Remove highlighting from previous item.
-      highlighted.classList.remove(searchResult.highlightClass);
-      highlighted.classList.remove('wsn-no-outline');
+      this.unhighlight(searchResult);
     }
     const searchResult = this.searchResults[index];
     if (!searchResult) {
       this.focusedIndex = -1;
       return;
     }
-    const highlighted = searchResult.highlightedElement;
-    // Add the focus outline and caret.
-    highlighted.classList.add(searchResult.highlightClass);
-    if (this.options.hideOutline || searchResult.anchor !== highlighted) {
-      searchResult.anchor.classList.add('wsn-no-outline');
-    }
+    this.highlight(searchResult);
     // We already scroll below, so no need for focus to scroll. The scrolling
     // behavior of `focus` also seems less predictable and caused an issue, see:
     // https://github.com/infokiller/web-search-navigator/issues/35
@@ -248,6 +255,11 @@ class WebSearchNavigator {
   }
 
   resetResultsManager() {
+    if (this.resultsManager != null && this.resultsManager.focusedIndex >= 0) {
+      const searchResult = this.resultsManager.searchResults[
+          this.resultsManager.focusedIndex];
+      this.resultsManager.unhighlight(searchResult);
+    }
     this.resultsManager = new SearchResultsManager(this.searchEngine,
         this.options.sync.getAll());
     this.resultsManager.reloadSearchResults();

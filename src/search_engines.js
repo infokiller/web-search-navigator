@@ -768,6 +768,21 @@ class Github {
             '#user_search_results .text-normal a'),
         highlightClass: 'wsn-github-focused-item',
       },
+      // Pinned repos in user profile
+      {
+        nodes: document.querySelectorAll(
+            '.pinned-item-list-item-content span.repo'),
+        highlightClass: 'wsn-github-focused-item',
+        highlightedElementSelector: (n) => n.closest('a'),
+        containerSelector: (n) => n.closest('a'),
+        anchorSelector: (n) => n.closest('a'),
+      },
+      // Personal repos list in user profile
+      {
+        nodes: document.querySelectorAll(
+            '#user-repositories-list a[itemprop*="codeRepository"]'),
+        highlightClass: 'wsn-github-focused-item',
+      },
       // Next/previous and page numbers.
       {
         nodes: document.querySelectorAll('.paginate-container a'),
@@ -793,8 +808,16 @@ class Github {
     if (!container) {
       return;
     }
+    // Store the last URL to detect page navigations (for example going to the
+    // next page of results).
+    let lastURL = document.location.href;
     const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(false);
+      let appendOnly = true;
+      if (document.location.href !== lastURL) {
+        lastURL = document.location.href;
+        appendOnly = false;
+      }
+      callback(appendOnly);
     });
     observer.observe(container,
         {attributes: false, childList: true, subtree: true});

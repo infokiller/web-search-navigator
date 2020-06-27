@@ -1,3 +1,7 @@
+New in 0.4.7
+* Github: fix double highlighting issue
+* Github: add user repositories
+
 New in 0.4.6
 * Minor visual tweaks in options page
 
