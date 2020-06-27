@@ -1,3 +1,6 @@
+New in 0.4.6
+* Minor visual tweaks in options page
+
 New in 0.4.5
 * Github support
 * Better highlighting in startpage non-default themes
