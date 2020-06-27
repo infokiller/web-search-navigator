@@ -106,7 +106,7 @@ class GoogleSearch {
     this.options = options;
   }
   get urlPattern() {
-    return /^https:\/\/(www)\.google\./;
+    return /^https:\/\/(www)?\.google\./;
   }
   get searchBoxSelector() {
     // Must match search engine search box

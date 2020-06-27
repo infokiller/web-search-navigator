@@ -52,6 +52,7 @@
             ],
             "run_at": "document_end",
             "matches": [
+                "*://google.com/search*",
                 "*://www.google.com/search*",
                 "*://www.google.ad/search*",
                 "*://www.google.ae/search*",
