@@ -733,6 +733,11 @@ class Github {
         nodes: document.querySelectorAll('.repo-list a'),
         highlightClass: 'wsn-github-focused-item',
       },
+      // Code
+      {
+        nodes: document.querySelectorAll('#code_search_results .text-normal a'),
+        highlightClass: 'wsn-github-focused-item',
+      },
       // Commits/PRs
       {
         nodes: this.getCommitSearchLinks_(),
