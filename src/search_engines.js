@@ -787,6 +787,7 @@ class Github {
         nodes: document.querySelectorAll(
             '#user-repositories-list a[itemprop*="codeRepository"]'),
         highlightClass: 'wsn-github-focused-item',
+        containerSelector: (n) => n.closest('li') || n,
       },
       // Next/previous and page numbers.
       {
