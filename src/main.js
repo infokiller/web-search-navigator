@@ -255,10 +255,14 @@ class WebSearchNavigator {
   }
 
   resetResultsManager() {
-    if (this.resultsManager != null && this.resultsManager.focusedIndex >= 0) {
+    if (this.resultsManager != null) {
       const searchResult = this.resultsManager.searchResults[
           this.resultsManager.focusedIndex];
-      this.resultsManager.unhighlight(searchResult);
+      // NOTE: it seems that search results can become undefined when the DOM
+      // elements are removed (for example when the results change).
+      if (searchResult != null) {
+        this.resultsManager.unhighlight(searchResult);
+      }
     }
     this.resultsManager = new SearchResultsManager(this.searchEngine,
         this.options.sync.getAll());
