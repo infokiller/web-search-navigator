@@ -569,7 +569,7 @@ class GoogleScholar {
     this.options = options;
   }
   get urlPattern() {
-    return /^https:\/\/scholar\.google\.com\/scholar/;
+    return /^https:\/\/scholar\.google\./;
   }
   get searchBoxSelector() {
     return '#gs_hdr_tsi';
