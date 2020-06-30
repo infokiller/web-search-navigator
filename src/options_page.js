@@ -1,5 +1,41 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
 
+const GOOGLE_DOMAINS = [
+  'ad', 'ae', 'al', 'am', 'as', 'at', 'az', 'ba', 'be', 'bf', 'bg', 'bi', 'bj',
+  'bs', 'bt', 'by', 'ca', 'cat', 'cd', 'cf', 'cg', 'ch', 'ci', 'cl', 'cm', 'cn',
+  'co.ao', 'co.bw', 'co.ck', 'co.cr', 'co.id', 'co.il', 'co.in', 'co.jp',
+  'co.ke', 'co.kr', 'co.ls', 'co.ma', 'co.mz', 'co.nz', 'co.th', 'co.tz',
+  'co.ug', 'co.uk', 'co.uz', 'co.ve', 'co.vi', 'co.za', 'co.zm', 'co.zw', 'com',
+  'com.af', 'com.ag', 'com.ai', 'com.ar', 'com.au', 'com.bd', 'com.bh',
+  'com.bn', 'com.bo', 'com.br', 'com.bz', 'com.co', 'com.cu', 'com.cy',
+  'com.do', 'com.ec', 'com.eg', 'com.et', 'com.fj', 'com.gh', 'com.gi',
+  'com.gt', 'com.hk', 'com.jm', 'com.kh', 'com.kw', 'com.lb', 'com.ly',
+  'com.mm', 'com.mt', 'com.mx', 'com.my', 'com.na', 'com.nf', 'com.ng',
+  'com.ni', 'com.np', 'com.om', 'com.pa', 'com.pe', 'com.pg', 'com.ph',
+  'com.pk', 'com.pr', 'com.py', 'com.qa', 'com.sa', 'com.sb', 'com.sg',
+  'com.sl', 'com.sv', 'com.tj', 'com.tr', 'com.tw', 'com.ua', 'com.uy',
+  'com.vc', 'com.vn', 'cv', 'cz', 'de', 'dj', 'dk', 'dm', 'dz', 'ee', 'es',
+  'fi', 'fm', 'fr', 'ga', 'ge', 'gg', 'gl', 'gm', 'gp', 'gr', 'gy', 'hn', 'hr',
+  'ht', 'hu', 'ie', 'im', 'iq', 'is', 'it', 'je', 'jo', 'kg', 'ki', 'kz', 'la',
+  'li', 'lk', 'lt', 'lu', 'lv', 'md', 'me', 'mg', 'mk', 'ml', 'mn', 'ms', 'mu',
+  'mv', 'mw', 'ne', 'nl', 'no', 'nr', 'nu', 'pl', 'pn', 'ps', 'pt', 'ro', 'rs',
+  'ru', 'rw', 'sc', 'se', 'sh', 'si', 'sk', 'sm', 'sn', 'so', 'sr', 'st', 'td',
+  'tg', 'tk', 'tl', 'tm', 'tn', 'to', 'tt', 'vg', 'vu', 'ws',
+];
+
+const AMAZON_DOMAINS = [
+  'ca', 'cn', 'co.jp', 'co.uk', 'com', 'com.au', 'com.br', 'com.mx', 'de', 'es',
+  'fr', 'in', 'it', 'nl',
+];
+
+const generateURLPatterns = (prefix, domains, suffix) => {
+  const urls = [];
+  for (const domain of domains) {
+    urls.push(`${prefix}.${domain}${suffix}`);
+  }
+  return urls;
+};
+
 // Authorized urls for compatible search engines
 const OPTIONAL_PERMISSIONS_URLS = {
   'startpage': [
@@ -13,24 +49,11 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'youtube': [
     'https://www.youtube.com/*',
   ],
-  'google-scholar': ['https://scholar.google.com/*'],
+  'google-scholar': generateURLPatterns(
+      'https://scholar.google', GOOGLE_DOMAINS, '/*'),
   'github': ['https://github.com/*'],
-  'amazon': [
-    'https://www.amazon.com/*',
-    'https://www.amazon.cn/*',
-    'https://www.amazon.in/*',
-    'https://www.amazon.co.jp/*',
-    'https://www.amazon.co.uk/*',
-    'https://www.amazon.ca/*',
-    'https://www.amazon.fr/*',
-    'https://www.amazon.de/*',
-    'https://www.amazon.it/*',
-    'https://www.amazon.es/*',
-    'https://www.amazon.com.au/*',
-    'https://www.amazon.com.mx/*',
-    'https://www.amazon.com.br/*',
-    'https://www.amazon.nl/*',
-  ],
+  'amazon': generateURLPatterns(
+      'https://www.amazon', AMAZON_DOMAINS, '/*'),
 };
 
 const DIV_TO_KEYBINDING_NAME = {
