@@ -318,7 +318,7 @@ class GoogleSearch {
    */
   // TODO: Refactor this function to get enums after migrating to typescript.
   changeTools(period) {
-    const params = location.search.split('&');
+    const params = window.location.search.split('&');
     // Get the index of the last tbs param in case there are multiple ones.
     let tbsIndex = null;
     for (let i = 0; i < params.length; i++) {
@@ -338,7 +338,7 @@ class GoogleSearch {
           nonTbsParams.push(params[i]);
         }
       }
-      location.search = nonTbsParams.join('&');
+      window.location.search = nonTbsParams.join('&');
     } else if (period) {
       let newTbs = '';
       if (period === 'v') {
@@ -356,11 +356,11 @@ class GoogleSearch {
       } else {
         params.push(newTbs);
       }
-      location.search = params.join('&');
+      window.location.search = params.join('&');
     // Can't apply sort when not using period.
     } else if (currentPeriod) {
       params[tbsIndex] = `tbs=${currentPeriod}` + (currentSort ? '' : ',sbd:1');
-      location.search = params.join('&');
+      window.location.search = params.join('&');
     }
   }
 }
@@ -816,11 +816,11 @@ class Github {
     }
     // Store the last URL to detect page navigations (for example going to the
     // next page of results).
-    let lastURL = document.location.href;
+    let lastURL = window.location.href;
     const observer = new MutationObserver(async (mutationsList, observer) => {
       let appendOnly = true;
-      if (document.location.href !== lastURL) {
-        lastURL = document.location.href;
+      if (window.location.href !== lastURL) {
+        lastURL = window.location.href;
         appendOnly = false;
       }
       callback(appendOnly);

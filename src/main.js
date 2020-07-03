@@ -314,7 +314,7 @@ class WebSearchNavigator {
       // If the element is a link, use the href to directly navigate, since some
       // websites will open it in a new tab.
       if (link.localName === 'a' && link.href) {
-        document.location.href = link.href;
+        window.location.href = link.href;
       } else {
         link.click();
       }
