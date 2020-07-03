@@ -17,8 +17,8 @@
     "build": "gulp"
   },
   "dependencies": {
-    "mousetrap": "^1.6.5",
-    "shellcheck": "^0.4.2"
+    "webextension-polyfill": "^0.6.0",
+    "mousetrap": "^1.6.5"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.5.0",
@@ -31,6 +31,6 @@
     "minimist": "^1.2.5",
     "prettier": "2.0.5",
     "web-ext": "^4.3.0",
-    "webextension-polyfill": "^0.6.0"
+    "shellcheck": "^0.4.2"
   }
 }
