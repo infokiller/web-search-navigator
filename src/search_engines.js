@@ -318,27 +318,16 @@ class GoogleSearch {
    */
   // TODO: Refactor this function to get enums after migrating to typescript.
   changeTools(period) {
-    const params = window.location.search.split('&');
-    // Get the index of the last tbs param in case there are multiple ones.
-    let tbsIndex = null;
-    for (let i = 0; i < params.length; i++) {
-      const parts = params[i].split('=');
-      if (parts[0] === 'tbs') {
-        tbsIndex = i;
-      }
-    }
-    const match = /(qdr:.|li:1)(,sbd:.)?/.exec(params[tbsIndex] || '');
+    const searchParams = new URLSearchParams(window.location.search);
+    // Use the last value of the tbs param in case there are multiple ones,
+    // since the last one overrides the previous ones.
+    const allTbsValues = searchParams.getAll('tbs');
+    const lastTbsValue = allTbsValues[allTbsValues.length - 1] || '';
+    const match = /(qdr:.|li:1)(,sbd:.)?/.exec(lastTbsValue);
     const currentPeriod = (match && match[1]) || '';
     const currentSort = (match && match[2]) || '';
     if (period === 'a') {
-      const nonTbsParams = [];
-      for (let i = 0; i < params.length; i++) {
-        const key = params[i].split('=')[0];
-        if (key !== 'tbs') {
-          nonTbsParams.push(params[i]);
-        }
-      }
-      window.location.search = nonTbsParams.join('&');
+      searchParams.delete('tbs');
     } else if (period) {
       let newTbs = '';
       if (period === 'v') {
@@ -350,18 +339,17 @@ class GoogleSearch {
       } else {
         newTbs = `qdr:${period}`;
       }
-      newTbs = `tbs=${newTbs}${currentSort}`;
-      if (tbsIndex != null) {
-        params[tbsIndex] = newTbs;
-      } else {
-        params.push(newTbs);
-      }
-      window.location.search = params.join('&');
+      searchParams.set('tbs', `${newTbs}${currentSort}`);
     // Can't apply sort when not using period.
     } else if (currentPeriod) {
-      params[tbsIndex] = `tbs=${currentPeriod}` + (currentSort ? '' : ',sbd:1');
-      window.location.search = params.join('&');
+      searchParams.set('tbs',
+          `${currentPeriod}` + (currentSort ? '' : ',sbd:1'));
     }
+    const newSearchString = '?' + searchParams.toString();
+    if (newSearchString !== window.location.search) {
+      window.location.search = newSearchString;
+    }
+    return false;
   }
 }
 
