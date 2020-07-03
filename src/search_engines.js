@@ -156,7 +156,8 @@ class GoogleSearch {
   }
 
   isImagesTab_() {
-    return /[?&]tbm=isch(&|$)/.test(location.search);
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get('tbm') === 'isch';
   }
 
   getImagesTabResults_() {

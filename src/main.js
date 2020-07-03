@@ -128,6 +128,10 @@ class SearchResultsManager {
 }
 
 class WebSearchNavigator {
+  constructor() {
+    this.bindings = [];
+  }
+
   async init() {
     /* eslint-disable-next-line no-undef */
     this.options = new ExtensionOptions();
@@ -146,6 +150,39 @@ class WebSearchNavigator {
     this.initSearchInputNavigation();
     this.initTabsNavigation();
     this.initChangeToolsNavigation();
+    this.bindKeys();
+  }
+
+  bindKeys() {
+    // NOTE: Mousetrap calls the handler even if there's a larger sequence that
+    // ends with the same key. For example, if the user binds both 'a b' and
+    // 'b', when pressing the sequence 'a b' both handlers will be called, which
+    // is not the desired behavior for this extension. Therefore, we first sort
+    // all keybindings by their sequence length, so that handlers of larger
+    // sequences will be called before the shorter ones. Then, we only call
+    // other handlers if the previous handler returned true.
+    this.bindings.sort((a, b) => {
+      return b[0].split(' ').length - a[0].split(' ').length;
+    });
+    let lastEvent;
+    let lastHandlerResult;
+    for (const [shortcut, element, global, callback] of this.bindings) {
+      const wrappedCallback = (event) => {
+        if (event === lastEvent && !lastHandlerResult) {
+          return;
+        }
+        lastEvent = event;
+        lastHandlerResult = callback(event);
+        return lastHandlerResult;
+      };
+      if (global) {
+        /* eslint-disable-next-line no-undef,new-cap */
+        Mousetrap(element).bindGlobal(shortcut, wrappedCallback);
+      } else {
+        /* eslint-disable-next-line no-undef,new-cap */
+        Mousetrap(element).bind(shortcut, wrappedCallback);
+      }
+    }
   }
 
   injectCSS() {
@@ -172,6 +209,7 @@ class WebSearchNavigator {
     // last event handled in insideSearchboxHandler, and only handle the event
     // in outsideSearchboxHandler if it's not the same one.
     let lastEvent;
+    // TODO: Fix this for other editable elements in the page.
     const outsideSearchboxHandler = (event) => {
       if (event === lastEvent) {
         return !shouldHandleSearchInputKey(event);
@@ -218,8 +256,8 @@ class WebSearchNavigator {
     // key event won't always be captured (for example this is the case on
     // Google Search as of 2020-06-22), presumably because the javascript in the
     // page will disable further processing.
-    this.registerGlobal(this.options.sync.get('focusSearchInput'),
-        insideSearchboxHandler, searchInput);
+    this.register(this.options.sync.get('focusSearchInput'),
+        insideSearchboxHandler, searchInput, true);
   }
 
   initTabsNavigation() {
@@ -235,6 +273,7 @@ class WebSearchNavigator {
         } else {
           element.click();
         }
+        return false;
       });
     }
   }
@@ -371,18 +410,10 @@ class WebSearchNavigator {
       this.searchEngine.changeTools(null));
   }
 
-  registerGlobal(shortcut, callback, element = document) {
-    /* eslint-disable-next-line no-undef,new-cap */
-    Mousetrap(element).bindGlobal(shortcut, (event) => {
-      return callback(event);
-    });
-  }
-
-  register(shortcut, callback, element = document) {
-    /* eslint-disable-next-line no-undef,new-cap */
-    Mousetrap(element).bind(shortcut, (event) => {
-      return callback(event);
-    });
+  register(shortcuts, callback, element = document, global = false) {
+    for (const shortcut of shortcuts) {
+      this.bindings.push([shortcut, element, global, callback]);
+    }
   }
 }
 
