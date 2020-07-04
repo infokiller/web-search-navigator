@@ -209,10 +209,14 @@ class WebSearchNavigator {
     // last event handled in insideSearchboxHandler, and only handle the event
     // in outsideSearchboxHandler if it's not the same one.
     let lastEvent;
-    // TODO: Fix this for other editable elements in the page.
     const outsideSearchboxHandler = (event) => {
       if (event === lastEvent) {
         return !shouldHandleSearchInputKey(event);
+      }
+      const element = document.activeElement;
+      if (element.isContentEditable || ['textarea', 'input'].includes(
+          element.tagName.toLowerCase())) {
+        return true;
       }
       // Scroll to the search box in case it's outside the viewport so that it's
       // clear to the user that it has focus.
