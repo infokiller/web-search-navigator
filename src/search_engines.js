@@ -784,6 +784,14 @@ class Github {
         highlightClass: 'wsn-github-focused-pagination',
       },
     ];
+    const searchParams = new URLSearchParams(window.location.search);
+    // Starred repos of user
+    if (searchParams.get('tab') === 'stars') {
+      includedElements.push({
+        nodes: document.querySelectorAll('h3 a'),
+        highlightClass: 'wsn-github-focused-item',
+      });
+    }
     const excludedElements = [
       // Exclude small links
       ...document.querySelectorAll('.muted-link'),
