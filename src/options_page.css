@@ -29,7 +29,8 @@ details {
   margin-bottom: 5px;
 }
 
-summary h3, summary h2 {
+summary h3,
+summary h2 {
   display: inline;
 }
 
@@ -43,7 +44,7 @@ summary h3, summary h2 {
 }
 
 .input-keybinding {
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: 0;
   width: 48%;
 }
@@ -83,19 +84,22 @@ summary h3, summary h2 {
 @-moz-document url-prefix() {
   body {
     width: 600px;
+
     /* Without this, the Firefox options page body is close to the border */
     margin-left: 10px;
   }
+
   /* Hide spinner in delay field */
-  input[type=number] {
-      -moz-appearance:textfield;
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
+
   .option-desc {
     width: 280px;
   }
+
   #custom-css-textarea {
     width: 600px;
     height: 600px;
   }
 }
-
