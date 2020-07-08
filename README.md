@@ -26,7 +26,7 @@ Browser extension that adds configurable keyboard shortcuts to Google search, Yo
 ## Features
 
 - Lightweight
-- Supports Chrome, Firefox, and pre-Chromium Edge
+- Supports Chrome, Firefox, and Edge
 - Extensive Google keyboard shortcuts including:
   - Selecting results
   - Opening results in the background or foreground
@@ -62,7 +62,7 @@ Install from the [Add-ons for Firefox](https://addons.mozilla.org/firefox/addon/
 
 ### Edge
 
-Install from the [Microsoft Store](https://www.microsoft.com/store/apps/9P0PTV58KND9).
+Install from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/inkjbmhmeghalgpacijccmbmbclkjgop).
 
 ## Keybindings
 
