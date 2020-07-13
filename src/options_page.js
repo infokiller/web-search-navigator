@@ -56,7 +56,7 @@ const OPTIONAL_PERMISSIONS_URLS = {
       'https://www.amazon', AMAZON_DOMAINS, '/*'),
 };
 
-const DIV_TO_KEYBINDING_NAME = {
+const KEYBINDING_TO_DIV = {
   nextKey: 'next-key',
   previousKey: 'previous-key',
   navigatePreviousResultPage: 'navigate-previous-result-page',
@@ -154,7 +154,7 @@ class OptionsPageManager {
     setOpt('googleIncludeCards',
         document.getElementById('google-include-cards').value);
     // Handle keybinding options
-    for (const [key, optName] of Object.entries(DIV_TO_KEYBINDING_NAME)) {
+    for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Options take commands as strings separated by commas.
       // Split them into the arrays Moustrap requires.
       setOpt(key, document.getElementById(optName).value.split(',').map(
@@ -227,7 +227,7 @@ class OptionsPageManager {
     document.getElementById('google-include-cards').checked =
       getOpt('googleIncludeCards');
     // Restore options from divs.
-    for (const [key, optName] of Object.entries(DIV_TO_KEYBINDING_NAME)) {
+    for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored as arrays.
       // Split them into comma-separated string for the user.
       const optTemp = getOpt(key);

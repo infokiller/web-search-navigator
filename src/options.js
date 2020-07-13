@@ -68,12 +68,7 @@ const DEFAULT_CSS = `/* NOTE:
     outline: none;
 }`;
 
-const DEFAULT_OPTIONS = {
-  wrapNavigation: false,
-  autoSelectFirst: true,
-  hideOutline: false,
-  delay: 0,
-  googleIncludeCards: true,
+const DEFAULT_KEYBINDINGS = {
   nextKey: ['down', 'j'],
   previousKey: ['up', 'k'],
   navigatePreviousResultPage: ['left', 'h'],
@@ -101,6 +96,15 @@ const DEFAULT_OPTIONS = {
   navigateShowYear: ['z y'],
   toggleSort: ['z s'],
   toggleVerbatimSearch: ['z v'],
+};
+
+const DEFAULT_OPTIONS = {
+  ...DEFAULT_KEYBINDINGS,
+  wrapNavigation: false,
+  autoSelectFirst: true,
+  hideOutline: false,
+  delay: 0,
+  googleIncludeCards: true,
   customCSS: DEFAULT_CSS,
 };
 
