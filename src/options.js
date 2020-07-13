@@ -120,14 +120,21 @@ class BrowserStorage {
     this.defaultValues = defaultValues;
   }
   load() {
-    return new Promise((resolve) => {
-      this.storage.get(this.values).then((values) => {
-        // eslint-disable-next-line no-undef
-        if (!browser.runtime.lastError) {
-          this.values = values;
+    return this.storage.get(this.values).then((values) => {
+      this.values = values;
+      // Prior to versions 0.4.* the keybindings were stored as strings, so we
+      // migrate them to arrays if needed.
+      let migrated = false;
+      for (const [key, value] of Object.entries(this.values)) {
+        if (!(key in DEFAULT_KEYBINDINGS) || Array.isArray(value)) {
+          continue;
         }
-        resolve();
-      });
+        migrated = true;
+        this.values[key] = value.split(/, */);
+      }
+      if (migrated) {
+        return this.save();
+      }
     });
   }
   save() {
