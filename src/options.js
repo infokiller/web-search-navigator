@@ -108,6 +108,16 @@ const DEFAULT_OPTIONS = {
   customCSS: DEFAULT_CSS,
 };
 
+const keybindingStringToArray = (kb) => {
+  // Alternative: kb.split(/, */);
+  return kb.split(',').map((t) => t.trim());
+};
+
+// eslint-disable-next-line no-unused-vars
+const keybindingArrayToString = (kb) => {
+  return kb.join(', ');
+};
+
 /**
  * @param {StorageArea} storage The storage area to which this section will
  *  write.
@@ -130,7 +140,7 @@ class BrowserStorage {
           continue;
         }
         migrated = true;
-        this.values[key] = value.split(/, */);
+        this.values[key] = keybindingStringToArray(value);
       }
       if (migrated) {
         return this.save();

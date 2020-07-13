@@ -155,10 +155,10 @@ class OptionsPageManager {
         document.getElementById('google-include-cards').value);
     // Handle keybinding options
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
-      // Options take commands as strings separated by commas.
-      // Split them into the arrays Moustrap requires.
-      setOpt(key, document.getElementById(optName).value.split(',').map(
-          (t) => t.trim()));
+      // Keybindings are stored internally as arrays, but edited by users as
+      // comman delimited strings.
+      // eslint-disable-next-line no-undef
+      setOpt(key, keybindingStringToArray(document.getElementById(optName)));
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
     // eslint-disable-next-line no-undef
@@ -228,11 +228,11 @@ class OptionsPageManager {
       getOpt('googleIncludeCards');
     // Restore options from divs.
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
-      // Keybindings are stored as arrays.
-      // Split them into comma-separated string for the user.
-      const optTemp = getOpt(key);
-      document.getElementById(optName).value =
-          Array.isArray(optTemp) ? optTemp.join(', ') : optTemp;
+      // Keybindings are stored internally as arrays, but edited by users as
+      // comman delimited strings.
+      // eslint-disable-next-line no-undef
+      document.getElementById(optName).value = keybindingArrayToString(
+          getOpt(key));
     }
     // Load custom CSS
     document.getElementById('custom-css-textarea').value = getOpt('customCSS');
