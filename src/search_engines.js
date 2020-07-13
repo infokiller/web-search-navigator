@@ -201,6 +201,19 @@ class GoogleSearch {
         nodes: document.querySelectorAll('div.eIuuYe a'),
         highlightClass: 'wsn-google-focused-link',
       },
+      // News tab
+      {
+        nodes: document.querySelectorAll('g-card .dbsr > a'),
+        highlightClass: 'wsn-google-focused-link',
+      },
+      // Books tab
+      {
+        nodes: document.querySelectorAll('#search [data-hveid] a h3'),
+        anchorSelector: (n) => n.closest('a'),
+        containerSelector: (n) => n.closest('[data-hveid]'),
+        highlightedElementSelector: (n) => n.closest('[data-hveid]'),
+        highlightClass: 'wsn-google-focused-link',
+      },
       // Next/previous results page
       {
         nodes: document.querySelectorAll('#pnprev, #pnnext'),

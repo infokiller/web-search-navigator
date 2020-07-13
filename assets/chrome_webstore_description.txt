@@ -1,5 +1,8 @@
 ## Changelog
 
+0.4.10
+* Google: support new cards in news tab and books results
+
 0.4.9
 * Fix issue where custom keybindings from older versions were wrongly
   interpreted.
