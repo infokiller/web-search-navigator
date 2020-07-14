@@ -37,7 +37,7 @@ Browser extension that adds configurable keyboard shortcuts to Google search, Yo
 - All keyboard shortcuts can be changed
 - Settings are synched between devices with the same browser profile
 - Supports both key combos and key sequences
-- Experimental and optional support for Youtube, Startpage, Google Scholar, Github, and Amazon.com (needs to be enabled in the options). Note that the extension does not have permissions for these optional websites unless you explicitly enable them.
+- Experimental and optional support for Youtube, Startpage, Google Scholar, Github, and Amazon (needs to be enabled in the options). Note that the extension does not have permissions for these optional websites unless you explicitly enable them.
 
 ## Installation
 
