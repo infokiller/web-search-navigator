@@ -1,5 +1,8 @@
 ## Changelog
 
+0.4.11
+* Google: fix duplicate search result matches requiring two presses to navigate
+
 0.4.10
 * Google: support new cards in news tab and books results
 
