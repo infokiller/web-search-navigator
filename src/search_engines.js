@@ -81,18 +81,20 @@ const getSortedSearchResults = (
   const searchResults = [];
   for (const results of includedSearchResults) {
     for (const node of results.nodes) {
+      const searchResult = new SearchResult(
+          node,
+          results.anchorSelector,
+          results.highlightClass,
+          results.highlightedElementSelector,
+          results.containerSelector,
+      );
+      const anchor = searchResult.anchor;
       // Use offsetParent to exclude hidden elements, see:
       // https://stackoverflow.com/a/21696585/1014208
-      if (!excludedResultsSet.has(node) && node.offsetParent !== null) {
+      if (!excludedResultsSet.has(anchor) && anchor.offsetParent !== null) {
         // Prevent adding the same node multiple times.
-        excludedResultsSet.add(node);
-        searchResults.push(new SearchResult(
-            node,
-            results.anchorSelector,
-            results.highlightClass,
-            results.highlightedElementSelector,
-            results.containerSelector,
-        ));
+        excludedResultsSet.add(anchor);
+        searchResults.push(searchResult);
       }
     }
   }
@@ -207,6 +209,8 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
       },
       // Books tab
+      // NOTE: This also matches results in the general search tab, but they
+      // will be deduped in getSortedSearchResults.
       {
         nodes: document.querySelectorAll('#search [data-hveid] a h3'),
         anchorSelector: (n) => n.closest('a'),
