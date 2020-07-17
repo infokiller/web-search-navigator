@@ -839,7 +839,8 @@ class Github {
         {attributes: false, childList: true, subtree: true});
   }
 
-  // TODO: Add tabs to Github.
+  // Github already has built-in support for tabs:
+  // https://docs.github.com/en/github/getting-started-with-github/keyboard-shortcuts
   get tabs() {
     return {};
   }
