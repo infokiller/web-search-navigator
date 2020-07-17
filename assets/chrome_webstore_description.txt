@@ -1,5 +1,8 @@
 ## Changelog
 
+0.4.12
+* Fix issue with options saving
+
 0.4.11
 * Google: fix duplicate search result matches requiring two presses to navigate
 

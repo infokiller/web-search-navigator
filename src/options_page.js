@@ -158,7 +158,8 @@ class OptionsPageManager {
       // Keybindings are stored internally as arrays, but edited by users as
       // comman delimited strings.
       // eslint-disable-next-line no-undef
-      setOpt(key, keybindingStringToArray(document.getElementById(optName)));
+      setOpt(key, keybindingStringToArray(
+          document.getElementById(optName).value));
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
     // eslint-disable-next-line no-undef
