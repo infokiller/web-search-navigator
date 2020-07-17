@@ -152,7 +152,9 @@ class OptionsPageManager {
     setOpt('delay',
         document.getElementById('delay').value);
     setOpt('googleIncludeCards',
-        document.getElementById('google-include-cards').value);
+        document.getElementById('google-include-cards').checked);
+    setOpt('googleIncludeMemex',
+        document.getElementById('google-include-memex').checked);
     // Handle keybinding options
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
@@ -227,6 +229,8 @@ class OptionsPageManager {
     document.getElementById('delay').value = getOpt('delay');
     document.getElementById('google-include-cards').checked =
       getOpt('googleIncludeCards');
+    document.getElementById('google-include-memex').checked =
+      getOpt('googleIncludeMemex');
     // Restore options from divs.
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as

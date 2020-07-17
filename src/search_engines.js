@@ -143,18 +143,12 @@ class GoogleSearch {
         document.querySelector('#searchform.minidiv'), element);
   }
   onChangedResults(callback) {
-    if (!this.isImagesTab_()) {
-      return;
+    if (this.isImagesTab_()) {
+      return this.onImageSearchResults_(callback);
     }
-    const container = document.querySelector('.islrc');
-    if (!container) {
-      return;
+    if (this.options.googleIncludeMemex) {
+      return this.onMemexResults_(callback);
     }
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(true);
-    });
-    observer.observe(container,
-        {attributes: false, childList: true, subtree: false});
   }
 
   isImagesTab_() {
@@ -252,6 +246,17 @@ class GoogleSearch {
           },
       );
     }
+    if (this.options.googleIncludeMemex) {
+      includedElements.push(
+          {
+            nodes: document.querySelectorAll(
+                '#memexResults ._3d3zwUrsb4CVi1Li4H6CBw a'),
+            // anchorSelector: nearestChildOrParentAnchor,
+            // highlightedElementSelector: nearestCardContainer,
+            highlightClass: 'wsn-google-focused-memex-result',
+          },
+      );
+    }
     // People also ask. Each one of the used selectors should be sufficient,
     // but we use both to be more robust to upstream DOM changes.
     const excludedElements = document.querySelectorAll([
@@ -259,6 +264,32 @@ class GoogleSearch {
       '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type',
     ].join(', '));
     return getSortedSearchResults(includedElements, excludedElements);
+  }
+
+  onImageSearchResults_(callback) {
+    const container = document.querySelector('.islrc');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    observer.observe(container,
+        {attributes: false, childList: true, subtree: false});
+  }
+
+  onMemexResults_(callback) {
+    const container = document.querySelector('#rhs');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      if (document.querySelector('#memexResults') != null) {
+        callback(true);
+      }
+    });
+    observer.observe(container,
+        {attributes: false, childList: true, subtree: true});
   }
 
   get imageSearchTabs_() {

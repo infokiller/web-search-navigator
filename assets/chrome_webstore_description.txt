@@ -1,5 +1,8 @@
 ## Changelog
 
+0.4.13
+* Google: add options for adding WorldBrain's Memex extension results
+
 0.4.12
 * Fix issue with options saving
 

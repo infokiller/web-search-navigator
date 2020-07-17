@@ -24,6 +24,13 @@ const DEFAULT_CSS = `/* NOTE:
     border: 1px solid black !important;
 }
 
+.wsn-google-focused-memex-result {
+    border: 1px solid black !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
 /* Startpage has dark themes where a black outline won't be visible */
 .wsn-startpage-focused-link {
     outline: 1px solid #435a69 !important;
@@ -105,6 +112,7 @@ const DEFAULT_OPTIONS = {
   hideOutline: false,
   delay: 0,
   googleIncludeCards: true,
+  googleIncludeMemex: false,
   customCSS: DEFAULT_CSS,
 };
 
