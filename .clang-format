@@ -1,7 +1,0 @@
----
-BasedOnStyle: Google
----
-Language: JavaScript
-IndentWidth: 2
-UseTab: Never
-JavaScriptQuotes: Single
