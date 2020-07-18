@@ -69,7 +69,7 @@ Install from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons
 _Note: All shortcuts can be customized to your liking via options._
 
 - `↓`/`j`: Select next search result
-- `↑`/`k`: Select previous previous result
+- `↑`/`k`: Select previous search result
 - `/`/`Escape`: Focus on input search box
 - `Enter`/`Space`: Navigate to selected result
 - `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
