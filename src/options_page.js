@@ -155,6 +155,8 @@ class OptionsPageManager {
         document.getElementById('google-include-cards').checked);
     setOpt('googleIncludeMemex',
         document.getElementById('google-include-memex').checked);
+    setOpt('googleIncludePlaces',
+        document.getElementById('google-include-places').checked);
     // Handle keybinding options
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
@@ -231,6 +233,8 @@ class OptionsPageManager {
       getOpt('googleIncludeCards');
     document.getElementById('google-include-memex').checked =
       getOpt('googleIncludeMemex');
+    document.getElementById('google-include-places').checked =
+      getOpt('googleIncludePlaces');
     // Restore options from divs.
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as

@@ -8,6 +8,7 @@ const DEFAULT_CSS = `/* NOTE:
  */
 
 .wsn-google-focused-link::before,
+.wsn-google-focused-map::before,
 .wsn-startpage-focused-link::before {
     content: "\u25BA";
     margin-right: 25px;
@@ -22,6 +23,10 @@ const DEFAULT_CSS = `/* NOTE:
 
 .wsn-google-focused-card {
     border: 1px solid black !important;
+}
+
+.wsn-google-focused-map {
+    outline: 1px solid black !important;
 }
 
 .wsn-google-focused-memex-result {
@@ -113,6 +118,7 @@ const DEFAULT_OPTIONS = {
   delay: 0,
   googleIncludeCards: true,
   googleIncludeMemex: false,
+  googleIncludePlaces: true,
   customCSS: DEFAULT_CSS,
 };
 

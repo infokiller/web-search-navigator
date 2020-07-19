@@ -246,13 +246,37 @@ class GoogleSearch {
           },
       );
     }
+    if (this.options.googleIncludePlaces) {
+      const nodes = document.querySelectorAll('.vk_c a');
+      // The first node is usually the map image which needs to be styled
+      // differently.
+      let map;
+      let links = nodes;
+      if (nodes[0] != null && nodes[0].querySelector('img')) {
+        map = nodes[0];
+        links = Array.from(nodes).slice(1);
+      }
+      if (map != null) {
+        includedElements.push(
+            {
+              nodes: [map],
+              highlightedElementSelector: (n) => n.parentElement,
+              highlightClass: 'wsn-google-focused-map',
+            },
+        );
+      }
+      includedElements.push(
+          {
+            nodes: links,
+            highlightClass: 'wsn-google-focused-link',
+          },
+      );
+    }
     if (this.options.googleIncludeMemex) {
       includedElements.push(
           {
             nodes: document.querySelectorAll(
                 '#memexResults ._3d3zwUrsb4CVi1Li4H6CBw a'),
-            // anchorSelector: nearestChildOrParentAnchor,
-            // highlightedElementSelector: nearestCardContainer,
             highlightClass: 'wsn-google-focused-memex-result',
           },
       );
