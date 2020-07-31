@@ -99,6 +99,10 @@ _Note: All shortcuts can be customized to your liking via options._
 
 We use a coding style based on [Google's](https://google.github.io/styleguide/jsguide.html) that is enforced with [eslint](https://eslint.org/). Please try to write your code in a similar style, and run eslint before sending a pull request.
 
+### Commit messages
+
+Starting from 2020-07-19, this project uses [Conventional Commits](https://www.conventionalcommits.org/). Please write all you commit messages in this style.
+
 ### Building for development
 
 We use [yarn](https://yarnpkg.com/) package manager for dependency management and [gulp](https://gulpjs.com/) for building.
