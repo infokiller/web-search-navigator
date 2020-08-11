@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "eslint": "^7.6.0",
     "eslint-config-google": "^0.14.0",
     "gulp": "^4.0.2",
