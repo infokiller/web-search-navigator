@@ -1,0 +1,13 @@
+# https://kodiakhq.com
+version = 1
+
+# https://kodiakhq.com/docs/recipes#adding-pull-request-approvals-to-dependabot-pull-requests
+[approve]
+# NOTE: remove the "[bot]" suffix from GitHub Bot usernames.
+# Instead of "dependabot[bot]" use "dependabot".
+auto_approve_usernames = ["dependabot"]
+
+# If using `update.always`, add dependabot to the blacklist to allow
+# dependabot to update and close stale dependency upgrades.
+[update]
+ignored_usernames = ["dependabot"]
