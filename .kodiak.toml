@@ -11,3 +11,9 @@ auto_approve_usernames = ["dependabot"]
 # dependabot to update and close stale dependency upgrades.
 [update]
 ignored_usernames = ["dependabot"]
+
+[merge]
+# Workaround for kodiak removing the automerge label, which causes it not to
+# automerge dependabot PRs with conflicts:
+# https://github.com/chdsbd/kodiak/issues/492#issuecomment-675797416
+notify_on_conflict = false
