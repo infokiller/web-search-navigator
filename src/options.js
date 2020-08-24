@@ -186,7 +186,6 @@ class BrowserStorage {
 }
 
 const createSyncedOptions = () => {
-  // eslint-disable-next-line no-undef
   return new BrowserStorage(browser.storage.sync, DEFAULT_OPTIONS);
 };
 

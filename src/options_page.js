@@ -1,5 +1,8 @@
 // Based on https://developer.chrome.com/extensions/optionsV2
 
+/* global keybindingStringToArray, keybindingArrayToString */
+/* global createSyncedOptions, DEFAULT_CSS */
+
 const GOOGLE_DOMAINS = [
   'ad', 'ae', 'al', 'am', 'as', 'at', 'az', 'ba', 'be', 'bf', 'bg', 'bi', 'bj',
   'bs', 'bt', 'by', 'ca', 'cat', 'cd', 'cf', 'cg', 'ch', 'ci', 'cl', 'cm', 'cn',
@@ -92,11 +95,9 @@ const setSearchEnginePermission_ = async (checkbox) => {
   const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.id];
   if (checkbox.checked) {
     checkbox.checked = false;
-    // eslint-disable-next-line no-undef
     const granted = await browser.permissions.request({origins: urls});
     checkbox.checked = granted;
   } else {
-    // eslint-disable-next-line no-undef
     browser.permissions.remove({origins: urls});
   }
 };
@@ -161,17 +162,14 @@ class OptionsPageManager {
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
       // comman delimited strings.
-      // eslint-disable-next-line no-undef
       setOpt(key, keybindingStringToArray(
           document.getElementById(optName).value));
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
-    // eslint-disable-next-line no-undef
     if (getOpt('customCSS') !== DEFAULT_CSS || customCSS !== DEFAULT_CSS) {
       if (customCSS.trim()) {
         setOpt('customCSS', customCSS);
       } else {
-        // eslint-disable-next-line no-undef
         setOpt('customCSS', DEFAULT_CSS);
       }
     }
@@ -210,11 +208,9 @@ class OptionsPageManager {
 
   // Load options from browser.storage.sync to the DOM.
   async loadOptions() {
-    // eslint-disable-next-line no-undef
     this.options = createSyncedOptions();
     const [, permissions] = await Promise.all([
       this.options.load(),
-      // eslint-disable-next-line no-undef
       browser.permissions.getAll(),
     ]);
     this.loadSearchEnginePermissions_(permissions);
@@ -239,7 +235,6 @@ class OptionsPageManager {
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
       // comman delimited strings.
-      // eslint-disable-next-line no-undef
       document.getElementById(optName).value = keybindingArrayToString(
           getOpt(key));
     }

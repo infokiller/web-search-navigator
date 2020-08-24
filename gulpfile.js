@@ -1,15 +1,12 @@
 'use strict';
 
-// eslint-disable-next-line no-undef
+/* eslint-env node */
+
 const gulp = require('gulp');
-// eslint-disable-next-line no-undef
 const gulpif = require('gulp-if');
-// eslint-disable-next-line no-undef
 const terser = require('gulp-terser');
-// eslint-disable-next-line no-undef
 const minimalist = require('minimist');
 
-// eslint-disable-next-line no-undef
 const argv = minimalist(process.argv.slice(2));
 
 const extraFiles = [
@@ -20,7 +17,6 @@ const extraFiles = [
   'node_modules/webextension-polyfill/dist/browser-polyfill.js',
 ];
 
-// eslint-disable-next-line no-undef
 exports.default = () => {
   return gulp
       .src(extraFiles)

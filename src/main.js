@@ -1,3 +1,5 @@
+/* global ExtensionOptions, getSearchEngine, Mousetrap */
+
 const getBrowserBottomDelta = () => {
   // Firefox displays tooltip at the bottom which obstructs the view.
   // As a workaround ensure extra space from the bottom in the viewport
@@ -133,10 +135,8 @@ class WebSearchNavigator {
   }
 
   async init() {
-    /* eslint-disable-next-line no-undef */
     this.options = new ExtensionOptions();
     await this.options.load();
-    /* eslint-disable-next-line no-undef */
     this.searchEngine = await getSearchEngine(this.options.sync.getAll());
     if (this.searchEngine == null) {
       return;
@@ -176,10 +176,10 @@ class WebSearchNavigator {
         return lastHandlerResult;
       };
       if (global) {
-        /* eslint-disable-next-line no-undef,new-cap */
+        /* eslint-disable-next-line new-cap */
         Mousetrap(element).bindGlobal(shortcut, wrappedCallback);
       } else {
-        /* eslint-disable-next-line no-undef,new-cap */
+        /* eslint-disable-next-line new-cap */
         Mousetrap(element).bind(shortcut, wrappedCallback);
       }
     }
@@ -365,7 +365,6 @@ class WebSearchNavigator {
     });
     this.register(getOpt('navigateNewTabKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
-      /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -377,7 +376,6 @@ class WebSearchNavigator {
     });
     this.register(getOpt('navigateNewTabBackgroundKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
-      /* eslint-disable-next-line no-undef */
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {

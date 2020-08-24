@@ -1,14 +1,12 @@
-// eslint-disable-next-line no-undef
+/* global module */
+
 module.exports = {
   'env': {
+    'es2017': true,
     'browser': true,
-    'es6': true,
+    'webextensions': true,
   },
   'extends': ['eslint:recommended', 'google'],
-  'globals': {
-    'Atomics': 'readonly',
-    'SharedArrayBuffer': 'readonly',
-  },
   'parserOptions': {
     'ecmaVersion': 11,
   },
