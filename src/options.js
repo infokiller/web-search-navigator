@@ -193,7 +193,6 @@ const createSyncedOptions = () => {
 class ExtensionOptions {
   constructor() {
     this.sync = createSyncedOptions();
-    // eslint-disable-next-line no-undef
     this.local = new BrowserStorage(browser.storage.local, {
       lastQueryUrl: null,
       lastFocusedIndex: 0,
