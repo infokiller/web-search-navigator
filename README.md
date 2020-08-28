@@ -68,30 +68,32 @@ Install from [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons
 
 _Note: All shortcuts can be customized to your liking via options._
 
-- `↓`/`j`: Select next search result
-- `↑`/`k`: Select previous search result
-- `/`/`Escape`: Focus on input search box
-- `Enter`/`Space`: Navigate to selected result
-- `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
-- `Ctrl+Shift+Enter`/`⌘+Shift+Enter`/`Ctrl+Shift+Space`: Open selected result in new window/tab
-- `←`/`h`: Navigate to previous search result page
-- `→`/`l`: Navigate to next search result page
-- `a`/`s`: Navigate to All tab (= default search tab)
-- `i`: Navigate to images tab
-- `v`: Navigate to videos tab
-- `m`: Navigate to maps tab
-- `n`: Navigate to news tab
-- `alt+s`: Navigate to shopping tab
-- `b`: Navigate to books tab
-- `alt+l`: Navigate to flights tab
-- `f`: Navigate to financial tab
-- `z h`: Filter results by past hour
-- `z d`: Filter results by past 24 hours (day)
-- `z w`: Filter results by past week
-- `z m`: Filter results by past month
-- `z y`: Filter results by past year
-- `z z`: Turn off filter (show all results)
-- `z s`: Toggle sort by date/relevance (only when filtering)
+| Shortcuts                                                                | Action                                              |
+|--------------------------------------------------------------------------|-----------------------------------------------------|
+| <kbd>↓</kbd>/<kbd>j</kbd>                                                | Select next search result                           |
+| <kbd>↑</kbd>/<kbd>k</kbd>                                                | Select previous search result                       |
+| <kbd>/</kbd>/<kbd>Escape</kbd>                                           | Focus on input search box                           |
+| <kbd>Enter</kbd>/<kbd>Space</kbd>                                        | Navigate to selected result                         |
+| <kbd>Ctrl</kbd> + <kbd>Enter</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd>/<kbd>Ctrl</kbd> + <kbd>Space</kbd> | Open selected result in background tab |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>/<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>/<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Space</kbd> | Open selected result in new window/tab |
+| <kbd>←</kbd>/<kbd>h</kbd>                                                | Navigate to previous search result page             |
+| <kbd>→</kbd>/<kbd>l</kbd>                                                | Navigate to next search result page                 |
+| <kbd>a</kbd>/<kbd>s</kbd>                                                | Navigate to All tab (= default search tab)          |
+| <kbd>i</kbd>                                                             | Navigate to images tab                              |
+| <kbd>v</kbd>                                                             | Navigate to videos tab                              |
+| <kbd>m</kbd>                                                             | Navigate to maps tab                                |
+| <kbd>n</kbd>                                                             | Navigate to news tab                                |
+| <kbd>Alt</kbd> + <kbd>s</kbd>                                            | Navigate to shopping tab                            |
+| <kbd>b                                                                   | Navigate to books tab                               |
+| <kbd>Alt</kbd> + <kbd>l</kbd>                                            | Navigate to flights tab                             |
+| <kbd>f</kbd>                                                             | Navigate to financial tab                           |
+| <kbd>z</kbd> + <kbd>h</kbd>                                              | Filter results by past hour                         |
+| <kbd>z</kbd> + <kbd>d</kbd>                                              | Filter results by past 24 hours (day)               |
+| <kbd>z</kbd> + <kbd>w</kbd>                                              | Filter results by past week                         |
+| <kbd>z</kbd> + <kbd>m</kbd>                                              | Filter results by past month                        |
+| <kbd>z</kbd> + <kbd>y</kbd>                                              | Filter results by past year                         |
+| <kbd>z</kbd> + <kbd>z</kbd>                                              | Turn off filter (show all results)                  |
+| <kbd>z</kbd> + <kbd>s</kbd>                                              | Toggle sort by date/relevance (only when filtering) |
 
 ## Development
 
