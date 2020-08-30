@@ -27,18 +27,23 @@
  *  - {Callback} containerSelector: callback for getting the container that
  *    needs to be visible when an element is selected.
  *    Default: the element itself
-*/
+ */
 
 class SearchResult {
   /**
-  * @param {Element} element
-  * @param {function|null} anchorSelector
-  * @param {string} highlightClass
-  * @param {function|null} highlightedElementSelector
-  * @param {function|null} containerSelector
-  */
-  constructor(element, anchorSelector, highlightClass,
-      highlightedElementSelector, containerSelector) {
+   * @param {Element} element
+   * @param {function|null} anchorSelector
+   * @param {string} highlightClass
+   * @param {function|null} highlightedElementSelector
+   * @param {function|null} containerSelector
+   */
+  constructor(
+      element,
+      anchorSelector,
+      highlightClass,
+      highlightedElementSelector,
+      containerSelector,
+  ) {
     this.element_ = element;
     this.anchorSelector_ = anchorSelector;
     this.highlightClass = highlightClass;
@@ -73,7 +78,9 @@ class SearchResult {
  * @constructor
  */
 const getSortedSearchResults = (
-    includedSearchResults, excludedNodeList = []) => {
+    includedSearchResults,
+    excludedNodeList = [],
+) => {
   const excludedResultsSet = new Set();
   for (const node of excludedNodeList) {
     excludedResultsSet.add(node);
@@ -112,7 +119,6 @@ const getSortedSearchResults = (
   return searchResults;
 };
 
-
 const getFixedSearchBoxTopMargin = (searchBoxContainer, element) => {
   // When scrolling down, the search box can have a fixed position and can hide
   // search results, so we try to compensate for it.
@@ -140,7 +146,9 @@ class GoogleSearch {
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
-        document.querySelector('#searchform.minidiv'), element);
+        document.querySelector('#searchform.minidiv'),
+        element,
+    );
   }
   onChangedResults(callback) {
     if (this.isImagesTab_()) {
@@ -233,7 +241,8 @@ class GoogleSearch {
           // Top stories, Twitter, and videos.
           {
             nodes: document.querySelectorAll(
-                '[data-init-vis=true] [role=heading]'),
+                '[data-init-vis=true] [role=heading]',
+            ),
             anchorSelector: nearestChildOrParentAnchor,
             highlightedElementSelector: nearestCardContainer,
             highlightClass: 'wsn-google-focused-card',
@@ -257,36 +266,33 @@ class GoogleSearch {
         links = Array.from(nodes).slice(1);
       }
       if (map != null) {
-        includedElements.push(
-            {
-              nodes: [map],
-              highlightedElementSelector: (n) => n.parentElement,
-              highlightClass: 'wsn-google-focused-map',
-            },
-        );
+        includedElements.push({
+          nodes: [map],
+          highlightedElementSelector: (n) => n.parentElement,
+          highlightClass: 'wsn-google-focused-map',
+        });
       }
-      includedElements.push(
-          {
-            nodes: links,
-            highlightClass: 'wsn-google-focused-link',
-          },
-      );
+      includedElements.push({
+        nodes: links,
+        highlightClass: 'wsn-google-focused-link',
+      });
     }
     if (this.options.googleIncludeMemex) {
-      includedElements.push(
-          {
-            nodes: document.querySelectorAll(
-                '#memexResults ._3d3zwUrsb4CVi1Li4H6CBw a'),
-            highlightClass: 'wsn-google-focused-memex-result',
-          },
-      );
+      includedElements.push({
+        nodes: document.querySelectorAll(
+            '#memexResults ._3d3zwUrsb4CVi1Li4H6CBw a',
+        ),
+        highlightClass: 'wsn-google-focused-memex-result',
+      });
     }
     // People also ask. Each one of the used selectors should be sufficient,
     // but we use both to be more robust to upstream DOM changes.
-    const excludedElements = document.querySelectorAll([
-      '.related-question-pair a',
-      '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type',
-    ].join(', '));
+    const excludedElements = document.querySelectorAll(
+        [
+          '.related-question-pair a',
+          '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type',
+        ].join(', '),
+    );
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
@@ -298,8 +304,11 @@ class GoogleSearch {
     const observer = new MutationObserver(async (mutationsList, observer) => {
       callback(true);
     });
-    observer.observe(container,
-        {attributes: false, childList: true, subtree: false});
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: false,
+    });
   }
 
   onMemexResults_(callback) {
@@ -312,8 +321,11 @@ class GoogleSearch {
         callback(true);
       }
     });
-    observer.observe(container,
-        {attributes: false, childList: true, subtree: true});
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+    });
   }
 
   get imageSearchTabs_() {
@@ -326,19 +338,24 @@ class GoogleSearch {
     return {
       navigateSearchTab: visibleTabs[0],
       navigateMapsTab: document.querySelector(
-          '.T47uwc > a[href*="maps.google."]'),
+          '.T47uwc > a[href*="maps.google."]',
+      ),
       navigateVideosTab: document.querySelector(
-          '.T47uwc > a[href*="&tbm=vid"]'),
-      navigateNewsTab: document.querySelector(
-          '.T47uwc > a[href*="&tbm=nws"]'),
+          '.T47uwc > a[href*="&tbm=vid"]',
+      ),
+      navigateNewsTab: document.querySelector('.T47uwc > a[href*="&tbm=nws"]'),
       navigateShoppingTab: document.querySelector(
-          'a[role="menuitem"][href*="&tbm=shop"]'),
+          'a[role="menuitem"][href*="&tbm=shop"]',
+      ),
       navigateBooksTab: document.querySelector(
-          'a[role="menuitem"][href*="&tbm=bks"]'),
+          'a[role="menuitem"][href*="&tbm=bks"]',
+      ),
       navigateFlightsTab: document.querySelector(
-          'a[role="menuitem"][href*="&tbm=flm"]'),
+          'a[role="menuitem"][href*="&tbm=flm"]',
+      ),
       navigateFinancialTab: document.querySelector(
-          'a[role="menuitem"][href*="&tbm=fin"]'),
+          'a[role="menuitem"][href*="&tbm=fin"]',
+      ),
       // TODO: Disable image search's default keybindings to avoid confusing the
       // user, because the default keybindings can cause an indenepdent
       // navigation of the image results with another outline. The code below
@@ -363,7 +380,8 @@ class GoogleSearch {
     }
     return {
       navigateSearchTab: document.querySelector(
-          'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])'),
+          'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])',
+      ),
       navigateImagesTab: document.querySelector('a.q.qs[href*="&tbm=isch"]'),
       navigateVideosTab: document.querySelector('a.q.qs[href*="&tbm=vid"]'),
       navigateMapsTab: document.querySelector('a.q.qs[href*="maps.google."]'),
@@ -413,10 +431,12 @@ class GoogleSearch {
         newTbs = `qdr:${period}`;
       }
       searchParams.set('tbs', `${newTbs}${currentSort}`);
-    // Can't apply sort when not using period.
+      // Can't apply sort when not using period.
     } else if (currentPeriod) {
-      searchParams.set('tbs',
-          `${currentPeriod}` + (currentSort ? '' : ',sbd:1'));
+      searchParams.set(
+          'tbs',
+          `${currentPeriod}` + (currentSort ? '' : ',sbd:1'),
+      );
     }
     const newSearchString = '?' + searchParams.toString();
     if (newSearchString !== window.location.search) {
@@ -438,7 +458,9 @@ class StartPage {
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
-        document.querySelector('div.layout-web__header'), element);
+        document.querySelector('div.layout-web__header'),
+        element,
+    );
   }
 
   isSearchTab_() {
@@ -474,7 +496,8 @@ class StartPage {
       // As of 2020-06-20, this doesn't seem to match anything.
       {
         nodes: document.querySelectorAll(
-            '.vo-sp.vo-sp--default > a.vo-sp__link'),
+            '.vo-sp.vo-sp--default > a.vo-sp__link',
+        ),
         highlightedElementSelector: containerSelector,
         highlightClass: 'wsn-startpage-focused-link',
       },
@@ -494,9 +517,11 @@ class StartPage {
       navigateVideosTab: menuLinks[2],
       navigateNewsTab: menuLinks[3],
       navigatePreviousResultPage: document.querySelector(
-          'form.pagination__form.next-prev-form--desktop:first-of-type'),
+          'form.pagination__form.next-prev-form--desktop:first-of-type',
+      ),
       navigateNextResultPage: document.querySelector(
-          'form.pagination__form.next-prev-form--desktop:last-of-type'),
+          'form.pagination__form.next-prev-form--desktop:last-of-type',
+      ),
     };
   }
 
@@ -541,18 +566,24 @@ class Youtube {
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
-        document.querySelector('#masthead-container'), element);
+        document.querySelector('#masthead-container'),
+        element,
+    );
   }
 
   onChangedResults(callback) {
     const containers = document.querySelectorAll(
-        'div#contents div#contents, #grid-container');
+        'div#contents div#contents, #grid-container',
+    );
     const observer = new MutationObserver(async (mutationsList, observer) => {
       callback(true);
     });
     for (const container of containers) {
-      observer.observe(container,
-          {attributes: false, childList: true, subtree: false});
+      observer.observe(container, {
+        attributes: false,
+        childList: true,
+        subtree: false,
+      });
     }
   }
 
@@ -569,8 +600,8 @@ class Youtube {
       {
         nodes: document.querySelectorAll('a.ytd-playlist-video-renderer'),
         highlightClass: 'wsn-youtube-focused-video',
-        highlightedElementSelector: (n) => n.closest(
-            'ytd-playlist-video-renderer'),
+        highlightedElementSelector: (n) =>
+          n.closest('ytd-playlist-video-renderer'),
         containerSelector: (n) => n.closest('ytd-playlist-video-renderer'),
       },
       // Mixes
@@ -581,10 +612,10 @@ class Youtube {
       // Channels
       {
         nodes: document.querySelectorAll(
-            'ytd-grid-video-renderer a#video-title:not([aria-hidden="true"])'),
+            'ytd-grid-video-renderer a#video-title:not([aria-hidden="true"])',
+        ),
         highlightClass: 'wsn-youtube-focused-grid-video',
-        highlightedElementSelector: (n) => n.closest(
-            'ytd-grid-video-renderer'),
+        highlightedElementSelector: (n) => n.closest('ytd-grid-video-renderer'),
         containerSelector: (n) => n.closest('ytd-grid-video-renderer'),
       },
     ];
@@ -594,13 +625,15 @@ class Youtube {
   changeTools(period) {
     if (!document.querySelector('div#collapse-content')) {
       const toggleButton = document.querySelectorAll(
-          'a.ytd-toggle-button-renderer')[0];
+          'a.ytd-toggle-button-renderer',
+      )[0];
       // Toggling the buttons ensures that div#collapse-content is loaded
       toggleButton.click();
       toggleButton.click();
     }
     const forms = document.querySelectorAll(
-        'div#collapse-content > *:first-of-type ytd-search-filter-renderer');
+        'div#collapse-content > *:first-of-type ytd-search-filter-renderer',
+    );
     let neededForm = null;
     switch (period) {
       case 'h':
@@ -645,7 +678,8 @@ class GoogleScholar {
       },
       {
         nodes: document.querySelectorAll(
-            '.gs_ico_nav_previous, .gs_ico_nav_next'),
+            '.gs_ico_nav_previous, .gs_ico_nav_next',
+        ),
         anchorSelector: (n) => n.parentElement,
         highlightClass: 'wsn-google-scholar-next-page',
         highlightedElementSelector: (n) => n.parentElement.children[1],
@@ -687,8 +721,11 @@ class Amazon {
     const observer = new MutationObserver(async (mutationsList, observer) => {
       callback(false);
     });
-    observer.observe(container,
-        {attributes: false, childList: true, subtree: false});
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: false,
+    });
   }
 
   getSearchResults() {
@@ -696,7 +733,8 @@ class Amazon {
       // Carousel items
       {
         nodes: document.querySelectorAll(
-            '.s-main-slot .a-carousel-card h2 .a-link-normal.a-text-normal'),
+            '.s-main-slot .a-carousel-card h2 .a-link-normal.a-text-normal',
+        ),
         highlightedElementSelector: (n) => n.closest('.a-carousel-card'),
         highlightClass: 'wsn-amazon-focused-carousel-item',
         containerSelector: (n) => n.closest('.a-carousel-card'),
@@ -706,13 +744,14 @@ class Amazon {
       // more general.
       {
         nodes: document.querySelectorAll(
-            '.s-main-slot h2 .a-link-normal.a-text-normal'),
+            '.s-main-slot h2 .a-link-normal.a-text-normal',
+        ),
         // highlightedElementSelector: (n) => n.parentElement.children[1],
-        highlightedElementSelector: (n) => n.closest(
-            '.a-section').parentElement.closest('.a-section'),
+        highlightedElementSelector: (n) =>
+          n.closest('.a-section').parentElement.closest('.a-section'),
         highlightClass: 'wsn-amazon-focused-item',
-        containerSelector: (n) => n.closest(
-            '.a-section').parentElement.closest('.a-section'),
+        containerSelector: (n) =>
+          n.closest('.a-section').parentElement.closest('.a-section'),
       },
       // Next/previous and page numbers.
       {
@@ -722,7 +761,8 @@ class Amazon {
       // Shopping card items
       {
         nodes: document.querySelectorAll(
-            '.sc-list-item-content .a-list-item .a-link-normal'),
+            '.sc-list-item-content .a-list-item .a-link-normal',
+        ),
         highlightClass: 'wsn-amazon-focused-cart-item',
         highlightedElementSelector: (n) => n.closest('.sc-list-item-content'),
         containerSelector: (n) => n.closest('.sc-list-item-content'),
@@ -732,18 +772,22 @@ class Amazon {
     // TODO: The hidden carousel elements do not match at page load because
     // they don't yet have the aria-hidden property set.
     const excludedElements = document.querySelectorAll(
-        '.a-pagination .a-selected a, .a-carousel-card[aria-hidden="true"] a');
+        '.a-pagination .a-selected a, .a-carousel-card[aria-hidden="true"] a',
+    );
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
   get tabs() {
     const pagesTabs = {
-      navigateNextResultPage:
-          document.querySelector('.a-pagination .a-last a'),
+      navigateNextResultPage: document.querySelector('.a-pagination .a-last a'),
     };
     const paginationContainer = document.querySelector('.a-pagination');
-    if (paginationContainer && paginationContainer.children[0] &&
-        !paginationContainer.children[0].classList.contains('a-normal')) {
+    if (
+      paginationContainer &&
+      paginationContainer.children[0] &&
+      !paginationContainer.children[0].classList.contains('a-normal')
+    ) {
+      // prettier-ignore
       pagesTabs.navigatePreviousResultPage =
         paginationContainer.children[0].querySelector('a');
     }
@@ -767,7 +811,8 @@ class Github {
 
   getCommitSearchLinks_() {
     const commitsContainers = document.querySelectorAll(
-        '#commit_search_results .text-normal');
+        '#commit_search_results .text-normal',
+    );
     const commits = [];
     for (const con of commitsContainers) {
       const links = con.querySelectorAll('a');
@@ -778,7 +823,8 @@ class Github {
         commits.push(links[0]);
       } else {
         const prLink = con.querySelector(
-            'a[data-hovercard-type="pull_request"]');
+            'a[data-hovercard-type="pull_request"]',
+        );
         if (prLink != null) {
           commits.push(prLink);
         }
@@ -807,37 +853,39 @@ class Github {
       // Issues
       {
         nodes: document.querySelectorAll(
-            '#issue_search_results .text-normal a'),
+            '#issue_search_results .text-normal a',
+        ),
         highlightClass: 'wsn-github-focused-item',
       },
       // Marketplace
       {
         nodes: document.querySelectorAll(
-            '#marketplace_search_results .text-normal a'),
+            '#marketplace_search_results .text-normal a',
+        ),
         highlightClass: 'wsn-github-focused-item',
       },
       // Topics
       {
         nodes: document.querySelectorAll(
-            '#topic_search_results .text-normal a'),
+            '#topic_search_results .text-normal a',
+        ),
         highlightClass: 'wsn-github-focused-item',
       },
       // Wikis
       {
-        nodes: document.querySelectorAll(
-            '#wiki_search_results .text-normal a'),
+        nodes: document.querySelectorAll('#wiki_search_results .text-normal a'),
         highlightClass: 'wsn-github-focused-item',
       },
       // Users
       {
-        nodes: document.querySelectorAll(
-            '#user_search_results .text-normal a'),
+        nodes: document.querySelectorAll('#user_search_results .text-normal a'),
         highlightClass: 'wsn-github-focused-item',
       },
       // Pinned repos in user profile
       {
         nodes: document.querySelectorAll(
-            '.pinned-item-list-item-content span.repo'),
+            '.pinned-item-list-item-content span.repo',
+        ),
         highlightClass: 'wsn-github-focused-item',
         highlightedElementSelector: (n) => n.closest('a'),
         containerSelector: (n) => n.closest('a'),
@@ -846,7 +894,8 @@ class Github {
       // Personal repos list in user profile
       {
         nodes: document.querySelectorAll(
-            '#user-repositories-list a[itemprop*="codeRepository"]'),
+            '#user-repositories-list a[itemprop*="codeRepository"]',
+        ),
         highlightClass: 'wsn-github-focused-item',
         containerSelector: (n) => n.closest('li') || n,
       },
@@ -894,8 +943,11 @@ class Github {
       }
       callback(appendOnly);
     });
-    observer.observe(container,
-        {attributes: false, childList: true, subtree: true});
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+    });
   }
 
   // Github already has built-in support for tabs:

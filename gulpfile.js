@@ -20,7 +20,6 @@ const extraFiles = [
 exports.default = () => {
   return gulp
       .src(extraFiles)
-      // only minify in production
       .pipe(gulpif(argv.env === 'production', terser()))
       .pipe(gulp.dest('./src'));
 };

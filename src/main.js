@@ -70,8 +70,8 @@ class SearchResultsManager {
       }
       return this.searchResults[this.focusedIndex].anchor;
     }
-    const isLink = focusedElement.localName === 'a' &&
-        focusedElement.hasAttribute('href');
+    const isLink =
+      focusedElement.localName === 'a' && focusedElement.hasAttribute('href');
     if (!linkOnly || isLink) {
       return focusedElement;
     }
@@ -214,7 +214,8 @@ class WebSearchNavigator {
 
   initSearchInputNavigation() {
     const searchInput = document.querySelector(
-        this.searchEngine.searchBoxSelector);
+        this.searchEngine.searchBoxSelector,
+    );
     if (searchInput == null) {
       return;
     }
@@ -235,8 +236,10 @@ class WebSearchNavigator {
         return !shouldHandleSearchInputKey(event);
       }
       const element = document.activeElement;
-      if (element.isContentEditable || ['textarea', 'input'].includes(
-          element.tagName.toLowerCase())) {
+      if (
+        element.isContentEditable ||
+        ['textarea', 'input'].includes(element.tagName.toLowerCase())
+      ) {
         return true;
       }
       // Scroll to the search box in case it's outside the viewport so that it's
@@ -252,13 +255,17 @@ class WebSearchNavigator {
         return true;
       }
       // Everything is selected; deselect all.
-      if (searchInput.selectionStart === 0 &&
-          searchInput.selectionEnd === searchInput.value.length) {
+      if (
+        searchInput.selectionStart === 0 &&
+        searchInput.selectionEnd === searchInput.value.length
+      ) {
         // Scroll to the search box in case it's outside the viewport so that
         // it's clear to the user that it has focus.
         scrollToElement(this.searchEngine, searchInput);
         searchInput.setSelectionRange(
-            searchInput.value.length, searchInput.value.length);
+            searchInput.value.length,
+            searchInput.value.length,
+        );
         return false;
       }
       // Closing search suggestions via document.body.click() or
@@ -274,15 +281,21 @@ class WebSearchNavigator {
       // focus.
       return true;
     };
-    this.register(this.options.sync.get('focusSearchInput'),
-        outsideSearchboxHandler);
+    this.register(
+        this.options.sync.get('focusSearchInput'),
+        outsideSearchboxHandler,
+    );
     // Bind globally, otherwise Mousetrap ignores keypresses inside inputs.
     // We must bind it separately to the search box element, or otherwise the
     // key event won't always be captured (for example this is the case on
     // Google Search as of 2020-06-22), presumably because the javascript in the
     // page will disable further processing.
-    this.register(this.options.sync.get('focusSearchInput'),
-        insideSearchboxHandler, searchInput, true);
+    this.register(
+        this.options.sync.get('focusSearchInput'),
+        insideSearchboxHandler,
+        searchInput,
+        true,
+    );
   }
 
   initTabsNavigation() {
@@ -321,15 +334,18 @@ class WebSearchNavigator {
   resetResultsManager() {
     if (this.resultsManager != null) {
       const searchResult = this.resultsManager.searchResults[
-          this.resultsManager.focusedIndex];
+          this.resultsManager.focusedIndex
+      ];
       // NOTE: it seems that search results can become undefined when the DOM
       // elements are removed (for example when the results change).
       if (searchResult != null) {
         this.resultsManager.unhighlight(searchResult);
       }
     }
-    this.resultsManager = new SearchResultsManager(this.searchEngine,
-        this.options.sync.getAll());
+    this.resultsManager = new SearchResultsManager(
+        this.searchEngine,
+        this.options.sync.getAll(),
+    );
     this.resultsManager.reloadSearchResults();
     this.isFirstNavigation = true;
     if (this.resultsManager.searchResults.length === 0) {
@@ -371,7 +387,7 @@ class WebSearchNavigator {
       }
       return false;
     });
-    this.register(getOpt('navigateKey'), () => {
+    this.register(getOpt('navigateKey'), async () => {
       const link = this.resultsManager.getElementToNavigate();
       if (link == null) {
         return true;
@@ -379,7 +395,7 @@ class WebSearchNavigator {
       const lastNavigation = this.options.local.values;
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
-      this.options.local.save();
+      await this.options.local.save();
       // If the element is a link, use the href to directly navigate, since some
       // websites will open it in a new tab.
       if (link.localName === 'a' && link.href) {
@@ -427,21 +443,29 @@ class WebSearchNavigator {
       return this.options.sync.get(key);
     };
     this.register(getOpt('navigateShowAll'), () =>
-      this.searchEngine.changeTools('a'));
+      this.searchEngine.changeTools('a'),
+    );
     this.register(getOpt('navigateShowHour'), () =>
-      this.searchEngine.changeTools('h'));
+      this.searchEngine.changeTools('h'),
+    );
     this.register(getOpt('navigateShowDay'), () =>
-      this.searchEngine.changeTools('d'));
+      this.searchEngine.changeTools('d'),
+    );
     this.register(getOpt('navigateShowWeek'), () =>
-      this.searchEngine.changeTools('w'));
+      this.searchEngine.changeTools('w'),
+    );
     this.register(getOpt('navigateShowMonth'), () =>
-      this.searchEngine.changeTools('m'));
+      this.searchEngine.changeTools('m'),
+    );
     this.register(getOpt('navigateShowYear'), () =>
-      this.searchEngine.changeTools('y'));
+      this.searchEngine.changeTools('y'),
+    );
     this.register(getOpt('toggleVerbatimSearch'), () =>
-      this.searchEngine.changeTools('v'));
+      this.searchEngine.changeTools('v'),
+    );
     this.register(getOpt('toggleSort'), () =>
-      this.searchEngine.changeTools(null));
+      this.searchEngine.changeTools(null),
+    );
   }
 
   register(shortcuts, callback, element = document, global = false) {

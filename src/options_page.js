@@ -27,8 +27,20 @@ const GOOGLE_DOMAINS = [
 ];
 
 const AMAZON_DOMAINS = [
-  'ca', 'cn', 'co.jp', 'co.uk', 'com', 'com.au', 'com.br', 'com.mx', 'de', 'es',
-  'fr', 'in', 'it', 'nl',
+  'ca',
+  'cn',
+  'co.jp',
+  'co.uk',
+  'com',
+  'com.au',
+  'com.br',
+  'com.mx',
+  'de',
+  'es',
+  'fr',
+  'in',
+  'it',
+  'nl',
 ];
 
 const generateURLPatterns = (prefix, domains, suffix) => {
@@ -49,14 +61,14 @@ const OPTIONAL_PERMISSIONS_URLS = {
     'https://www.startpage.com/*',
     'https://startpage.com/*',
   ],
-  'youtube': [
-    'https://www.youtube.com/*',
-  ],
+  'youtube': ['https://www.youtube.com/*'],
   'google-scholar': generateURLPatterns(
-      'https://scholar.google', GOOGLE_DOMAINS, '/*'),
+      'https://scholar.google',
+      GOOGLE_DOMAINS,
+      '/*',
+  ),
   'github': ['https://github.com/*'],
-  'amazon': generateURLPatterns(
-      'https://www.amazon', AMAZON_DOMAINS, '/*'),
+  'amazon': generateURLPatterns('https://www.amazon', AMAZON_DOMAINS, '/*'),
 };
 
 const KEYBINDING_TO_DIV = {
@@ -88,9 +100,9 @@ const KEYBINDING_TO_DIV = {
 };
 
 /**
-* Add other search engines domain on user input
-* @param {Element} checkbox
-*/
+ * Add other search engines domain on user input
+ * @param {Element} checkbox
+ */
 const setSearchEnginePermission_ = async (checkbox) => {
   const urls = OPTIONAL_PERMISSIONS_URLS[checkbox.id];
   if (checkbox.checked) {
@@ -144,26 +156,36 @@ class OptionsPageManager {
       this.options.set(key, value);
     };
     // Handle non-keybindings settings first
-    setOpt('wrapNavigation',
-        document.getElementById('wrap-navigation').checked);
-    setOpt('autoSelectFirst',
-        document.getElementById( 'auto-select-first').checked);
-    setOpt('hideOutline',
-        document.getElementById('hide-outline').checked);
-    setOpt('delay',
-        document.getElementById('delay').value);
-    setOpt('googleIncludeCards',
-        document.getElementById('google-include-cards').checked);
-    setOpt('googleIncludeMemex',
-        document.getElementById('google-include-memex').checked);
-    setOpt('googleIncludePlaces',
-        document.getElementById('google-include-places').checked);
+    setOpt(
+        'wrapNavigation',
+        document.getElementById('wrap-navigation').checked,
+    );
+    setOpt(
+        'autoSelectFirst',
+        document.getElementById('auto-select-first').checked,
+    );
+    setOpt('hideOutline', document.getElementById('hide-outline').checked);
+    setOpt('delay', document.getElementById('delay').value);
+    setOpt(
+        'googleIncludeCards',
+        document.getElementById('google-include-cards').checked,
+    );
+    setOpt(
+        'googleIncludeMemex',
+        document.getElementById('google-include-memex').checked,
+    );
+    setOpt(
+        'googleIncludePlaces',
+        document.getElementById('google-include-places').checked,
+    );
     // Handle keybinding options
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
       // comman delimited strings.
-      setOpt(key, keybindingStringToArray(
-          document.getElementById(optName).value));
+      setOpt(
+          key,
+          keybindingStringToArray(document.getElementById(optName).value),
+      );
     }
     const customCSS = document.getElementById('custom-css-textarea').value;
     if (getOpt('customCSS') !== DEFAULT_CSS || customCSS !== DEFAULT_CSS) {
@@ -195,7 +217,8 @@ class OptionsPageManager {
     googleScholar.checked = OPTIONAL_PERMISSIONS_URLS['google-scholar'].every(
         (url) => {
           return permissions.origins.includes(url);
-        });
+        },
+    );
     const amazon = document.getElementById('amazon');
     amazon.checked = OPTIONAL_PERMISSIONS_URLS['amazon'].every((url) => {
       return permissions.origins.includes(url);
@@ -218,25 +241,30 @@ class OptionsPageManager {
       return this.options.get(key);
     };
     // Handle checks separately.
-    document.getElementById('wrap-navigation').checked =
-      getOpt('wrapNavigation');
-    document.getElementById('auto-select-first').checked =
-      getOpt('autoSelectFirst');
-    document.getElementById('hide-outline').checked =
-      getOpt('hideOutline');
+    document.getElementById('wrap-navigation').checked = getOpt(
+        'wrapNavigation',
+    );
+    document.getElementById('auto-select-first').checked = getOpt(
+        'autoSelectFirst',
+    );
+    document.getElementById('hide-outline').checked = getOpt('hideOutline');
     document.getElementById('delay').value = getOpt('delay');
-    document.getElementById('google-include-cards').checked =
-      getOpt('googleIncludeCards');
-    document.getElementById('google-include-memex').checked =
-      getOpt('googleIncludeMemex');
-    document.getElementById('google-include-places').checked =
-      getOpt('googleIncludePlaces');
+    document.getElementById('google-include-cards').checked = getOpt(
+        'googleIncludeCards',
+    );
+    document.getElementById('google-include-memex').checked = getOpt(
+        'googleIncludeMemex',
+    );
+    document.getElementById('google-include-places').checked = getOpt(
+        'googleIncludePlaces',
+    );
     // Restore options from divs.
     for (const [key, optName] of Object.entries(KEYBINDING_TO_DIV)) {
       // Keybindings are stored internally as arrays, but edited by users as
       // comman delimited strings.
       document.getElementById(optName).value = keybindingArrayToString(
-          getOpt(key));
+          getOpt(key),
+      );
     }
     // Load custom CSS
     document.getElementById('custom-css-textarea').value = getOpt('customCSS');

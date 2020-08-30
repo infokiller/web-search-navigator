@@ -86,10 +86,12 @@ const DEFAULT_KEYBINDINGS = {
   navigatePreviousResultPage: ['left', 'h'],
   navigateNextResultPage: ['right', 'l'],
   navigateKey: ['return', 'space'],
-  navigateNewTabBackgroundKey:
-          ['ctrl+return', 'command+return', 'ctrl+space'],
-  navigateNewTabKey:
-          ['ctrl+shift+return', 'command+shift+return', 'ctrl+shift+space'],
+  navigateNewTabBackgroundKey: ['ctrl+return', 'command+return', 'ctrl+space'],
+  navigateNewTabKey: [
+    'ctrl+shift+return',
+    'command+shift+return',
+    'ctrl+shift+space',
+  ],
   navigateSearchTab: ['a', 's'],
   navigateImagesTab: ['i'],
   navigateVideosTab: ['v'],
@@ -145,7 +147,9 @@ class BrowserStorage {
     this.defaultValues = defaultValues;
   }
   load() {
-    return this.storage.get(this.values).then((values) => {
+    // this.storage.get(null) returns all the data stored:
+    // https://developer.chrome.com/extensions/storage#method-StorageArea-get
+    return this.storage.get(null).then((values) => {
       this.values = values;
       // Prior to versions 0.4.* the keybindings were stored as strings, so we
       // migrate them to arrays if needed.
