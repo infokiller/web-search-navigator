@@ -166,11 +166,18 @@ class WebSearchNavigator {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     };
     await sleep(this.options.sync.get('delay'));
+    // UGLY WORKAROUND: Results navigation breaks YouTube space keybinding for
+    // pausing/resuming a video. A workaround is to click on an element on the
+    // page (except the video), but for now I'm disabling results navigation
+    // when watching a video.
+    // TODO: Find a proper fix.
+    if (!window.location.href.match(/^https:\/\/(www)\.youtube\.com\/watch/)) {
+      this.initResultsNavigation();
+    }
     this.injectCSS();
-    this.initResultsNavigation();
-    this.initSearchInputNavigation();
     this.initTabsNavigation();
     this.initChangeToolsNavigation();
+    this.initSearchInputNavigation();
     this.bindKeys();
   }
 
