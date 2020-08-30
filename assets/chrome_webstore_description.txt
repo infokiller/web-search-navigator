@@ -2,6 +2,7 @@
 
 0.4.14
 * Google: add results for Places/Maps
+* YouTube: fix video pause/resume with space
 
 0.4.13
 * Google: add options for adding WorldBrain's Memex extension results

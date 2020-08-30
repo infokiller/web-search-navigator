@@ -57,6 +57,12 @@ class SearchResultsManager {
     const focusedElement = document.activeElement;
     // StartPage seems to still focus and change it to body when the page loads.
     if (focusedElement == null || focusedElement.localName === 'body') {
+      if (
+        this.focusedIndex < 0 ||
+        this.focusedIndex >= this.searchResults.length
+      ) {
+        return null;
+      }
       return this.searchResults[this.focusedIndex].anchor;
     }
     const isLink = focusedElement.localName === 'a' &&
@@ -350,6 +356,9 @@ class WebSearchNavigator {
     });
     this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
+      if (link == null) {
+        return true;
+      }
       const lastNavigation = this.options.local.values;
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
@@ -365,6 +374,9 @@ class WebSearchNavigator {
     });
     this.register(getOpt('navigateNewTabKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
+      if (link == null) {
+        return true;
+      }
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
@@ -376,6 +388,9 @@ class WebSearchNavigator {
     });
     this.register(getOpt('navigateNewTabBackgroundKey'), () => {
       const link = this.resultsManager.getElementToNavigate(true);
+      if (link == null) {
+        return true;
+      }
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
