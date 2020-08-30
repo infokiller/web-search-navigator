@@ -2,6 +2,8 @@
 
 0.4.14
 * Google: add results for Places/Maps
+* Google: fix result focus change when navigation back from result to results
+  page
 * YouTube: fix video pause/resume with space
 
 0.4.13

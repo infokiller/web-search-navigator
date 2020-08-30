@@ -1,5 +1,10 @@
 /* global ExtensionOptions, getSearchEngine, Mousetrap */
 
+// TODO: Replace with enums when switching to typescript.
+const FOCUS_SCROLL_OFF = 0;
+const FOCUS_SCROLL_ON = 1;
+const FOCUS_SCROLL_ONLY = 2;
+
 const getBrowserBottomDelta = () => {
   // Firefox displays tooltip at the bottom which obstructs the view.
   // As a workaround ensure extra space from the bottom in the viewport
@@ -86,13 +91,23 @@ class SearchResultsManager {
     highlighted.classList.remove('wsn-no-outline');
   }
 
-  focus(index, scrollToResult = true) {
+  focus(index, scroll = FOCUS_SCROLL_ONLY) {
     if (this.focusedIndex >= 0) {
       const searchResult = this.searchResults[this.focusedIndex];
-      // If the current result is outside the viewport and scrolling was
-      // requested, only scroll to it, but don't focus on the new result.
-      if (scrollToResult && scrollToElement(this.searchEngine,
-          searchResult.container)) {
+      // If the current result is outside the viewport and FOCUS_SCROLL_ONLY was
+      // requested, scroll to the current hidden result, but don't focus on the
+      // new result.
+      // This behavior is intended to handle cases where the user scrolls away
+      // from the currently focused result and then presses the keybindings to
+      // focus on the previous/next result. In this case, since the user
+      // doesn't see the current result, it's more intuitive to only scroll to
+      // the current result, and then on the next keypress they can focus on the
+      // previous/next result and actually see on what result they want to focus
+      // on.
+      if (
+        scroll === FOCUS_SCROLL_ONLY &&
+        scrollToElement(this.searchEngine, searchResult.container)
+      ) {
         return;
       }
       // Remove highlighting from previous item.
@@ -110,7 +125,7 @@ class SearchResultsManager {
     searchResult.anchor.focus({preventScroll: true});
     // Ensure whole search result container is visible in the viewport, not only
     // the search result link.
-    if (scrollToResult) {
+    if (scroll !== FOCUS_SCROLL_OFF) {
       scrollToElement(this.searchEngine, searchResult.container);
     }
     this.focusedIndex = index;
@@ -316,19 +331,21 @@ class WebSearchNavigator {
     this.resultsManager = new SearchResultsManager(this.searchEngine,
         this.options.sync.getAll());
     this.resultsManager.reloadSearchResults();
+    this.isFirstNavigation = true;
     if (this.resultsManager.searchResults.length === 0) {
       return;
-    }
-    this.isFirstNavigation = true;
-    if (this.options.sync.get('autoSelectFirst')) {
-      // Highlight the first result when the page is loaded, but don't scroll to
-      // it because there may be KP cards such as stock graphs.
-      this.resultsManager.focus(0, false);
     }
     const lastNavigation = this.options.local.values;
     if (location.href === lastNavigation.lastQueryUrl) {
       this.isFirstNavigation = false;
-      this.resultsManager.focus(lastNavigation.lastFocusedIndex);
+      this.resultsManager.focus(
+          lastNavigation.lastFocusedIndex,
+          FOCUS_SCROLL_ON,
+      );
+    } else if (this.options.sync.get('autoSelectFirst')) {
+      // Highlight the first result when the page is loaded, but don't scroll to
+      // it because there may be KP cards such as stock graphs.
+      this.resultsManager.focus(0, FOCUS_SCROLL_OFF);
     }
   }
 
