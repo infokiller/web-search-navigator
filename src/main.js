@@ -387,7 +387,7 @@ class WebSearchNavigator {
       }
       return false;
     });
-    this.register(getOpt('navigateKey'), async () => {
+    this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
       if (link == null) {
         return true;
@@ -395,7 +395,7 @@ class WebSearchNavigator {
       const lastNavigation = this.options.local.values;
       lastNavigation.lastQueryUrl = location.href;
       lastNavigation.lastFocusedIndex = this.resultsManager.focusedIndex;
-      await this.options.local.save();
+      this.options.local.save();
       // If the element is a link, use the href to directly navigate, since some
       // websites will open it in a new tab.
       if (link.localName === 'a' && link.href) {
