@@ -141,6 +141,7 @@ const keybindingArrayToString = (kb) => {
 class BrowserStorage {
   constructor(storage, defaultValues) {
     this.storage = storage;
+    this.values = {};
     this.defaultValues = defaultValues;
   }
   load() {
