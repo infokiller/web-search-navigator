@@ -2,6 +2,7 @@
 
 0.4.15
 * YouTube: fix infinite scrolling
+* Fix auto select in infinite scroll when last selection is no longer available
 
 0.4.14
 * Google: add results for Places/Maps

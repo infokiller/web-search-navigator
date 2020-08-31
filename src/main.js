@@ -359,7 +359,10 @@ class WebSearchNavigator {
       return;
     }
     const lastNavigation = this.options.local.values;
-    if (location.href === lastNavigation.lastQueryUrl) {
+    if (
+      location.href === lastNavigation.lastQueryUrl &&
+      lastNavigation.lastFocusedIndex < this.resultsManager.searchResults.length
+    ) {
       this.isFirstNavigation = false;
       this.resultsManager.focus(
           lastNavigation.lastFocusedIndex,
