@@ -1,5 +1,8 @@
 ## Changelog
 
+0.4.15
+* YouTube: fix infinite scrolling
+
 0.4.14
 * Google: add results for Places/Maps
 * Google: fix result focus change when navigation back from result to results

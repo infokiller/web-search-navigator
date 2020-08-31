@@ -572,9 +572,7 @@ class Youtube {
   }
 
   onChangedResults(callback) {
-    const containers = document.querySelectorAll(
-        'div#contents div#contents, #grid-container',
-    );
+    const containers = document.querySelectorAll('ytd-section-list-renderer');
     const observer = new MutationObserver(async (mutationsList, observer) => {
       callback(true);
     });
@@ -582,7 +580,7 @@ class Youtube {
       observer.observe(container, {
         attributes: false,
         childList: true,
-        subtree: false,
+        subtree: true,
       });
     }
   }
