@@ -32,7 +32,7 @@
     "prettier": "2.1.2",
     "prettier-eslint-cli": "^5.0.0",
     "shellcheck": "^0.4.4",
-    "stylelint": "^13.7.1",
+    "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0",
     "web-ext": "^5.1.0"
   },
