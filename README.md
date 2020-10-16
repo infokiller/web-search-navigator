@@ -9,6 +9,7 @@ Youtube, Github, Amazon, Google Scholar, and Startpage.
 
 ## Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Features](#features)
 - [Installation](#installation)
   - [Chrome](#chrome)
@@ -18,9 +19,11 @@ Youtube, Github, Amazon, Google Scholar, and Startpage.
 - [Keybindings](#keybindings)
 - [Development](#development)
   - [Coding style](#coding-style)
+  - [Commit messages](#commit-messages)
   - [Building for development](#building-for-development)
   - [Building a release](#building-a-release)
   - [Adding a new search engine](#adding-a-new-search-engine)
+- [Troubleshooting](#troubleshooting)
 - [Privacy policy](#privacy-policy)
 - [Trademarks notice](#trademarks-notice)
 
@@ -182,6 +185,29 @@ Specific steps:
   other search engines classes in that file as a reference.
 - Add a class instance to
   [`searchEngines`](https://github.com/infokiller/web-search-navigator/blob/60d64947b07381e0be61df657c4de4a85ccfc2a7/src/search_engines.js#L542).
+
+## Troubleshooting
+
+Before reporting a bug, please check and answer the following:
+
+- Does it happen when you disable other extensions?
+- Does it happen only in Chrome, only in Firefox, or both?
+
+In addition, please try to reproduce the bug in a clean browser profile with no
+other extensions. The easiest way to do it is to clone the repo and use
+`web-ext`:
+
+```sh
+git clone https://github.com/infokiller/web-search-navigator
+cd web-search-navigator
+yarn install && yarn build
+# Replace chromium with firefox-desktop for firefox
+yarn run web-ext run --source-dir src --target chromium
+```
+
+This will open a clean browser instance with no other extensions. Note that this
+browser instance will have the default extension options (including permissions
+for alternative search engines), so you may need to modify the option.
 
 ## Privacy policy
 
