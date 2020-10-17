@@ -444,6 +444,62 @@ class GoogleSearch {
     }
     return false;
   }
+
+  changeImageSize(size) {
+    debugger;
+    
+    const openTool = document.querySelector('[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]')
+    if(openTool != null)
+      openTool.click();
+
+    const openSizeDropDown = document.querySelector('[class="xFo9P r9PaP"][jsname="wLFV5d"][aria-label="Size"]');
+    if(openSizeDropDown != null)
+      openSizeDropDown.click();
+
+    const large = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Large"]');
+    const medium = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Medium"]');
+    const icon = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Icon"]');
+
+    const dropDownWithSize = document.querySelector('[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
+
+    if(large != null && medium != null && icon != null) {
+      switch(size) {
+        case 'l':
+          large.click();
+          break;
+        case 'e':
+          medium.click();
+          break;
+        case 'i':
+          icon.click();
+          break;
+        default:
+          break;
+      }
+    }else{
+      dropDownWithSize.click();
+      // const changeToLarge = document.querySelector('[class="MfLWbb itb-st Wlq9kf"][jslog="81494"][aria-label="Large"]');
+      // const changeToMedium = document.querySelector('')
+      const large = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Large"]');
+      const medium = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Medium"]');
+      const icon = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Icon"]');
+      switch(size) {
+        case 'l':
+          large.click();
+          break;
+        case 'e':
+          medium.click();
+          break;
+        case 'i':
+          icon.click();
+          break;
+        default:
+          break;
+      }
+      
+
+    }
+  }
 }
 
 class StartPage {

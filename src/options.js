@@ -110,6 +110,9 @@ const DEFAULT_KEYBINDINGS = {
   navigateShowYear: ['z y'],
   toggleSort: ['z s'],
   toggleVerbatimSearch: ['z v'],
+  navigateShowLarge: ['z l'],
+  navigateShowMedium: ['z e'],
+  navigateShowIcon: ['z i'],
 };
 
 const DEFAULT_OPTIONS = {
