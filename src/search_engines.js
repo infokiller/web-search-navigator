@@ -446,24 +446,26 @@ class GoogleSearch {
   }
 
   changeImageSize(size) {
-    debugger;
-    
-    const openTool = document.querySelector('[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]')
-    if(openTool != null)
+    const openTool = document.querySelector(
+        '[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]');
+    if (openTool != null) {
       openTool.click();
-
-    const openSizeDropDown = document.querySelector('[class="xFo9P r9PaP"][jsname="wLFV5d"][aria-label="Size"]');
-    if(openSizeDropDown != null)
+    }
+    const openSizeDropDown = document.querySelector(
+        '[class="xFo9P r9PaP"][jsname="wLFV5d"][aria-label="Size"]');
+    if (openSizeDropDown != null) {
       openSizeDropDown.click();
-
-    const large = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Large"]');
-    const medium = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Medium"]');
-    const icon = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Icon"]');
-
-    const dropDownWithSize = document.querySelector('[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
-
-    if(large != null && medium != null && icon != null) {
-      switch(size) {
+    }
+    const large = document.querySelector(
+        '[class="MfLWbb"][aria-label="Large"]');
+    const medium = document.querySelector(
+        '[class="MfLWbb"][aria-label="Medium"]');
+    const icon = document.querySelector(
+        '[class="MfLWbb"][aria-label="Icon"]');
+    const dropDownWithSize = document.querySelector(
+        '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
+    if (large != null && medium != null && icon != null) {
+      switch (size) {
         case 'l':
           large.click();
           break;
@@ -476,28 +478,43 @@ class GoogleSearch {
         default:
           break;
       }
-    }else{
-      dropDownWithSize.click();
-      // const changeToLarge = document.querySelector('[class="MfLWbb itb-st Wlq9kf"][jslog="81494"][aria-label="Large"]');
-      // const changeToMedium = document.querySelector('')
-      const large = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Large"]');
-      const medium = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Medium"]');
-      const icon = document.querySelector('[class="MfLWbb"][data-navigation="server"][aria-label="Icon"]');
-      switch(size) {
+    } else {
+      // While sized is selected, the dropdown element changes.
+      // Expend dropdown and select the size again.
+      switch (size) {
         case 'l':
-          large.click();
-          break;
+          if (dropDownWithSize.innerHTML == 'Large') {
+            break;
+          } else {
+            dropDownWithSize.click();
+            const reopenLarge = document.querySelector(
+                '[class="MfLWbb"][aria-label="Large"]');
+            reopenLarge.click();
+            break;
+          }
         case 'e':
-          medium.click();
-          break;
+          if (dropDownWithSize.innerHTML == 'Medium') {
+            break;
+          } else {
+            dropDownWithSize.click();
+            const reopenMedium = document.querySelector(
+                '[class="MfLWbb"][aria-label="Medium"]');
+            reopenMedium.click();
+            break;
+          }
         case 'i':
-          icon.click();
-          break;
+          if (dropDownWithSize.innerHTML == 'Icon') {
+            break;
+          } else {
+            dropDownWithSize.click();
+            const reopenIcon = document.querySelector(
+                '[class="MfLWbb"][aria-label="Icon"]');
+            reopenIcon.click();
+            break;
+          }
         default:
           break;
       }
-      
-
     }
   }
 }

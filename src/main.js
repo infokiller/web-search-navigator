@@ -482,7 +482,7 @@ class WebSearchNavigator {
     this.register(getOpt('navigateShowLarge'), () =>
       this.searchEngine.changeImageSize('l'),
     );
-    this.register(getOpt('navigateShowMedium'), () => 
+    this.register(getOpt('navigateShowMedium'), () =>
       this.searchEngine.changeImageSize('e'),
     );
     this.register(getOpt('navigateShowIcon'), () =>
