@@ -1,20 +1,10 @@
 /* global ExtensionOptions, getSearchEngine, Mousetrap */
+/* global getDefaultBottomMargin */
 
 // TODO: Replace with enums when switching to typescript.
 const FOCUS_SCROLL_OFF = 0;
 const FOCUS_SCROLL_ON = 1;
 const FOCUS_SCROLL_ONLY = 2;
-
-const getBrowserBottomDelta = () => {
-  // Firefox displays tooltip at the bottom which obstructs the view.
-  // As a workaround ensure extra space from the bottom in the viewport
-  // firefox detection (https://stackoverflow.com/a/7000222/2870889).
-  if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
-    // Hardcoded height of the tooltip plus some margin
-    return 28;
-  }
-  return 0;
-};
 
 // Returns true if scrolling was done.
 const scrollToElement = (searchEngine, element) => {
@@ -22,10 +12,12 @@ const scrollToElement = (searchEngine, element) => {
   if (searchEngine.getTopMargin) {
     topMargin = searchEngine.getTopMargin(element);
   }
-  const bottomMargin = getBrowserBottomDelta();
+  let bottomMargin = getDefaultBottomMargin();
+  if (searchEngine.getBottomMargin) {
+    bottomMargin = searchEngine.getBottomMargin(element);
+  }
   const elementBounds = element.getBoundingClientRect();
   const scrollY = window.scrollY;
-  // It seems that it's only possible to scroll by
   if (elementBounds.top < topMargin) {
     // scroll element to top
     element.scrollIntoView(true);

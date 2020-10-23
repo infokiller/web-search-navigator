@@ -11,6 +11,11 @@
  *    Default: {}
  *  - {int} getTopMargin: used if top results are not entirely visible
  *    Default: 0
+ *  - {int} getBottomMargin: used if bottom results are not entirely visible.
+ *    Relevant for some search engines, since Firefox and Chrome show a tooltip
+ *    with the URL of focused links at the bottom and can hide some of the
+ *    search result at the bottom.
+ *    Default: getDefaultBottomMargin()
  *  - {Function} onChangedResults: function for registering a callback on
  *    changed search results. The callback gets a single boolean parameter that
  *    is set to true if the only change is newly appended results.
@@ -126,6 +131,17 @@ const getFixedSearchBoxTopMargin = (searchBoxContainer, element) => {
     return 0;
   }
   return searchBoxContainer.getBoundingClientRect().height;
+};
+
+// https://stackoverflow.com/a/7000222/2870889
+// eslint-disable-next-line no-unused-vars
+const isFirefox = () => {
+  return navigator.userAgent.toLowerCase().indexOf('firefox') >= 0;
+};
+
+// eslint-disable-next-line no-unused-vars
+const getDefaultBottomMargin = (element) => {
+  return 28;
 };
 
 class GoogleSearch {
@@ -461,6 +477,13 @@ class StartPage {
         document.querySelector('div.layout-web__header'),
         element,
     );
+  }
+  getBottomMargin(element) {
+    // Startpage in Firefox has an issue where trying to scroll can result in
+    // window.scrollY being updated for a brief time although no scrolling is
+    // done, which confuses the scrollToElement function, which can lead to
+    // being stuck focused on a search result.
+    return isFirefox() ? 0 : getDefaultBottomMargin();
   }
 
   isSearchTab_() {
