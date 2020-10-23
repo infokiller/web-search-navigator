@@ -837,6 +837,7 @@ class Github {
       {
         nodes: document.querySelectorAll('.repo-list a'),
         highlightClass: 'wsn-github-focused-item',
+        containerSelector: (n) => n.closest('.mt-n1'),
       },
       // Code
       {
