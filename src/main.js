@@ -11,7 +11,7 @@ const getBrowserBottomDelta = () => {
   // firefox detection (https://stackoverflow.com/a/7000222/2870889).
   if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
     // Hardcoded height of the tooltip plus some margin
-    return 26;
+    return 28;
   }
   return 0;
 };
