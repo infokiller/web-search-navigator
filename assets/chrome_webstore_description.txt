@@ -148,8 +148,6 @@ wanted to add new keyboard shortcuts and the existing ones to be more vim like
 *   `z y`: Filter results by past year
 *   `z z`: Turn off filter (show all results)
 *   `z t`: Toggle sort by date/relevance (only when filtering)
-*   `z l`: Filter results by large size
-*   `z e`: Filter results by medium size
-*   `z i`: Filter results by icon size
+
 
 ©2020 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.

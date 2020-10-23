@@ -476,16 +476,13 @@ class WebSearchNavigator {
     this.register(getOpt('toggleSort'), () =>
       this.searchEngine.changeTools(null),
     );
-    // this.register(getOpt('navigatesShowAllSizes'), () =>
-    //   this.searchEngine.changeTools('a'),
-    // );
-    this.register(getOpt('navigateShowLarge'), () =>
+    this.register(getOpt('showImagesLarge'), () =>
       this.searchEngine.changeImageSize('l'),
     );
-    this.register(getOpt('navigateShowMedium'), () =>
+    this.register(getOpt('showImagesMedium'), () =>
       this.searchEngine.changeImageSize('e'),
     );
-    this.register(getOpt('navigateShowIcon'), () =>
+    this.register(getOpt('showImagesIcon'), () =>
       this.searchEngine.changeImageSize('i'),
     );
   }
