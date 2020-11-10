@@ -396,16 +396,16 @@ class GoogleSearch {
     }
     return {
       navigateSearchTab: document.querySelector(
-          'a.q.qs:not([href*="&tbm="]):not([href*="maps.google."])',
+          'a.q:not([href*="&tbm="]):not([href*="maps.google."])',
       ),
-      navigateImagesTab: document.querySelector('a.q.qs[href*="&tbm=isch"]'),
-      navigateVideosTab: document.querySelector('a.q.qs[href*="&tbm=vid"]'),
-      navigateMapsTab: document.querySelector('a.q.qs[href*="maps.google."]'),
-      navigateNewsTab: document.querySelector('a.q.qs[href*="&tbm=nws"]'),
-      navigateShoppingTab: document.querySelector('a.q.qs[href*="&tbm=shop"]'),
-      navigateBooksTab: document.querySelector('a.q.qs[href*="&tbm=bks"]'),
-      navigateFlightsTab: document.querySelector('a.q.qs[href*="&tbm=flm"]'),
-      navigateFinancialTab: document.querySelector('a.q.qs[href*="&tbm=fin"]'),
+      navigateImagesTab: document.querySelector('a.q[href*="&tbm=isch"]'),
+      navigateVideosTab: document.querySelector('a.q[href*="&tbm=vid"]'),
+      navigateMapsTab: document.querySelector('a.q[href*="maps.google."]'),
+      navigateNewsTab: document.querySelector('a.q[href*="&tbm=nws"]'),
+      navigateShoppingTab: document.querySelector('a.q[href*="&tbm=shop"]'),
+      navigateBooksTab: document.querySelector('a.q[href*="&tbm=bks"]'),
+      navigateFlightsTab: document.querySelector('a.q[href*="&tbm=flm"]'),
+      navigateFinancialTab: document.querySelector('a.q[href*="&tbm=fin"]'),
       navigatePreviousResultPage: document.querySelector('#pnprev'),
       navigateNextResultPage: document.querySelector('#pnnext'),
     };
