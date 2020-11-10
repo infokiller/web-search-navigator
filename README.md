@@ -219,5 +219,3 @@ This project is not affiliated with Google LLC.
 
 ©2020 Google LLC All rights reserved. Google™ search is a trademark of Google
 LLC.
-
-<!-- markdownlint-disable-file no-inline-html -->
