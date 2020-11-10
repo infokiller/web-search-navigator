@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.16
+
+- Google: fix navigation to other tabs (images, maps, etc.) following a Google
+  update.
+
 ## 0.4.15
 
 - YouTube: fix infinite scrolling
