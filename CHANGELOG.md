@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.17
+
+- Google: fix navigation to other tabs following another Google update.
+
 ## 0.4.16
 
 - Google: fix navigation to other tabs (images, maps, etc.) following a Google

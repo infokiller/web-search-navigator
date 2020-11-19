@@ -81,7 +81,11 @@ Install from
 
 ## Keybindings
 
-_Note: All shortcuts can be customized to your liking via options._
+> NOTE:
+>
+> - Shortcuts for navigation to tabs (images, news, etc.) only work when the tab
+>   is visible.
+> - All shortcuts can be customized to your liking via options
 
 | Shortcuts                                                                                                                                                      | Action                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
