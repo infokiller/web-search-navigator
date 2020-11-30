@@ -29,7 +29,7 @@
     "gulp-if": "^3.0.0",
     "gulp-terser": "^2.0.0",
     "minimist": "^1.2.5",
-    "prettier": "2.2.0",
+    "prettier": "2.2.1",
     "prettier-eslint-cli": "^5.0.0",
     "shellcheck": "^0.4.4",
     "stylelint": "^13.8.0",
