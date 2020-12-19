@@ -1,6 +1,7 @@
 ## Overview
 
 Simple open source extension that adds keyboard shortcuts to Google search™ and other websites.
+Note that support for other websites must be enabled in the extension options.
 
 See the latest changelog in https://github.com/infokiller/web-search-navigator/blob/master/CHANGELOG.md
 
