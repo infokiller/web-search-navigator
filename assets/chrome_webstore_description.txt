@@ -1,17 +1,12 @@
 ## Overview
 
-Simple open source extension that adds keyboard shortcuts to Google search™ and
-other websites.
+Simple open source extension that adds keyboard shortcuts to Google search™ and other websites.
 
 See the latest changelog in https://github.com/infokiller/web-search-navigator/blob/master/CHANGELOG.md
 
 ## Motivation
 
-Google search™ used to provide experimental keyboard navigation, but it was
-often broken (https://goo.gl/1zMkYu), and seems to have been removed as of
-2017-07-31 (https://stackoverflow.com/a/45513198/1014208).  In addition, I
-wanted to add new keyboard shortcuts and the existing ones to be more vim like
-(j/k for navigation).
+Google search™ used to provide experimental keyboard navigation, but it was often broken (https://goo.gl/1zMkYu), and seems to have been removed as of 2017-07-31 (https://stackoverflow.com/a/45513198/1014208).  In addition, I wanted to add new keyboard shortcuts and the existing ones to be more vim like (j/k for navigation).
 
 ## Keybindings
 
