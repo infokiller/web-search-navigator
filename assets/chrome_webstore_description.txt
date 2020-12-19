@@ -23,29 +23,30 @@ See the latest changelog in https://github.com/infokiller/web-search-navigator/b
 
 ## Keybindings
 
-*   `↓`/`j`: Select next search result
-*   `↑`/`k`: Select previous previous result
-*   `/`/`Escape`: Focus on input search box
-*   `Enter`/`Space`: Navigate to selected result
-*   `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
-*   `Ctrl+Shift+Enter`/`⌘+Shift+Enter`/`Ctrl+Shift+Space`: Open selected result in new window/tab
-*   `←`/`h`: Navigate to previous search result page
-*   `→`/`l`: Navigate to next search result page
-*   `a`/`s`: Navigate to All tab (= default search tab)
-*   `i`: Navigate to images tab
-*   `v`: Navigate to videos tab
-*   `m`: Navigate to maps tab
-*   `n`: Navigate to news tab
-*   `alt+s`: Navigate to shopping tab
-*   `b`: Navigate to books tab
-*   `alt+l`: Navigate to flights tab
-*   `f`: Navigate to financial tab
-*   `z h`: Filter results by past hour
-*   `z d`: Filter results by past 24 hours (day)
-*   `z w`: Filter results by past week
-*   `z m`: Filter results by past month
-*   `z y`: Filter results by past year
-*   `z z`: Turn off filter (show all results)
-*   `z t`: Toggle sort by date/relevance (only when filtering)
+- `↓`/`j`: Select next search result
+- `↑`/`k`: Select previous previous result
+- `/`/`Escape`: Focus on input search box
+- `Enter`/`Space`: Navigate to selected result
+- `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
+- `Ctrl+Shift+Enter`/`⌘+Shift+Enter`/`Ctrl+Shift+Space`: Open selected result in
+  new window/tab
+- `←`/`h`: Navigate to previous search result page
+- `→`/`l`: Navigate to next search result page
+- `a`/`s`: Navigate to All tab (= default search tab)
+- `i`: Navigate to images tab
+- `v`: Navigate to videos tab
+- `m`: Navigate to maps tab
+- `n`: Navigate to news tab
+- `alt+s`: Navigate to shopping tab
+- `b`: Navigate to books tab
+- `alt+l`: Navigate to flights tab
+- `f`: Navigate to financial tab
+- `z h`: Filter results by past hour
+- `z d`: Filter results by past 24 hours (day)
+- `z w`: Filter results by past week
+- `z m`: Filter results by past month
+- `z y`: Filter results by past year
+- `z z`: Turn off filter (show all results)
+- `z t`: Toggle sort by date/relevance (only when filtering)
 
 ©2020 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
