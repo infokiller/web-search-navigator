@@ -5,9 +5,21 @@ Note that support for other websites must be enabled in the extension options.
 
 See the latest changelog in https://github.com/infokiller/web-search-navigator/blob/master/CHANGELOG.md
 
-## Motivation
+## Features
 
-Google search™ used to provide experimental keyboard navigation, but it was often broken (https://goo.gl/1zMkYu), and seems to have been removed as of 2017-07-31 (https://stackoverflow.com/a/45513198/1014208).  In addition, I wanted to add new keyboard shortcuts and the existing ones to be more vim like (j/k for navigation).
+- Lightweight
+- Supports Chrome, Firefox, and Edge
+- Extensive Google keyboard shortcuts including:
+  - Selecting results
+  - Opening results in the background or foreground
+  - Navigating to other sections (maps/news/videos/etc)
+  - Navigating to the next/previous result page
+  - Changing time restrictions
+- Support for navigating cards such as Top Stories, Twitter, and videos
+- All keyboard shortcuts can be changed
+- Settings are synched between devices with the same browser profile
+- Supports both key combos and key sequences
+- Experimental and optional support for Youtube, Startpage, Google Scholar, Github, and Amazon (needs to be enabled in the options). Note that the extension does not have permissions for these optional websites unless you explicitly enable them.
 
 ## Keybindings
 
