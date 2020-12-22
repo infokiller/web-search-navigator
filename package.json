@@ -18,23 +18,23 @@
   },
   "dependencies": {
     "mousetrap": "^1.6.5",
-    "webextension-polyfill": "^0.6.0"
+    "webextension-polyfill": "^0.7.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.11.0",
+    "eslint": "^7.16.0",
     "eslint-config-google": "^0.14.0",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
-    "gulp-terser": "^1.4.0",
+    "gulp-terser": "^2.0.0",
     "minimist": "^1.2.5",
-    "prettier": "2.1.2",
+    "prettier": "2.2.1",
     "prettier-eslint-cli": "^5.0.0",
     "shellcheck": "^0.4.4",
-    "stylelint": "^13.7.2",
+    "stylelint": "^13.8.0",
     "stylelint-config-standard": "^20.0.0",
-    "web-ext": "^5.3.0"
+    "web-ext": "^5.4.1"
   },
   "resolutions": {
     "bl": "^1.2.3",

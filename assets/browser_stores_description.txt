@@ -1,0 +1,52 @@
+## Overview
+
+Simple open source extension that adds keyboard shortcuts to Google search™ and optionally other websites.
+Note that support for other websites must be enabled in the extension options.
+
+See the latest changelog in https://github.com/infokiller/web-search-navigator/blob/master/CHANGELOG.md
+
+## Features
+
+- Lightweight
+- Supports Chrome, Firefox, and Edge
+- Extensive Google keyboard shortcuts including:
+  - Selecting results
+  - Opening results in the background or foreground
+  - Navigating to other sections (maps/news/videos/etc)
+  - Navigating to the next/previous result page
+  - Changing time restrictions
+- Support for navigating cards such as Top Stories, Twitter, and videos
+- All keyboard shortcuts can be changed
+- Settings are synched between devices with the same browser profile
+- Supports both key combos and key sequences
+- Experimental and optional support for Youtube, Startpage, Google Scholar, Github, and Amazon (needs to be enabled in the options). Note that the extension does not have permissions for these optional websites unless you explicitly enable them.
+
+## Keybindings
+
+- `↓`/`j`: Select next search result
+- `↑`/`k`: Select previous previous result
+- `/`/`Escape`: Focus on input search box
+- `Enter`/`Space`: Navigate to selected result
+- `Ctrl+Enter`/`⌘+Enter`/`Ctrl+Space`: Open selected result in background tab
+- `Ctrl+Shift+Enter`/`⌘+Shift+Enter`/`Ctrl+Shift+Space`: Open selected result in
+  new window/tab
+- `←`/`h`: Navigate to previous search result page
+- `→`/`l`: Navigate to next search result page
+- `a`/`s`: Navigate to All tab (= default search tab)
+- `i`: Navigate to images tab
+- `v`: Navigate to videos tab
+- `m`: Navigate to maps tab
+- `n`: Navigate to news tab
+- `alt+s`: Navigate to shopping tab
+- `b`: Navigate to books tab
+- `alt+l`: Navigate to flights tab
+- `f`: Navigate to financial tab
+- `z h`: Filter results by past hour
+- `z d`: Filter results by past 24 hours (day)
+- `z w`: Filter results by past week
+- `z m`: Filter results by past month
+- `z y`: Filter results by past year
+- `z z`: Turn off filter (show all results)
+- `z t`: Toggle sort by date/relevance (only when filtering)
+
+©2020 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.

@@ -2,5 +2,7 @@
   "line-length": {
     "tables": false,
     "code_blocks": false
-  }
+  },
+  "no-bare-urls": false,
+  "no-inline-html": false
 }

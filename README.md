@@ -81,7 +81,11 @@ Install from
 
 ## Keybindings
 
-_Note: All shortcuts can be customized to your liking via options._
+> NOTE:
+>
+> - Shortcuts for navigation to tabs (images, news, etc.) only work when the tab
+>   is visible.
+> - All shortcuts can be customized to your liking via options
 
 | Shortcuts                                                                                                                                                      | Action                                              |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
@@ -219,5 +223,3 @@ This project is not affiliated with Google LLC.
 
 ©2020 Google LLC All rights reserved. Google™ search is a trademark of Google
 LLC.
-
-<!-- markdownlint-disable-file no-inline-html -->
