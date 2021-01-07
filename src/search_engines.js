@@ -501,7 +501,6 @@ class GoogleSearch {
       } else if (dropDownWithSize != null && button == null) {
         dropDownWithSize.click();
         button = getButton(buttonSelector);
-        alert(button);
         button.click();
       // both exist (i.e. doesn't need to click dropDownBtn to open the dp)
       } else if (dropDownWithSize != null && button != null) {
@@ -515,7 +514,7 @@ class GoogleSearch {
           dropDownWithSize.getAttribute('aria-label') == sizeOptions.LARGE.name) {
           break;
         } else {
-          setImageSize(dropDownWithSize, '[aria-label="Large"]');
+          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Large"]');
         }
         break;
       case sizeOptions.MEDIUM.code:
@@ -523,15 +522,17 @@ class GoogleSearch {
           dropDownWithSize.getAttribute('aria-label') == sizeOptions.MEDIUM.name) {
           break;
         } else {
-          setImageSize(dropDownWithSize, '[aria-label="Medium"]');
-        }        
+          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Medium"]');
+        }
+        break;
       case sizeOptions.ICON.code:
         if (dropDownWithSize != null &&
           dropDownWithSize.getAttribute('aria-label') == sizeOptions.ICON.name) {
           break;
         } else {
-          setImageSize(dropDownWithSize, '[aria-label="Icon"]');
+          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
         }
+        break;
       default:
         break;
     }
