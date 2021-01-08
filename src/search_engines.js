@@ -464,26 +464,23 @@ class GoogleSearch {
 
   changeImageSize(size) {
     const sizeOptions = {
-      LARGE: { value: 0, name: 'Large', code: 'l' },
-      MEDIUM: { value: 1, name: 'Medium', code: 'e' },
-      ICON: {value: 2, name: 'Icon', code: 'i' }
+      LARGE: {value: 0, name: 'Large', code: 'l'},
+      MEDIUM: {value: 1, name: 'Medium', code: 'e'},
+      ICON: {value: 2, name: 'Icon', code: 'i'},
     };
-    // find replacement!! the selector seems weak
     const openTool = document.querySelector(
         '[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]');
     if (openTool != null) {
       openTool.click();
     }
     const openSizeDropDown = document.querySelector(
-        '[class="xFo9P r9PaP"][jsname="wLFV5d"][aria-label="Size"]');
+        '[aria-label="Size"]');
     if (openSizeDropDown != null) {
       openSizeDropDown.click();
     }
-    debugger;
     const dropDownWithSize = document.querySelector(
-      '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
+        '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
     const getButton = (selector) => {
-      debugger;
       let button;
       if (document.querySelector(selector) != null) {
         button = document.querySelector(selector);
@@ -491,43 +488,44 @@ class GoogleSearch {
         button = null;
       }
       return button;
-    }
+    };
     const setImageSize = (dropDownWithSize, buttonSelector) => {
       let button = getButton(buttonSelector);
-      // at the very begining, there is nothing chosen, the dropdownWithSize doen't exist
       if (dropDownWithSize == null && button != null) {
         button.click();
-      // if dropDown btn exist but size button does not exist
       } else if (dropDownWithSize != null && button == null) {
         dropDownWithSize.click();
         button = getButton(buttonSelector);
         button.click();
-      // both exist (i.e. doesn't need to click dropDownBtn to open the dp)
       } else if (dropDownWithSize != null && button != null) {
         button.click();
       }
-    }
-    debugger;
+    };
     switch (size) {
       case sizeOptions.LARGE.code:
         if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') == sizeOptions.LARGE.name) {
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.LARGE.name) {
           break;
         } else {
-          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Large"]');
+          setImageSize(dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Large"]');
         }
         break;
       case sizeOptions.MEDIUM.code:
         if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') == sizeOptions.MEDIUM.name) {
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.MEDIUM.name) {
           break;
         } else {
-          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Medium"]');
+          setImageSize(dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Medium"]');
         }
         break;
       case sizeOptions.ICON.code:
         if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') == sizeOptions.ICON.name) {
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.ICON.name) {
           break;
         } else {
           setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
@@ -536,69 +534,6 @@ class GoogleSearch {
       default:
         break;
     }
-    /*
-    if (large != null && medium != null && icon != null) {
-      switch (size) {
-        case sizeOptions.LARGE.code:
-          large.click();
-          break;
-        case sizeOptions.MEDIUM.code:
-          medium.click();
-          break;
-        case sizeOptions.ICON.code:
-          icon.click();
-          break;
-        default:
-          break;
-      }
-    } else {
-      // While sized is selected, the dropdown element changes.
-      // Expend dropdown and select the size again.
-      switch (size) {
-        case sizeOptions.LARGE.code:
-          if (typeof dropDownWithSize != 'undefined') {
-            if (dropDownWithSize.getAttribute('aria-label') == 'Large') {
-              break;
-            } else {
-              dropDownWithSize.click();
-              const reopenLarge = document.querySelector(
-                '[class="MfLWbb"][aria-label="Large"]');
-              reopenLarge.click();
-              break;
-            }
-          }
-          break;
-        case sizeOptions.MEDIUM.code:
-          if (typeof dropDownWithSize != 'undefined') {
-            if (dropDownWithSize.getAttribute('aria-label') == 'Medium') {
-              break;
-            } else {
-              dropDownWithSize.click();
-              const reopenMedium = document.querySelector(
-                '[class="MfLWbb"][aria-label="Medium"]');
-              reopenMedium.click();
-              break;
-            }
-          }
-          break;
-        case sizeOptions.ICON.code:
-          if (typeof dropDownWithSize != 'undefined') {
-            if (dropDownWithSize.getAttribute('aria-label') == 'Icon') {
-              break;
-            } else {
-              dropDownWithSize.click();
-              const reopenIcon = document.querySelector(
-                '[class="MfLWbb"][aria-label="Icon"]');
-              reopenIcon.click();
-              break;
-            }
-          }
-          break;
-        default:
-          break;
-      }
-    }
-    */
   }
 }
 
