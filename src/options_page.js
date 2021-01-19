@@ -99,7 +99,7 @@ const KEYBINDING_TO_DIV = {
   toggleVerbatimSearch: 'toggle-verbatim-search',
   showImagesLarge: 'show-images-large',
   showImagesMedium: 'show-images-medium',
-  showImagesIcon: 'show-images-icon'
+  showImagesIcon: 'show-images-icon',
 };
 
 /**
