@@ -506,7 +506,6 @@ class GoogleSearch {
         if (dropDownWithSize != null &&
           dropDownWithSize.getAttribute('aria-label') ==
           sizeOptions.LARGE.name) {
-          break;
         } else {
           setImageSize(dropDownWithSize,
               '[class="MfLWbb"][aria-label="Large"]');
@@ -516,7 +515,6 @@ class GoogleSearch {
         if (dropDownWithSize != null &&
           dropDownWithSize.getAttribute('aria-label') ==
           sizeOptions.MEDIUM.name) {
-          break;
         } else {
           setImageSize(dropDownWithSize,
               '[class="MfLWbb"][aria-label="Medium"]');
@@ -526,7 +524,6 @@ class GoogleSearch {
         if (dropDownWithSize != null &&
           dropDownWithSize.getAttribute('aria-label') ==
           sizeOptions.ICON.name) {
-          break;
         } else {
           setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
         }
