@@ -461,6 +461,77 @@ class GoogleSearch {
     }
     return false;
   }
+
+  changeImageSize(size) {
+    const sizeOptions = {
+      LARGE: {value: 0, name: 'Large', code: 'l'},
+      MEDIUM: {value: 1, name: 'Medium', code: 'e'},
+      ICON: {value: 2, name: 'Icon', code: 'i'},
+    };
+    const openTool = document.querySelector(
+        '[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]');
+    if (openTool != null) {
+      openTool.click();
+    }
+    const openSizeDropDown = document.querySelector(
+        '[aria-label="Size"]');
+    if (openSizeDropDown != null) {
+      openSizeDropDown.click();
+    }
+    const dropDownWithSize = document.querySelector(
+        '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
+    const getButton = (selector) => {
+      let button;
+      if (document.querySelector(selector) != null) {
+        button = document.querySelector(selector);
+      } else {
+        button = null;
+      }
+      return button;
+    };
+    const setImageSize = (dropDownWithSize, buttonSelector) => {
+      let button = getButton(buttonSelector);
+      if (dropDownWithSize == null && button != null) {
+        button.click();
+      } else if (dropDownWithSize != null && button == null) {
+        dropDownWithSize.click();
+        button = getButton(buttonSelector);
+        button.click();
+      } else if (dropDownWithSize != null && button != null) {
+        button.click();
+      }
+    };
+    switch (size) {
+      case sizeOptions.LARGE.code:
+        if (dropDownWithSize != null &&
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.LARGE.name) {
+        } else {
+          setImageSize(dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Large"]');
+        }
+        break;
+      case sizeOptions.MEDIUM.code:
+        if (dropDownWithSize != null &&
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.MEDIUM.name) {
+        } else {
+          setImageSize(dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Medium"]');
+        }
+        break;
+      case sizeOptions.ICON.code:
+        if (dropDownWithSize != null &&
+          dropDownWithSize.getAttribute('aria-label') ==
+          sizeOptions.ICON.name) {
+        } else {
+          setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
+        }
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 class StartPage {

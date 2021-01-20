@@ -97,6 +97,9 @@ const KEYBINDING_TO_DIV = {
   navigateShowYear: 'navigate-show-year',
   toggleSort: 'toggle-sort',
   toggleVerbatimSearch: 'toggle-verbatim-search',
+  showImagesLarge: 'show-images-large',
+  showImagesMedium: 'show-images-medium',
+  showImagesIcon: 'show-images-icon',
 };
 
 /**

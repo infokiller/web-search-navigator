@@ -468,6 +468,15 @@ class WebSearchNavigator {
     this.register(getOpt('toggleSort'), () =>
       this.searchEngine.changeTools(null),
     );
+    this.register(getOpt('showImagesLarge'), () =>
+      this.searchEngine.changeImageSize('l'),
+    );
+    this.register(getOpt('showImagesMedium'), () =>
+      this.searchEngine.changeImageSize('e'),
+    );
+    this.register(getOpt('showImagesIcon'), () =>
+      this.searchEngine.changeImageSize('i'),
+    );
   }
 
   register(shortcuts, callback, element = document, global = false) {
