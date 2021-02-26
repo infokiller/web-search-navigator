@@ -31,7 +31,7 @@
     "minimist": "^1.2.5",
     "prettier": "2.2.1",
     "prettier-eslint-cli": "^5.0.0",
-    "shellcheck": "^0.4.4",
+    "shellcheck": "^1.0.0",
     "stylelint": "^13.11.0",
     "stylelint-config-standard": "^20.0.0",
     "web-ext": "^5.5.0"

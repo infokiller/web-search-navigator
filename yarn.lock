@@ -5939,10 +5939,10 @@ shell-quote@1.6.1:
     array-reduce "~0.0.0"
     jsonify "~0.0.0"
 
-shellcheck@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-0.4.4.tgz#4512714db803a0bcf300adc40e16dc12ffcf8303"
-  integrity sha512-d7LfrgEcGZes825x5Yehm6MkpfSQaDg4nP0VZEv7E2qX84zQXDbCdDvYJg9V9OByG2+h98Ol7nndixgGOj8cRQ==
+shellcheck@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-1.0.0.tgz#263479d92c3708d63d98883f896481461cf17cd0"
+  integrity sha512-CdKbWXOknBwE1wNQzAnwfLf7QNOu/yqyLSGBKoq2WuChEqfg7dnZJ1pHR2P463PbVpBRz3KGkYnXJCoQrPwtYA==
 
 shellwords@^0.1.1:
   version "0.1.1"
