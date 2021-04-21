@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "mousetrap": "^1.6.5",
-    "webextension-polyfill": "^0.7.0"
+    "webextension-polyfill": "^0.8.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.0.0",
