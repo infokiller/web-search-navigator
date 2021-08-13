@@ -53,6 +53,7 @@ const generateURLPatterns = (prefix, domains, suffix) => {
 
 // Authorized urls for compatible search engines
 const OPTIONAL_PERMISSIONS_URLS = {
+  'brave-search': ['https://search.brave.com/*'],
   'startpage': [
     // It used to be 'https://www.startpage.com/*/*search*' but when requesting
     // this URL chrome actually grants permission to the URL below. This
@@ -120,6 +121,10 @@ const setSearchEnginePermission_ = async (checkbox) => {
 class OptionsPageManager {
   async init() {
     await this.loadOptions();
+    const braveSearch = document.getElementById('brave-search');
+    braveSearch.addEventListener('change', () => {
+      setSearchEnginePermission_(braveSearch);
+    });
     const startpage = document.getElementById('startpage');
     startpage.addEventListener('change', () => {
       setSearchEnginePermission_(startpage);
@@ -208,6 +213,10 @@ class OptionsPageManager {
 
   loadSearchEnginePermissions_(permissions) {
     // Check what URLs we have permission for.
+    const braveSearch = document.getElementById('brave-search');
+    braveSearch.checked = OPTIONAL_PERMISSIONS_URLS['brave-search'].every((url) => {
+      return permissions.origins.includes(url);
+    });
     const startpage = document.getElementById('startpage');
     startpage.checked = OPTIONAL_PERMISSIONS_URLS['startpage'].every((url) => {
       return permissions.origins.includes(url);
