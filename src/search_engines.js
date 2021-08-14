@@ -534,6 +534,107 @@ class GoogleSearch {
   }
 }
 
+class BraveSearch {
+  constructor(options) {
+    this.options = options;
+  }
+
+  get urlPattern() {
+    return /^https:\/\/search\.brave\./;
+  }
+
+  get searchBoxSelector() {
+    return '.form-input, input[id=searchbox]';
+  }
+
+  getTopMargin(element) {
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('header.navbar'),
+        element,
+    );
+  }
+
+  onChangedResults(callback) {
+    const containers = document.querySelectorAll('#results');
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    for (const container of containers) {
+      observer.observe(container, {
+        attributes: false,
+        childList: true,
+        subtree: true,
+      });
+    }
+  }
+
+  getNewsTabResults_() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('.snippet a'),
+        highlightClass: 'wsn-brave-search-focused-news',
+        containerSelector: (n) => n.parentElement,
+      },
+    ];
+
+    return getSortedSearchResults(includedElements);
+  }
+
+  getVideosTabResults_() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('.card a'),
+        highlightClass: 'wsn-brave-search-focused-card',
+        highlightedElementSelector: (n) => n.closest('.card'),
+        containerSelector: (n) => n.parentElement,
+      },
+    ];
+
+    return getSortedSearchResults(includedElements);
+  }
+
+  getSearchResults() {
+    if (this.checkActiveTab(this.tabs.navigateNewsTab)) {
+      return this.getNewsTabResults_();
+    } else if (this.checkActiveTab(this.tabs.navigateVideosTab)) {
+      return this.getVideosTabResults_();
+    }
+
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('.snippet.fdb > a'),
+        highlightClass: 'wsn-brave-search-focused-link',
+        containerSelector: (n) => n.parentElement,
+      },
+      // News cards
+      {
+        nodes: document.querySelectorAll('.card[data-type="news"]:nth-child(-n+3)'),
+        highlightClass: 'wsn-brave-search-focused-card',
+      },
+      // Video cards
+      {
+        nodes: document.querySelectorAll('.card[data-type="videos"]:nth-child(-n+3)'),
+        highlightClass: 'wsn-brave-search-focused-card',
+      },
+    ];
+
+    return getSortedSearchResults(includedElements);
+  }
+
+  checkActiveTab(tab) {
+    return tab.parentElement.classList.contains('active');
+  }
+
+  get tabs() {
+    return {
+      navigateSearchTab: document.querySelector('a[href*="/search?q="]'),
+      navigateImagesTab: document.querySelector('a[href*="/images?q="]'),
+      navigateNewsTab: document.querySelector('a[href*="/news?q="]'),
+      navigateVideosTab: document.querySelector('a[href*="/videos?q="]'),
+    };
+  }
+}
+
 class StartPage {
   constructor(options) {
     this.options = options;
@@ -1056,6 +1157,7 @@ class Github {
 const getSearchEngine = (options) => {
   const searchEngines = [
     new GoogleSearch(options),
+    new BraveSearch(options),
     new StartPage(options),
     new Youtube(options),
     new GoogleScholar(options),

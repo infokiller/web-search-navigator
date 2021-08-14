@@ -9,6 +9,7 @@ const DEFAULT_CSS = `/* NOTE:
 
 .wsn-google-focused-link::before,
 .wsn-google-focused-map::before,
+.wsn-brave-search-focused-link::before,
 .wsn-startpage-focused-link::before {
     content: "\u25BA";
     margin-right: 25px;
@@ -16,12 +17,24 @@ const DEFAULT_CSS = `/* NOTE:
     position: absolute;
 }
 
+.wsn-brave-search-focused-news {
+  position: relative;
+}
+
+.wsn-brave-search-focused-news::before {
+  content: "\u25BA";
+  top: 5px;
+  left: -45px;
+  position: absolute;
+}
+
 .wsn-google-focused-image {
     /* Images are less visible with a thin outline, so we use 2px here */
     outline: 2px solid black !important;
 }
 
-.wsn-google-focused-card {
+.wsn-google-focused-card,
+.wsn-brave-search-focused-card {
     border: 1px solid black !important;
 }
 
