@@ -214,9 +214,11 @@ class OptionsPageManager {
   loadSearchEnginePermissions_(permissions) {
     // Check what URLs we have permission for.
     const braveSearch = document.getElementById('brave-search');
-    braveSearch.checked = OPTIONAL_PERMISSIONS_URLS['brave-search'].every((url) => {
-      return permissions.origins.includes(url);
-    });
+    braveSearch.checked = OPTIONAL_PERMISSIONS_URLS['brave-search'].every(
+        (url) => {
+          return permissions.origins.includes(url);
+        },
+    );
     const startpage = document.getElementById('startpage');
     startpage.checked = OPTIONAL_PERMISSIONS_URLS['startpage'].every((url) => {
       return permissions.origins.includes(url);
@@ -253,20 +255,16 @@ class OptionsPageManager {
       return this.options.get(key);
     };
     // Handle checks separately.
-    document.getElementById('wrap-navigation').checked = getOpt(
-        'wrapNavigation',
-    );
-    document.getElementById('auto-select-first').checked = getOpt(
-        'autoSelectFirst',
-    );
+    document.getElementById('wrap-navigation').checked =
+      getOpt('wrapNavigation');
+    document.getElementById('auto-select-first').checked =
+      getOpt('autoSelectFirst');
     document.getElementById('hide-outline').checked = getOpt('hideOutline');
     document.getElementById('delay').value = getOpt('delay');
-    document.getElementById('google-include-cards').checked = getOpt(
-        'googleIncludeCards',
-    );
-    document.getElementById('google-include-memex').checked = getOpt(
-        'googleIncludeMemex',
-    );
+    document.getElementById('google-include-cards').checked =
+      getOpt('googleIncludeCards');
+    document.getElementById('google-include-memex').checked =
+      getOpt('googleIncludeMemex');
     document.getElementById('google-include-places').checked = getOpt(
         'googleIncludePlaces',
     );

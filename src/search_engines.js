@@ -469,17 +469,18 @@ class GoogleSearch {
       ICON: {value: 2, name: 'Icon', code: 'i'},
     };
     const openTool = document.querySelector(
-        '[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]');
+        '[class="PNyWAd ZXJQ7c"][jsname="I4bIT"]',
+    );
     if (openTool != null) {
       openTool.click();
     }
-    const openSizeDropDown = document.querySelector(
-        '[aria-label="Size"]');
+    const openSizeDropDown = document.querySelector('[aria-label="Size"]');
     if (openSizeDropDown != null) {
       openSizeDropDown.click();
     }
     const dropDownWithSize = document.querySelector(
-        '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]');
+        '[class="xFo9P r9PaP Fmo8N"][jsname="wLFV5d"]',
+    );
     const getButton = (selector) => {
       let button;
       if (document.querySelector(selector) != null) {
@@ -608,12 +609,16 @@ class BraveSearch {
       },
       // News cards
       {
-        nodes: document.querySelectorAll('.card[data-type="news"]:nth-child(-n+3)'),
+        nodes: document.querySelectorAll(
+            '.card[data-type="news"]:nth-child(-n+3)',
+        ),
         highlightClass: 'wsn-brave-search-focused-card',
       },
       // Video cards
       {
-        nodes: document.querySelectorAll('.card[data-type="videos"]:nth-child(-n+3)'),
+        nodes: document.querySelectorAll(
+            '.card[data-type="videos"]:nth-child(-n+3)',
+        ),
         highlightClass: 'wsn-brave-search-focused-card',
       },
     ];
