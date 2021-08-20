@@ -211,7 +211,7 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
-      // Large Youtube video as top result.
+      // Large YouTube video as top result.
       {
         nodes: document.querySelectorAll('h3 a[href*="youtube.com"]'),
         highlightClass: 'wsn-google-focused-link',
@@ -755,7 +755,7 @@ class StartPage {
   }
 }
 
-class Youtube {
+class YouTube {
   constructor(options) {
     this.options = options;
   }
@@ -1164,7 +1164,7 @@ const getSearchEngine = (options) => {
     new GoogleSearch(options),
     new BraveSearch(options),
     new StartPage(options),
-    new Youtube(options),
+    new YouTube(options),
     new GoogleScholar(options),
     new Amazon(options),
     new Github(options),

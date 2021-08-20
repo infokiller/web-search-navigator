@@ -3,7 +3,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/infokiller/web-search-navigator/badge)](https://www.codefactor.io/repository/github/infokiller/web-search-navigator)
 
 Browser extension that adds configurable keyboard shortcuts to Google search,
-Youtube, Startpage, Brave Search, Github, Amazon, Google Scholar.
+YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
 
 ![Demo flow](./assets/demo.gif?raw=true)
 
@@ -41,7 +41,7 @@ Youtube, Startpage, Brave Search, Github, Amazon, Google Scholar.
 - All keyboard shortcuts can be changed
 - Settings are synched between devices with the same browser profile
 - Supports both key combos and key sequences
-- Experimental and optional support for Youtube, Startpage, Brave Search, Google
+- Experimental and optional support for YouTube, Startpage, Brave Search, Google
   Scholar, Github, and Amazon (needs to be enabled in the options). Note that
   the extension does not have permissions for these optional websites unless you
   explicitly enable them.

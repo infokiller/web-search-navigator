@@ -19,7 +19,7 @@ See the latest changelog in https://github.com/infokiller/web-search-navigator/b
 - All keyboard shortcuts can be changed
 - Settings are synched between devices with the same browser profile
 - Supports both key combos and key sequences
-- Experimental and optional support for Youtube, Startpage, Brave Search, Google
+- Experimental and optional support for YouTube, Startpage, Brave Search, Google
   Scholar, Github, and Amazon (needs to be enabled in the options). Note that
   the extension does not have permissions for these optional websites unless you
   explicitly enable them.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.18 (unreleased)
+
+- Add support for Brave Search
+
 ## 0.4.17
 
 - Google: fix navigation to other tabs following another Google update.
@@ -85,7 +89,7 @@
 
 - Support for navigating to Top Stories, Twitter, Videos, and callouts
 - Support for remapping keys with key sequences
-- Experimental support for Youtube, Startpage, and Scholar (optional, needs to
+- Experimental support for YouTube, Startpage, and Scholar (optional, needs to
   be enabled in options)
 - Bugfixes
 
