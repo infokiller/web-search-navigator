@@ -19,7 +19,10 @@ See the latest changelog in https://github.com/infokiller/web-search-navigator/b
 - All keyboard shortcuts can be changed
 - Settings are synched between devices with the same browser profile
 - Supports both key combos and key sequences
-- Experimental and optional support for Youtube, Startpage, Google Scholar, Github, and Amazon (needs to be enabled in the options). Note that the extension does not have permissions for these optional websites unless you explicitly enable them.
+- Experimental and optional support for Youtube, Startpage, Brave Search, Google
+  Scholar, Github, and Amazon (needs to be enabled in the options). Note that
+  the extension does not have permissions for these optional websites unless you
+  explicitly enable them.
 
 ## Keybindings
 
@@ -49,4 +52,4 @@ See the latest changelog in https://github.com/infokiller/web-search-navigator/b
 - `z z`: Turn off filter (show all results)
 - `z t`: Toggle sort by date/relevance (only when filtering)
 
-©2020 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
+©2021 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
