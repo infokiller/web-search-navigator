@@ -504,28 +504,25 @@ class GoogleSearch {
     };
     switch (size) {
       case sizeOptions.LARGE.code:
-        if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') ==
+        if (dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') !=
           sizeOptions.LARGE.name) {
-        } else {
           setImageSize(dropDownWithSize,
               '[class="MfLWbb"][aria-label="Large"]');
         }
         break;
       case sizeOptions.MEDIUM.code:
-        if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') ==
+        if (dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') !=
           sizeOptions.MEDIUM.name) {
-        } else {
           setImageSize(dropDownWithSize,
               '[class="MfLWbb"][aria-label="Medium"]');
         }
         break;
       case sizeOptions.ICON.code:
-        if (dropDownWithSize != null &&
-          dropDownWithSize.getAttribute('aria-label') ==
+        if (dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') !=
           sizeOptions.ICON.name) {
-        } else {
           setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
         }
         break;
