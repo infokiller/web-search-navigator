@@ -243,10 +243,14 @@ class GoogleSearch {
       },
     ];
     if (this.options.googleIncludeCards) {
-      const nearestChildOrParentAnchor = (element) => {
+      const nearestChildOrSiblingOrParentAnchor = (element) => {
         const childAnchor = element.querySelector('a');
         if (childAnchor && childAnchor.href) {
           return childAnchor;
+        }
+        const siblingAnchor = element.parentElement.querySelector('a');
+        if (siblingAnchor && siblingAnchor.href) {
+          return siblingAnchor;
         }
         return element.closest('a');
       };
@@ -259,7 +263,7 @@ class GoogleSearch {
             nodes: document.querySelectorAll(
                 '[data-init-vis=true] [role=heading]',
             ),
-            anchorSelector: nearestChildOrParentAnchor,
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestCardContainer,
             highlightClass: 'wsn-google-focused-card',
           },
