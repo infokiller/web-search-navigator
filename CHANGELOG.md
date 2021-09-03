@@ -4,6 +4,7 @@
 
 - Add support for Brave Search
 - Google: fix broken cards navigation
+- Google: fix navigation to Finance
 
 ## 0.4.17
 

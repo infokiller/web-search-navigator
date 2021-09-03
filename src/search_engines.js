@@ -378,7 +378,7 @@ class GoogleSearch {
           'a[role="menuitem"][href*="&tbm=flm"]',
       ),
       navigateFinancialTab: document.querySelector(
-          'a[role="menuitem"][href*="&tbm=fin"]',
+          'a[role="menuitem"][href*="/finance?"]',
       ),
       // TODO: Disable image search's default keybindings to avoid confusing the
       // user, because the default keybindings can cause an indenepdent
@@ -414,7 +414,7 @@ class GoogleSearch {
       navigateShoppingTab: document.querySelector('a[href*="&tbm=shop"]'),
       navigateBooksTab: document.querySelector('a[href*="&tbm=bks"]'),
       navigateFlightsTab: document.querySelector('a[href*="&tbm=flm"]'),
-      navigateFinancialTab: document.querySelector('a[href*="&tbm=fin"]'),
+      navigateFinancialTab: document.querySelector('[href*="/finance?"]'),
       navigatePreviousResultPage: document.querySelector('#pnprev'),
       navigateNextResultPage: document.querySelector('#pnnext'),
     };
