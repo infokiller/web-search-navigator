@@ -103,7 +103,11 @@ const getSortedSearchResults = (
       const anchor = searchResult.anchor;
       // Use offsetParent to exclude hidden elements, see:
       // https://stackoverflow.com/a/21696585/1014208
-      if (!excludedResultsSet.has(anchor) && anchor.offsetParent !== null) {
+      if (
+        anchor != null &&
+        !excludedResultsSet.has(anchor) &&
+        anchor.offsetParent !== null
+      ) {
         // Prevent adding the same node multiple times.
         excludedResultsSet.add(anchor);
         searchResults.push(searchResult);
@@ -508,25 +512,32 @@ class GoogleSearch {
     };
     switch (size) {
       case sizeOptions.LARGE.code:
-        if (dropDownWithSize == null ||
-          dropDownWithSize.getAttribute('aria-label') !=
-          sizeOptions.LARGE.name) {
-          setImageSize(dropDownWithSize,
-              '[class="MfLWbb"][aria-label="Large"]');
+        if (
+          dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') != sizeOptions.LARGE.name
+        ) {
+          setImageSize(
+              dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Large"]',
+          );
         }
         break;
       case sizeOptions.MEDIUM.code:
-        if (dropDownWithSize == null ||
-          dropDownWithSize.getAttribute('aria-label') !=
-          sizeOptions.MEDIUM.name) {
-          setImageSize(dropDownWithSize,
-              '[class="MfLWbb"][aria-label="Medium"]');
+        if (
+          dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') != sizeOptions.MEDIUM.name
+        ) {
+          setImageSize(
+              dropDownWithSize,
+              '[class="MfLWbb"][aria-label="Medium"]',
+          );
         }
         break;
       case sizeOptions.ICON.code:
-        if (dropDownWithSize == null ||
-          dropDownWithSize.getAttribute('aria-label') !=
-          sizeOptions.ICON.name) {
+        if (
+          dropDownWithSize == null ||
+          dropDownWithSize.getAttribute('aria-label') != sizeOptions.ICON.name
+        ) {
           setImageSize(dropDownWithSize, '[class="MfLWbb"][aria-label="Icon"]');
         }
         break;

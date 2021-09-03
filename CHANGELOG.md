@@ -3,6 +3,7 @@
 ## 0.4.18 (unreleased)
 
 - Add support for Brave Search
+- Google: fix broken cards navigation
 
 ## 0.4.17
 
