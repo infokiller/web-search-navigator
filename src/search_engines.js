@@ -148,6 +148,12 @@ const getDefaultBottomMargin = (element) => {
   return 28;
 };
 
+const selectorElementGetter = (selector) => {
+  return () => {
+    return document.querySelector(selector);
+  };
+};
+
 class GoogleSearch {
   constructor(options) {
     this.options = options;
@@ -361,23 +367,23 @@ class GoogleSearch {
     // - "california": maps, news, videos
     return {
       navigateSearchTab: visibleTabs[0],
-      navigateMapsTab: document.querySelector(
+      navigateMapsTab: selectorElementGetter(
           '.T47uwc > a[href*="maps.google."]',
       ),
-      navigateVideosTab: document.querySelector(
+      navigateVideosTab: selectorElementGetter(
           '.T47uwc > a[href*="&tbm=vid"]',
       ),
-      navigateNewsTab: document.querySelector('.T47uwc > a[href*="&tbm=nws"]'),
-      navigateShoppingTab: document.querySelector(
+      navigateNewsTab: selectorElementGetter('.T47uwc > a[href*="&tbm=nws"]'),
+      navigateShoppingTab: selectorElementGetter(
           'a[role="menuitem"][href*="&tbm=shop"]',
       ),
-      navigateBooksTab: document.querySelector(
+      navigateBooksTab: selectorElementGetter(
           'a[role="menuitem"][href*="&tbm=bks"]',
       ),
-      navigateFlightsTab: document.querySelector(
+      navigateFlightsTab: selectorElementGetter(
           'a[role="menuitem"][href*="&tbm=flm"]',
       ),
-      navigateFinancialTab: document.querySelector(
+      navigateFinancialTab: selectorElementGetter(
           'a[role="menuitem"][href*="/finance?"]',
       ),
       // TODO: Disable image search's default keybindings to avoid confusing the
@@ -403,20 +409,20 @@ class GoogleSearch {
       return this.imageSearchTabs_;
     }
     return {
-      navigateSearchTab: document.querySelector(
+      navigateSearchTab: selectorElementGetter(
           // eslint-disable-next-line max-len
           'a[href*="/search?q="]:not([href*="&tbm="]):not([href*="maps.google."])',
       ),
-      navigateImagesTab: document.querySelector('a[href*="&tbm=isch"]'),
-      navigateVideosTab: document.querySelector('a[href*="&tbm=vid"]'),
-      navigateMapsTab: document.querySelector('a[href*="maps.google."]'),
-      navigateNewsTab: document.querySelector('a[href*="&tbm=nws"]'),
-      navigateShoppingTab: document.querySelector('a[href*="&tbm=shop"]'),
-      navigateBooksTab: document.querySelector('a[href*="&tbm=bks"]'),
-      navigateFlightsTab: document.querySelector('a[href*="&tbm=flm"]'),
-      navigateFinancialTab: document.querySelector('[href*="/finance?"]'),
-      navigatePreviousResultPage: document.querySelector('#pnprev'),
-      navigateNextResultPage: document.querySelector('#pnnext'),
+      navigateImagesTab: selectorElementGetter('a[href*="&tbm=isch"]'),
+      navigateVideosTab: selectorElementGetter('a[href*="&tbm=vid"]'),
+      navigateMapsTab: selectorElementGetter('a[href*="maps.google."]'),
+      navigateNewsTab: selectorElementGetter('a[href*="&tbm=nws"]'),
+      navigateShoppingTab: selectorElementGetter('a[href*="&tbm=shop"]'),
+      navigateBooksTab: selectorElementGetter('a[href*="&tbm=bks"]'),
+      navigateFlightsTab: selectorElementGetter('a[href*="&tbm=flm"]'),
+      navigateFinancialTab: selectorElementGetter('[href*="/finance?"]'),
+      navigatePreviousResultPage: selectorElementGetter('#pnprev'),
+      navigateNextResultPage: selectorElementGetter('#pnnext'),
     };
   }
 

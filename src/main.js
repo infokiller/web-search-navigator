@@ -299,8 +299,14 @@ class WebSearchNavigator {
 
   initTabsNavigation() {
     const tabs = this.searchEngine.tabs || {};
-    for (const [optionName, element] of Object.entries(tabs)) {
+    for (const [optionName, elementOrGetter] of Object.entries(tabs)) {
       this.register(this.options.sync.get(optionName), () => {
+        let element;
+        if (elementOrGetter instanceof HTMLElement) {
+          element = elementOrGetter;
+        } else {
+          element = elementOrGetter();
+        }
         if (element == null) {
           return true;
         }
