@@ -3,7 +3,7 @@
 ## 0.4.18 (unreleased)
 
 - Add support for Brave Search
-- Google: fix broken cards navigation
+- Google: fix broken vertical cards navigation (top stories, videos, maps)
 - Google: fix navigation to Finance tab
 - Google: fix navigation to tabs in the "More" pulldown (worked inconsistently)
 

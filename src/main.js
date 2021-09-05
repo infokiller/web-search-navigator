@@ -71,6 +71,9 @@ class SearchResultsManager {
 
   highlight(searchResult) {
     const highlighted = searchResult.highlightedElement;
+    if (highlighted == null) {
+      return;
+    }
     highlighted.classList.add(searchResult.highlightClass);
     if (this.options.hideOutline || searchResult.anchor !== highlighted) {
       searchResult.anchor.classList.add('wsn-no-outline');
@@ -79,6 +82,9 @@ class SearchResultsManager {
 
   unhighlight(searchResult) {
     const highlighted = searchResult.highlightedElement;
+    if (highlighted == null) {
+      return;
+    }
     highlighted.classList.remove(searchResult.highlightClass);
     highlighted.classList.remove('wsn-no-outline');
   }

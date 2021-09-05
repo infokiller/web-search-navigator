@@ -277,10 +277,27 @@ class GoogleSearch {
             highlightedElementSelector: nearestCardContainer,
             highlightClass: 'wsn-google-focused-card',
           },
-          // Small top stories section.
+          // Vertical "Top stories" results
           {
-            nodes: document.querySelectorAll('.P5BnJb'),
-            anchorSelector: (n) => n.parentElement,
+            nodes: document.querySelectorAll(
+                '#search [role=text] [role=heading]',
+            ),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightClass: 'wsn-google-focused-link',
+          },
+          // Vertical videos results
+          {
+            nodes: document.querySelectorAll('#search a[role=heading]'),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightClass: 'wsn-google-focused-link',
+          },
+          // Vertical Maps results
+          {
+            nodes: document.querySelectorAll(
+                '#search [role=link] [role=heading]',
+            ),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
       );
@@ -370,9 +387,7 @@ class GoogleSearch {
       navigateMapsTab: selectorElementGetter(
           '.T47uwc > a[href*="maps.google."]',
       ),
-      navigateVideosTab: selectorElementGetter(
-          '.T47uwc > a[href*="&tbm=vid"]',
-      ),
+      navigateVideosTab: selectorElementGetter('.T47uwc > a[href*="&tbm=vid"]'),
       navigateNewsTab: selectorElementGetter('.T47uwc > a[href*="&tbm=nws"]'),
       navigateShoppingTab: selectorElementGetter(
           'a[role="menuitem"][href*="&tbm=shop"]',
