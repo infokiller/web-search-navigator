@@ -11,4 +11,4 @@ jobs:
     - name: Install modules
       run: yarn install
     - name: Run ESLint
-      run: eslint src
+      run: ./node_modules/eslint/bin/eslint.js src
