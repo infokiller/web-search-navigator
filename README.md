@@ -41,6 +41,7 @@ YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
 - All keyboard shortcuts can be changed
 - Settings are synched between devices with the same browser profile
 - Supports both key combos and key sequences
+- Custom CSS rules to control the look of highlighted results
 - Experimental and optional support for YouTube, Startpage, Brave Search, Google
   Scholar, Github, and Amazon (needs to be enabled in the options). Note that
   the extension does not have permissions for these optional websites unless you
