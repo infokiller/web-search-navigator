@@ -297,6 +297,7 @@ class GoogleSearch {
                 '#search [role=link] [role=heading]',
             ),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            containerSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
