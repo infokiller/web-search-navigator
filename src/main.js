@@ -347,9 +347,8 @@ class WebSearchNavigator {
 
   resetResultsManager() {
     if (this.resultsManager != null) {
-      const searchResult = this.resultsManager.searchResults[
-          this.resultsManager.focusedIndex
-      ];
+      const searchResult =
+        this.resultsManager.searchResults[this.resultsManager.focusedIndex];
       // NOTE: it seems that search results can become undefined when the DOM
       // elements are removed (for example when the results change).
       if (searchResult != null) {
