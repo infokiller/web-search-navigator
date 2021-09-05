@@ -307,6 +307,9 @@ class WebSearchNavigator {
     const tabs = this.searchEngine.tabs || {};
     for (const [optionName, elementOrGetter] of Object.entries(tabs)) {
       this.register(this.options.sync.get(optionName), () => {
+        if (elementOrGetter == null) {
+          return true;
+        }
         let element;
         if (elementOrGetter instanceof HTMLElement) {
           element = elementOrGetter;
