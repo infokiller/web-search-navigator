@@ -575,7 +575,7 @@ class BraveSearch {
   }
 
   get urlPattern() {
-    return /^https:\/\/search\.brave\./;
+    return /^https:\/\/search\.brave\.com/;
   }
 
   get searchBoxSelector() {
@@ -629,9 +629,9 @@ class BraveSearch {
   }
 
   getSearchResults() {
-    if (this.checkActiveTab(this.tabs.navigateNewsTab)) {
+    if (this.isTabActive(this.tabs.navigateNewsTab)) {
       return this.getNewsTabResults_();
-    } else if (this.checkActiveTab(this.tabs.navigateVideosTab)) {
+    } else if (this.isTabActive(this.tabs.navigateVideosTab)) {
       return this.getVideosTabResults_();
     }
 
@@ -660,8 +660,8 @@ class BraveSearch {
     return getSortedSearchResults(includedElements);
   }
 
-  checkActiveTab(tab) {
-    return tab.parentElement.classList.contains('active');
+  isTabActive(tab) {
+    return tab && tab.parentElement.classList.contains('active');
   }
 
   get tabs() {
