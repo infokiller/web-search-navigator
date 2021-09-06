@@ -119,10 +119,21 @@ Install from
 
 ### Coding style
 
-We use a coding style based on
-[Google's](https://google.github.io/styleguide/jsguide.html) that is enforced
-with [eslint](https://eslint.org/). Please try to write your code in a similar
-style, and run eslint before sending a pull request.
+To check the code for linting and formatting errors, run `yarn run check`. We
+use a Javascript coding style based on
+[Google's](https://google.github.io/styleguide/jsguide.html). We use the
+following tools to lint the code enforce a consistent style:
+
+- Javascript: [eslint](https://eslint.org/) for both linting and formatting
+- CSS: [Stylelint](https://stylelint.io/) for linting and
+  [Prettier](https://prettier.io/) for formatting
+- Markdown: [Markdownlint](https://github.com/igorshubovych/markdownlint-cli)
+  for linting and [Prettier](https://prettier.io/) for formatting
+- Bash: [Shellcheck](https://github.com/koalaman/shellcheck) for linting and
+  [shfmt](https://github.com/mvdan/sh) for formatting
+
+Please try to write your code in a similar style, and run `yarn run check`
+before sending a pull request.
 
 ### Commit messages
 

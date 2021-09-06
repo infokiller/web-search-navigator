@@ -14,7 +14,15 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "eslint": "eslint $(git ls-files '*.js' ':(exclude)vendor')",
+    "prettier-markdown-check": "prettier --check $(git ls-files '*.md')",
+    "prettier-markdown-format": "prettier --write $(git ls-files '*.md')",
+    "stylelint": "stylelint src/*.css",
+    "shellcheck": "shellcheck tools/*.sh",
+    "shfmt-check": "shfmt -i 2 -sr -ci -d tools",
+    "shfmt-format": "shfmt -i 2 -sr -ci -w tools",
+    "check": "yarn run eslint && yarn run stylelint && yarn run shellcheck && yarn run prettier-check-markdown"
   },
   "dependencies": {
     "mousetrap": "^1.6.5",
