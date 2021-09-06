@@ -22,7 +22,7 @@
     "shellcheck": "shellcheck tools/*.sh",
     "shfmt-check": "shfmt -i 2 -sr -ci -d tools",
     "shfmt-format": "shfmt -i 2 -sr -ci -w tools",
-    "check": "yarn run eslint && yarn run stylelint && yarn run shellcheck && yarn run prettier-check-markdown"
+    "check": "yarn run eslint && yarn run stylelint && yarn run shellcheck && yarn run prettier-markdown-check"
   },
   "dependencies": {
     "mousetrap": "^1.6.5",
