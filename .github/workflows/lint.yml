@@ -10,5 +10,7 @@ jobs:
     - uses: actions/setup-node@v2
     - name: Install modules
       run: yarn install
+    - name: List installed binaries
+      run: ls -l ./node_modules/.bin/eslint
     - name: Run ESLint
-      run: ./node_modules/eslint/bin/eslint.js src
+      run: ./node_modules/.bin/eslint $(git ls-files src/*.js .eslintrc.js gulpfile.js)
