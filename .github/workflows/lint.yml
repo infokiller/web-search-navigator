@@ -10,5 +10,5 @@ jobs:
     - uses: actions/setup-node@v2
     - name: Install modules
       run: yarn install
-    - name: Run ESLint
-      run: ./node_modules/.bin/eslint src .eslintrc.js gulpfile.js
+    - name: Run linters
+      run: yarn run check
