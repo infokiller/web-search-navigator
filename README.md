@@ -1,6 +1,8 @@
 # ![Logo](./src/icon48.png?raw=true) Web Search Navigator
 
 [![CodeFactor](https://www.codefactor.io/repository/github/infokiller/web-search-navigator/badge)](https://www.codefactor.io/repository/github/infokiller/web-search-navigator)
+[![CodeQL](https://github.com/infokiller/web-search-navigator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/infokiller/web-search-navigator/actions/workflows/codeql-analysis.yml)
+[![Linters](https://github.com/infokiller/web-search-navigator/actions/workflows/lint.yml/badge.svg)](https://github.com/infokiller/web-search-navigator/actions/workflows/lint.yml)
 
 Browser extension that adds configurable keyboard shortcuts to Google search,
 YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
