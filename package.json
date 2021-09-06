@@ -28,6 +28,7 @@
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
     "gulp-terser": "^2.0.1",
+    "markdownlint-cli": "^0.28.1",
     "minimist": "^1.2.5",
     "prettier": "2.3.2",
     "prettier-eslint-cli": "^5.0.1",
