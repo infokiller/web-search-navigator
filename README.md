@@ -130,7 +130,8 @@ following tools to lint the code enforce a consistent style:
 - Markdown: [Markdownlint](https://github.com/igorshubovych/markdownlint-cli)
   for linting and [Prettier](https://prettier.io/) for formatting
 - Bash: [Shellcheck](https://github.com/koalaman/shellcheck) for linting and
-  [shfmt](https://github.com/mvdan/sh) for formatting
+  [shfmt](https://github.com/mvdan/sh) for formatting. shfmt doesn't run in
+  `yarn run check` because it can't be installed using `yarn install`.
 
 Please try to write your code in a similar style, and run `yarn run check`
 before sending a pull request.
