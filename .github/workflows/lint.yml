@@ -13,4 +13,4 @@ jobs:
     - name: List installed binaries
       run: ls -l ./node_modules/.bin/eslint
     - name: Run ESLint
-      run: ./node_modules/.bin/eslint $(git ls-files src/*.js .eslintrc.js gulpfile.js)
+      run: ./node_modules/.bin/eslint src .eslintrc.js gulpfile.js
