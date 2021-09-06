@@ -3,7 +3,7 @@ name: Lint
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  eslint:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
