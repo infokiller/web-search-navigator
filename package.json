@@ -35,7 +35,7 @@
     "eslint-config-google": "^0.14.0",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
-    "gulp-terser": "^2.0.1",
+    "gulp-terser": "^2.1.0",
     "markdownlint-cli": "^0.28.1",
     "minimist": "^1.2.5",
     "prettier": "2.4.1",
