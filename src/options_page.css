@@ -69,6 +69,8 @@ summary h2 {
 #delay {
   width: 75px;
   margin-right: 5px;
+  /* Hide spinner */
+  appearance: textfield;
 }
 
 #status {
@@ -81,17 +83,11 @@ summary h2 {
 }
 
 /* Firefox specific overrides */
-@-moz-document url-prefix() {
+@-moz-document url-prefix("") {
   body {
     width: 600px;
-
     /* Without this, the Firefox options page body is close to the border */
     margin-left: 10px;
-  }
-
-  /* Hide spinner in delay field */
-  input[type='number'] {
-    -moz-appearance: textfield;
   }
 
   .option-desc {

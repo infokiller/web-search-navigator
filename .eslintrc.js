@@ -6,7 +6,7 @@ module.exports = {
     browser: true,
     webextensions: true,
   },
-  extends: ['eslint:recommended', 'google'],
+  extends: ['eslint:recommended', 'google', 'plugin:json/recommended'],
   parserOptions: {
     ecmaVersion: 11,
   },
