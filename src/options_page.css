@@ -69,8 +69,6 @@ summary h2 {
 #delay {
   width: 75px;
   margin-right: 5px;
-  /* Hide spinner */
-  appearance: textfield;
 }
 
 #status {
