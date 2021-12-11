@@ -6,6 +6,10 @@ const DEFAULT_CSS = `/* NOTE:
  *   border can move other elements, for example the page numbers are moved in
  *   Google Scholar when highlighting the prev/next buttons.
  */
+ 
+.wsn-google-focused-link {
+    position: relative;
+}
 
 .wsn-google-focused-link::before,
 .wsn-google-focused-map::before,
