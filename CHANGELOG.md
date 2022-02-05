@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.4.18 (unreleased)
+## 0.4.19
+
+- Google: fix detection of "featured snippets"
+
+## 0.4.18
 
 - Add support for Brave Search
 - Google: fix broken vertical cards navigation (top stories, videos, maps)

@@ -237,10 +237,10 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
       },
       // Books tab
-      // NOTE: This also matches results in the general search tab, but they
-      // will be deduped in getSortedSearchResults.
+      // NOTE: This is required for matching "features snippets" in the general
+      // search tab, and also matches other results.
       {
-        nodes: document.querySelectorAll('#search [data-hveid] a h3'),
+        nodes: document.querySelectorAll('[data-hveid] a h3'),
         anchorSelector: (n) => n.closest('a'),
         containerSelector: (n) => n.closest('[data-hveid]'),
         highlightedElementSelector: (n) => n.closest('[data-hveid]'),
