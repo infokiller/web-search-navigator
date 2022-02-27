@@ -176,6 +176,9 @@ class GoogleSearch {
         element,
     );
   }
+  getBottomMargin(element) {
+    return isFirefox() ? 0 : getDefaultBottomMargin();
+  }
   onChangedResults(callback) {
     if (this.isImagesTab_()) {
       return this.onImageSearchResults_(callback);
