@@ -249,7 +249,7 @@ class GoogleSearch {
         nodes: document.querySelectorAll('#search g-card a'),
         highlightClass: 'wsn-google-focused-link',
       },
-      // Books tab
+      // Books tab: https://imgur.com/a/QSBIOb6
       // NOTE: This is required for matching "features snippets" in the general
       // search tab, and also matches other results.
       {
