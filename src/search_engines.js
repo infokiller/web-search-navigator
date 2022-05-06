@@ -318,6 +318,16 @@ class GoogleSearch {
             highlightedElementSelector: nearestCardContainer,
             highlightClass: 'wsn-google-card-item',
           },
+          // Vaccines: https://imgur.com/a/325qJzE
+          {
+            nodes: document.querySelectorAll(
+                '#search a.a-no-hover-decoration [role=heading]',
+            ),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            containerSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightClass: 'wsn-google-focused-link',
+          },
           // Vertical Maps/Places: https://imgur.com/a/JXrxBCj
           // Vertical recipes: https://imgur.com/a/3r7klHk
           // Top stories grid: https://imgur.com/a/mY93YRF
