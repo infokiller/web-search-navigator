@@ -296,11 +296,10 @@ class GoogleSearch {
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
-          // Vertical Maps results
+          // Vertical Maps/Places: https://imgur.com/a/JXrxBCj
+          // Vertical recipes: https://imgur.com/a/3r7klHk
           {
-            nodes: document.querySelectorAll(
-                '#search [role=link] [role=heading]',
-            ),
+            nodes: document.querySelectorAll('a [role=heading]'),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             containerSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
