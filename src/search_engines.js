@@ -947,6 +947,7 @@ class GoogleScholar {
       {
         nodes: document.querySelectorAll('.gs_rt a'),
         highlightClass: 'wsn-google-focused-link',
+        highlightedElementSelector: (n) => n.closest('.gs_rt'),
         containerSelector: (n) => n.parentElement.parentElement,
       },
       {

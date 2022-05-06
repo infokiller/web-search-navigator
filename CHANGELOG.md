@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.21 (unreleased)
+
+- Google Scholar: fix selection arrow alignment
+
 ## 0.4.20 (unreleased)
 
 - Google: multiple fixes to support new and changed card types
