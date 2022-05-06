@@ -273,7 +273,7 @@ class GoogleSearch {
         return element.closest('g-inner-card');
       };
       includedElements.push(
-          // Top stories, Twitter, and videos.
+          // Twitter: https://imgur.com/a/fdI75JG
           {
             nodes: document.querySelectorAll(
                 '[data-init-vis=true] [role=heading]',
@@ -290,7 +290,7 @@ class GoogleSearch {
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
-          // Vertical videos results
+          // Vertical video results: https://imgur.com/a/GyKhwrx
           {
             nodes: document.querySelectorAll('#search a[role=heading]'),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
