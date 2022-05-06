@@ -9,6 +9,9 @@ const DEFAULT_CSS = `/* NOTE:
  
 .wsn-google-focused-link {
     position: relative;
+    /* This is required for the arrow to appear when navigating sub-results, see
+     * also: https://github.com/infokiller/web-search-navigator/issues/357 */
+    overflow: visible !important;
 }
 
 .wsn-google-focused-link::before,
