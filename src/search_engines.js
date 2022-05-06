@@ -307,8 +307,21 @@ class GoogleSearch {
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
+          // Horizontal video results: https://imgur.com/a/gRGJ7l9
+          // People also search for: https://imgur.com/a/QpCHKt0
+          {
+            nodes: document.querySelectorAll(
+                'g-scrolling-carousel g-inner-card a [role=heading]',
+            ),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            containerSelector: nearestCardContainer,
+            highlightedElementSelector: nearestCardContainer,
+            highlightClass: 'wsn-google-card-item',
+          },
           // Vertical Maps/Places: https://imgur.com/a/JXrxBCj
           // Vertical recipes: https://imgur.com/a/3r7klHk
+          // Top stories grid: https://imgur.com/a/mY93YRF
+          // TODO: fix the small movements in recipes item selection.
           {
             nodes: document.querySelectorAll('a [role=heading]'),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
