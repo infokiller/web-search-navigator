@@ -262,7 +262,7 @@ class GoogleSearch {
       // Next/previous results page
       {
         nodes: document.querySelectorAll('#pnprev, #pnnext'),
-        highlightClass: 'wsn-google-focused-link',
+        highlightClass: 'wsn-google-card-item',
       },
     ];
     if (this.options.googleIncludeCards) {
