@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.20 (unreleased)
+
+- Google: multiple fixes to support new and changed card types
+
 ## 0.4.19
 
 - Google: fix detection of "featured snippets"
