@@ -284,7 +284,7 @@ class GoogleSearch {
           // Twitter: https://imgur.com/a/fdI75JG
           {
             nodes: document.querySelectorAll(
-                '[data-init-vis=true] [role=heading]',
+                '#search [data-init-vis=true] [role=heading]',
             ),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestCardContainer,
@@ -301,7 +301,9 @@ class GoogleSearch {
           // Vertical video results: https://imgur.com/a/GyKhwrx
           // Vertical video results: https://imgur.com/a/8fbPnvT
           {
-            nodes: document.querySelectorAll('video-voyager a [role=heading]'),
+            nodes: document.querySelectorAll(
+                '#search video-voyager a [role=heading]',
+            ),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             containerSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
@@ -311,7 +313,7 @@ class GoogleSearch {
           // People also search for: https://imgur.com/a/QpCHKt0
           {
             nodes: document.querySelectorAll(
-                'g-scrolling-carousel g-inner-card a [role=heading]',
+                '#search g-scrolling-carousel g-inner-card a [role=heading]',
             ),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             containerSelector: nearestCardContainer,
