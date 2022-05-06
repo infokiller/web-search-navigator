@@ -237,10 +237,12 @@ class GoogleSearch {
         highlightedElementSelector: (n) => n.closest('h3'),
         containerSelector: (n) => n.closest('tr'),
       },
-      // Shopping results
+      // Shopping results: https://imgur.com/a/wccM2iq
       {
-        nodes: document.querySelectorAll('div.eIuuYe a'),
-        highlightClass: 'wsn-google-focused-link',
+        nodes: document.querySelectorAll('#rso a h4'),
+        anchorSelector: (n) => n.closest('a'),
+        highlightClass: 'wsn-google-focused-card',
+        highlightedElementSelector: (n) => n.closest('.sh-dgr__content'),
       },
       // News tab: https://imgur.com/a/MR9q31f
       {
