@@ -224,6 +224,12 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
+      // Large YouTube video as top result: https://imgur.com/a/JIe62QV
+      {
+        nodes: document.querySelectorAll('h3 a[href*="youtube.com"]'),
+        highlightClass: 'wsn-google-focused-link',
+        highlightedElementSelector: (n) => n.closest('h3'),
+      },
       // Sub-results: https://imgur.com/a/CJePYJM
       {
         nodes: document.querySelectorAll('#search h3 a:first-of-type'),
