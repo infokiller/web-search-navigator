@@ -236,9 +236,9 @@ class GoogleSearch {
         nodes: document.querySelectorAll('div.eIuuYe a'),
         highlightClass: 'wsn-google-focused-link',
       },
-      // News tab
+      // News tab: https://imgur.com/a/MR9q31f
       {
-        nodes: document.querySelectorAll('g-card .dbsr > a'),
+        nodes: document.querySelectorAll('#search g-card a'),
         highlightClass: 'wsn-google-focused-link',
       },
       // Books tab
