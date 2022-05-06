@@ -45,7 +45,8 @@ const DEFAULT_CSS = `/* NOTE:
     border: 1px solid black !important;
 }
 
-.wsn-google-focused-map {
+.wsn-google-focused-map,
+.wsn-google-card-item {
     outline: 1px solid black !important;
 }
 

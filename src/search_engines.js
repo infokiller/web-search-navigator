@@ -299,9 +299,12 @@ class GoogleSearch {
             highlightClass: 'wsn-google-focused-link',
           },
           // Vertical video results: https://imgur.com/a/GyKhwrx
+          // Vertical video results: https://imgur.com/a/8fbPnvT
           {
-            nodes: document.querySelectorAll('#search a[role=heading]'),
+            nodes: document.querySelectorAll('video-voyager a [role=heading]'),
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            containerSelector: nearestChildOrSiblingOrParentAnchor,
+            highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
           // Vertical Maps/Places: https://imgur.com/a/JXrxBCj
@@ -311,7 +314,7 @@ class GoogleSearch {
             anchorSelector: nearestChildOrSiblingOrParentAnchor,
             containerSelector: nearestChildOrSiblingOrParentAnchor,
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
-            highlightClass: 'wsn-google-focused-link',
+            highlightClass: 'wsn-google-card-item',
           },
       );
     }
