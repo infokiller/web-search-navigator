@@ -4,6 +4,7 @@
 
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
+- Better dark mode support
 
 ## 0.4.20 (unreleased)
 

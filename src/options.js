@@ -57,6 +57,25 @@ const DEFAULT_CSS = `/* NOTE:
     -webkit-box-sizing: border-box;
 }
 
+@media (prefers-color-scheme: dark) {
+  .wsn-google-focused-image, 
+  .wsn-google-focused-card, 
+  .wsn-google-focused-map, 
+  .wsn-google-card-item,
+  .wsn-brave-search-focused-card
+  .wsn-youtube-focused-video,
+  .wsn-youtube-focused-grid-video,
+  .wsn-google-scholar-next-page,
+  .wsn-amazon-focused-item,
+  .wsn-amazon-focused-cart-item,
+  .wsn-amazon-focused-carousel-item,
+  .wsn-github-focused-item,
+  .wsn-github-focused-pagination {
+    outline-color: #aaaaaa !important;
+    border-color: #aaaaaa !important;
+  }
+}
+
 /* Startpage has dark themes where a black outline won't be visible */
 .wsn-startpage-focused-link {
     outline: 1px solid #435a69 !important;
