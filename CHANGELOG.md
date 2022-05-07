@@ -1,14 +1,11 @@
 # Changelog
 
-## 0.4.21 (unreleased)
+## 0.4.20 (unreleased)
 
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
 - YouTube: fix home page list
 - Better dark mode support
-
-## 0.4.20 (unreleased)
-
 - Google: multiple fixes to support new and changed card types
 
 ## 0.4.19
