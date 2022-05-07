@@ -853,7 +853,7 @@ class YouTube {
     const pageObserver = new MutationObserver(
         async (mutationsList, observer) => {
           const containers = document.querySelectorAll(
-              'ytd-section-list-renderer',
+              'ytd-section-list-renderer, ytd-rich-grid-renderer',
           );
           if (containers.length == 0) {
             return;
