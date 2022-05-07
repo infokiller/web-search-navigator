@@ -883,12 +883,21 @@ class YouTube {
 
   getSearchResults() {
     const includedElements = [
-      // Videos
+      // Videos in vertical search results: https://imgur.com/a/Z8KV5Oe
       {
         nodes: document.querySelectorAll('a#video-title.ytd-video-renderer'),
         highlightClass: 'wsn-youtube-focused-video',
         highlightedElementSelector: (n) => n.closest('ytd-video-renderer'),
         containerSelector: (n) => n.closest('ytd-video-renderer'),
+      },
+      // Home page lists
+      {
+        nodes: document.querySelectorAll(
+            'ytd-rich-item-renderer a#video-title-link',
+        ),
+        highlightClass: 'wsn-youtube-focused-video',
+        highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
+        containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
       },
       // Playlists
       {
