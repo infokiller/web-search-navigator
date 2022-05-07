@@ -850,11 +850,15 @@ class YouTube {
     // The ytd-section-list-renderer element may not exist yet when this code
     // runs, so we look for changes in the higher level elements until we find
     // ytd-section-list-renderer.
+    const YT_CONTAINER_SELECTOR = [
+      'ytd-section-list-renderer',
+      '.ytd-section-list-renderer',
+      'ytd-rich-grid-renderer',
+      'ytd-shelf-renderer',
+    ].join(',');
     const pageObserver = new MutationObserver(
         async (mutationsList, observer) => {
-          const containers = document.querySelectorAll(
-              'ytd-section-list-renderer, ytd-rich-grid-renderer',
-          );
+          const containers = document.querySelectorAll(YT_CONTAINER_SELECTOR);
           if (containers.length == 0) {
             return;
           }
