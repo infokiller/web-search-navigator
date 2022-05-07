@@ -330,6 +330,14 @@ class GoogleSearch {
             highlightedElementSelector: nearestChildOrSiblingOrParentAnchor,
             highlightClass: 'wsn-google-focused-link',
           },
+          // Things to do in X: https://imgur.com/a/ibXwiuT
+          {
+            nodes: document.querySelectorAll('td a [role=heading]'),
+            anchorSelector: nearestChildOrSiblingOrParentAnchor,
+            containerSelector: (n) => n.closest('td'),
+            highlightedElementSelector: (n) => n.closest('td'),
+            highlightClass: 'wsn-google-card-item',
+          },
           // Vertical Maps/Places: https://imgur.com/a/JXrxBCj
           // Vertical recipes: https://imgur.com/a/3r7klHk
           // Top stories grid: https://imgur.com/a/mY93YRF
