@@ -847,17 +847,38 @@ class YouTube {
   }
 
   onChangedResults(callback) {
-    const containers = document.querySelectorAll('ytd-section-list-renderer');
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(true);
+    // The ytd-section-list-renderer element may not exist yet when this code
+    // runs, so we look for changes in the higher level elements until we find
+    // ytd-section-list-renderer.
+    const pageObserver = new MutationObserver(
+        async (mutationsList, observer) => {
+          const containers = document.querySelectorAll(
+              'ytd-section-list-renderer',
+          );
+          if (containers.length == 0) {
+            return;
+          }
+          callback(false);
+          observer.disconnect();
+          const resultsObserver = new MutationObserver(
+              async (mutationsList, observer) => {
+                callback(true);
+              },
+          );
+          for (const container of containers) {
+            resultsObserver.observe(container, {
+              attributes: false,
+              childList: true,
+              subtree: true,
+            });
+          }
+        },
+    );
+    pageObserver.observe(document.querySelector('#page-manager'), {
+      attributes: false,
+      childList: true,
+      subtree: true,
     });
-    for (const container of containers) {
-      observer.observe(container, {
-        attributes: false,
-        childList: true,
-        subtree: true,
-      });
-    }
   }
 
   getSearchResults() {

@@ -3,6 +3,7 @@
 ## 0.4.21 (unreleased)
 
 - Google Scholar: fix selection arrow alignment
+- YouTube: fix race condition in looking for search results
 
 ## 0.4.20 (unreleased)
 
