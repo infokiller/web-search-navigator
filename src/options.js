@@ -8,17 +8,17 @@ const DEFAULT_CSS = `/* NOTE:
  */
  
 :root {
-  --result-outline: 1px solid black !important; 
+  --result-outline: 1px solid black; 
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --result-outline: 1px solid #aaaaaa !important; 
+    --result-outline: 1px solid #aaaaaa; 
   }
 }
 
 html[dark], [dark] {
-  --result-outline: 1px solid #aaaaaa !important; 
+  --result-outline: 1px solid #aaaaaa; 
 }
 
 .wsn-google-focused-link {
@@ -50,23 +50,23 @@ html[dark], [dark] {
 }
 
 .wsn-google-focused-image {
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
     /* Images are less visible with a thin outline */
     outline-width: 2px;
 }
 
 .wsn-google-focused-card,
 .wsn-brave-search-focused-card {
-    border: var(--result-outline);
+    border: var(--result-outline) !important;
 }
 
 .wsn-google-focused-map,
 .wsn-google-card-item {
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
 }
 
 .wsn-google-focused-memex-result {
-    border: var(--result-outline);
+    border: var(--result-outline) !important;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -79,33 +79,33 @@ html[dark], [dark] {
 }
 
 .wsn-youtube-focused-video {
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
     outline-offset: 1px;
 }
 
 .wsn-youtube-focused-grid-video {
-    border: var(--result-outline);
+    border: var(--result-outline) !important;
 }
 
 .wsn-google-scholar-next-page {
     /* Using outline works better than border for the Scholar previous/next
      * buttons because border moves the page numbers a bit. */
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
 }
 
 .wsn-amazon-focused-item {
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
     outline-offset: 3px;
 }
 
 .wsn-amazon-focused-cart-item,
 .wsn-amazon-focused-carousel-item {
-    border: var(--result-outline);
+    border: var(--result-outline) !important;
 }
 
 .wsn-github-focused-item,
 .wsn-github-focused-pagination {
-    outline: var(--result-outline);
+    outline: var(--result-outline) !important;
     outline-offset: 2px;
 }
 
