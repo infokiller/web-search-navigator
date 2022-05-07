@@ -7,6 +7,20 @@ const DEFAULT_CSS = `/* NOTE:
  *   Google Scholar when highlighting the prev/next buttons.
  */
  
+:root {
+  --result-outline: 1px solid black !important; 
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --result-outline: 1px solid #aaaaaa !important; 
+  }
+}
+
+html[dark], [dark] {
+  --result-outline: 1px solid #aaaaaa !important; 
+}
+
 .wsn-google-focused-link {
     position: relative;
     /* This is required for the arrow to appear when navigating sub-results, see
@@ -36,44 +50,26 @@ const DEFAULT_CSS = `/* NOTE:
 }
 
 .wsn-google-focused-image {
-    /* Images are less visible with a thin outline, so we use 2px here */
-    outline: 2px solid black !important;
+    outline: var(--result-outline);
+    /* Images are less visible with a thin outline */
+    outline-width: 2px;
 }
 
 .wsn-google-focused-card,
 .wsn-brave-search-focused-card {
-    border: 1px solid black !important;
+    border: var(--result-outline);
 }
 
 .wsn-google-focused-map,
 .wsn-google-card-item {
-    outline: 1px solid black !important;
+    outline: var(--result-outline);
 }
 
 .wsn-google-focused-memex-result {
-    border: 1px solid black !important;
+    border: var(--result-outline);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  .wsn-google-focused-image, 
-  .wsn-google-focused-card, 
-  .wsn-google-focused-map, 
-  .wsn-google-card-item,
-  .wsn-brave-search-focused-card
-  .wsn-youtube-focused-video,
-  .wsn-youtube-focused-grid-video,
-  .wsn-google-scholar-next-page,
-  .wsn-amazon-focused-item,
-  .wsn-amazon-focused-cart-item,
-  .wsn-amazon-focused-carousel-item,
-  .wsn-github-focused-item,
-  .wsn-github-focused-pagination {
-    outline-color: #aaaaaa !important;
-    border-color: #aaaaaa !important;
-  }
 }
 
 /* Startpage has dark themes where a black outline won't be visible */
@@ -83,33 +79,33 @@ const DEFAULT_CSS = `/* NOTE:
 }
 
 .wsn-youtube-focused-video {
-    outline: 1px solid black !important;
+    outline: var(--result-outline);
     outline-offset: 1px;
 }
 
 .wsn-youtube-focused-grid-video {
-    border: 1px solid black !important;
+    border: var(--result-outline);
 }
 
 .wsn-google-scholar-next-page {
     /* Using outline works better than border for the Scholar previous/next
      * buttons because border moves the page numbers a bit. */
-    outline: 1px solid black !important;
+    outline: var(--result-outline);
 }
 
 .wsn-amazon-focused-item {
-    outline: 1px solid black !important;
+    outline: var(--result-outline);
     outline-offset: 3px;
 }
 
 .wsn-amazon-focused-cart-item,
 .wsn-amazon-focused-carousel-item {
-    border: 1px solid black !important;
+    border: var(--result-outline);
 }
 
 .wsn-github-focused-item,
 .wsn-github-focused-pagination {
-    outline: 1px solid black !important;
+    outline: var(--result-outline);
     outline-offset: 2px;
 }
 
