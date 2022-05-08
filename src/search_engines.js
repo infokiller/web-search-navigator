@@ -864,19 +864,26 @@ class YouTube {
       'ytd-rich-grid-renderer',
       'ytd-shelf-renderer',
     ].join(',');
+    const resultsObserver = new MutationObserver(
+        async (mutationsList, observer) => {
+          callback(true);
+        },
+    );
+    let lastLoadedURL = null;
     const pageObserver = new MutationObserver(
         async (mutationsList, observer) => {
+          const url = window.location.pathname + window.location.search;
+          if (url === lastLoadedURL) {
+            return;
+          } else {
+            resultsObserver.disconnect();
+          }
           const containers = document.querySelectorAll(YT_CONTAINER_SELECTOR);
           if (containers.length == 0) {
             return;
           }
+          lastLoadedURL = url;
           callback(false);
-          observer.disconnect();
-          const resultsObserver = new MutationObserver(
-              async (mutationsList, observer) => {
-                callback(true);
-              },
-          );
           for (const container of containers) {
             resultsObserver.observe(container, {
               attributes: false,

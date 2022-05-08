@@ -5,6 +5,7 @@
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
 - YouTube: fix home page list
+- YouYube: fix navigation not working after searching from a video (https://github.com/infokiller/web-search-navigator/issues/337)
 - Better dark mode support
 - Google: multiple fixes to support new and changed card types
 
