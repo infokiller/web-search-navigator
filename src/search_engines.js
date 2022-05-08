@@ -893,6 +893,11 @@ class YouTube {
           }
         },
     );
+    // TODO: the observer callback is triggered many times because of the broad
+    // changes that the observer tracks. I tried to use other observation specs
+    // to limit it, but then it failed to detect URL changes without page load
+    // (which is what happened in issue #337 [1]).
+    // [1] https://github.com/infokiller/web-search-navigator/issues/337
     pageObserver.observe(document.querySelector('#page-manager'), {
       attributes: false,
       childList: true,
