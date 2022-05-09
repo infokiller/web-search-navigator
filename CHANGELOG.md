@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.20 (unreleased)
+## 0.4.20 (released to Chrome on 2022-05-09)
 
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
