@@ -914,6 +914,15 @@ class YouTube {
         highlightedElementSelector: (n) => n.closest('ytd-video-renderer'),
         containerSelector: (n) => n.closest('ytd-video-renderer'),
       },
+      // Playlist results in vertical search results: https://imgur.com/a/nPjGd9H
+      {
+        nodes: document.querySelectorAll(
+            'ytd-playlist-renderer a[href*="/playlist"]',
+        ),
+        highlightClass: 'wsn-youtube-focused-video',
+        highlightedElementSelector: (n) => n.closest('ytd-playlist-renderer'),
+        containerSelector: (n) => n.closest('ytd-playlist-renderer'),
+      },
       // Home page lists
       {
         nodes: document.querySelectorAll(
