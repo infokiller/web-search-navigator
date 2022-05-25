@@ -113,6 +113,9 @@ const getSortedSearchResults = (
         searchResults.push(searchResult);
       }
     }
+    if (results.gridNavigation && results.gridNavigation.itemsPerRow) {
+      searchResults.itemsPerRow = results.gridNavigation.itemsPerRow;
+    }
   }
   // Sort searchResults by their document position.
   searchResults.sort((a, b) => {
@@ -840,6 +843,7 @@ class StartPage {
 class YouTube {
   constructor(options) {
     this.options = options;
+    this.gridNavigation = false;
   }
   get urlPattern() {
     return /^https:\/\/(www)\.youtube\./;
@@ -931,6 +935,10 @@ class YouTube {
         highlightClass: 'wsn-youtube-focused-video',
         highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
         containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
+        gridNavigation: {
+          itemsPerRow: document.querySelector('ytd-rich-grid-row')
+              .getElementsByTagName('ytd-rich-item-renderer').length,
+        },
       },
       // Playlists
       {
@@ -955,6 +963,11 @@ class YouTube {
         containerSelector: (n) => n.closest('ytd-grid-video-renderer'),
       },
     ];
+
+    // checking if homepage results are present
+    if (includedElements[2].nodes.length > 0) {
+      this.gridNavigation = true;
+    }
     return getSortedSearchResults(includedElements, []);
   }
 

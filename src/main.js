@@ -146,6 +146,33 @@ class SearchResultsManager {
       window.scrollTo(window.scrollX, 0);
     }
   }
+
+  focusDown(shouldWrap) {
+    const focusedRowIndex = this.focusedIndex % this.searchResults.itemsPerRow;
+    if (
+      this.focusedIndex + this.searchResults.itemsPerRow <
+      this.searchResults.length - 1
+    ) {
+      this.focus(this.focusedIndex + this.searchResults.itemsPerRow);
+    } else if (shouldWrap) {
+      this.focus(focusedRowIndex);
+    }
+  }
+
+  focusUp(shouldWrap) {
+    const focusedRowIndex = this.focusedIndex % this.searchResults.itemsPerRow;
+    if ( this.focusedIndex - this.searchResults.itemsPerRow > -1 ) {
+      this.focus(this.focusedIndex - this.searchResults.itemsPerRow);
+    } else if (shouldWrap) {
+      this.focus(
+          this.searchResults - 1 -
+          this.searchResults.itemsPerRow +
+          focusedRowIndex,
+      );
+    } else {
+      window.scrollTo(window.scrollY, 0);
+    }
+  }
 }
 
 class WebSearchNavigator {
@@ -385,24 +412,63 @@ class WebSearchNavigator {
     const getOpt = (key) => {
       return this.options.sync.get(key);
     };
-    this.register(getOpt('nextKey'), () => {
-      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-        this.resultsManager.focus(0);
-        this.isFirstNavigation = false;
-      } else {
-        this.resultsManager.focusNext(getOpt('wrapNavigation'));
-      }
-      return false;
-    });
-    this.register(getOpt('previousKey'), () => {
-      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-        this.resultsManager.focus(0);
-        this.isFirstNavigation = false;
-      } else {
-        this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
-      }
-      return false;
-    });
+    if (!this.searchEngine.gridNavigation) {
+      this.register(getOpt('nextKey'), () => {
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusNext(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+      this.register(getOpt('previousKey'), () => {
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+    } else {
+      this.register(getOpt('nextKey'), () => { // down
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusDown(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+      this.register(getOpt('previousKey'), () => { // up
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusUp(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+      this.register(getOpt('navigatePreviousResultPage'), () => { // left
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+      this.register(getOpt('navigateNextResultPage'), () => { // right
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          this.resultsManager.focusNext(getOpt('wrapNavigation'));
+        }
+        return false;
+      });
+    }
     this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
       if (link == null) {
