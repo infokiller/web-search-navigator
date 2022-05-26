@@ -1,10 +1,10 @@
 # Changelog
 
-## 0.4.21 (unreleased)
+## 0.4.21 (released to Chrome on 2022-05-26)
 
 - YouTube: fix selection of playlist results (#382)
 
-## 0.4.20 (released to Chrome on 2022-05-09)
+## 0.4.20
 
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
