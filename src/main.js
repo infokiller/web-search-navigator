@@ -148,22 +148,24 @@ class SearchResultsManager {
   }
 
   focusDown(shouldWrap) {
-    const focusedRowIndex = this.focusedIndex % this.searchResults.itemsPerRow;
     if (
       this.focusedIndex + this.searchResults.itemsPerRow <
       this.searchResults.length - 1
     ) {
       this.focus(this.focusedIndex + this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
+      const focusedRowIndex = this.focusedIndex %
+        this.searchResults.itemsPerRow;
       this.focus(focusedRowIndex);
     }
   }
 
   focusUp(shouldWrap) {
-    const focusedRowIndex = this.focusedIndex % this.searchResults.itemsPerRow;
     if ( this.focusedIndex - this.searchResults.itemsPerRow > -1 ) {
       this.focus(this.focusedIndex - this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
+      const focusedRowIndex = this.focusedIndex %
+        this.searchResults.itemsPerRow;
       this.focus(
           this.searchResults - 1 -
           this.searchResults.itemsPerRow +

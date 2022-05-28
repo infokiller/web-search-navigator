@@ -927,19 +927,6 @@ class YouTube {
         highlightedElementSelector: (n) => n.closest('ytd-playlist-renderer'),
         containerSelector: (n) => n.closest('ytd-playlist-renderer'),
       },
-      // Home page lists
-      {
-        nodes: document.querySelectorAll(
-            'ytd-rich-item-renderer a#video-title-link',
-        ),
-        highlightClass: 'wsn-youtube-focused-video',
-        highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
-        containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
-        gridNavigation: {
-          itemsPerRow: document.querySelector('ytd-rich-grid-row')
-              .getElementsByTagName('ytd-rich-item-renderer').length,
-        },
-      },
       // Playlists
       {
         nodes: document.querySelectorAll('a.ytd-playlist-video-renderer'),
@@ -963,12 +950,23 @@ class YouTube {
         containerSelector: (n) => n.closest('ytd-grid-video-renderer'),
       },
     ];
-
     // checking if homepage results are present
-    if (includedElements[2].nodes.length > 0) {
+    const homePageElements = {
+      nodes: document.querySelectorAll(
+          'ytd-rich-item-renderer a#video-title-link',
+      ),
+      highlightClass: 'wsn-youtube-focused-video',
+      highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
+      containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
+      gridNavigation: {
+        itemsPerRow: document.querySelector('ytd-rich-grid-row')
+            .getElementsByTagName('ytd-rich-item-renderer').length,
+      },
+    };
+    if (homePageElements.nodes.length > 0) {
       this.gridNavigation = true;
     }
-    return getSortedSearchResults(includedElements, []);
+    return getSortedSearchResults([...includedElements, homePageElements], []);
   }
 
   changeTools(period) {
