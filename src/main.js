@@ -146,6 +146,35 @@ class SearchResultsManager {
       window.scrollTo(window.scrollX, 0);
     }
   }
+
+  focusDown(shouldWrap) {
+    if (
+      this.focusedIndex + this.searchResults.itemsPerRow <
+      this.searchResults.length - 1
+    ) {
+      this.focus(this.focusedIndex + this.searchResults.itemsPerRow);
+    } else if (shouldWrap) {
+      const focusedRowIndex = this.focusedIndex %
+        this.searchResults.itemsPerRow;
+      this.focus(focusedRowIndex);
+    }
+  }
+
+  focusUp(shouldWrap) {
+    if ( this.focusedIndex - this.searchResults.itemsPerRow > -1 ) {
+      this.focus(this.focusedIndex - this.searchResults.itemsPerRow);
+    } else if (shouldWrap) {
+      const focusedRowIndex = this.focusedIndex %
+        this.searchResults.itemsPerRow;
+      this.focus(
+          this.searchResults - 1 -
+          this.searchResults.itemsPerRow +
+          focusedRowIndex,
+      );
+    } else {
+      window.scrollTo(window.scrollY, 0);
+    }
+  }
 }
 
 class WebSearchNavigator {
@@ -385,24 +414,46 @@ class WebSearchNavigator {
     const getOpt = (key) => {
       return this.options.sync.get(key);
     };
-    this.register(getOpt('nextKey'), () => {
-      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-        this.resultsManager.focus(0);
-        this.isFirstNavigation = false;
-      } else {
-        this.resultsManager.focusNext(getOpt('wrapNavigation'));
-      }
-      return false;
-    });
-    this.register(getOpt('previousKey'), () => {
-      if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-        this.resultsManager.focus(0);
-        this.isFirstNavigation = false;
-      } else {
-        this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
-      }
-      return false;
-    });
+    const onFocusChange = (callback) => {
+      return () => {
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          const _callback = callback.bind(this.resultsManager);
+          _callback(getOpt('wrapNavigation'));
+        }
+        return false;
+      };
+    };
+
+    if (!this.searchEngine.gridNavigation) {
+      this.register(
+          getOpt('nextKey'),
+          onFocusChange(this.resultsManager.focusNext),
+      );
+      this.register(
+          getOpt('previousKey'),
+          onFocusChange(this.resultsManager.focusPrevious),
+      );
+    } else {
+      this.register(
+          getOpt('nextKey'),
+          onFocusChange(this.resultsManager.focusDown),
+      );
+      this.register(
+          getOpt('previousKey'),
+          onFocusChange(this.resultsManager.focusUp),
+      );
+      this.register( // left
+          getOpt('navigatePreviousResultPage'),
+          onFocusChange(this.resultsManager.focusPrevious),
+      );
+      this.register( // right
+          getOpt('navigateNextResultPage'),
+          onFocusChange(this.resultsManager.focusNext),
+      );
+    }
     this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
       if (link == null) {

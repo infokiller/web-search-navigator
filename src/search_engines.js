@@ -113,6 +113,9 @@ const getSortedSearchResults = (
         searchResults.push(searchResult);
       }
     }
+    if (results.gridNavigation && results.gridNavigation.itemsPerRow) {
+      searchResults.itemsPerRow = results.gridNavigation.itemsPerRow;
+    }
   }
   // Sort searchResults by their document position.
   searchResults.sort((a, b) => {
@@ -840,6 +843,7 @@ class StartPage {
 class YouTube {
   constructor(options) {
     this.options = options;
+    this.gridNavigation = false;
   }
   get urlPattern() {
     return /^https:\/\/(www)\.youtube\./;
@@ -923,15 +927,6 @@ class YouTube {
         highlightedElementSelector: (n) => n.closest('ytd-playlist-renderer'),
         containerSelector: (n) => n.closest('ytd-playlist-renderer'),
       },
-      // Home page lists
-      {
-        nodes: document.querySelectorAll(
-            'ytd-rich-item-renderer a#video-title-link',
-        ),
-        highlightClass: 'wsn-youtube-focused-video',
-        highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
-        containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
-      },
       // Playlists
       {
         nodes: document.querySelectorAll('a.ytd-playlist-video-renderer'),
@@ -955,7 +950,23 @@ class YouTube {
         containerSelector: (n) => n.closest('ytd-grid-video-renderer'),
       },
     ];
-    return getSortedSearchResults(includedElements, []);
+    // checking if homepage results are present
+    const homePageElements = {
+      nodes: document.querySelectorAll(
+          'ytd-rich-item-renderer a#video-title-link',
+      ),
+      highlightClass: 'wsn-youtube-focused-video',
+      highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
+      containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
+      gridNavigation: {
+        itemsPerRow: document.querySelector('ytd-rich-grid-row')
+            .getElementsByTagName('ytd-rich-item-renderer').length,
+      },
+    };
+    if (homePageElements.nodes.length > 0) {
+      this.gridNavigation = true;
+    }
+    return getSortedSearchResults([...includedElements, homePageElements], []);
   }
 
   changeTools(period) {
