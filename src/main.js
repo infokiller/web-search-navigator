@@ -414,62 +414,45 @@ class WebSearchNavigator {
     const getOpt = (key) => {
       return this.options.sync.get(key);
     };
+    const onFocusChange = (callback) => {
+      return () => {
+        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+          this.resultsManager.focus(0);
+          this.isFirstNavigation = false;
+        } else {
+          const _callback = callback.bind(this.resultsManager);
+          _callback(getOpt('wrapNavigation'));
+        }
+        return false;
+      };
+    };
+
     if (!this.searchEngine.gridNavigation) {
-      this.register(getOpt('nextKey'), () => {
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusNext(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
-      this.register(getOpt('previousKey'), () => {
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
+      this.register(
+          getOpt('nextKey'),
+          onFocusChange(this.resultsManager.focusNext),
+      );
+      this.register(
+          getOpt('previousKey'),
+          onFocusChange(this.resultsManager.focusPrevious),
+      );
     } else {
-      this.register(getOpt('nextKey'), () => { // down
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusDown(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
-      this.register(getOpt('previousKey'), () => { // up
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusUp(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
-      this.register(getOpt('navigatePreviousResultPage'), () => { // left
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusPrevious(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
-      this.register(getOpt('navigateNextResultPage'), () => { // right
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
-          this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
-        } else {
-          this.resultsManager.focusNext(getOpt('wrapNavigation'));
-        }
-        return false;
-      });
+      this.register(
+          getOpt('nextKey'),
+          onFocusChange(this.resultsManager.focusDown),
+      );
+      this.register(
+          getOpt('previousKey'),
+          onFocusChange(this.resultsManager.focusUp),
+      );
+      this.register( // left
+          getOpt('navigatePreviousResultPage'),
+          onFocusChange(this.resultsManager.focusPrevious),
+      );
+      this.register( // right
+          getOpt('navigateNextResultPage'),
+          onFocusChange(this.resultsManager.focusNext),
+      );
     }
     this.register(getOpt('navigateKey'), () => {
       const link = this.resultsManager.getElementToNavigate();
