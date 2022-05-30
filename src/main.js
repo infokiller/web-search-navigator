@@ -332,9 +332,8 @@ class WebSearchNavigator {
     );
   }
 
-  initTabsNavigation() {
-    const tabs = this.searchEngine.tabs || {};
-    for (const [optionName, elementOrGetter] of Object.entries(tabs)) {
+  registerObject(obj) {
+    for (const [optionName, elementOrGetter] of Object.entries(obj)) {
       this.register(this.options.sync.get(optionName), () => {
         if (elementOrGetter == null) {
           return true;
@@ -359,7 +358,20 @@ class WebSearchNavigator {
     }
   }
 
+  initTabsNavigation() {
+    const tabs = this.searchEngine.tabs || {};
+    this.registerObject(tabs);
+  }
+
   initResultsNavigation() {
+    const previousPageButton = this.searchEngine.previousPageButton;
+    const nextPageButton = this.searchEngine.nextPageButton;
+
+    this.registerObject({
+      navigatePreviousResultPage: previousPageButton,
+      navigateNextResultPage: nextPageButton,
+    });
+
     this.resetResultsManager();
     this.registerResultsNavigationKeybindings();
     if (!this.searchEngine.onChangedResults) {

@@ -471,6 +471,19 @@ class GoogleSearch {
 
   // Array storing tuples of tabs navigation keybindings and their corresponding
   // CSS selector
+  get previousPageButton() {
+    if (this.isImagesTab_()) {
+      return null;
+    }
+    return selectorElementGetter('#pnprev');
+  }
+
+  get nextPageButton() {
+    if (this.isImagesTab_()) {
+      return null;
+    }
+    return selectorElementGetter('#pnnext');
+  }
   get tabs() {
     if (this.isImagesTab_()) {
       return this.imageSearchTabs_;
@@ -488,8 +501,6 @@ class GoogleSearch {
       navigateBooksTab: selectorElementGetter('a[href*="&tbm=bks"]'),
       navigateFlightsTab: selectorElementGetter('a[href*="&tbm=flm"]'),
       navigateFinancialTab: selectorElementGetter('[href*="/finance?"]'),
-      navigatePreviousResultPage: selectorElementGetter('#pnprev'),
-      navigateNextResultPage: selectorElementGetter('#pnnext'),
     };
   }
 
@@ -792,6 +803,28 @@ class StartPage {
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
+  get previousPageButton() {
+    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    if (!menuLinks || menuLinks.length < 4) {
+      return null;
+    }
+
+    return document.querySelector(
+        'form.pagination__form.next-prev-form--desktop:first-of-type',
+    );
+  }
+
+  get nextPageButton() {
+    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    if (!menuLinks || menuLinks.length < 4) {
+      return null;
+    }
+
+    return document.querySelector(
+        'form.pagination__form.next-prev-form--desktop:last-of-type',
+    );
+  }
+
   get tabs() {
     const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
     if (!menuLinks || menuLinks.length < 4) {
@@ -802,12 +835,6 @@ class StartPage {
       navigateImagesTab: menuLinks[1],
       navigateVideosTab: menuLinks[2],
       navigateNewsTab: menuLinks[3],
-      navigatePreviousResultPage: document.querySelector(
-          'form.pagination__form.next-prev-form--desktop:first-of-type',
-      ),
-      navigateNextResultPage: document.querySelector(
-          'form.pagination__form.next-prev-form--desktop:last-of-type',
-      ),
     };
   }
 
@@ -1037,17 +1064,21 @@ class GoogleScholar {
     return getSortedSearchResults(includedElements, []);
   }
 
-  get tabs() {
-    const tabs = {};
+  get previousPageButton() {
     const previousPageElement = document.querySelector('.gs_ico_nav_previous');
     if (previousPageElement !== null) {
-      tabs.navigatePreviousResultPage = previousPageElement.parentElement;
+      return previousPageElement.parentElement;
     }
+
+    return null;
+  }
+
+  get nextPageButton() {
     const nextPageElement = document.querySelector('.gs_ico_nav_next');
     if (nextPageElement !== null) {
-      tabs.navigateNextResultPage = nextPageElement.parentElement;
+      return nextPageElement.parentElement;
     }
-    return tabs;
+    return null;
   }
 }
 
@@ -1125,10 +1156,7 @@ class Amazon {
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
-  get tabs() {
-    const pagesTabs = {
-      navigateNextResultPage: document.querySelector('.a-pagination .a-last a'),
-    };
+  get previousPageButton() {
     const paginationContainer = document.querySelector('.a-pagination');
     if (
       paginationContainer &&
@@ -1136,10 +1164,13 @@ class Amazon {
       !paginationContainer.children[0].classList.contains('a-normal')
     ) {
       // prettier-ignore
-      pagesTabs.navigatePreviousResultPage =
-        paginationContainer.children[0].querySelector('a');
+      return paginationContainer.children[0].querySelector('a');
     }
-    return pagesTabs;
+    return null;
+  }
+
+  get nextPageButton() {
+    return document.querySelector('.a-pagination .a-last a') || {};
   }
 }
 
