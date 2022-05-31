@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.22 (unreleased)
+
+- YouTube: enable 4-key grid navigation. In addition to the next/previous search
+  result keybindings, the two keybindings for the next/previous _page_ are used.
+  YouTube has infinite scrolling, so navigating to the next/previous page isn't
+  relevant there anyway.
+
 ## 0.4.21 (released to Chrome on 2022-05-26)
 
 - YouTube: fix selection of playlist results (#382)
@@ -9,7 +16,8 @@
 - Google Scholar: fix selection arrow alignment
 - YouTube: fix race condition in looking for search results
 - YouTube: fix home page list
-- YouYube: fix navigation not working after searching from a video (https://github.com/infokiller/web-search-navigator/issues/337)
+- YouYube: fix navigation not working after searching from a video
+  (https://github.com/infokiller/web-search-navigator/issues/337)
 - Better dark mode support
 - Google: multiple fixes to support new and changed card types
 
