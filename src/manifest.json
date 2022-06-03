@@ -12,7 +12,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "{ffadac89-63bb-4b04-be90-8cb2aa323171}",
-            "strict_min_version": "68.0"
+            "strict_min_version": "78.0"
         }
     },
     "permissions": ["storage"],
