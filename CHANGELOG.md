@@ -1,5 +1,7 @@
 # Changelog
 
+As of 2022-06-04, the published versions is `0.4.21` for both Chrome and Firefox.
+
 ## 0.4.22 (unreleased)
 
 - YouTube: enable 4-key grid navigation. In addition to the next/previous search
@@ -7,7 +9,7 @@
   YouTube has infinite scrolling, so navigating to the next/previous page isn't
   relevant there anyway.
 
-## 0.4.21 (released to Chrome on 2022-05-26)
+## 0.4.21
 
 - YouTube: fix selection of playlist results (#382)
 
