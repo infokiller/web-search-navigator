@@ -77,7 +77,7 @@ class SearchResult {
 
 // eslint-disable-next-line
 /**
- * @param {...[Element[], function|null]} includedSearchResults An array of
+ * @param {Array} includedSearchResults An array of
  * tuples.  Each tuple contains collection of the search results optionally
  * accompanied with their container selector.
  * @constructor
