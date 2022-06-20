@@ -227,6 +227,13 @@ class GoogleSearch {
         highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
       },
+      // Sometimes featured snippets are not contained in #search (possibly when
+      // there are large images?): https://imgur.com/a/VluRKIQ
+      {
+        nodes: document.querySelectorAll('.xpdopen .g a'),
+        highlightClass: 'wsn-google-focused-link',
+        highlightedElementSelector: (n) => n.querySelector('h3'),
+      },
       // Large YouTube video as top result: https://imgur.com/a/JIe62QV
       {
         nodes: document.querySelectorAll('h3 a[href*="youtube.com"]'),

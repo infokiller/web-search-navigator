@@ -4,6 +4,7 @@ As of 2022-06-04, the published versions is `0.4.21` for both Chrome and Firefox
 
 ## 0.4.22 (unreleased)
 
+- Google: fix navigation in some feature snippets
 - YouTube: enable 4-key grid navigation. In addition to the next/previous search
   result keybindings, the two keybindings for the next/previous _page_ are used.
   YouTube has infinite scrolling, so navigating to the next/previous page isn't
