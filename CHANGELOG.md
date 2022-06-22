@@ -1,8 +1,9 @@
 # Changelog
 
-As of 2022-06-04, the published versions is `0.4.21` for both Chrome and Firefox.
+As of 2022-06-22, the published versions is `0.4.22` for Chrome and `0.4.21` for
+Firefox.
 
-## 0.4.22 (unreleased)
+## 0.4.22
 
 - Google: fix navigation in some feature snippets
 - YouTube: enable 4-key grid navigation. In addition to the next/previous search
