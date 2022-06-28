@@ -1,6 +1,6 @@
 # Changelog
 
-As of 2022-06-22, the published versions is `0.4.22` for Chrome and `0.4.21` for
+As of 2022-06-28, the published versions is `0.4.22` for Chrome and `0.4.22` for
 Firefox.
 
 ## 0.4.22
