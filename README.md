@@ -18,6 +18,7 @@ YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
     - [Installing from a release](#installing-from-a-release)
   - [Firefox](#firefox)
   - [Edge](#edge)
+  - [Safari (experimental)](#safari-experimental)
 - [Keybindings](#keybindings)
 - [Development](#development)
   - [Coding style](#coding-style)
@@ -81,6 +82,13 @@ Install from the
 
 Install from
 [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/inkjbmhmeghalgpacijccmbmbclkjgop).
+
+### Safari (experimental)
+
+> NOTE: Safari is supported on a best-effort basis and isn't packaged yet.
+
+Follow
+[these steps](https://github.com/infokiller/web-search-navigator/issues/64#issuecomment-1166552333).
 
 ## Keybindings
 
