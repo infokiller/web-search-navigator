@@ -154,20 +154,21 @@ class SearchResultsManager {
     ) {
       this.focus(this.focusedIndex + this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
-      const focusedRowIndex = this.focusedIndex %
-        this.searchResults.itemsPerRow;
+      const focusedRowIndex =
+        this.focusedIndex % this.searchResults.itemsPerRow;
       this.focus(focusedRowIndex);
     }
   }
 
   focusUp(shouldWrap) {
-    if ( this.focusedIndex - this.searchResults.itemsPerRow > -1 ) {
+    if (this.focusedIndex - this.searchResults.itemsPerRow > -1) {
       this.focus(this.focusedIndex - this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
-      const focusedRowIndex = this.focusedIndex %
-        this.searchResults.itemsPerRow;
+      const focusedRowIndex =
+        this.focusedIndex % this.searchResults.itemsPerRow;
       this.focus(
-          this.searchResults - 1 -
+          this.searchResults -
+          1 -
           this.searchResults.itemsPerRow +
           focusedRowIndex,
       );
@@ -457,11 +458,13 @@ class WebSearchNavigator {
           getOpt('previousKey'),
           onFocusChange(this.resultsManager.focusUp),
       );
-      this.register( // left
+      // Left
+      this.register(
           getOpt('navigatePreviousResultPage'),
           onFocusChange(this.resultsManager.focusPrevious),
       );
-      this.register( // right
+      // Right
+      this.register(
           getOpt('navigateNextResultPage'),
           onFocusChange(this.resultsManager.focusNext),
       );
