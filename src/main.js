@@ -8,6 +8,10 @@ const FOCUS_SCROLL_ONLY = 2;
 
 // Returns true if scrolling was done.
 const scrollToElement = (searchEngine, element) => {
+  if (element == null) {
+    console.error('Cannot scroll to null element');
+    return;
+  }
   let topMargin = 0;
   if (searchEngine.getTopMargin) {
     topMargin = searchEngine.getTopMargin(element);
@@ -72,6 +76,7 @@ class SearchResultsManager {
   highlight(searchResult) {
     const highlighted = searchResult.highlightedElement;
     if (highlighted == null) {
+      console.error('No element to highlight: %o', highlighted);
       return;
     }
     highlighted.classList.add(searchResult.highlightClass);
@@ -83,6 +88,7 @@ class SearchResultsManager {
   unhighlight(searchResult) {
     const highlighted = searchResult.highlightedElement;
     if (highlighted == null) {
+      console.error('No element to unhighlight: %o', highlighted);
       return;
     }
     highlighted.classList.remove(searchResult.highlightClass);
