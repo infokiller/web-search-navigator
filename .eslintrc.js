@@ -12,5 +12,6 @@ module.exports = {
   },
   rules: {
     'require-jsdoc': 0,
+    'space-in-parens': ['error', 'never'],
   },
 };
