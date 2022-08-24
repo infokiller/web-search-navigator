@@ -40,7 +40,7 @@
     "markdownlint-cli": "^0.32.2",
     "minimist": "^1.2.6",
     "prettier": "2.7.1",
-    "prettier-eslint-cli": "^7.0.0",
+    "prettier-eslint-cli": "^7.0.1",
     "set-value": "^4.1.0",
     "shellcheck": "^1.1.0",
     "stylelint": "^14.11.0",
