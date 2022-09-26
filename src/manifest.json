@@ -244,6 +244,8 @@
         "https://www.youtube.com/*",
         "https://github.com/*",
         "https://www.github.com/*",
+        "https://www.stackoverflow.com/*",
+        "https://stackoverflow.com/*",
         "https://www.amazon.com/*",
         "https://www.amazon.cn/*",
         "https://www.amazon.in/*",

@@ -1344,6 +1344,108 @@ class Github {
   }
 }
 
+class StackOverflow {
+  constructor(options) {
+    this.options = options;
+    this.gridNavigation = false;
+  }
+
+  get urlPattern() {
+    return /^https:\/\/(www\.)?stackoverflow\.com/;
+  }
+
+  get searchBoxSelector() {
+    return 'input.js-search-field';
+  }
+
+  getTopMargin(element) {
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('header.s-topbar'),
+        element,
+    );
+  }
+
+  onChangedResults(callback) {
+    const SO_CONTAINER_SELECTOR = '.js-search-results';
+    const resultsObserver = new MutationObserver(
+        async (mutationsList, observer) => {
+          callback(true);
+        },
+    );
+    let lastLoadedURL = null;
+    const pageObserver = new MutationObserver(
+        async (mutationsList, observer) => {
+          const url = window.location.pathname + window.location.search;
+          if (url === lastLoadedURL) {
+            return;
+          }
+
+          resultsObserver.disconnect();
+
+          const container = document.querySelector(SO_CONTAINER_SELECTOR);
+          if (!container) {
+            return;
+          }
+
+          lastLoadedURL = url;
+          callback(false);
+
+          resultsObserver.observe(container, {
+            attributes: false,
+            childList: true,
+            subtree: true,
+          });
+        },
+    );
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      // Question search result
+      {
+        nodes: document.querySelectorAll('div.s-post-summary a[href*="/questions"]:not([href*="/questions/tagged"])'),
+        highlightClass: 'div.s-post-summary'
+      },
+    ];
+    return getSortedSearchResults(includedElements, []);
+  }
+
+  changeTools(period) {
+    if (!document.querySelector('div#collapse-content')) {
+      const toggleButton = document.querySelectorAll(
+          'a.ytd-toggle-button-renderer',
+      )[0];
+      // Toggling the buttons ensures that div#collapse-content is loaded
+      toggleButton.click();
+      toggleButton.click();
+    }
+    const forms = document.querySelectorAll(
+        'div#collapse-content > *:first-of-type ytd-search-filter-renderer',
+    );
+    let neededForm = null;
+    switch (period) {
+      case 'h':
+        neededForm = forms[0];
+        break;
+      case 'd':
+        neededForm = forms[1];
+        break;
+      case 'w':
+        neededForm = forms[2];
+        break;
+      case 'm':
+        neededForm = forms[3];
+        break;
+      case 'y':
+        neededForm = forms[4];
+        break;
+    }
+    if (neededForm) {
+      neededForm.childNodes[1].click();
+    }
+  }
+}
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -1355,6 +1457,7 @@ const getSearchEngine = (options) => {
     new GoogleScholar(options),
     new Amazon(options),
     new Github(options),
+    new StackOverflow(options)
   ];
   // Switch over all compatible search engines
   const href = window.location.href;

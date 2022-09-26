@@ -69,6 +69,7 @@ const OPTIONAL_PERMISSIONS_URLS = {
       '/*',
   ),
   'github': ['https://github.com/*'],
+  'stackoverflow': ['https://stackoverflow.com/*', 'https://www.stackoverflow.com/*'],
   'amazon': generateURLPatterns('https://www.amazon', AMAZON_DOMAINS, '/*'),
 };
 
@@ -140,6 +141,10 @@ class OptionsPageManager {
     const github = document.getElementById('github');
     github.addEventListener('change', () => {
       setSearchEnginePermission_(github);
+    });
+    const stackoverflow = document.getElementById('stackoverflow');
+    stackoverflow.addEventListener('change', () => {
+      setSearchEnginePermission_(stackoverflow);
     });
     const amazon = document.getElementById('amazon');
     amazon.addEventListener('change', () => {
@@ -239,6 +244,10 @@ class OptionsPageManager {
     });
     const github = document.getElementById('github');
     github.checked = OPTIONAL_PERMISSIONS_URLS['github'].every((url) => {
+      return permissions.origins.includes(url);
+    });
+    const stackoverflow = document.getElementById('stackoverflow');
+    stackoverflow.checked = OPTIONAL_PERMISSIONS_URLS['stackoverflow'].every((url) => {
       return permissions.origins.includes(url);
     });
   }
