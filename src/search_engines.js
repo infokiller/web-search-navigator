@@ -413,7 +413,7 @@ class GoogleSearch {
     observer.observe(container, {
       attributes: false,
       childList: true,
-      subtree: false,
+      subtree: true,
     });
   }
 
@@ -1365,46 +1365,16 @@ class StackOverflow {
     );
   }
 
-  onChangedResults(callback) {
-    const SO_CONTAINER_SELECTOR = '.js-search-results';
-    const resultsObserver = new MutationObserver(
-        async (mutationsList, observer) => {
-          callback(true);
-        },
-    );
-    let lastLoadedURL = null;
-    const pageObserver = new MutationObserver(
-        async (mutationsList, observer) => {
-          const url = window.location.pathname + window.location.search;
-          if (url === lastLoadedURL) {
-            return;
-          }
-
-          resultsObserver.disconnect();
-
-          const container = document.querySelector(SO_CONTAINER_SELECTOR);
-          if (!container) {
-            return;
-          }
-
-          lastLoadedURL = url;
-          callback(false);
-
-          resultsObserver.observe(container, {
-            attributes: false,
-            childList: true,
-            subtree: true,
-          });
-        },
-    );
-  }
-
   getSearchResults() {
+    const postSelector = 'div.s-post-summary';
+    const linkNotSelector = ':not([href*="/questions/tagged"])';
+    const linkSelector = `a[href*="/questions"]${linkNotSelector}`;
+    const resultSelector = `${postSelector} ${linkSelector}`;
     const includedElements = [
       // Question search result
       {
-        nodes: document.querySelectorAll('div.s-post-summary a[href*="/questions"]:not([href*="/questions/tagged"])'),
-        highlightClass: 'div.s-post-summary'
+        nodes: document.querySelectorAll(resultSelector),
+        highlightClass: 'div.s-post-summary',
       },
     ];
     return getSortedSearchResults(includedElements, []);
@@ -1457,7 +1427,7 @@ const getSearchEngine = (options) => {
     new GoogleScholar(options),
     new Amazon(options),
     new Github(options),
-    new StackOverflow(options)
+    new StackOverflow(options),
   ];
   // Switch over all compatible search engines
   const href = window.location.href;

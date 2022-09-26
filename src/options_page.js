@@ -247,9 +247,10 @@ class OptionsPageManager {
       return permissions.origins.includes(url);
     });
     const stackoverflow = document.getElementById('stackoverflow');
-    stackoverflow.checked = OPTIONAL_PERMISSIONS_URLS['stackoverflow'].every((url) => {
-      return permissions.origins.includes(url);
-    });
+    stackoverflow.checked =
+      OPTIONAL_PERMISSIONS_URLS['stackoverflow'].every((url) => {
+        return permissions.origins.includes(url);
+      });
   }
 
   // Load options from browser.storage.sync to the DOM.
