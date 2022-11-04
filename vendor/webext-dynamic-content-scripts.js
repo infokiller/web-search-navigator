@@ -96,7 +96,7 @@
 	            if ('code' in content) {
 	                throw new Error('chrome.scripting does not support injecting strings of `code`');
 	            }
-	            void chrome.scripting.executeScript({
+	            void chromeP$1.scripting.executeScript({
 	                target: {
 	                    tabId,
 	                    frameIds: arrayOrUndefined(frameId),
