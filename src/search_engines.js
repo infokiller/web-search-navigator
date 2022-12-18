@@ -993,10 +993,14 @@ class YouTube {
       highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
       containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
       gridNavigation: {
-        itemsPerRow: document.querySelector('ytd-rich-grid-row')
-            .getElementsByTagName('ytd-rich-item-renderer').length,
+        itemsPerRow: 0,
       },
     };
+    const gridRow = document.querySelector('ytd-rich-grid-row');
+    if (gridRow != null) {
+      homePageElements.gridNavigation.itemsPerRow =
+        gridRow.getElementsByTagName('ytd-rich-item-renderer').length;
+    }
     if (homePageElements.nodes.length > 0) {
       this.gridNavigation = true;
     }
