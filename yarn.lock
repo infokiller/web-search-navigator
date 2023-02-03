@@ -5482,10 +5482,10 @@ shell-quote@1.7.3:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
-shellcheck@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-2.0.0.tgz#ed25c22b96d61f9722a9f43655c68bc40c0c6c04"
-  integrity sha512-yhp58te5mAMOc2C0cwrcXrzkojwSGlRQOaeqMsbtZM3jWe7iOk7T1v57Mo8jOkDS4+T/TjgY9qThcKlXEjp5pw==
+shellcheck@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-2.1.0.tgz#6ea018f4a101eee251a28264b72623cd0f147b09"
+  integrity sha512-fxqpExKE6w4GqLJYWvN70NMZffbvqJaFOEMNWe/sadF3fgO0i4boIT8XXduf601BwqsfDKHU0CzDgyzMG6yOxw==
   dependencies:
     "@felipecrs/decompress-tarxz" "^4.0.0"
     decompress "^4.2.1"
