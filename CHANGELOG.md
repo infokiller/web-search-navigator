@@ -5,6 +5,7 @@ Firefox.
 
 ## Unreleased
 
+- Google: fix detecting more results when in the new "continuous results" experience
 - General: don't fail if search result container isn't detected, just write to
   console.
 - YouTube: fix navigation in non-grid pages

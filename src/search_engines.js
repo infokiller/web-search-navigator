@@ -157,6 +157,14 @@ const selectorElementGetter = (selector) => {
   };
 };
 
+const nParent = (element, n) => {
+  while (n > 0 && element) {
+    element = element.parentElement;
+    n--;
+  }
+  return element;
+};
+
 class GoogleSearch {
   constructor(options) {
     this.options = options;
@@ -189,6 +197,19 @@ class GoogleSearch {
     if (this.options.googleIncludeMemex) {
       return this.onMemexResults_(callback);
     }
+    // https://github.com/infokiller/web-search-navigator/issues/464
+    const container = document.querySelector('#rcnt');
+    if (!container) {
+      return;
+    }
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+    });
   }
 
   isImagesTab_() {
@@ -226,6 +247,24 @@ class GoogleSearch {
         nodes: document.querySelectorAll('#search .r g-link > a:first-of-type'),
         highlightClass: 'wsn-google-focused-link',
         containerSelector: (n) => n.parentElement.parentElement,
+      },
+      // More results button in continous loading
+      // https://imgur.com/a/X9zyJ24
+      {
+        nodes: document.querySelectorAll(
+            '#botstuff a[href^="/search"][href*="start="] h3',
+        ),
+        highlightClass: 'wsn-google-focused-link',
+        anchorSelector: (n) => n.closest('a'),
+      },
+      // Continuously loaded results are *sometimes* in the #botstuff container
+      // https://imgur.com/a/s6ow0La
+      {
+        nodes: document.querySelectorAll('#botstuff a h3'),
+        highlightClass: 'wsn-google-focused-link',
+        containerSelector: (n) => nParent(n, 5),
+        highlightedElementSelector: (n) => nParent(n, 5),
+        anchorSelector: (n) => n.closest('a'),
       },
       // Sometimes featured snippets are not contained in #search (possibly when
       // there are large images?): https://imgur.com/a/VluRKIQ
