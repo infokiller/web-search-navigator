@@ -161,6 +161,7 @@ const DEFAULT_OPTIONS = {
   googleIncludeMemex: false,
   googleIncludePlaces: true,
   customCSS: DEFAULT_CSS,
+  simulateMiddleClick: false,
 };
 
 const keybindingStringToArray = (kb) => {

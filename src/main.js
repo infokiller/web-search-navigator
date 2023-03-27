@@ -512,6 +512,30 @@ class WebSearchNavigator {
       if (link == null) {
         return true;
       }
+      if (getOpt('simulateMiddleClick')) {
+        const middleClickMousedown = new MouseEvent('mousedown', {
+          bubbles: true,
+          cancelable: false,
+          view: window,
+          button: 1,
+          which: 2,
+          buttons: 0,
+          clientX: link.getBoundingClientRect().x,
+          clientY: link.getBoundingClientRect().y,
+        });
+        link.dispatchEvent(middleClickMousedown);
+        const middleClickMouseup = new MouseEvent('mouseup', {
+          bubbles: true,
+          cancelable: false,
+          view: window,
+          button: 1,
+          which: 2,
+          buttons: 0,
+          clientX: link.getBoundingClientRect().x,
+          clientY: link.getBoundingClientRect().y,
+        });
+        link.dispatchEvent(middleClickMouseup);
+      }
       browser.runtime.sendMessage({
         type: 'tabsCreate',
         options: {
