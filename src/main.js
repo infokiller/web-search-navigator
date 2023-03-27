@@ -513,7 +513,7 @@ class WebSearchNavigator {
         return true;
       }
       if (getOpt('simulateMiddleClick')) {
-        const middleClickMousedown = new MouseEvent('mousedown', {
+        const mouseEventParams = {
           bubbles: true,
           cancelable: false,
           view: window,
@@ -522,18 +522,13 @@ class WebSearchNavigator {
           buttons: 0,
           clientX: link.getBoundingClientRect().x,
           clientY: link.getBoundingClientRect().y,
-        });
+        };
+        const middleClickMousedown = new MouseEvent(
+            'mousedown',
+            mouseEventParams,
+        );
         link.dispatchEvent(middleClickMousedown);
-        const middleClickMouseup = new MouseEvent('mouseup', {
-          bubbles: true,
-          cancelable: false,
-          view: window,
-          button: 1,
-          which: 2,
-          buttons: 0,
-          clientX: link.getBoundingClientRect().x,
-          clientY: link.getBoundingClientRect().y,
-        });
+        const middleClickMouseup = new MouseEvent('mouseup', mouseEventParams);
         link.dispatchEvent(middleClickMouseup);
       }
       browser.runtime.sendMessage({
