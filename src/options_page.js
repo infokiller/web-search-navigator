@@ -203,6 +203,10 @@ class OptionsPageManager {
         setOpt('customCSS', DEFAULT_CSS);
       }
     }
+    setOpt(
+        'simulateMiddleClick',
+        document.getElementById('simulate-middle-click').checked,
+    );
     try {
       await this.options.save();
       this.flashMessage('Options saved');
@@ -278,6 +282,9 @@ class OptionsPageManager {
     }
     // Load custom CSS
     document.getElementById('custom-css-textarea').value = getOpt('customCSS');
+    document.getElementById('simulate-middle-click').checked = getOpt(
+        'simulateMiddleClick',
+    );
   }
 
   async resetToDefaults() {
