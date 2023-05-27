@@ -179,7 +179,7 @@ class GoogleSearch {
     // 'input[role="combobox"]' but this doesn't work when there's also a
     // dictionary search box.
     // return '#searchform input[name=q]',
-    return 'form[role=search] input[name=q]';
+    return 'form[role=search] [name=q]';
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
