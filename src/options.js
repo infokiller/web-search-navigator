@@ -56,7 +56,8 @@ html[dark], [dark] {
 }
 
 .wsn-google-focused-card,
-.wsn-brave-search-focused-card {
+.wsn-brave-search-focused-card,
+.wsn-google-focused-job-card {
     border: var(--result-outline) !important;
 }
 

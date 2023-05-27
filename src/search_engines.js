@@ -298,6 +298,15 @@ class GoogleSearch {
         nodes: document.querySelectorAll('#search g-card a'),
         highlightClass: 'wsn-google-focused-link',
       },
+      // TODO: add screenshot
+      // Jobs cards
+      {
+        nodes: document.querySelectorAll(
+            '#search [data-hveid] a[href*="htivrt=jobs"]',
+        ),
+        highlightedElementSelector: (n) => n.closest('li'),
+        highlightClass: 'wsn-google-focused-job-card',
+      },
       // Books tab: https://imgur.com/a/QSBIOb6
       // NOTE: This is required for matching "features snippets" in the general
       // search tab, and also matches other results.
