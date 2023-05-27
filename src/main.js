@@ -156,7 +156,7 @@ class SearchResultsManager {
   focusDown(shouldWrap) {
     if (
       this.focusedIndex + this.searchResults.itemsPerRow <
-      this.searchResults.length - 1
+      this.searchResults.length
     ) {
       this.focus(this.focusedIndex + this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
@@ -167,7 +167,7 @@ class SearchResultsManager {
   }
 
   focusUp(shouldWrap) {
-    if (this.focusedIndex - this.searchResults.itemsPerRow > -1) {
+    if (this.focusedIndex - this.searchResults.itemsPerRow >= 0) {
       this.focus(this.focusedIndex - this.searchResults.itemsPerRow);
     } else if (shouldWrap) {
       const focusedRowIndex =
