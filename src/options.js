@@ -6,19 +6,19 @@ const DEFAULT_CSS = `/* NOTE:
  *   border can move other elements, for example the page numbers are moved in
  *   Google Scholar when highlighting the prev/next buttons.
  */
- 
+
 :root {
-  --result-outline: 1px solid black; 
+  --result-outline: 1px solid black;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --result-outline: 1px solid #aaaaaa; 
+    --result-outline: 1px solid #aaaaaa;
   }
 }
 
 html[dark], [dark] {
-  --result-outline: 1px solid #aaaaaa; 
+  --result-outline: 1px solid #aaaaaa;
 }
 
 .wsn-google-focused-link {
