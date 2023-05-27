@@ -34,6 +34,41 @@ const scrollToElement = (searchEngine, element) => {
   return Math.abs(window.scrollY - scrollY) > 0.01;
 };
 
+const bindKeys = (bindings, toggle) => {
+  // NOTE: Mousetrap calls the handler even if there's a larger sequence that
+  // ends with the same key. For example, if the user binds both 'a b' and
+  // 'b', when pressing the sequence 'a b' both handlers will be called, which
+  // is not the desired behavior for this extension. Therefore, we first sort
+  // all keybindings by their sequence length, so that handlers of larger
+  // sequences will be called before the shorter ones. Then, we only call
+  // other handlers if the previous handler returned true.
+  bindings.sort((a, b) => {
+    return b[0].split(' ').length - a[0].split(' ').length;
+  });
+  let lastEvent;
+  let lastHandlerResult;
+  for (const [shortcut, element, global, callback] of bindings) {
+    const wrappedCallback = (event) => {
+      if (!toggle['active']) {
+        return true;
+      }
+      if (event === lastEvent && !lastHandlerResult) {
+        return;
+      }
+      lastEvent = event;
+      lastHandlerResult = callback(event);
+      return lastHandlerResult;
+    };
+    if (global) {
+      /* eslint-disable-next-line new-cap */
+      Mousetrap(element).bindGlobal(shortcut, wrappedCallback);
+    } else {
+      /* eslint-disable-next-line new-cap */
+      Mousetrap(element).bind(shortcut, wrappedCallback);
+    }
+  }
+};
+
 class SearchResultsManager {
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;
@@ -187,6 +222,7 @@ class SearchResultsManager {
 class WebSearchNavigator {
   constructor() {
     this.bindings = [];
+    this.bindingsToggle = {active: true};
   }
 
   async init() {
@@ -200,6 +236,25 @@ class WebSearchNavigator {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     };
     await sleep(this.options.sync.get('delay'));
+    this.injectCSS();
+    this.initKeybindings();
+  }
+
+  injectCSS() {
+    const style = document.createElement('style');
+    style.textContent = this.options.sync.get('customCSS');
+    document.head.append(style);
+  }
+
+  initKeybindings() {
+    this.bindingsToggle['active'] = false;
+    for (const [shortcut, element, ,] of this.bindings) {
+      /* eslint-disable-next-line new-cap */
+      const ms = Mousetrap(element);
+      ms.unbind(shortcut);
+      ms.reset();
+    }
+    this.bindings = [];
     // UGLY WORKAROUND: Results navigation breaks YouTube space keybinding for
     // pausing/resuming a video. A workaround is to click on an element on the
     // page (except the video), but for now I'm disabling results navigation
@@ -208,49 +263,11 @@ class WebSearchNavigator {
     if (!window.location.href.match(/^https:\/\/(www)\.youtube\.com\/watch/)) {
       this.initResultsNavigation();
     }
-    this.injectCSS();
     this.initTabsNavigation();
     this.initChangeToolsNavigation();
     this.initSearchInputNavigation();
-    this.bindKeys();
-  }
-
-  bindKeys() {
-    // NOTE: Mousetrap calls the handler even if there's a larger sequence that
-    // ends with the same key. For example, if the user binds both 'a b' and
-    // 'b', when pressing the sequence 'a b' both handlers will be called, which
-    // is not the desired behavior for this extension. Therefore, we first sort
-    // all keybindings by their sequence length, so that handlers of larger
-    // sequences will be called before the shorter ones. Then, we only call
-    // other handlers if the previous handler returned true.
-    this.bindings.sort((a, b) => {
-      return b[0].split(' ').length - a[0].split(' ').length;
-    });
-    let lastEvent;
-    let lastHandlerResult;
-    for (const [shortcut, element, global, callback] of this.bindings) {
-      const wrappedCallback = (event) => {
-        if (event === lastEvent && !lastHandlerResult) {
-          return;
-        }
-        lastEvent = event;
-        lastHandlerResult = callback(event);
-        return lastHandlerResult;
-      };
-      if (global) {
-        /* eslint-disable-next-line new-cap */
-        Mousetrap(element).bindGlobal(shortcut, wrappedCallback);
-      } else {
-        /* eslint-disable-next-line new-cap */
-        Mousetrap(element).bind(shortcut, wrappedCallback);
-      }
-    }
-  }
-
-  injectCSS() {
-    const style = document.createElement('style');
-    style.textContent = this.options.sync.get('customCSS');
-    document.head.append(style);
+    this.bindingsToggle = {active: true};
+    bindKeys(this.bindings, this.bindingsToggle);
   }
 
   initSearchInputNavigation() {
@@ -384,11 +401,20 @@ class WebSearchNavigator {
     if (!this.searchEngine.onChangedResults) {
       return;
     }
+    let gridNavigation = this.searchEngine.gridNavigation;
     this.searchEngine.onChangedResults((appendedOnly) => {
       if (appendedOnly) {
         this.resultsManager.reloadSearchResults();
       } else {
         this.resetResultsManager();
+      }
+      // In YouTube, the initial load does not always detect the grid navigation
+      // (because it can happen before results are actually loaded to the page).
+      // In this case, we must rebind the navigation keys after the results are
+      // loaded.
+      if (this.searchEngine.gridNavigation != gridNavigation) {
+        gridNavigation = this.searchEngine.gridNavigation;
+        this.initKeybindings();
       }
     });
   }

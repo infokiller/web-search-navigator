@@ -11,6 +11,7 @@ Firefox.
 - General: don't fail if search result container isn't detected, just write to
   console.
 - YouTube: fix navigation in non-grid pages
+- YouTube: fix grid navigation in home page (issue #405)
 
 ## 0.4.22
 
