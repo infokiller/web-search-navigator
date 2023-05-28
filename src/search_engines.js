@@ -848,9 +848,13 @@ class BraveSearch {
   get tabs() {
     return {
       navigateSearchTab: document.querySelector('a[href*="/search?q="]'),
-      navigateImagesTab: document.querySelector('a[href*="/images?q="]'),
+      navigateImagesTab: document.querySelector(
+          '#tab-images > a:first-of-type',
+      ),
       navigateNewsTab: document.querySelector('a[href*="/news?q="]'),
-      navigateVideosTab: document.querySelector('a[href*="/videos?q="]'),
+      navigateVideosTab: document.querySelector(
+          '#tab-videos > a:first-of-type',
+      ),
     };
   }
 }

@@ -13,6 +13,7 @@ Firefox.
 - YouTube: fix navigation in non-grid pages
 - YouTube: fix grid navigation in home page (issue #405)
 - YouTube: debounce results loading calls
+- Brave: fix navigation to images and videos tabs
 
 ## 0.4.22
 
