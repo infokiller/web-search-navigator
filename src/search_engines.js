@@ -209,9 +209,11 @@ class GoogleSearch {
     if (!container) {
       return;
     }
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(true);
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          callback(true);
+        }, 50),
+    );
     observer.observe(container, {
       attributes: false,
       childList: true,
@@ -462,9 +464,11 @@ class GoogleSearch {
     if (!container) {
       return;
     }
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(true);
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          callback(true);
+        }, 50),
+    );
     observer.observe(container, {
       attributes: false,
       childList: true,
@@ -477,11 +481,13 @@ class GoogleSearch {
     if (!container) {
       return;
     }
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      if (document.querySelector('#memexResults') != null) {
-        callback(true);
-      }
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          if (document.querySelector('#memexResults') != null) {
+            callback(true);
+          }
+        }, 50),
+    );
     observer.observe(container, {
       attributes: false,
       childList: true,
@@ -715,9 +721,11 @@ class BraveSearch {
 
   onChangedResults(callback) {
     const containers = document.querySelectorAll('#results');
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(true);
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          callback(true);
+        }, 50),
+    );
     for (const container of containers) {
       observer.observe(container, {
         attributes: false,
@@ -1170,9 +1178,11 @@ class Amazon {
     if (!container) {
       return;
     }
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      callback(false);
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          callback(false);
+        }, 50),
+    );
     observer.observe(container, {
       attributes: false,
       childList: true,
@@ -1388,14 +1398,16 @@ class Github {
     // Store the last URL to detect page navigations (for example going to the
     // next page of results).
     let lastURL = window.location.href;
-    const observer = new MutationObserver(async (mutationsList, observer) => {
-      let appendOnly = true;
-      if (window.location.href !== lastURL) {
-        lastURL = window.location.href;
-        appendOnly = false;
-      }
-      callback(appendOnly);
-    });
+    const observer = new MutationObserver(
+        debounce((mutationsList, observer) => {
+          let appendOnly = true;
+          if (window.location.href !== lastURL) {
+            lastURL = window.location.href;
+            appendOnly = false;
+          }
+          callback(appendOnly);
+        }, 50),
+    );
     observer.observe(container, {
       attributes: false,
       childList: true,
