@@ -113,9 +113,6 @@ const getSortedSearchResults = (
         searchResults.push(searchResult);
       }
     }
-    if (results.gridNavigation && results.gridNavigation.itemsPerRow) {
-      searchResults.itemsPerRow = results.gridNavigation.itemsPerRow;
-    }
   }
   // Sort searchResults by their document position.
   searchResults.sort((a, b) => {
@@ -163,6 +160,16 @@ const nParent = (element, n) => {
     n--;
   }
   return element;
+};
+
+const debounce = (callback, delayMs) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      return callback(...args);
+    }, delayMs);
+  };
 };
 
 class GoogleSearch {
@@ -951,39 +958,40 @@ class YouTube {
       'ytd-shelf-renderer',
     ].join(',');
     const resultsObserver = new MutationObserver(
-        async (mutationsList, observer) => {
+        debounce((mutationsList, observer) => {
           callback(true);
-        },
+        }, 50),
     );
     let lastLoadedURL = null;
-    const pageObserver = new MutationObserver(
-        async (mutationsList, observer) => {
-          const url = window.location.pathname + window.location.search;
-          if (url === lastLoadedURL) {
-            return;
-          } else {
-            resultsObserver.disconnect();
-          }
-          const containers = document.querySelectorAll(YT_CONTAINER_SELECTOR);
-          if (containers.length == 0) {
-            return;
-          }
-          lastLoadedURL = url;
-          callback(false);
-          for (const container of containers) {
-            resultsObserver.observe(container, {
-              attributes: false,
-              childList: true,
-              subtree: true,
-            });
-          }
-        },
-    );
+    const pageObserverCallback = (mutationsList, observer) => {
+      const url = window.location.pathname + window.location.search;
+      if (url === lastLoadedURL) {
+        return;
+      } else {
+        resultsObserver.disconnect();
+      }
+      const containers = document.querySelectorAll(YT_CONTAINER_SELECTOR);
+      if (containers.length == 0) {
+        return;
+      }
+      lastLoadedURL = url;
+      callback(false);
+      for (const container of containers) {
+        resultsObserver.observe(container, {
+          attributes: false,
+          childList: true,
+          subtree: true,
+        });
+      }
+    };
     // TODO: the observer callback is triggered many times because of the broad
     // changes that the observer tracks. I tried to use other observation specs
     // to limit it, but then it failed to detect URL changes without page load
     // (which is what happened in issue #337 [1]).
     // [1] https://github.com/infokiller/web-search-navigator/issues/337
+    const pageObserver = new MutationObserver(
+        debounce(pageObserverCallback, 50),
+    );
     pageObserver.observe(document.querySelector('#page-manager'), {
       attributes: false,
       childList: true,
@@ -1040,19 +1048,25 @@ class YouTube {
       highlightClass: 'wsn-youtube-focused-video',
       highlightedElementSelector: (n) => n.closest('ytd-rich-item-renderer'),
       containerSelector: (n) => n.closest('ytd-rich-item-renderer'),
-      gridNavigation: {
-        itemsPerRow: 0,
-      },
     };
+    const results = getSortedSearchResults(
+        [...includedElements, homePageElements],
+        [],
+    );
+    // When navigating away from the home page, the home page elements are still
+    // in the DOM but they are not visible, so we must check if they are
+    // visible (using offsetParent), not just if they are present.
+    const isHomePage = Array.from(homePageElements.nodes).some(
+        (n) => n.offsetParent != null,
+    );
     const gridRow = document.querySelector('ytd-rich-grid-row');
-    if (gridRow != null) {
-      homePageElements.gridNavigation.itemsPerRow =
-        gridRow.getElementsByTagName('ytd-rich-item-renderer').length;
+    if (isHomePage && gridRow != null) {
+      results.itemsPerRow = gridRow.getElementsByTagName(
+          'ytd-rich-item-renderer',
+      ).length;
+      results.gridNavigation = results.itemsPerRow > 0;
     }
-    if (homePageElements.nodes.length > 0) {
-      this.gridNavigation = true;
-    }
-    return getSortedSearchResults([...includedElements, homePageElements], []);
+    return results;
   }
 
   changeTools(period) {

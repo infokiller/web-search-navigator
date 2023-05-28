@@ -254,6 +254,7 @@ class WebSearchNavigator {
       ms.unbind(shortcut);
       ms.reset();
     }
+    const isFirstCall = this.bindings.length === 0;
     this.bindings = [];
     // UGLY WORKAROUND: Results navigation breaks YouTube space keybinding for
     // pausing/resuming a video. A workaround is to click on an element on the
@@ -261,7 +262,7 @@ class WebSearchNavigator {
     // when watching a video.
     // TODO: Find a proper fix.
     if (!window.location.href.match(/^https:\/\/(www)\.youtube\.com\/watch/)) {
-      this.initResultsNavigation();
+      this.initResultsNavigation(isFirstCall);
     }
     this.initTabsNavigation();
     this.initChangeToolsNavigation();
@@ -387,21 +388,19 @@ class WebSearchNavigator {
     this.registerObject(tabs);
   }
 
-  initResultsNavigation() {
-    const previousPageButton = this.searchEngine.previousPageButton;
-    const nextPageButton = this.searchEngine.nextPageButton;
-
+  initResultsNavigation(isFirstCall) {
     this.registerObject({
-      navigatePreviousResultPage: previousPageButton,
-      navigateNextResultPage: nextPageButton,
+      navigatePreviousResultPage: this.searchEngine.previousPageButton,
+      navigateNextResultPage: this.searchEngine.nextPageButton,
     });
-
     this.resetResultsManager();
-    this.registerResultsNavigationKeybindings();
-    if (!this.searchEngine.onChangedResults) {
+    let gridNavigation = this.resultsManager.searchResults.gridNavigation;
+    this.registerResultsNavigationKeybindings(gridNavigation);
+    // NOTE: we must not call onChangedResults multiple times, otherwise the
+    // URL change detection logic (which exists in YouTube) will break.
+    if (!isFirstCall || !this.searchEngine.onChangedResults) {
       return;
     }
-    let gridNavigation = this.searchEngine.gridNavigation;
     this.searchEngine.onChangedResults((appendedOnly) => {
       if (appendedOnly) {
         this.resultsManager.reloadSearchResults();
@@ -412,8 +411,8 @@ class WebSearchNavigator {
       // (because it can happen before results are actually loaded to the page).
       // In this case, we must rebind the navigation keys after the results are
       // loaded.
-      if (this.searchEngine.gridNavigation != gridNavigation) {
-        gridNavigation = this.searchEngine.gridNavigation;
+      if (gridNavigation != this.resultsManager.searchResults.gridNavigation) {
+        gridNavigation = this.resultsManager.searchResults.gridNavigation;
         this.initKeybindings();
       }
     });
@@ -455,7 +454,7 @@ class WebSearchNavigator {
     }
   }
 
-  registerResultsNavigationKeybindings() {
+  registerResultsNavigationKeybindings(gridNavigation) {
     const getOpt = (key) => {
       return this.options.sync.get(key);
     };
@@ -472,7 +471,7 @@ class WebSearchNavigator {
       };
     };
 
-    if (!this.searchEngine.gridNavigation) {
+    if (!gridNavigation) {
       this.register(
           getOpt('nextKey'),
           onFocusChange(this.resultsManager.focusNext),
