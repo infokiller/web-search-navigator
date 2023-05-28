@@ -499,12 +499,18 @@ class GoogleSearch {
     if (this.options.googleIncludeMemex) {
       includedElements.push(...GoogleSearch.#memexResults());
     }
-    // People also ask. Each one of the used selectors should be sufficient,
-    // but we use both to be more robust to upstream DOM changes.
     const excludedElements = document.querySelectorAll(
         [
+          // People also ask. Each one of the used selectors should be
+          // sufficient, but we use both to be more robust to upstream DOM
+          // changes.
           '.related-question-pair a',
           '#search .kp-blk:not(.c2xzTb) .r > a:first-of-type',
+          // Right hand sidebar. We exclude it because it is after all the
+          // results in the document order (as determined by
+          // Node.DOCUMENT_POSITION_FOLLOWING used in getSortedSearchResults),
+          // and it's confusing.
+          '#rhs a',
         ].join(', '),
     );
     return getSortedSearchResults(includedElements, excludedElements);
