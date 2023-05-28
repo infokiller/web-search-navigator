@@ -40,8 +40,8 @@ body:
       label: Other extensions
       description: Does it happen if you disable all other extensions?
       options:
-        - Yes
-        - No
+        - 'Yes'
+        - 'No'
     validations:
       required: true
   - type: input
