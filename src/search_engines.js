@@ -510,7 +510,7 @@ class GoogleSearch {
     return getSortedSearchResults(includedElements, excludedElements);
   }
 
-  #onImageSearchResults(callback) {
+  static #onImageSearchResults(callback) {
     const container = document.querySelector('.islrc');
     if (!container) {
       return;
@@ -786,7 +786,7 @@ class BraveSearch {
     }
   }
 
-  #getNewsTabResults() {
+  static #getNewsTabResults() {
     const includedElements = [
       {
         nodes: document.querySelectorAll('.snippet a'),
@@ -794,7 +794,6 @@ class BraveSearch {
         containerSelector: (n) => n.parentElement,
       },
     ];
-
     return getSortedSearchResults(includedElements);
   }
 
@@ -807,7 +806,6 @@ class BraveSearch {
         containerSelector: (n) => n.parentElement,
       },
     ];
-
     return getSortedSearchResults(includedElements);
   }
 
