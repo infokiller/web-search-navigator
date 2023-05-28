@@ -5,6 +5,8 @@ Firefox.
 
 ## Unreleased
 
+## 0.5.0
+
 - Google: fix detecting more results when in the new "continuous results" experience
 - Google: fix search box keybindings (#515)
 - Google: fix job cards (#406)
