@@ -1,0 +1,74 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    attributes:
+      label: Related issues
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: And if the bug isn't obvious, what did you expect to happen?
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Browsers
+      description: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Microsoft Edge
+        - Safari
+    validations:
+      required: true
+  - type: dropdown
+    id: other-extensions
+    attributes:
+      label: Other extensions
+      description: Does it happen if you disable all other extensions?
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version are you running?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Please follow [the troubleshooting section](https://github.com/infokiller/web-search-navigator#troubleshooting)
+  - type: checkboxes
+    id: troubleshoot-confirm
+    attributes:
+      label: Troubleshooting result
+      description: Please confirm that you followed the troubleshooting section
+      options:
+      - label: I have followed the troubleshooting section
+        required: true
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else
+      description: Is there anything else you want to add?
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
