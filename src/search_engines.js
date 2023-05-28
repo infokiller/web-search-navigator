@@ -1270,7 +1270,7 @@ class Amazon {
       },
       // Next/previous and page numbers.
       {
-        nodes: document.querySelectorAll('.a-pagination a'),
+        nodes: document.querySelectorAll('a.s-pagination-item'),
         highlightClass: 'wsn-amazon-focused-item',
       },
       // Shopping card items
@@ -1293,20 +1293,11 @@ class Amazon {
   }
 
   get previousPageButton() {
-    const paginationContainer = document.querySelector('.a-pagination');
-    if (
-      paginationContainer &&
-      paginationContainer.children[0] &&
-      !paginationContainer.children[0].classList.contains('a-normal')
-    ) {
-      // prettier-ignore
-      return paginationContainer.children[0].querySelector('a');
-    }
-    return null;
+    return document.querySelector('a.s-pagination-previous');
   }
 
   get nextPageButton() {
-    return document.querySelector('.a-pagination .a-last a') || {};
+    return document.querySelector('a.s-pagination-next');
   }
 }
 

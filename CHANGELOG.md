@@ -15,6 +15,7 @@ Firefox.
 - YouTube: debounce results loading calls
 - Brave: fix navigation to images and videos tabs
 - Startpage: fix input box selection
+- Amazon: fix page navigation buttons
 
 ## 0.4.22
 
