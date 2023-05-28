@@ -16,6 +16,8 @@ Firefox.
 - Brave: fix navigation to images and videos tabs
 - Startpage: fix input box selection
 - Amazon: fix page navigation buttons
+- Github: fix search box selector (still buggy)
+- Github: fix navigation/mutation detection
 
 ## 0.4.22
 

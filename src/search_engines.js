@@ -1312,7 +1312,7 @@ class Github {
     // TODO: With the escape key, this only works the first time the keybinding
     // is used, Since Github seem to capture this as well, which causes it to
     // leave the search box.
-    return '[role="combobox"] input[name="q"]';
+    return 'input[name="q"]';
   }
 
   static #getCommitSearchLinks() {
@@ -1422,7 +1422,7 @@ class Github {
     }
     const excludedElements = [
       // Exclude small links
-      ...document.querySelectorAll('.muted-link'),
+      ...document.querySelectorAll('.muted-link, .Link--muted'),
       // Exclude topic tags
       ...document.querySelectorAll('.topic-tag'),
       // Exclude small links in commits
@@ -1433,9 +1433,7 @@ class Github {
   }
 
   onChangedResults(callback) {
-    // NOTE: Using body breaks the search box: when it's clicked on, it is
-    // briefly expanded and then automatically closed with no way to type in it.
-    const container = document.querySelector('.application-main ');
+    const container = document.querySelector('body');
     if (!container) {
       return;
     }
@@ -1455,7 +1453,7 @@ class Github {
     observer.observe(container, {
       attributes: false,
       childList: true,
-      subtree: true,
+      subtree: false,
     });
   }
 

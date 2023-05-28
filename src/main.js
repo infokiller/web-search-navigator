@@ -272,7 +272,7 @@ class WebSearchNavigator {
   }
 
   initSearchInputNavigation() {
-    const searchInput = document.querySelector(
+    let searchInput = document.querySelector(
         this.searchEngine.searchBoxSelector,
     );
     if (searchInput == null) {
@@ -284,6 +284,17 @@ class WebSearchNavigator {
     const shouldHandleSearchInputKey = (event) => {
       return event.ctrlKey || event.metaKey || event.key === 'Escape';
     };
+    // In Github, the search input element changes while in the page, so we
+    // redetect it if it's not visible.
+    const detectSearchInput = () => {
+      if (searchInput != null && searchInput.offsetParent != null) {
+        return true;
+      }
+      searchInput = document.querySelector(
+          this.searchEngine.searchBoxSelector,
+      );
+      return searchInput != null && searchInput.offsetParent != null;
+    };
     // If insideSearchboxHandler returns true, outsideSearchboxHandler will also
     // be called (because it's defined on document, hence has lower priority),
     // in which case we don't want to handle the event. Therefore, we store the
@@ -291,6 +302,9 @@ class WebSearchNavigator {
     // in outsideSearchboxHandler if it's not the same one.
     let lastEvent;
     const outsideSearchboxHandler = (event) => {
+      if (!detectSearchInput()) {
+        return;
+      }
       if (event === lastEvent) {
         return !shouldHandleSearchInputKey(event);
       }
@@ -305,10 +319,13 @@ class WebSearchNavigator {
       // clear to the user that it has focus.
       scrollToElement(this.searchEngine, searchInput);
       searchInput.select();
-      searchInput.click();
+      // searchInput.click();
       return false;
     };
     const insideSearchboxHandler = (event) => {
+      if (!detectSearchInput()) {
+        return;
+      }
       lastEvent = event;
       if (!shouldHandleSearchInputKey(event)) {
         return true;
