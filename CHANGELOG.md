@@ -14,6 +14,7 @@ Firefox.
 - YouTube: fix grid navigation in home page (issue #405)
 - YouTube: debounce results loading calls
 - Brave: fix navigation to images and videos tabs
+- Startpage: fix input box selection
 
 ## 0.4.22
 

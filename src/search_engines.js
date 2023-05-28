@@ -867,7 +867,7 @@ class StartPage {
     return /^https:\/\/(www\.)?startpage\./;
   }
   get searchBoxSelector() {
-    return '.search-form__form input[id=q]';
+    return '#q';
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
