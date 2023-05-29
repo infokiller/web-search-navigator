@@ -1,6 +1,6 @@
 # Changelog
 
-As of 2023-05-29, the published versions are `0.4.22` for Chrome and `0.5.1` for
+As of 2023-05-29, the published versions are `0.5.0` for Chrome and `0.5.1` for
 Firefox.
 
 ## Unreleased
