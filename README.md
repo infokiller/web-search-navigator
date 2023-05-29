@@ -246,5 +246,5 @@ See [PRIVACY_POLICY.md](./docs/PRIVACY_POLICY.md).
 
 This project is not affiliated with Google LLC.
 
-©2022 Google LLC All rights reserved. Google™ search is a trademark of Google
+©2023 Google LLC All rights reserved. Google™ search is a trademark of Google
 LLC.

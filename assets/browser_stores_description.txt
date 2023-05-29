@@ -50,4 +50,4 @@ See the latest changelog in https://github.com/infokiller/web-search-navigator/b
 - `z z`: Turn off filter (show all results)
 - `z t`: Toggle sort by date/relevance (only when filtering)
 
-©2022 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
+©2023 Google LLC All rights reserved. Google™ search is a trademark of Google LLC.
