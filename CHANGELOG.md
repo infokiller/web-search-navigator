@@ -5,6 +5,8 @@ Firefox.
 
 ## Unreleased
 
+## 0.5.2
+
 - General: fix auto-select with no initial results
 - Gitlab: new experimental support
 
