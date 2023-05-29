@@ -5,6 +5,8 @@ Firefox.
 
 ## Unreleased
 
+- General: open new tabs in the same tab group of the current tab (issue #524)
+
 ## 0.5.0
 
 - Google: fix detecting more results when in the new "continuous results" experience
