@@ -7,7 +7,7 @@
 [![Linters](https://github.com/infokiller/web-search-navigator/actions/workflows/lint.yml/badge.svg)](https://github.com/infokiller/web-search-navigator/actions/workflows/lint.yml)
 
 Browser extension that adds configurable keyboard shortcuts to Google search,
-YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
+YouTube, Startpage, Brave Search, Google Scholar, Github, Gitlab, and Amazon.
 
 ![Demo flow](./assets/demo.gif?raw=true)
 
@@ -48,9 +48,9 @@ YouTube, Startpage, Brave Search, Google Scholar, Github, and Amazon.
 - Supports both key combos and key sequences
 - Custom CSS rules to control the look of highlighted results
 - Experimental and optional support for YouTube, Startpage, Brave Search, Google
-  Scholar, Github, and Amazon (needs to be enabled in the options). Note that
-  the extension does not have permissions for these optional websites unless you
-  explicitly enable them.
+  Scholar, Github, Gitlab, and Amazon (needs to be enabled in the options). Note
+  that the extension does not have permissions for these optional websites
+  unless you explicitly enable them.
 
 ## Installation
 

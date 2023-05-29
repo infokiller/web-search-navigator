@@ -316,9 +316,7 @@ class WebSearchNavigator {
       if (searchInput != null && searchInput.offsetParent != null) {
         return true;
       }
-      searchInput = document.querySelector(
-          this.searchEngine.searchBoxSelector,
-      );
+      searchInput = document.querySelector(this.searchEngine.searchBoxSelector);
       return searchInput != null && searchInput.offsetParent != null;
     };
     // If insideSearchboxHandler returns true, outsideSearchboxHandler will also

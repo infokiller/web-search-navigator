@@ -237,11 +237,13 @@
         }
     ],
     "optional_permissions": [
+        "https://*/*",
         "https://search.brave.com/*",
         "https://startpage.com/*",
         "https://www.startpage.com/*",
         "https://www.youtube.com/*",
         "https://github.com/*",
+        "https://gitlab.com/*",
         "https://www.github.com/*",
         "https://www.amazon.com/*",
         "https://www.amazon.cn/*",

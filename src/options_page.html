@@ -228,6 +228,16 @@
                 <input type="checkbox" id="github"> Enable on Github
             </label>
         </div>
+        <div class="option">
+            <label for="gitlab">
+                <input type="checkbox" id="gitlab"> Enable on Gitlab
+            </label>
+        </div>
+        <div class="option">
+            <label for="custom-gitlab">
+                <input type="checkbox" id="custom-gitlab"> Enable on custom Gitlab
+            </label>
+        </div>
     </section>
     <section id="appearance-container">
         <h2>Appearance</h2>
@@ -264,11 +274,22 @@
                     <input type="checkbox" id="simulate-middle-click"> Simulate middle click when opening in a new background tab
                 </label>
             </div>
+            <div class="option">
+                <h3>Custom Gitlab URL regex</h3>
+                <div class="help">
+                    Define private Gitlab URL regex. Default is ^https://(www\.)?.*git.*\. 
+                </div>
+                <div id="custom-gitlab-url-container">
+                    <label for="custom-gitlab-url">
+                        <input type="text" id="custom-gitlab-url">
+                    </label>
+                </div>
+            </div>
         </details>
     </section>
 
     <div id="status"></div>
-    <div id ="buttons-container">
+    <div id="buttons-container">
         <button id="save">Save</button>
         <button id="reset">Reset to defaults</button>
     </div>
