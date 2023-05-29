@@ -1470,6 +1470,78 @@ class Github {
   }
 }
 
+class Gitlab {
+  constructor(options) {
+    this.options = options;
+  }
+
+  get urlPattern() {
+    return /^https:\/\/(www\.)?gitlab\.com/;
+  }
+
+  get searchBoxSelector() {
+    return '.form-input, input[id=search]';
+  }
+
+  getTopMargin(element) {
+    return getFixedSearchBoxTopMargin(
+        document.querySelector('header.navbar'),
+        element,
+    );
+  }
+
+  onChangedResults(callback) {
+    const containers = document.querySelectorAll(
+        '.projects-list, .groups-list, #content-body',
+    );
+    const observer = new MutationObserver(async (mutationsList, observer) => {
+      callback(true);
+    });
+    for (const container of containers) {
+      observer.observe(container, {
+        attributes: false,
+        childList: true,
+        subtree: true,
+      });
+    }
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('li.project-row h2 a'),
+        containerSelector: (n) => n.closest('li.project-row'),
+        highlightedElementSelector: (n) => n.closest('li.project-row'),
+        highlightClass: 'wsn-gitlab-focused-group-row',
+      },
+      // Org subgroups, for example:
+      // https://gitlab.archlinux.org/archlinux
+      {
+        nodes: document.querySelectorAll(
+            'ul.groups-list li.group-row a[aria-label]',
+        ),
+        containerSelector: (n) => n.closest('li.group-row'),
+        highlightedElementSelector: (n) => n.closest('li.group-row'),
+        highlightClass: 'wsn-gitlab-focused-group-row',
+      },
+      // Prev/next page
+      {
+        nodes: document.querySelectorAll('li.page-item a.page-link'),
+        containerSelector: (n) => n.closest('li.page-item'),
+        highlightedElementSelector: (n) => n.closest('li.group-row'),
+        highlightClass: 'wsn-gitlab-focused-group-row',
+      },
+    ];
+    return getSortedSearchResults(includedElements);
+  }
+}
+
+class CustomGitlab extends Gitlab {
+  get urlPattern() {
+    return new RegExp(this.options.customGitlabUrl);
+  }
+}
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -1481,6 +1553,8 @@ const getSearchEngine = (options) => {
     new GoogleScholar(options),
     new Amazon(options),
     new Github(options),
+    new Gitlab(options),
+    new CustomGitlab(options),
   ];
   // Switch over all compatible search engines
   const href = window.location.href;

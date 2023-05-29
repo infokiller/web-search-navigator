@@ -70,6 +70,8 @@ const OPTIONAL_PERMISSIONS_URLS = {
   ),
   'github': ['https://github.com/*'],
   'amazon': generateURLPatterns('https://www.amazon', AMAZON_DOMAINS, '/*'),
+  'gitlab': ['https://gitlab.com/*'],
+  'custom-gitlab': ['https://*/*'],
 };
 
 const KEYBINDING_TO_DIV = {
@@ -145,6 +147,14 @@ class OptionsPageManager {
     amazon.addEventListener('change', () => {
       setSearchEnginePermission_(amazon);
     });
+    const gitlab = document.getElementById('gitlab');
+    gitlab.addEventListener('change', () => {
+      setSearchEnginePermission_(gitlab);
+    });
+    const customGitlab = document.getElementById('custom-gitlab');
+    customGitlab.addEventListener('change', () => {
+      setSearchEnginePermission_(customGitlab);
+    });
     // NOTE: this.saveOptions and this.resetToDefaults cannot be passed directly
     // or otherwise `this` won't be bound to the object.
     document.getElementById('save').addEventListener('click', () => {
@@ -207,6 +217,18 @@ class OptionsPageManager {
         'simulateMiddleClick',
         document.getElementById('simulate-middle-click').checked,
     );
+    const gitlabURLRegex = document.getElementById('custom-gitlab-url').value;
+    try {
+      new RegExp(gitlabURLRegex);
+      setOpt(
+          'customGitlabUrl',
+          document.getElementById('custom-gitlab-url').value,
+      );
+    } catch (e) {
+      const status = document.getElementById('status');
+      status.textContent = `Invalid gitlab URL regex: ${e.message}`;
+      return;
+    }
     try {
       await this.options.save();
       this.flashMessage('Options saved');
@@ -245,6 +267,16 @@ class OptionsPageManager {
     github.checked = OPTIONAL_PERMISSIONS_URLS['github'].every((url) => {
       return permissions.origins.includes(url);
     });
+    const gitlab = document.getElementById('gitlab');
+    gitlab.checked = OPTIONAL_PERMISSIONS_URLS['gitlab'].every((url) => {
+      return permissions.origins.includes(url);
+    });
+    const customGitlab = document.getElementById('custom-gitlab');
+    customGitlab.checked = OPTIONAL_PERMISSIONS_URLS['custom-gitlab'].every(
+        (url) => {
+          return permissions.origins.includes(url);
+        },
+    );
   }
 
   // Load options from browser.storage.sync to the DOM.
@@ -265,6 +297,8 @@ class OptionsPageManager {
       getOpt('autoSelectFirst');
     document.getElementById('hide-outline').checked = getOpt('hideOutline');
     document.getElementById('delay').value = getOpt('delay');
+    document.getElementById('custom-gitlab-url').value =
+      getOpt('customGitlabUrl');
     document.getElementById('google-include-cards').checked =
       getOpt('googleIncludeCards');
     document.getElementById('google-include-memex').checked =

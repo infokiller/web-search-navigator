@@ -30,6 +30,7 @@ html[dark], [dark] {
 
 .wsn-google-focused-link::before,
 .wsn-google-focused-map::before,
+.wsn-gitlab-focused-link::before,
 .wsn-brave-search-focused-link::before,
 .wsn-startpage-focused-link::before {
     content: "\u25BA";
@@ -62,7 +63,8 @@ html[dark], [dark] {
 }
 
 .wsn-google-focused-map,
-.wsn-google-card-item {
+.wsn-google-card-item,
+.wsn-gitlab-focused-group-row {
     outline: var(--result-outline) !important;
 }
 
@@ -163,6 +165,7 @@ const DEFAULT_OPTIONS = {
   googleIncludePlaces: true,
   customCSS: DEFAULT_CSS,
   simulateMiddleClick: false,
+  customGitlabUrl: '^https://(www.)?\\.*git.*\\.',
 };
 
 const keybindingStringToArray = (kb) => {
