@@ -73,11 +73,33 @@ class SearchResultsManager {
   constructor(searchEngine, options) {
     this.searchEngine = searchEngine;
     this.options = options;
-    this.focusedIndex = 0;
+    this.focusedIndex = -1;
+    this.isInitialFocusSet = false;
   }
 
   reloadSearchResults() {
     this.searchResults = this.searchEngine.getSearchResults();
+    if (!this.isInitialFocusSet) {
+      this.setInitialFocus();
+    }
+  }
+
+  setInitialFocus() {
+    if (this.searchResults.length === 0) {
+      return;
+    }
+    const lastNavigation = this.options.local.values;
+    if (
+      location.href === lastNavigation.lastQueryUrl &&
+      lastNavigation.lastFocusedIndex >= 0 &&
+      lastNavigation.lastFocusedIndex < this.searchResults.length
+    ) {
+      this.focus(lastNavigation.lastFocusedIndex, FOCUS_SCROLL_ON);
+    } else if (this.options.sync.get('autoSelectFirst')) {
+      // Highlight the first result when the page is loaded, but don't scroll to
+      // it because there may be KP cards such as stock graphs.
+      this.focus(0, FOCUS_SCROLL_OFF);
+    }
   }
 
   /**
@@ -115,7 +137,10 @@ class SearchResultsManager {
       return;
     }
     highlighted.classList.add(searchResult.highlightClass);
-    if (this.options.hideOutline || searchResult.anchor !== highlighted) {
+    if (
+      this.options.sync.get('hideOutline') ||
+      searchResult.anchor !== highlighted
+    ) {
       searchResult.anchor.classList.add('wsn-no-outline');
     }
   }
@@ -168,6 +193,7 @@ class SearchResultsManager {
       scrollToElement(this.searchEngine, searchResult.container);
     }
     this.focusedIndex = index;
+    this.isInitialFocusSet = true;
   }
 
   focusNext(shouldWrap) {
@@ -436,7 +462,7 @@ class WebSearchNavigator {
   }
 
   resetResultsManager() {
-    if (this.resultsManager != null) {
+    if (this.resultsManager != null && this.resultsManager.focusedIndex >= 0) {
       const searchResult =
         this.resultsManager.searchResults[this.resultsManager.focusedIndex];
       // NOTE: it seems that search results can become undefined when the DOM
@@ -447,28 +473,9 @@ class WebSearchNavigator {
     }
     this.resultsManager = new SearchResultsManager(
         this.searchEngine,
-        this.options.sync.getAll(),
+        this.options,
     );
     this.resultsManager.reloadSearchResults();
-    this.isFirstNavigation = true;
-    if (this.resultsManager.searchResults.length === 0) {
-      return;
-    }
-    const lastNavigation = this.options.local.values;
-    if (
-      location.href === lastNavigation.lastQueryUrl &&
-      lastNavigation.lastFocusedIndex < this.resultsManager.searchResults.length
-    ) {
-      this.isFirstNavigation = false;
-      this.resultsManager.focus(
-          lastNavigation.lastFocusedIndex,
-          FOCUS_SCROLL_ON,
-      );
-    } else if (this.options.sync.get('autoSelectFirst')) {
-      // Highlight the first result when the page is loaded, but don't scroll to
-      // it because there may be KP cards such as stock graphs.
-      this.resultsManager.focus(0, FOCUS_SCROLL_OFF);
-    }
   }
 
   registerResultsNavigationKeybindings(gridNavigation) {
@@ -477,9 +484,8 @@ class WebSearchNavigator {
     };
     const onFocusChange = (callback) => {
       return () => {
-        if (!getOpt('autoSelectFirst') && this.isFirstNavigation) {
+        if (!this.resultsManager.isInitialFocusSet) {
           this.resultsManager.focus(0);
-          this.isFirstNavigation = false;
         } else {
           const _callback = callback.bind(this.resultsManager);
           _callback(getOpt('wrapNavigation'));

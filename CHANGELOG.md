@@ -5,6 +5,8 @@ Firefox.
 
 ## Unreleased
 
+- General: fix auto-select with no initial results
+
 ## 0.5.1
 
 - General: open new tabs in the same tab group of the current tab (issue #524)
