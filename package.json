@@ -43,7 +43,7 @@
     "prettier-eslint-cli": "^7.1.0",
     "set-value": "^4.1.0",
     "shellcheck": "^2.2.0",
-    "stylelint": "^15.8.0",
+    "stylelint": "^15.9.0",
     "stylelint-config-standard": "^33.0.0",
     "web-ext": "^7.6.2"
   },
