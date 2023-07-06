@@ -39,7 +39,7 @@
     "gulp-terser": "^2.1.0",
     "markdownlint-cli": "^0.35.0",
     "minimist": "^1.2.8",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "prettier-eslint-cli": "^7.1.0",
     "set-value": "^4.1.0",
     "shellcheck": "^2.2.0",
