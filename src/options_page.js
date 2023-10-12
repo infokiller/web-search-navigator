@@ -74,30 +74,9 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'custom-gitlab': ['https://*/*'],
 };
 
-const _localStorage_browser_polyfill = {
-  get: async () => ([]),
-  set: async () => {},
-  clear: async () => {},
-}
-
-const _browser_userscript_polyfill = {
-  runtime: {
-      sendMessage: (msg) => {
-          if (msg.type === 'tabsCreate'){
-              window.open(msg.options.url, '_blank')
-          }
-      }
-  },
-  storage: {sync: _localStorage_browser_polyfill, local: _localStorage_browser_polyfill},
-  permissions: {
-      remove: () => {},
-      add: () => {},
-      request: () => {},
-      getAll: () => ({
-          origins: Object.values(OPTIONAL_PERMISSIONS_URLS).flat(),
-      })
-  },
-}
+globalThis._browser_userscript_polyfill.permissions.getAll = () => ({
+  origins: Object.values(OPTIONAL_PERMISSIONS_URLS).flat(),
+})
 
 const KEYBINDING_TO_DIV = {
   nextKey: 'next-key',
