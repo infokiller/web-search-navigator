@@ -12,12 +12,18 @@ key(){
     cat ../src/manifest.json | jq -r "$1"
 }
 
+ICONPATH="$PTH/$(key '.icons["16"]')"
+mimetype=$(file -bN --mime-type $ICONPATH)
+content=$(cat $ICONPATH | base64 -w0)
+DATAURL="data:$mimetype;base64,$content"
+
 US=build/userscript/main.user.js
 echo "// ==UserScript==" > $US
 echo "// @name        $(key '.name')" >> $US
 echo "// @version     $(key '.version')" >> $US
 echo "// @description $(key '.description')" >> $US
 echo "// @author      $(key '.author')" >> $US
+echo "// @iconURL     $DATAURL" >> $US
 key ".content_scripts[0].matches | map(\"// @match       \"+.) | .[]" >> $US
 echo "// ==/UserScript==" >> $US
 
