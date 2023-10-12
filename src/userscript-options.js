@@ -43,11 +43,19 @@ function showOptions() {
   iframe.onclick = (e) => {
     e.stopPropagation();
   };
+
+  const BETTER_STYLES = `
+  
+  body {padding: 30px; max-width: 600px; margin: 0 auto;}
+  * {box-sizing: border-box; padding: 0; margin: 0; font-family: sans-serif;}
+  h1, h2, h3 {font-weight: 100;}
+
+  `
   const OUT_HTML = OPTIONS_HTML
     .replaceAll(`<script src="options.js"></script>`, `<script>\n\n${OPTIONS_JS}\n\n</script>`)
     .replaceAll(`<script src="options_page.js"></script>`, `<script>\n\n${OPTIONS_PAGE_JS}\n\n</script>`)
     .replaceAll(`<script src="browser-polyfill.js"></script>`, `<script>\n\n${BROWSER_POLYFILL_JS}\n\n</script>`)
-    .replaceAll(`<link rel="stylesheet" href="options_page.css">`, `<style>\n\n${OPTIONS_CSS}\n\n</style>`);
+    .replaceAll(`<link rel="stylesheet" href="options_page.css">`, `<style>\n\n${BETTER_STYLES}\n\n${OPTIONS_CSS}\n\n</style>`);
 
   console.log({OUT_HTML});
   iframe.srcdoc = OUT_HTML;

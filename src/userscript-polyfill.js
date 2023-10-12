@@ -1,8 +1,16 @@
+globalThis.IS_USERSCRIPT = true;
 
 globalThis._localStorage_browser_polyfill = {
-    get: async () => ([]),
-    set: async () => {},
-    clear: async () => {},
+    get: async (...args) => {
+        console.log('[localStorage] Get: ', ...args)
+        return [];
+    },
+    set: async (...args) => {
+        console.log('[localStorage] Set: ', ...args)
+    },
+    clear: async () => {
+        console.log('[localStorage] Clear')
+    },
 }
 
 globalThis._browser_userscript_polyfill = {

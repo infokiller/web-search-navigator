@@ -234,7 +234,57 @@ class BrowserStorage {
   }
 }
 
+
+const STORAGE_KEY = 'webSearchNavigator';
+
+class LocalStorage {
+  constructor(defaultValues) {
+    this.values = {};
+    this.defaultValues = defaultValues;
+    this.load();
+  }
+
+  load() {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+
+    if (storedData) {
+      this.values = JSON.parse(storedData);
+    } else {
+      this.values = { ...this.defaultValues };
+      this.save();
+    }
+  }
+
+  save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.values));
+  }
+
+  get(key) {
+    const value = this.values[key];
+    if (value != null) {
+      return value;
+    }
+    return this.defaultValues[key];
+  }
+
+  set(key, value) {
+    this.values[key] = value;
+    this.save();
+  }
+
+  clear() {
+    localStorage.removeItem(STORAGE_KEY);
+    this.values = { ...this.defaultValues };
+  }
+
+  getAll() {
+    // Merge options from storage with defaults.
+    return { ...this.defaultValues, ...this.values };
+  }
+}
+
 const createSyncedOptions = () => {
+  if (globalThis.IS_USERSCRIPT){return new LocalStorage(DEFAULT_OPTIONS)}
   return new BrowserStorage(browser.storage.sync, DEFAULT_OPTIONS);
 };
 
@@ -242,6 +292,7 @@ const createSyncedOptions = () => {
 class ExtensionOptions {
   constructor() {
     this.sync = createSyncedOptions();
+    if (globalThis.IS_USERSCRIPT){return createSyncedOptions();}
     this.local = new BrowserStorage(browser.storage.local, {
       lastQueryUrl: null,
       lastFocusedIndex: 0,
