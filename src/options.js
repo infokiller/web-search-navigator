@@ -292,7 +292,10 @@ const createSyncedOptions = () => {
 class ExtensionOptions {
   constructor() {
     this.sync = createSyncedOptions();
-    if (globalThis.IS_USERSCRIPT){return createSyncedOptions();}
+    if (globalThis.IS_USERSCRIPT){
+      this.local = createSyncedOptions();
+      return;
+    }
     this.local = new BrowserStorage(browser.storage.local, {
       lastQueryUrl: null,
       lastFocusedIndex: 0,

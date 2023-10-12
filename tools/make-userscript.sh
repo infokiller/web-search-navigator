@@ -1,6 +1,27 @@
 mkdir -p build/userscript
 PTH=$(realpath ../src)
-cat $(cat ../src/manifest.json | jq -r ".content_scripts[0].js | map(\"$PTH/\"+.) | .[]") > build/userscript/main.user.js
+
+
+if ! command -v uglifyjs &> /dev/null
+then
+    echo "uglify-js could not be found, installing"
+    pnpm i -g uglify-js
+fi
+
+key(){
+    cat ../src/manifest.json | jq -r "$1"
+}
+
+US=build/userscript/main.user.js
+echo "// ==UserScript==" > $US
+echo "// @name        $(key '.name')" >> $US
+echo "// @version     $(key '.version')" >> $US
+echo "// @description $(key '.description')" >> $US
+echo "// @author      $(key '.author')" >> $US
+key ".content_scripts[0].matches | map(\"// @match       \"+.) | .[]" >> $US
+echo "// ==/UserScript==" >> $US
+
+cat $(key ".content_scripts[0].js | map(\"$PTH/\"+.) | .[]") | uglifyjs -c >> $US
 
 USERSCRIPT_OPTIONS=$(cat "$PTH/userscript-options.js")
 
