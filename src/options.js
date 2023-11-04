@@ -152,6 +152,7 @@ const DEFAULT_KEYBINDINGS = {
   showImagesLarge: ['z l'],
   showImagesMedium: ['z e'],
   showImagesIcon: ['z i'],
+  copyUrlKey: ['c', 'y'],
 };
 
 const DEFAULT_OPTIONS = {

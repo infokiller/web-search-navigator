@@ -103,6 +103,7 @@ const KEYBINDING_TO_DIV = {
   showImagesLarge: 'show-images-large',
   showImagesMedium: 'show-images-medium',
   showImagesIcon: 'show-images-icon',
+  copyUrlKey: 'copy-url-key',
 };
 
 /**

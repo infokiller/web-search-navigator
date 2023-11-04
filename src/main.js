@@ -586,6 +586,19 @@ class WebSearchNavigator {
       });
       return false;
     });
+    this.register(getOpt('copyUrlKey'), () => {
+      const link = this.resultsManager.getElementToNavigate();
+      if (
+        link == null || link.localName !== 'a' || !link.href ||
+        !navigator.clipboard
+      ) {
+        return true;
+      }
+      navigator.clipboard.writeText(link.href).then(
+        () => false,
+        (err) => true,
+      );
+    });
   }
 
   initChangeToolsNavigation() {
