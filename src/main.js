@@ -595,8 +595,8 @@ class WebSearchNavigator {
         return true;
       }
       navigator.clipboard.writeText(link.href).then(
-        () => false,
-        (err) => true,
+          () => false,
+          (err) => true,
       );
     });
   }
