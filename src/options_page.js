@@ -74,6 +74,10 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'custom-gitlab': ['https://*/*'],
 };
 
+globalThis._browser_userscript_polyfill.permissions.getAll = () => ({
+  origins: Object.values(OPTIONAL_PERMISSIONS_URLS).flat(),
+})
+
 const KEYBINDING_TO_DIV = {
   nextKey: 'next-key',
   previousKey: 'previous-key',
