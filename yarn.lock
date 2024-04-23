@@ -2193,10 +2193,10 @@ eslint@^8.51.0, eslint@^8.7.0:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-eslint@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.1.0.tgz#262625f6b0921f7550f128a0098d05ecaad989c6"
-  integrity sha512-1TCBecGFQtItia2o39P7Z4BK1X7ByNPxAiWJvwiyTGcOwYnTiiASgMpNA6a+beu8cFPhEDWvPf6mIlYUJv6sgA==
+eslint@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.1.1.tgz#39ec657ccd12813cb4a1dab2f9229dcc6e468271"
+  integrity sha512-b4cRQ0BeZcSEzPpY2PjFY70VbO32K7BStTGtBsnIGdTSEEQzBi8hPBcGQmTG2zUvFr9uLe0TK42bw8YszuHEqg==
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.6.1"
