@@ -68,6 +68,10 @@ html[dark], [dark] {
     outline: var(--result-outline) !important;
 }
 
+.wsn-ecosia-focused-link {
+  outline: 2px solid var(--color-link-primary) !important;
+}
+
 .wsn-google-focused-memex-result {
     border: var(--result-outline) !important;
     box-sizing: border-box;

@@ -1542,6 +1542,73 @@ class CustomGitlab extends Gitlab {
   }
 }
 
+
+class Ecosia {
+  constructor(options) {
+    this.options = options;
+  }
+  get urlPattern() {
+    return /^https:\/\/(www\.)?ecosia\.org/;;
+  }
+  get searchBoxSelector() {
+    return 'input[name="q"][type="search"]';
+  }
+
+  onChangedResults(callback) {
+    const container = document.querySelector('main');
+    if (!container) {
+      return;
+    }
+
+    let lastURL = window.location.search;
+    const observer = new MutationObserver(
+        (mutationsList, observer) => {
+          if (lastURL !== window.location.search) {
+            lastURL = window.location.search;
+            callback(true);
+          }
+        },
+    );
+
+    observer.observe(container, {
+      attributes: false,
+      childList: true,
+      subtree: false,
+    });
+  }
+
+  getSearchResults() {
+    const includedElements = [
+      {
+        nodes: document.querySelectorAll('a.result__link.link--color-result'),
+        highlightClass: 'wsn-ecosia-focused-link',
+        highlightedElementSelector: (n) => n,
+        containerSelector: (n) => n.parentElement.parentElement,
+      }
+    ];
+    return getSortedSearchResults(includedElements, []);
+  }
+
+  get previousPageButton() {
+    const previousPageElement = document.querySelector('a[data-test-id="back-button"]');
+    if (previousPageElement !== null) {
+      return previousPageElement;
+    }
+
+    return null;
+  }
+
+  get nextPageButton() {
+    const previousPageElement = document.querySelector('a[data-test-id="next-button"]');
+    if (previousPageElement !== null) {
+      return previousPageElement;
+    }
+
+    return null;
+  }
+}
+
+
 // Get search engine object matching the current url
 /* eslint-disable-next-line no-unused-vars */
 const getSearchEngine = (options) => {
@@ -1554,6 +1621,7 @@ const getSearchEngine = (options) => {
     new Amazon(options),
     new Github(options),
     new Gitlab(options),
+    new Ecosia(options),
     new CustomGitlab(options),
   ];
   // Switch over all compatible search engines
