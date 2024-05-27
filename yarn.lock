@@ -1757,10 +1757,10 @@ eslint-config-google@^0.14.0:
   resolved "https://registry.yarnpkg.com/eslint-config-google/-/eslint-config-google-0.14.0.tgz#4f5f8759ba6e11b424294a219dbfa18c508bcc1a"
   integrity sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==
 
-eslint-plugin-json@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-json/-/eslint-plugin-json-3.1.0.tgz#251108ba1681c332e0a442ef9513bd293619de67"
-  integrity sha512-MrlG2ynFEHe7wDGwbUuFPsaT2b1uhuEFhJ+W1f1u+1C2EkXmTYJp4B1aAdQQ8M+CC3t//N/oRKiIVw14L2HR1g==
+eslint-plugin-json@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-json/-/eslint-plugin-json-4.0.0.tgz#0969f2a80823369e8414125a98c91cc98016ec7a"
+  integrity sha512-l/P3WTzl2HI8PbwsbDIrZ+6jvwQI4TGuz20ReJkG3Y+gZS5ZurTgx+gBmuLpOgiqMyDJWyJ7+GCjevWtNYQcUg==
   dependencies:
     lodash "^4.17.21"
     vscode-json-languageservice "^4.1.6"
