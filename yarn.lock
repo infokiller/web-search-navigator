@@ -113,6 +113,15 @@
   resolved "https://registry.yarnpkg.com/@eslint-community/regexpp/-/regexpp-4.6.2.tgz#1816b5f6948029c5eaacb0703b850ee0cb37d8f8"
   integrity sha512-pPTNuaAG3QMH+buKyBIGJs3g/S5y0caxw0ygM3YyE6yJFySwiGGSzA+mM3KJ8QQvzeLh3blwgSonkFjgQdxzMw==
 
+"@eslint/config-array@^0.15.1":
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/@eslint/config-array/-/config-array-0.15.1.tgz#1fa78b422d98f4e7979f2211a1fde137e26c7d61"
+  integrity sha512-K4gzNq+yymn/EVsXYmf+SBcBro8MTf+aXJZUphM96CdzUEr+ClGDvAbpmaEK+cGVigVXIgs9gNmvHAlrzzY5JQ==
+  dependencies:
+    "@eslint/object-schema" "^2.1.3"
+    debug "^4.3.1"
+    minimatch "^3.0.5"
+
 "@eslint/eslintrc@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-2.1.4.tgz#388a269f0f25c1b6adc317b5a2c55714894c70ad"
@@ -148,10 +157,15 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@eslint/js@9.3.0":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.3.0.tgz#2e8f65c9c55227abc4845b1513c69c32c679d8fe"
-  integrity sha512-niBqk8iwv96+yuTwjM6bWg8ovzAPF9qkICsGtcoa5/dmqcEMfdwNAX7+/OHcJHc7wj7XqPxH98oAHytFYlw6Sw==
+"@eslint/js@9.4.0":
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.4.0.tgz#96a2edd37ec0551ce5f9540705be23951c008a0c"
+  integrity sha512-fdI7VJjP3Rvc70lC4xkFXHB0fiPeojiL1PxVG6t1ZvXQrarj893PweuBTujxDUFk0Fxj4R7PIIAZ/aiiyZPZcg==
+
+"@eslint/object-schema@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@eslint/object-schema/-/object-schema-2.1.3.tgz#e65ae80ee2927b4fd8c5c26b15ecacc2b2a6cc2a"
+  integrity sha512-HAbhAYKfsAC2EkTqve00ibWIZlaU74Z1EHwAjYr4PXF0YU2VEA1zSIKSSpKszRLRWwHzzRZXvK632u+uXzvsvw==
 
 "@fluent/syntax@0.19.0":
   version "0.19.0"
@@ -179,15 +193,6 @@
     debug "^4.3.1"
     minimatch "^3.0.5"
 
-"@humanwhocodes/config-array@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.13.0.tgz#fb907624df3256d04b9aa2df50d7aa97ec648748"
-  integrity sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==
-  dependencies:
-    "@humanwhocodes/object-schema" "^2.0.3"
-    debug "^4.3.1"
-    minimatch "^3.0.5"
-
 "@humanwhocodes/module-importer@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz#af5b2691a22b44be847b0ca81641c5fb6ad0172c"
@@ -197,11 +202,6 @@
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz#d9fae00a2d5cb40f92cfe64b47ad749fbc38f917"
   integrity sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==
-
-"@humanwhocodes/object-schema@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz#4a2868d75d6d6963e423bcf90b7fd1be343409d3"
-  integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
 "@humanwhocodes/retry@^0.3.0":
   version "0.3.0"
@@ -663,7 +663,7 @@ agent-base@^7.0.2:
   dependencies:
     debug "^4.3.4"
 
-ajv@8.13.0:
+ajv@8.13.0, ajv@^8.0.1:
   version "8.13.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.13.0.tgz#a3939eaec9fb80d217ddf0c3376948c023f28c91"
   integrity sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==
@@ -681,16 +681,6 @@ ajv@^6.12.4:
     fast-deep-equal "^3.1.1"
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
-    uri-js "^4.2.2"
-
-ajv@^8.0.1:
-  version "8.12.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.12.0.tgz#d1a0527323e22f53562c567c00991577dfbe19d1"
-  integrity sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==
-  dependencies:
-    fast-deep-equal "^3.1.1"
-    json-schema-traverse "^1.0.0"
-    require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
 ansi-align@^3.0.1:
@@ -1831,16 +1821,16 @@ eslint@8.57.0, eslint@^8.51.0, eslint@^8.7.0:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-eslint@^9.3.0:
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.3.0.tgz#36a96db84592618d6ed9074d677e92f4e58c08b9"
-  integrity sha512-5Iv4CsZW030lpUqHBapdPo3MJetAPtejVW8B84GIcIIv8+ohFaddXsrn1Gn8uD9ijDb+kcYKFUVmC8qG8B2ORQ==
+eslint@^9.4.0:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-9.4.0.tgz#79150c3610ae606eb131f1d648d5f43b3d45f3cd"
+  integrity sha512-sjc7Y8cUD1IlwYcTS9qPSvGjAC8Ne9LctpxKKu3x/1IC9bnOg98Zy6GxEJUfr1NojMgVPlyANXYns8oE2c1TAA==
   dependencies:
     "@eslint-community/eslint-utils" "^4.2.0"
     "@eslint-community/regexpp" "^4.6.1"
+    "@eslint/config-array" "^0.15.1"
     "@eslint/eslintrc" "^3.1.0"
-    "@eslint/js" "9.3.0"
-    "@humanwhocodes/config-array" "^0.13.0"
+    "@eslint/js" "9.4.0"
     "@humanwhocodes/module-importer" "^1.0.1"
     "@humanwhocodes/retry" "^0.3.0"
     "@nodelib/fs.walk" "^1.2.8"
