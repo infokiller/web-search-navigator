@@ -72,6 +72,7 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'amazon': generateURLPatterns('https://www.amazon', AMAZON_DOMAINS, '/*'),
   'gitlab': ['https://gitlab.com/*'],
   'custom-gitlab': ['https://*/*'],
+  'ecosia': ['https://www.ecosia.org/*']
 };
 
 const KEYBINDING_TO_DIV = {
@@ -155,6 +156,10 @@ class OptionsPageManager {
     const customGitlab = document.getElementById('custom-gitlab');
     customGitlab.addEventListener('change', () => {
       setSearchEnginePermission_(customGitlab);
+    });
+    const ecosia = document.getElementById('ecosia');
+    ecosia.addEventListener('change', () => {
+      setSearchEnginePermission_(ecosia);
     });
     // NOTE: this.saveOptions and this.resetToDefaults cannot be passed directly
     // or otherwise `this` won't be bound to the object.
@@ -266,6 +271,10 @@ class OptionsPageManager {
     });
     const github = document.getElementById('github');
     github.checked = OPTIONAL_PERMISSIONS_URLS['github'].every((url) => {
+      return permissions.origins.includes(url);
+    });
+    const ecosia = document.getElementById('ecosia');
+    ecosia.checked = OPTIONAL_PERMISSIONS_URLS['ecosia'].every((url) => {
       return permissions.origins.includes(url);
     });
     const gitlab = document.getElementById('gitlab');

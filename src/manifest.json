@@ -451,6 +451,7 @@
         "https://scholar.google.tt/*",
         "https://scholar.google.vg/*",
         "https://scholar.google.vu/*",
-        "https://scholar.google.ws/*"
+        "https://scholar.google.ws/*",
+        "https://www.ecosia.org/*"
     ]
 }
