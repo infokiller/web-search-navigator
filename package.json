@@ -1,54 +1,53 @@
 {
-  "name": "web-search-navigator",
-  "description": "Keyboard shortcuts for Google™ search.",
-  "repository": "https://github.com/infokiller/web-search-navigator",
-  "author": "https://github.com/infokiller",
-  "contributors": [
-    {
-      "name": "infokiller"
+    "version": "1.0.0",
+    "name": "web-search-navigator",
+    "description": "Keyboard shortcuts for Google™ search.",
+    "repository": "https://github.com/infokiller/web-search-navigator",
+    "author": "https://github.com/infokiller",
+    "contributors": [
+        {
+            "name": "infokiller"
+        },
+        {
+            "name": "Michal Novák",
+            "url": "https://www.weborama.cz/"
+        }
+    ],
+    "license": "MIT",
+    "scripts": {
+        "build": "gulp",
+        "eslint": "eslint $(git ls-files '*.js' ':(exclude)vendor')",
+        "prettier-markdown-check": "prettier --check $(git ls-files '*.md')",
+        "prettier-markdown-format": "prettier --write $(git ls-files '*.md')",
+        "stylelint": "stylelint src/*.css",
+        "shellcheck": "shellcheck tools/*.sh",
+        "shfmt-check": "shfmt -i 2 -sr -ci -d tools",
+        "shfmt-format": "shfmt -i 2 -sr -ci -w tools",
+        "check": "yarn run eslint && yarn run stylelint && yarn run shellcheck && yarn run prettier-markdown-check"
     },
-    {
-      "name": "Michal Novák",
-      "url": "https://www.weborama.cz/"
+    "dependencies": {
+        "mousetrap": "^1.6.5",
+        "webextension-polyfill": "^0.12.0"
+    },
+    "devDependencies": {
+        "eslint": "^9.4.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-plugin-json": "^4.0.0",
+        "gulp": "^5.0.0",
+        "gulp-if": "^3.0.0",
+        "gulp-terser": "^2.1.0",
+        "markdownlint-cli": "^0.41.0",
+        "minimist": "^1.2.8",
+        "prettier": "3.2.5",
+        "prettier-eslint-cli": "^8.0.1",
+        "set-value": "^4.1.0",
+        "shellcheck": "^2.2.0",
+        "stylelint": "^15.11.0",
+        "stylelint-config-standard": "^34.0.0",
+        "web-ext": "^7.11.0"
+    },
+    "resolutions": {
+        "bl": "^1.2.3",
+        "node-forge": "^0.10.0"
     }
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gulp",
-    "eslint": "eslint $(git ls-files '*.js' ':(exclude)vendor')",
-    "prettier-markdown-check": "prettier --check $(git ls-files '*.md')",
-    "prettier-markdown-format": "prettier --write $(git ls-files '*.md')",
-    "stylelint": "stylelint src/*.css",
-    "shellcheck": "shellcheck tools/*.sh",
-    "shfmt-check": "shfmt -i 2 -sr -ci -d tools",
-    "shfmt-format": "shfmt -i 2 -sr -ci -w tools",
-    "check": "yarn run eslint && yarn run stylelint && yarn run shellcheck && yarn run prettier-markdown-check"
-  },
-  "dependencies": {
-    "mousetrap": "^1.6.5",
-    "webextension-polyfill": "^0.12.0"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^9.3.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-json": "^4.0.0",
-    "gulp": "^5.0.0",
-    "gulp-if": "^3.0.0",
-    "gulp-terser": "^2.1.0",
-    "markdownlint-cli": "^0.41.0",
-    "minimist": "^1.2.8",
-    "prettier": "3.2.5",
-    "prettier-eslint-cli": "^8.0.1",
-    "set-value": "^4.1.0",
-    "shellcheck": "^2.2.0",
-    "stylelint": "^15.11.0",
-    "stylelint-config-standard": "^34.0.0",
-    "web-ext": "^7.11.0"
-  },
-  "resolutions": {
-    "bl": "^1.2.3",
-    "node-forge": "^0.10.0"
-  }
 }
