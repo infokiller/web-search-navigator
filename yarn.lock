@@ -51,10 +51,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/runtime@7.24.6":
-  version "7.24.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.6.tgz#5b76eb89ad45e2e4a0a8db54c456251469a3358e"
-  integrity sha512-Ja18XcETdEl5mzzACGd+DKgaGJzPTCow7EglgwTmHdwokzDFYh/MHua6lU6DV/hjF2IaOJ4oX2nqnjG7RElKOw==
+"@babel/runtime@7.24.7":
+  version "7.24.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.7.tgz#f4f0d5530e8dbdf59b3451b9b3e594b6ba082e12"
+  integrity sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -267,10 +267,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mdn/browser-compat-data@5.5.29":
-  version "5.5.29"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.5.29.tgz#08753b8f94efa3f9a02cd39e0de5d6d5af745e0e"
-  integrity sha512-NHdG3QOiAsxh8ygBSKMa/WaNJwpNt87uVqW+S2RlnSqgeRdk+L3foNWTX6qd0I3NHSlCFb47rgopeNCJtRDY5A==
+"@mdn/browser-compat-data@5.5.32":
+  version "5.5.32"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.5.32.tgz#8bece89fdc5478550c8a5a3c00b3bd4d4d720358"
+  integrity sha512-viN2VaUd1Hj2VpTDtKVT6LYfBnxzUgXJ+LSQfzuzaHa5mZBlvR3wSxMyUqbfywBbnIWHyKNwz6Yrcdpa4zEOZw==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -597,16 +597,16 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@6.28.0:
-  version "6.28.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-6.28.0.tgz#eaae7fda20ef27acf0165d17b012816e356684fb"
-  integrity sha512-fCTjXL/yG4hwq74JG8tQdrvEu0OvGrEN9yU+Df0020RDtHl3g/tTCyMeC4G1uyk8IuyMzp4myCBNnOGC7MWSQQ==
+addons-linter@6.29.0:
+  version "6.29.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-6.29.0.tgz#7dbc6e43ce2d5b04e830d5ab75665482c6af0769"
+  integrity sha512-Ml4tmd5cnJBOaKY0mU5tWSDSf2q3nbAozwWcr5s5isuqFD8zJtF5/oHuBW/1thr0XTBSTgNCsGJ833Xv5BCYzg==
   dependencies:
     "@fluent/syntax" "0.19.0"
-    "@mdn/browser-compat-data" "5.5.29"
+    "@mdn/browser-compat-data" "5.5.32"
     addons-moz-compare "1.3.0"
     addons-scanner-utils "9.10.1"
-    ajv "8.13.0"
+    ajv "8.16.0"
     chalk "4.1.2"
     cheerio "1.0.0-rc.12"
     columnify "1.6.0"
@@ -663,10 +663,10 @@ agent-base@^7.0.2:
   dependencies:
     debug "^4.3.4"
 
-ajv@8.13.0, ajv@^8.0.1:
-  version "8.13.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.13.0.tgz#a3939eaec9fb80d217ddf0c3376948c023f28c91"
-  integrity sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==
+ajv@8.16.0:
+  version "8.16.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.16.0.tgz#22e2a92b94f005f7e0f9c9d39652ef0b8f6f0cb4"
+  integrity sha512-F0twR8U1ZU67JIEtekUcLkXkoO5mMMmgGD8sK/xUFzJ805jxHQl92hImFAqqXMyMYjSPOyUPAwHYhB72g5sTXw==
   dependencies:
     fast-deep-equal "^3.1.3"
     json-schema-traverse "^1.0.0"
@@ -682,6 +682,16 @@ ajv@^6.12.4:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
+
+ajv@^8.0.1:
+  version "8.13.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.13.0.tgz#a3939eaec9fb80d217ddf0c3376948c023f28c91"
+  integrity sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    json-schema-traverse "^1.0.0"
+    require-from-string "^2.0.2"
+    uri-js "^4.4.1"
 
 ansi-align@^3.0.1:
   version "3.0.1"
@@ -3096,10 +3106,10 @@ jed@1.1.1:
   resolved "https://registry.yarnpkg.com/jed/-/jed-1.1.1.tgz#7a549bbd9ffe1585b0cd0a191e203055bee574b4"
   integrity sha1-elSbvZ/+FYWwzQoZHiAwVb7ldLQ=
 
-jose@4.15.5:
-  version "4.15.5"
-  resolved "https://registry.yarnpkg.com/jose/-/jose-4.15.5.tgz#6475d0f467ecd3c630a1b5dadd2735a7288df706"
-  integrity sha512-jc7BFxgKPKi94uOvEmzlSWFFe2+vASyXaKUpdQKatWAESU2MWjDfFf0fdfc83CDKcA5QecabZeNLyfhe3yKNkg==
+jose@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-5.4.0.tgz#4f6c2357e7b3cd4bc10ec65bb29e677d7adfbc84"
+  integrity sha512-6rpxTHPAQyWMb9A35BroFl1Sp0ST3DpPcm5EVIxZxdH+e0Hv9fwhyB3XLKFUcHNpdSDnETmBfuPPTTlYz5+USw==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -5437,14 +5447,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.0.0.tgz#7b5ffe31347f197011fff2ef0057eb0a6ffe42cb"
-  integrity sha512-fcE6woJOHRAzGRTlHwcltEirOV+R3aLE/Yl+yoBbvHonJRnOcthaW1wjqlXc+iJu5rXqwd3yICLbLUndQlbCRQ==
+web-ext@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.1.0.tgz#f6313f745f155490c058bb7cf220973fa93e0f77"
+  integrity sha512-+FRV/ZOeDR6ybJUBp/tfZOz7eWC/+Mff5GXucqRl0ccUfXHGJLvc1Acq4FOVKeFBL/u+pS/LGHjQ4xFrv7EOuw==
   dependencies:
-    "@babel/runtime" "7.24.6"
+    "@babel/runtime" "7.24.7"
     "@devicefarmer/adbkit" "3.2.6"
-    addons-linter "6.28.0"
+    addons-linter "6.29.0"
     bunyan "1.8.15"
     camelcase "8.0.0"
     chrome-launcher "0.15.1"
@@ -5455,7 +5465,7 @@ web-ext@^8.0.0:
     fs-extra "11.2.0"
     fx-runner "1.4.0"
     https-proxy-agent "^7.0.0"
-    jose "4.15.5"
+    jose "5.4.0"
     jszip "3.10.1"
     mkdirp "1.0.4"
     multimatch "6.0.0"
