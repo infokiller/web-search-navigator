@@ -267,10 +267,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mdn/browser-compat-data@5.5.32":
-  version "5.5.32"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.5.32.tgz#8bece89fdc5478550c8a5a3c00b3bd4d4d720358"
-  integrity sha512-viN2VaUd1Hj2VpTDtKVT6LYfBnxzUgXJ+LSQfzuzaHa5mZBlvR3wSxMyUqbfywBbnIWHyKNwz6Yrcdpa4zEOZw==
+"@mdn/browser-compat-data@5.5.34":
+  version "5.5.34"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.5.34.tgz#ce64a095da3d216bfa55c6332f59e30ae57d634f"
+  integrity sha512-e8k7+8r3jiJuP7FMH6AL1OnmfQqLyABhTM+NmRDvFeAbMgtFcNQLHpmT7uza5cBnxI01+CAU3aSsIgcKGRdEBQ==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -597,15 +597,15 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@6.29.0:
-  version "6.29.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-6.29.0.tgz#7dbc6e43ce2d5b04e830d5ab75665482c6af0769"
-  integrity sha512-Ml4tmd5cnJBOaKY0mU5tWSDSf2q3nbAozwWcr5s5isuqFD8zJtF5/oHuBW/1thr0XTBSTgNCsGJ833Xv5BCYzg==
+addons-linter@6.31.1:
+  version "6.31.1"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-6.31.1.tgz#d502fd1bbad7674540c9dc4828459a001fee04c6"
+  integrity sha512-R9FCyVzqU/h5A2aB1t+jD8t4QKLuLxYqc1FjmjJ0nZrn1qNCna1jFOajt5R1T8pwt0H4WXgT+uwWSD2BdkBzqQ==
   dependencies:
     "@fluent/syntax" "0.19.0"
-    "@mdn/browser-compat-data" "5.5.32"
+    "@mdn/browser-compat-data" "5.5.34"
     addons-moz-compare "1.3.0"
-    addons-scanner-utils "9.10.1"
+    addons-scanner-utils "9.11.0"
     ajv "8.16.0"
     chalk "4.1.2"
     cheerio "1.0.0-rc.12"
@@ -618,7 +618,7 @@ addons-linter@6.29.0:
     espree "10.0.1"
     esprima "4.0.1"
     fast-json-patch "3.1.1"
-    glob "10.4.1"
+    glob "10.4.2"
     image-size "1.1.1"
     is-mergeable-object "1.1.1"
     jed "1.1.1"
@@ -639,10 +639,10 @@ addons-moz-compare@1.3.0:
   resolved "https://registry.yarnpkg.com/addons-moz-compare/-/addons-moz-compare-1.3.0.tgz#9074dce00291cef998c2fba6b462d041cc6b3e36"
   integrity sha512-/rXpQeaY0nOKhNx00pmZXdk5Mu+KhVlL3/pSBuAYwrxRrNiTvI/9xfQI8Lmm7DMMl+PDhtfAHY/0ibTpdeoQQQ==
 
-addons-scanner-utils@9.10.1:
-  version "9.10.1"
-  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-9.10.1.tgz#92d01ade79e3ac601d4a555b32dd715b697a5c68"
-  integrity sha512-Tz9OUQx9Ja0TyQ+H2GakB9KlJ50myI6ESBGRlA8N80nHBzMjjPRFGm0APADSaCd5NP74SrFtEvL4TRpDwZXETA==
+addons-scanner-utils@9.11.0:
+  version "9.11.0"
+  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-9.11.0.tgz#65ff9aa8a387828db68cbdf7b13a0c6eadf65cec"
+  integrity sha512-X95V8ymnue9EHmOLz3zJTGHvHDFlWKiavlH+kJKOlv2sJDWFvD3TWeJMHJgxS9GKOqT/545mOXvX3vuuGGum+g==
   dependencies:
     "@types/yauzl" "2.10.3"
     common-tags "1.8.2"
@@ -2392,7 +2392,19 @@ glob-watcher@^6.0.0:
     async-done "^2.0.0"
     chokidar "^3.5.3"
 
-glob@10.4.1, glob@^10.3.10, glob@~10.4.1:
+glob@10.4.2:
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-10.4.2.tgz#bed6b95dade5c1f80b4434daced233aee76160e5"
+  integrity sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==
+  dependencies:
+    foreground-child "^3.1.0"
+    jackspeak "^3.1.2"
+    minimatch "^9.0.4"
+    minipass "^7.1.2"
+    package-json-from-dist "^1.0.0"
+    path-scurry "^1.11.1"
+
+glob@^10.3.10, glob@~10.4.1:
   version "10.4.1"
   resolved "https://registry.yarnpkg.com/glob/-/glob-10.4.1.tgz#0cfb01ab6a6b438177bfe6a58e2576f6efe909c2"
   integrity sha512-2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==
@@ -3096,10 +3108,10 @@ jed@1.1.1:
   resolved "https://registry.yarnpkg.com/jed/-/jed-1.1.1.tgz#7a549bbd9ffe1585b0cd0a191e203055bee574b4"
   integrity sha1-elSbvZ/+FYWwzQoZHiAwVb7ldLQ=
 
-jose@5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/jose/-/jose-5.4.0.tgz#4f6c2357e7b3cd4bc10ec65bb29e677d7adfbc84"
-  integrity sha512-6rpxTHPAQyWMb9A35BroFl1Sp0ST3DpPcm5EVIxZxdH+e0Hv9fwhyB3XLKFUcHNpdSDnETmBfuPPTTlYz5+USw==
+jose@5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-5.4.1.tgz#b471ee3963920ba5452fd1b1398c8ba72a7b2fcf"
+  integrity sha512-U6QajmpV/nhL9SyfAewo000fkiRQ+Yd2H0lBxJJ9apjpOgkOcBQJWOrMo917lxLptdS/n/o/xPzMkXhF46K8hQ==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -3569,10 +3581,10 @@ minipass@^7.1.2:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.1.2.tgz#93a9626ce5e5e66bd4db86849e7515e92340a707"
   integrity sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==
 
-mkdirp@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
-  integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+mkdirp@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
+  integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
 
 mkdirp@~0.5.1:
   version "0.5.6"
@@ -3855,6 +3867,11 @@ p-locate@^5.0.0:
   integrity sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==
   dependencies:
     p-limit "^3.0.2"
+
+package-json-from-dist@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz#e501cd3094b278495eb4258d4c9f6d5ac3019f00"
+  integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
 
 package-json@^8.1.0:
   version "8.1.0"
@@ -5437,14 +5454,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.1.0.tgz#f6313f745f155490c058bb7cf220973fa93e0f77"
-  integrity sha512-+FRV/ZOeDR6ybJUBp/tfZOz7eWC/+Mff5GXucqRl0ccUfXHGJLvc1Acq4FOVKeFBL/u+pS/LGHjQ4xFrv7EOuw==
+web-ext@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.2.0.tgz#876534050bfacaa9e89cdf86ff16ef859cc3161b"
+  integrity sha512-krU7rmxaG96b3Q9Enbry9/pmE/5FUGkvajCGfJCD+J79rt7JFjhVpw1Dszz4BqQkTd3y8cG5wJ3p1uC6uyAwcA==
   dependencies:
     "@babel/runtime" "7.24.7"
     "@devicefarmer/adbkit" "3.2.6"
-    addons-linter "6.29.0"
+    addons-linter "6.31.1"
     bunyan "1.8.15"
     camelcase "8.0.0"
     chrome-launcher "0.15.1"
@@ -5455,9 +5472,9 @@ web-ext@^8.1.0:
     fs-extra "11.2.0"
     fx-runner "1.4.0"
     https-proxy-agent "^7.0.0"
-    jose "5.4.0"
+    jose "5.4.1"
     jszip "3.10.1"
-    mkdirp "1.0.4"
+    mkdirp "3.0.1"
     multimatch "6.0.0"
     mz "2.7.0"
     node-fetch "3.3.2"
@@ -5471,7 +5488,7 @@ web-ext@^8.1.0:
     tmp "0.2.3"
     update-notifier "6.0.2"
     watchpack "2.4.1"
-    ws "8.17.0"
+    ws "8.17.1"
     yargs "17.7.2"
     zip-dir "2.0.0"
 
@@ -5583,10 +5600,10 @@ write-file-atomic@^5.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^4.0.1"
 
-ws@8.17.0:
-  version "8.17.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.0.tgz#d145d18eca2ed25aaf791a183903f7be5e295fea"
-  integrity sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==
+ws@8.17.1:
+  version "8.17.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
+  integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==
 
 xdg-basedir@^5.0.1, xdg-basedir@^5.1.0:
   version "5.1.0"
