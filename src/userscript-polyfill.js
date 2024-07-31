@@ -1,21 +1,25 @@
 globalThis.IS_USERSCRIPT = true;
 
-const USE_GM = true;
+const USE_GM = false;
 const PREFIX = 'userscript-polyfill';
 
 globalThis._localStorage_browser_polyfill = {
   get: async (...args) => {
+    args = args.filter(Boolean);
+    debugger;
     console.log('[localStorage] Get: ', ...args);
     const out = {};
-    for (const k of key) {
+    for (const k of args) {
       out[k] = USE_GM ? GM_getValue(k) : localStorage[`${PREFIX}_${k}`];
     }
     return out;
   },
   set: async (...args) => {
+    debugger;
     console.log('[localStorage] Set: ', ...args);
   },
   clear: async () => {
+    debugger;
     console.log('[localStorage] Clear');
   },
 };
