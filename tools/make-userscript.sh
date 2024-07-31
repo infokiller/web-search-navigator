@@ -1,6 +1,15 @@
-mkdir -p build/userscript
+#!/usr/bin/env bash
+
+OUTDIR="../build/userscript"
+mkdir -p $OUTDIR
+OUTDIR=$(realpath $OUTDIR)
 PTH=$(realpath ../src)
 
+# Get libraries for some reason that are gitignored
+curl https://raw.githubusercontent.com/ccampbell/mousetrap/master/mousetrap.min.js > $PTH/mousetrap.js
+curl https://unpkg.com/webextension-polyfill@0.12.0/dist/browser-polyfill.min.js > $PTH/browser-polyfill.js
+curl https://raw.githubusercontent.com/ccampbell/mousetrap/master/plugins/global-bind/mousetrap-global-bind.min.js > $PTH/mousetrap-global-bind.js
+cp "../vendor/webext-dynamic-content-scripts.js" $PTH/webext-dynamic-content-scripts.js
 
 if ! command -v uglifyjs &> /dev/null
 then
@@ -17,7 +26,7 @@ mimetype=$(file -bN --mime-type $ICONPATH)
 content=$(cat $ICONPATH | base64 -w0)
 DATAURL="data:$mimetype;base64,$content"
 
-US=build/userscript/main.user.js
+US=$OUTDIR/main.user.js
 echo "// ==UserScript==" > $US
 echo "// @name        $(key '.name')" >> $US
 echo "// @version     $(key '.version')" >> $US
@@ -25,9 +34,10 @@ echo "// @description $(key '.description')" >> $US
 echo "// @author      $(key '.author')" >> $US
 echo "// @iconURL     $DATAURL" >> $US
 key ".content_scripts[0].matches | map(\"// @match       \"+.) | .[]" >> $US
+key ".optional_permissions | map(\"// @match       \"+.) | .[]" >> $US
 echo "// ==/UserScript==" >> $US
-
-cat $(key ".content_scripts[0].js | map(\"$PTH/\"+.) | .[]") | uglifyjs -c >> $US
+# | uglifyjs -c
+cat $(key ".content_scripts[0].js | map(\"$PTH/\"+.) | .[]") >> $US
 
 USERSCRIPT_OPTIONS=$(cat "$PTH/userscript-options.js")
 
@@ -43,4 +53,8 @@ FINAL=$(echo "${FINAL//__OPTIONS_JS__/$OPTIONS_JS}")
 FINAL=$(echo "${FINAL//__OPTIONS_PAGE_JS__/$OPTIONS_PAGE_JS}")
 FINAL=$(echo "${FINAL//__BROWSER_POLYFILL_JS__/$BROWSER_POLYFILL_JS}")
 
-echo "$FINAL" > "build/userscript/userscript-options.js"
+# echo "$FINAL" > "$OUTDIR/userscript-options.js"
+echo "" >> $US
+echo "" >> $US
+echo "" >> $US
+echo "$FINAL" >> $US

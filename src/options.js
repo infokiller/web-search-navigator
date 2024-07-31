@@ -284,7 +284,10 @@ class LocalStorage {
 }
 
 const createSyncedOptions = () => {
-  if (globalThis.IS_USERSCRIPT){return new LocalStorage(DEFAULT_OPTIONS)}
+  if (globalThis.IS_USERSCRIPT){
+    console.log('Create LocalStorage options')
+    return new LocalStorage(DEFAULT_OPTIONS)
+  }
   return new BrowserStorage(browser.storage.sync, DEFAULT_OPTIONS);
 };
 
