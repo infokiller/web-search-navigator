@@ -33,7 +33,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^9.8.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-json": "^4.0.0",
+    "eslint-plugin-json": "^4.0.1",
     "gulp": "^5.0.0",
     "gulp-if": "^3.0.0",
     "gulp-terser": "^2.1.0",
