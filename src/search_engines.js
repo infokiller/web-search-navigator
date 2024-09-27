@@ -229,7 +229,7 @@ class GoogleSearch {
 
   static #isImagesTab() {
     const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get('tbm') === 'isch';
+    return searchParams.get('udm') === '2';
   }
 
   static #getImagesTabResults() {
@@ -618,7 +618,7 @@ class GoogleSearch {
           // eslint-disable-next-line max-len
           'a[href*="/search?q="]:not([href*="&tbm="]):not([href*="maps.google."])',
       ),
-      navigateImagesTab: selectorElementGetter('a[href*="&tbm=isch"]'),
+      navigateImagesTab: selectorElementGetter('a[href*="&udm=2"]'),
       navigateVideosTab: selectorElementGetter('a[href*="&tbm=vid"]'),
       navigateMapsTab: selectorElementGetter('a[href*="maps.google."]'),
       navigateNewsTab: selectorElementGetter('a[href*="&tbm=nws"]'),
