@@ -4591,10 +4591,10 @@ shell-quote@1.7.3:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
-shellcheck@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-3.0.0.tgz#4cdaf5bffd0bdab6dfb78e8bc459aaeff77c5f32"
-  integrity sha512-pCG1++KHj1ZpkZWokMvyIFNk7oLnZ6hxJtJ3p+EFvYuEPWTqubuuaa2TP1BtgMk34Z9g1xe3b7gI2R97Fr2iqQ==
+shellcheck@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/shellcheck/-/shellcheck-3.1.0.tgz#bbd0f133cfede4874af4adccefcf8bf5e4d2ffc6"
+  integrity sha512-C6IM1sziNIhCLyVszKZ/mKHQN2/CZ8qZ3sFt8mFOmL0ApoaXLTqyeEVfo+t4MlTVw+hS+kIqSaaGDDrrS0nKBA==
   dependencies:
     decompress "^4.2.1"
     envalid "^8.0.0"
