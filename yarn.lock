@@ -51,10 +51,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/runtime@7.26.10":
-  version "7.26.10"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.10.tgz#a07b4d8fa27af131a633d7b3524db803eb4764c2"
-  integrity sha512-2WJMeRQPHKSPemqk/awGrAiuFfzBmOIPXKizAsVhWH9YJqLZ0H+HS4c8loHGgW6utJ3E/ejXQUsiGaQy2NZ9Fw==
+"@babel/runtime@7.27.0":
+  version "7.27.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.0.tgz#fbee7cf97c709518ecc1f590984481d5460d4762"
+  integrity sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -322,10 +322,10 @@
   dependencies:
     buffer "^6.0.3"
 
-"@mdn/browser-compat-data@5.7.3":
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.7.3.tgz#1c4abb3a0ff9e631dd23eed1435d388ccc999f4b"
-  integrity sha512-ckygcngv0i7Qe0yOzzge/K7Gr5dnk2jNm/AYdqUd1ZTGa9pIEdDuVyWmL3bDU/NdJ8FtdSAjng98YfUuou9Csw==
+"@mdn/browser-compat-data@6.0.6":
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-6.0.6.tgz#e302acf8aa909fdc7078b4185b97068a3b996aed"
+  integrity sha512-awlDnCGbtdkyLieMpIKJQEgK7mxnL3he4UHm5AGn+asofiemlx4LVHM0FsYmp6O1irAClPNS135zZLhD2SZi+A==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -629,14 +629,14 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@7.9.0:
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.9.0.tgz#922b3e5729aefa966d313b6099c9628f69fa9765"
-  integrity sha512-ehoh43VG+DGOVxdT0XsO6camSMaHRCJf7shHX2qtKMRQo/29M1fGwZ+ssRTL0SucqLCvsmu3hmv13fEhC+79aA==
+addons-linter@7.11.0:
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.11.0.tgz#bdc3f75641c299d06b00b0044f1651f5b54ed97b"
+  integrity sha512-SW9J4eWom7U1RVh2Zzb73uzYf9TYVII0+zRRGtFskz3TTidhuSTErHAIZe2UgUq890LHSGgv6hAWsDHftYJ/7A==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "5.7.3"
+    "@mdn/browser-compat-data" "6.0.6"
     addons-moz-compare "1.3.0"
     addons-scanner-utils "9.12.0"
     ajv "8.17.1"
@@ -651,7 +651,7 @@ addons-linter@7.9.0:
     espree "10.3.0"
     esprima "4.0.1"
     fast-json-patch "3.1.1"
-    image-size "2.0.1"
+    image-size "2.0.2"
     json-merge-patch "1.0.2"
     pino "8.20.0"
     semver "7.7.1"
@@ -2652,10 +2652,10 @@ ignore@^7.0.3, ignore@~7.0.3:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.3.tgz#397ef9315dfe0595671eefe8b633fec6943ab733"
   integrity sha512-bAH5jbK/F3T3Jls4I0SO1hmPR0dKU0a7+SY6n1yzRtG54FLO8d6w/nxLFX2Nb7dBu6cCWXPaAME6cYqFUMmuCA==
 
-image-size@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/image-size/-/image-size-2.0.1.tgz#80f06046b8facf8d63d78e1d350873fea375f0eb"
-  integrity sha512-NI6NK/2zchlZopsQrcVIS7jxA0/rtIy74B+/rx5s7rKQyFebmQjZVhzxXgRZJROk+WhhOq+S6sUaODxp0L5hfg==
+image-size@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/image-size/-/image-size-2.0.2.tgz#84a7b43704db5736f364bf0d1b029821299b4bdc"
+  integrity sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==
 
 immediate@~3.0.5:
   version "3.0.6"
@@ -3972,12 +3972,19 @@ pinkie@^2.0.0:
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
-pino-abstract-transport@^1.1.0, pino-abstract-transport@^1.2.0:
+pino-abstract-transport@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pino-abstract-transport/-/pino-abstract-transport-1.2.0.tgz#97f9f2631931e242da531b5c66d3079c12c9d1b5"
   integrity sha512-Guhh8EZfPCfH+PMXAb6rKOjGQEoy0xlAIn+irODG5kgfYV+BQ0rGYYWTIel3P5mmyXqkYkPmdIkywsn6QKUR1Q==
   dependencies:
     readable-stream "^4.0.0"
+    split2 "^4.0.0"
+
+pino-abstract-transport@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pino-abstract-transport/-/pino-abstract-transport-2.0.0.tgz#de241578406ac7b8a33ce0d77ae6e8a0b3b68a60"
+  integrity sha512-F63x5tizV6WCh4R6RHyi2Ml+M70DNRXt/+HANowMflpgGFMAym/VKm6G7ZOQRjqN7XbGxK1Lg9t6ZrtzOaivMw==
+  dependencies:
     split2 "^4.0.0"
 
 pino-std-serializers@^6.0.0:
@@ -4007,15 +4014,15 @@ pino@8.20.0:
     sonic-boom "^3.7.0"
     thread-stream "^2.0.0"
 
-pino@9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-9.4.0.tgz#e4600ff199efc744856a5b3b71c53e38998eae5a"
-  integrity sha512-nbkQb5+9YPhQRz/BeQmrWpEknAaqjpAqRK8NwJpmrX/JHu7JuZC5G1CeAwJDJfGes4h+YihC6in3Q2nGb+Y09w==
+pino@9.6.0:
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-9.6.0.tgz#6bc628159ba0cc81806d286718903b7fc6b13169"
+  integrity sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
     on-exit-leak-free "^2.1.0"
-    pino-abstract-transport "^1.2.0"
+    pino-abstract-transport "^2.0.0"
     pino-std-serializers "^7.0.0"
     process-warning "^4.0.0"
     quick-format-unescaped "^4.0.3"
@@ -5265,14 +5272,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.5.0.tgz#91c5404d2b131181c75f7990c36fef62ff7d61a3"
-  integrity sha512-Cf7MLD4GDBLapBojGCywcDuScm7hi+M8n7JzqDYX1oNTrVvFirfWcu+A6RCqRyu1siMu3jY4ul/hAu9Chkf1Aw==
+web-ext@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.6.0.tgz#2ece548b8a24edfdb678ec8baf5f4b8bb226a89e"
+  integrity sha512-Y2b8YWtlrnJuAPzVAQJ7ewwmQcQGQp7Cdh8ijZTpv3dqMgR+pjMMjZExAgWVOwdYXIj96mTffHtFWlIS9Qd/pQ==
   dependencies:
-    "@babel/runtime" "7.26.10"
+    "@babel/runtime" "7.27.0"
     "@devicefarmer/adbkit" "3.3.8"
-    addons-linter "7.9.0"
+    addons-linter "7.11.0"
     camelcase "8.0.0"
     chrome-launcher "1.1.2"
     debounce "1.2.1"
@@ -5287,7 +5294,7 @@ web-ext@^8.5.0:
     node-notifier "10.0.1"
     open "9.1.0"
     parse-json "7.1.1"
-    pino "9.4.0"
+    pino "9.6.0"
     promise-toolbox "0.21.0"
     source-map-support "0.5.21"
     strip-bom "5.0.0"
