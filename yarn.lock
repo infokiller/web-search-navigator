@@ -51,10 +51,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/runtime@7.27.1":
-  version "7.27.1"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.1.tgz#9fce313d12c9a77507f264de74626e87fd0dc541"
-  integrity sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog==
+"@babel/runtime@7.27.6":
+  version "7.27.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
+  integrity sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==
 
 "@csstools/css-parser-algorithms@^3.0.4":
   version "3.0.4"
@@ -320,10 +320,10 @@
   dependencies:
     buffer "^6.0.3"
 
-"@mdn/browser-compat-data@6.0.16":
-  version "6.0.16"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-6.0.16.tgz#48359e1f2adee8e227e1b77e8b1b79afc459ce6d"
-  integrity sha512-j8VB83nzHFhRyu48V3DRpWySUfMuvbbJ1Cu/yIMadfnn5ZhfC45+NxAKGq3CntSSGTLOsSwbujbFxmFRJekasQ==
+"@mdn/browser-compat-data@6.0.23":
+  version "6.0.23"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-6.0.23.tgz#6552de3adb9f800c9ee3e29e84c7ec97e9d2581b"
+  integrity sha512-LdoI2lPd0bHn3IL4kJ2hxmh4kLE59GarffTR2oqllXc/LIWJNolznUk2lmzUxfColwM07Q3PbN38+ZqHdzmf3A==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -612,11 +612,6 @@ acorn-jsx@^5.3.2:
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
   integrity sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==
 
-acorn@^8.14.0:
-  version "8.14.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.14.0.tgz#063e2c70cac5fb4f6467f0b11152e04c682795b0"
-  integrity sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==
-
 acorn@^8.15.0:
   version "8.15.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
@@ -632,14 +627,14 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@7.13.0:
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.13.0.tgz#c125b994fdd8c6ec7fe8ca0cbbf02848d7e70f23"
-  integrity sha512-PCtnZtFfMw+7NSwHEsXPxlUC37ixvx4WBMUbT3T2WQ4N002lATRJQD4ixIXYbRNMDESrC8H2H91ReEE5jmS+Qg==
+addons-linter@7.15.0:
+  version "7.15.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.15.0.tgz#c55586ace3176d6f99d1d8c59c99d8c83e057142"
+  integrity sha512-Q8obxw1vrud4jcbLP4VWhJL5JS/JrC2ohZVh3NqJ98byPs71Hw+2Yq4Lqt+OpMov60uSS7BC1mdy3LloQ2KlYA==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "6.0.16"
+    "@mdn/browser-compat-data" "6.0.23"
     addons-moz-compare "1.3.0"
     addons-scanner-utils "9.13.0"
     ajv "8.17.1"
@@ -650,8 +645,8 @@ addons-linter@7.13.0:
     deepmerge "4.3.1"
     eslint "8.57.1"
     eslint-plugin-no-unsanitized "4.1.2"
-    eslint-visitor-keys "4.2.0"
-    espree "10.3.0"
+    eslint-visitor-keys "4.2.1"
+    espree "10.4.0"
     esprima "4.0.1"
     fast-json-patch "3.1.1"
     image-size "2.0.2"
@@ -1733,10 +1728,10 @@ eslint-utils@^3.0.0:
   dependencies:
     eslint-visitor-keys "^2.0.0"
 
-eslint-visitor-keys@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-4.2.0.tgz#687bacb2af884fcdda8a6e7d65c606f46a14cd45"
-  integrity sha512-UyLnSehNt62FFhSwjZlHmeokpRK59rcz29j+F1/aDgbkbRTk7wIc9XzdoasMUbRNKDM0qQt/+BJ4BrpFeABemw==
+eslint-visitor-keys@4.2.1, eslint-visitor-keys@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-4.2.1.tgz#4cfea60fe7dd0ad8e816e1ed026c1d5251b512c1"
+  integrity sha512-Uhdk5sfqcee/9H/rCOJikYz67o0a2Tw2hGRPOG2Y1R2dg7brRe1uG0yaNQDHu+TO/uQPF/5eCapvYSmHUjt7JQ==
 
 eslint-visitor-keys@^2.0.0:
   version "2.1.0"
@@ -1747,11 +1742,6 @@ eslint-visitor-keys@^3.3.0, eslint-visitor-keys@^3.4.1, eslint-visitor-keys@^3.4
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz#0cd72fe8550e3c2eae156a96a4dddcd1c8ac5800"
   integrity sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag==
-
-eslint-visitor-keys@^4.2.0, eslint-visitor-keys@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-4.2.1.tgz#4cfea60fe7dd0ad8e816e1ed026c1d5251b512c1"
-  integrity sha512-Uhdk5sfqcee/9H/rCOJikYz67o0a2Tw2hGRPOG2Y1R2dg7brRe1uG0yaNQDHu+TO/uQPF/5eCapvYSmHUjt7JQ==
 
 eslint@8.57.1, eslint@^8.51.0, eslint@^8.7.0:
   version "8.57.1"
@@ -1838,16 +1828,7 @@ eslint@^9.29.0:
     natural-compare "^1.4.0"
     optionator "^0.9.3"
 
-espree@10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/espree/-/espree-10.3.0.tgz#29267cf5b0cb98735b65e64ba07e0ed49d1eed8a"
-  integrity sha512-0QYC8b24HWY8zjRnDTL6RiHfDbAWn63qb4LMj1Z4b076A4une81+z03Kg7l7mn/48PUTqoLptSXez8oknU8Clg==
-  dependencies:
-    acorn "^8.14.0"
-    acorn-jsx "^5.3.2"
-    eslint-visitor-keys "^4.2.0"
-
-espree@^10.0.1, espree@^10.4.0:
+espree@10.4.0, espree@^10.0.1, espree@^10.4.0:
   version "10.4.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-10.4.0.tgz#d54f4949d4629005a1fa168d937c3ff1f7e2a837"
   integrity sha512-j6PAQ2uUr79PZhBjP5C5fhl8e39FmRnOjsD5lGnWrFU8i2G776tBK7+nP8KuQUTTyAZUwfQqXAgrVH5MbH9CYQ==
@@ -5219,14 +5200,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^8.7.1:
-  version "8.7.1"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.7.1.tgz#53a5d2e4061791c8a5694460aee3cc66f412cfe1"
-  integrity sha512-erzzLemPynhFSmSavgQ92PJkFGlY0XQEMZOHbc85D2f+pKi2wk7edaAwa8GU1E9AbyVrdPaFk7wGLpRGfRw8zw==
+web-ext@^8.8.0:
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.8.0.tgz#212e3914c443f6674092bd769781ad4334760552"
+  integrity sha512-8ecasYMN3zsGUq5ZT73cRrwffDffGC7jnaKKXnZFDSEArWqCf/GNc6/IkvKLDStUocB3CSW5hGffAUHKKi1VrA==
   dependencies:
-    "@babel/runtime" "7.27.1"
+    "@babel/runtime" "7.27.6"
     "@devicefarmer/adbkit" "3.3.8"
-    addons-linter "7.13.0"
+    addons-linter "7.15.0"
     camelcase "8.0.0"
     chrome-launcher "1.2.0"
     debounce "1.2.1"
@@ -5249,7 +5230,6 @@ web-ext@^8.7.1:
     tmp "0.2.3"
     update-notifier "7.3.1"
     watchpack "2.4.4"
-    ws "8.18.2"
     yargs "17.7.2"
     zip-dir "2.0.0"
 
@@ -5350,11 +5330,6 @@ write-file-atomic@^5.0.1:
   dependencies:
     imurmurhash "^0.1.4"
     signal-exit "^4.0.1"
-
-ws@8.18.2:
-  version "8.18.2"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.18.2.tgz#42738b2be57ced85f46154320aabb51ab003705a"
-  integrity sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ==
 
 xdg-basedir@^5.1.0:
   version "5.1.0"
