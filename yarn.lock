@@ -51,10 +51,10 @@
     js-tokens "^4.0.0"
     picocolors "^1.0.0"
 
-"@babel/runtime@7.27.6":
-  version "7.27.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
-  integrity sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==
+"@babel/runtime@7.28.4":
+  version "7.28.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.4.tgz#a70226016fabe25c5783b2f22d3e1c9bc5ca3326"
+  integrity sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==
 
 "@csstools/css-parser-algorithms@^3.0.5":
   version "3.0.5"
@@ -333,10 +333,10 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.0.tgz#08f5d89096110fdcf778e5337362e1cd5afad70a"
   integrity sha512-RlDgexML7Z63Q8BSaqhXdCYNBy/JQnqYIwxofUrNLGCblOMHp+xux2Q8nLMLlPpgHQPoU0Do8Z6btCpRBEqZ8g==
 
-"@mdn/browser-compat-data@6.0.32":
-  version "6.0.32"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-6.0.32.tgz#34b85634d4c2d43cb592087547727b5ca5fc146e"
-  integrity sha512-XXZ0RbkrIw8mr71WbVYmtZk+zWYutS71+/8/E+gyPE3yt/ZNiW4UU5/NcrpgLO4NfIB+VBuWhPzSN6Pb1VxAWA==
+"@mdn/browser-compat-data@7.1.5":
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-7.1.5.tgz#ab813fbb4c6fe7b870d10b720708a77a691e20c4"
+  integrity sha512-j7XpHbvSU3GOtXawlGq6TIETj0wgcE9o7FXu88ragQE/ak8/OsqOxn+wZ2v/2QUe8vrVhb9OJes+gHgyGEOYEQ==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -665,14 +665,14 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@7.18.0:
-  version "7.18.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.18.0.tgz#9403e93e87832c394cc79a5cd76d31888ca961cc"
-  integrity sha512-XJ2FiBjwuprKaFte/5KEOPgym3OuBJw1sutUipeYtQ8q2StVzXqwKY+Fwp0wciDlFkmiQmxP9AMeDiKrc0MdRw==
+addons-linter@7.20.0:
+  version "7.20.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-7.20.0.tgz#08103d711643bcff5db077068ab9733178722b5f"
+  integrity sha512-c6drrGsO91oGyqEdEZ3KIBFrSiSlhM5CKxoebBatH1l2vN1ByuRAlp9YUHLCjypLONThPcb+tVTA7X6yKIhpsw==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "6.0.32"
+    "@mdn/browser-compat-data" "7.1.5"
     addons-moz-compare "1.3.0"
     addons-scanner-utils "9.13.0"
     ajv "8.17.1"
@@ -682,14 +682,14 @@ addons-linter@7.18.0:
     common-tags "1.8.2"
     deepmerge "4.3.1"
     eslint "8.57.1"
-    eslint-plugin-no-unsanitized "4.1.2"
+    eslint-plugin-no-unsanitized "4.1.4"
     eslint-visitor-keys "4.2.1"
     espree "10.4.0"
     esprima "4.0.1"
     fast-json-patch "3.1.1"
     image-size "2.0.2"
     json-merge-patch "1.0.2"
-    pino "9.7.0"
+    pino "9.9.5"
     semver "7.7.2"
     source-map-support "0.5.21"
     upath "2.0.1"
@@ -1424,10 +1424,10 @@ debug@~4.3.1:
   dependencies:
     ms "^2.1.3"
 
-decamelize@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-6.0.0.tgz#8cad4d916fde5c41a264a43d0ecc56fe3d31749e"
-  integrity sha512-Fv96DCsdOgB6mdGl67MT5JaTNKRzrzill5OH5s8bjYJXVlcXyPYGyPsUkWyGV5p1TXI5esYIYMMeDJL0hEIwaA==
+decamelize@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-6.0.1.tgz#e858c37870153e1f733e92347ac3a3f009081ca7"
+  integrity sha512-G7Cqgaelq68XHJNGlZ7lrNQyhZGsFqpwtGFexqUv4IQdjKoSYF7ipZ9UuTJZUSQXFj/XaoBLuEVIVqr8EJngEQ==
 
 decode-named-character-reference@^1.0.0:
   version "1.0.2"
@@ -1727,10 +1727,10 @@ eslint-plugin-json@^4.0.1:
     lodash "^4.17.21"
     vscode-json-languageservice "^4.1.6"
 
-eslint-plugin-no-unsanitized@4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-no-unsanitized/-/eslint-plugin-no-unsanitized-4.1.2.tgz#a994d7633a9ed168e33a82b377ae3b9f79d16734"
-  integrity sha512-ydF3PMFKEIkP71ZbLHFvu6/FW8SvRv6VV/gECfrQkqyD5+5oCAtPz8ZHy0GRuMDtNe2jsNdPCQXX4LSbkapAVQ==
+eslint-plugin-no-unsanitized@4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-no-unsanitized/-/eslint-plugin-no-unsanitized-4.1.4.tgz#732dc9988190e38b29e5c1af86261f18ff658233"
+  integrity sha512-cjAoZoq3J+5KJuycYYOWrc0/OpZ7pl2Z3ypfFq4GtaAgheg+L7YGxUo2YS3avIvo/dYU5/zR2hXu3v81M9NxhQ==
 
 eslint-scope@^5.1.1:
   version "5.1.1"
@@ -3989,10 +3989,10 @@ pino-std-serializers@^7.0.0:
   resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-7.0.0.tgz#7c625038b13718dbbd84ab446bd673dc52259e3b"
   integrity sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==
 
-pino@9.7.0:
-  version "9.7.0"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-9.7.0.tgz#ff7cd86eb3103ee620204dbd5ca6ffda8b53f645"
-  integrity sha512-vnMCM6xZTb1WDmLvtG2lE/2p+t9hDEIvTWJsu6FejkE62vB7gDhvzrpFR4Cw2to+9JNQxVnkAKVPA1KPB98vWg==
+pino@9.9.5:
+  version "9.9.5"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-9.9.5.tgz#f06a5a0b4c715e34606290070dbb938c27eddd8b"
+  integrity sha512-d1s98p8/4TfYhsJ09r/Azt30aYELRi6NNnZtEbqFw6BoGsdPVf5lKNK3kUwH8BmJJfpTLNuicjUQjaMbd93dVg==
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
@@ -4697,10 +4697,10 @@ strip-dirs@^2.0.0:
   dependencies:
     is-natural-number "^4.0.1"
 
-strip-json-comments@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-5.0.2.tgz#14a76abd63b84a6d2419d14f26a0281d0cf6ea46"
-  integrity sha512-4X2FR3UwhNUE9G49aIsJW5hRRR3GXGTBTZRMfv568O60ojM8HcWjV/VxAxCDW3SUND33O6ZY66ZuRcdkj73q2g==
+strip-json-comments@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-5.0.3.tgz#b7304249dd402ee67fd518ada993ab3593458bcf"
+  integrity sha512-1tB5mhVo7U+ETBKNf92xT4hrQa3pm0MZ0PQvuDnWgAAGHDsfp4lPSpiS6psrSiet87wyGPh9ft6wmhOMQ0hDiw==
 
 strip-json-comments@^3.1.1, strip-json-comments@~3.1.1:
   version "3.1.1"
@@ -4923,10 +4923,10 @@ through@2, through@^2.3.8:
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
-tmp@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.3.tgz#eb783cc22bc1e8bebd0671476d46ea4eb32a79ae"
-  integrity sha512-nZD7m9iCPC5g0pYmcaxogYKggSfLsdxl8of3Q/oIbqCqLLIO9IAF0GWjX1z9NZRHPiXv8Wex4yDCaZsgEw0Y8w==
+tmp@0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.5.tgz#b06bcd23f0f3c8357b426891726d16015abfd8f8"
+  integrity sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==
 
 to-buffer@^1.1.1:
   version "1.1.1"
@@ -5248,18 +5248,18 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.9.0.tgz#86e93efd011141b79b5f1bbb11e14515545f1992"
-  integrity sha512-X2IeYfWSf7c/Tireuv48FRfgHougaINBWwwMoYOd9xcXbQGrYXK3IALZZf0cbPpq4AidNxNO8HTKw3SUeWvJgw==
+web-ext@^8.10.0:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-8.10.0.tgz#cca963794dec09f297eded9b47e81b297f629623"
+  integrity sha512-RM15PF8/xBBTe3pkgTvTkPaRoJbwE4HZcKy9NeD0lHIdir23oy9kd2oC4LuOqhrtarFvhTK4HlJ6NPYXt8Isxw==
   dependencies:
-    "@babel/runtime" "7.27.6"
+    "@babel/runtime" "7.28.4"
     "@devicefarmer/adbkit" "3.3.8"
-    addons-linter "7.18.0"
+    addons-linter "7.20.0"
     camelcase "8.0.0"
     chrome-launcher "1.2.0"
     debounce "1.2.1"
-    decamelize "6.0.0"
+    decamelize "6.0.1"
     es6-error "4.1.1"
     firefox-profile "4.7.0"
     fx-runner "1.4.0"
@@ -5270,12 +5270,12 @@ web-ext@^8.9.0:
     node-notifier "10.0.1"
     open "10.2.0"
     parse-json "7.1.1"
-    pino "9.7.0"
+    pino "9.9.5"
     promise-toolbox "0.21.0"
     source-map-support "0.5.21"
     strip-bom "5.0.0"
-    strip-json-comments "5.0.2"
-    tmp "0.2.3"
+    strip-json-comments "5.0.3"
+    tmp "0.2.5"
     update-notifier "7.3.1"
     watchpack "2.4.4"
     yargs "17.7.2"
