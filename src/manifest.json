@@ -31,6 +31,7 @@
     "content_scripts": [
         {
             "js": [
+                "userscript-polyfill.js",
                 "browser-polyfill.js",
                 "mousetrap.js",
                 "mousetrap-global-bind.js",
