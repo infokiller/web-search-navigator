@@ -37,7 +37,7 @@
     "gulp": "^5.0.1",
     "gulp-if": "^3.0.0",
     "gulp-terser": "^2.1.0",
-    "markdownlint-cli": "^0.46.0",
+    "markdownlint-cli": "^0.47.0",
     "minimist": "^1.2.8",
     "prettier": "3.7.4",
     "prettier-eslint-cli": "^8.0.1",
