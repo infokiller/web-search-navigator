@@ -45,7 +45,7 @@
     "shellcheck": "^4.1.0",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
-    "web-ext": "^9.2.0"
+    "web-ext": "^9.3.0"
   },
   "resolutions": {
     "bl": "^1.2.3",
