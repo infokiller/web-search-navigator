@@ -393,10 +393,10 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.1.tgz#0c01dd3a3483882af7cf3878d4e71d505c81fc4a"
   integrity sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==
 
-"@mdn/browser-compat-data@7.3.15":
-  version "7.3.15"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-7.3.15.tgz#a07f2ce7e739e400f2c255be0a54a8a3c1b4f95f"
-  integrity sha512-8YoG52J2ZsR+T4p0JsAuoWeztBgJsAtGY+LeGEAHvyJBojJzJtLb8o1fRsIbc0v6EHKRLIrCU3VoAIK1olntag==
+"@mdn/browser-compat-data@7.3.16":
+  version "7.3.16"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-7.3.16.tgz#4a5b7feb3484faf6bea3b00b773b03bc08eaa209"
+  integrity sha512-JQ6SGcHeyqSYGVwWe7NzOeXfp/vZgo2yz+fsEbMOyWLyNRVP4RoG8+dqaF/VTx1zPtF4J8XvxiWXH1l2cMZTwQ==
 
 "@messageformat/core@^3.2.0":
   version "3.2.0"
@@ -733,16 +733,16 @@ acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
-addons-linter@10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.5.0.tgz#a22eb29bcc922d6f98af9f271d37dd8c21167cc4"
-  integrity sha512-bNxux80+rhU2bT1v/QQCUIuUQCW0vSCJdF34yhtT3+EGWEkqdAz8rrW2Af4noSbkGvVj2S3lr5YHN9/6eobZxw==
+addons-linter@10.6.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.6.0.tgz#d2ef2a9cb9ca857f713083253c88451289f0e3c6"
+  integrity sha512-8T+Rj4U1lGwtC4OIInsEoxty3H0iZMtvkI+Wvo5+EFfnWhknPBOexusM0o7mi00keNk4dq/2tVZVRSE62SdRsA==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "7.3.15"
+    "@mdn/browser-compat-data" "7.3.16"
     addons-moz-compare "1.3.0"
-    addons-scanner-utils "15.1.0"
+    addons-scanner-utils "15.2.0"
     ajv "8.20.0"
     cheerio "1.2.0"
     columnify "1.6.0"
@@ -768,10 +768,10 @@ addons-moz-compare@1.3.0:
   resolved "https://registry.yarnpkg.com/addons-moz-compare/-/addons-moz-compare-1.3.0.tgz#9074dce00291cef998c2fba6b462d041cc6b3e36"
   integrity sha512-/rXpQeaY0nOKhNx00pmZXdk5Mu+KhVlL3/pSBuAYwrxRrNiTvI/9xfQI8Lmm7DMMl+PDhtfAHY/0ibTpdeoQQQ==
 
-addons-scanner-utils@15.1.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-15.1.0.tgz#c5d82abf47d907b42d01c0ca7d089833bd7dfeba"
-  integrity sha512-JoYnqUNs5FkoZWY+aAzOxo6L0jnrmpN7WSAl2QcoV5QZsJhlyMcesoQn4CY97LKoTGdoG8+IRWkdTJX6HWagRg==
+addons-scanner-utils@15.2.0:
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-15.2.0.tgz#f5a7fd941623e991b59f4502989fb7a732ba7f82"
+  integrity sha512-SkjE3jE7Sfx67KuL8nI5DolqqQ35G1GMcMrgT9LufKnBJUW4YnoBO1sLAILj3N/FLhfSAT0hwWK1MSVLmgbASQ==
   dependencies:
     common-tags "1.8.2"
     first-chunk-stream "3.0.0"
@@ -5183,10 +5183,10 @@ tinyglobby@~0.2.15:
     fdir "^6.5.0"
     picomatch "^4.0.3"
 
-tmp@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.5.tgz#b06bcd23f0f3c8357b426891726d16015abfd8f8"
-  integrity sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==
+tmp@0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.6.tgz#0dfac10fd09a9319288eb0e8f0ed524604e183b4"
+  integrity sha512-5sJPdPjfI5Kx+qbrDesxkglRBxW//g7hCsqspEjwkewGvBMGIKMOTKzLt1hFVJzyadba3lDUN20O9qhvbQUSTA==
 
 to-buffer@^1.1.1:
   version "1.1.1"
@@ -5508,14 +5508,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.2.0.tgz#e30c223251c6512a3fc51e29e42db725367516c7"
-  integrity sha512-bDmIMT2mq9LwLly/YdcfRokrXEbnlX1mvIlUSVfdbPj2vgmL3xTVz2Di0mOpxztxHKebKETV3TQqA7NOEjePJQ==
+web-ext@^10.3.0:
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.3.0.tgz#e0a103522c5ff9def005e478f962ecbcb7be3bec"
+  integrity sha512-pDt0/TQcVSanKKypzW2gpy8dhzXMWyP33dz38HkSEWLJI7o+FvkDyE3wFFcSAE6m/tsbwZcHGxBA09A1H/iZ5w==
   dependencies:
     "@babel/runtime" "7.29.2"
     "@devicefarmer/adbkit" "3.3.8"
-    addons-linter "10.5.0"
+    addons-linter "10.6.0"
     camelcase "8.0.0"
     chrome-launcher "1.2.0"
     debounce "1.2.1"
@@ -5534,7 +5534,7 @@ web-ext@^10.2.0:
     source-map-support "0.5.21"
     strip-bom "5.0.0"
     strip-json-comments "5.0.3"
-    tmp "0.2.5"
+    tmp "0.2.6"
     update-notifier "7.3.1"
     watchpack "2.5.1"
     yargs "17.7.2"
