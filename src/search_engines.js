@@ -877,7 +877,7 @@ class StartPage {
   }
   getTopMargin(element) {
     return getFixedSearchBoxTopMargin(
-        document.querySelector('div.layout-web__header'),
+        document.querySelector('header'),
         element,
     );
   }
@@ -890,10 +890,10 @@ class StartPage {
   }
 
   static #isSearchTab() {
-    return document.querySelector('div.layout-web') != null;
+    return document.querySelector('div.Layout') != null;
   }
   static #isImagesTab() {
-    return document.querySelector('div.layout-images') != null;
+    return document.querySelector('div.LayoutImages') != null;
   }
 
   getSearchResults() {
@@ -904,19 +904,19 @@ class StartPage {
     }
     const containerSelector = (element) => {
       if (StartPage.#isSearchTab()) {
-        return element.closest('.w-gl__result');
+        return element.closest('.result');
       }
       return element;
     };
     const includedElements = [
       {
-        nodes: document.querySelectorAll('a.w-gl__result-url'),
+        nodes: document.querySelectorAll('a.result-link'),
         highlightedElementSelector: containerSelector,
         highlightClass: 'wsn-startpage-focused-link',
         containerSelector: containerSelector,
       },
       {
-        nodes: document.querySelectorAll('.pagination--desktop button'),
+        nodes: document.querySelectorAll('.pagination input'),
         highlightClass: 'wsn-startpage-focused-link',
       },
       // As of 2020-06-20, this doesn't seem to match anything.
@@ -933,29 +933,29 @@ class StartPage {
   }
 
   get previousPageButton() {
-    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    const menuLinks = document.querySelectorAll('.pagination button');
     if (!menuLinks || menuLinks.length < 4) {
       return null;
     }
 
     return document.querySelector(
-        'form.pagination__form.next-prev-form--desktop:first-of-type',
+        '.pagination > form:first-of-type > button',
     );
   }
 
   get nextPageButton() {
-    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    const menuLinks = document.querySelectorAll('.pagination button');
     if (!menuLinks || menuLinks.length < 4) {
       return null;
     }
 
     return document.querySelector(
-        'form.pagination__form.next-prev-form--desktop:last-of-type',
+        '.pagination > form:last-of-type > button',
     );
   }
 
   get tabs() {
-    const menuLinks = document.querySelectorAll('.inline-nav-menu__link');
+    const menuLinks = document.querySelectorAll('.header-nav-item-button');
     if (!menuLinks || menuLinks.length < 4) {
       return {};
     }
@@ -968,30 +968,18 @@ class StartPage {
   }
 
   changeTools(period) {
-    const forms = document.forms;
-    let timeForm;
+    const filterForm = document.querySelector('#search-filters');
 
-    for (let i = 0; i < forms.length; i++) {
-      if (forms[i].className === 'search-filter-time__form') {
-        timeForm = forms[i];
-      }
+    if (period === 'a') {
+      filterForm.elements['with_date'].value = null;
+      filterForm.submit();
+      return;
     }
 
-    switch (period) {
-      case 'd':
-        timeForm.elements['with_date'][1].click();
-        break;
-      case 'w':
-        timeForm.elements['with_date'][2].click();
-        break;
-      case 'm':
-        timeForm.elements['with_date'][3].click();
-        break;
-      case 'y':
-        timeForm.elements['with_date'][4].click();
-        break;
-      default:
-        break;
+    if (['d', 'w', 'm', 'y'].includes(period)) {
+      filterForm.elements['with_date'].value = period;
+      filterForm.submit();
+      return;
     }
   }
 }
