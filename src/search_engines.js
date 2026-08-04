@@ -229,7 +229,7 @@ class GoogleSearch {
 
   static #isImagesTab() {
     const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get('tbm') === 'isch';
+    return searchParams.get('udm') === '2';
   }
 
   static #getImagesTabResults() {
@@ -553,7 +553,9 @@ class GoogleSearch {
   }
 
   static #imageSearchTabs() {
-    const visibleTabs = document.querySelectorAll('.T47uwc > a');
+    const visibleTabs = document.querySelectorAll(
+        '.crJ18e div[role="listitem"] > a',
+    );
     // NOTE: The order of the tabs after the first two is dependent on the
     // query. For example:
     // - "cats": videos, news, maps
@@ -562,21 +564,25 @@ class GoogleSearch {
     return {
       navigateSearchTab: visibleTabs[0],
       navigateMapsTab: selectorElementGetter(
-          '.T47uwc > a[href*="maps.google."]',
+          '.crJ18e div[role="listitem"] > a[href*="maps.google."]',
       ),
-      navigateVideosTab: selectorElementGetter('.T47uwc > a[href*="&tbm=vid"]'),
-      navigateNewsTab: selectorElementGetter('.T47uwc > a[href*="&tbm=nws"]'),
+      navigateVideosTab: selectorElementGetter(
+          '.crJ18e div[role="listitem"] > a[href*="&tbm=vid"]',
+      ),
+      navigateNewsTab: selectorElementGetter(
+          '.crJ18e div[role="listitem"] > a[href*="&tbm=nws"]',
+      ),
       navigateShoppingTab: selectorElementGetter(
-          'a[role="menuitem"][href*="&tbm=shop"]',
+          'a[role="link"][href*="&tbm=shop"]',
       ),
       navigateBooksTab: selectorElementGetter(
-          'a[role="menuitem"][href*="&tbm=bks"]',
+          'a[role="link"][href*="&tbm=bks"]',
       ),
       navigateFlightsTab: selectorElementGetter(
-          'a[role="menuitem"][href*="&tbm=flm"]',
+          'a[role="link"][href*="&tbm=flm"]',
       ),
       navigateFinancialTab: selectorElementGetter(
-          'a[role="menuitem"][href*="/finance?"]',
+          'a[role="link"][href*="/finance?"]',
       ),
       // TODO: Disable image search's default keybindings to avoid confusing the
       // user, because the default keybindings can cause an indenepdent
@@ -618,7 +624,7 @@ class GoogleSearch {
           // eslint-disable-next-line max-len
           'a[href*="/search?q="]:not([href*="&tbm="]):not([href*="maps.google."])',
       ),
-      navigateImagesTab: selectorElementGetter('a[href*="&tbm=isch"]'),
+      navigateImagesTab: selectorElementGetter('a[href*="&udm=2"]'),
       navigateVideosTab: selectorElementGetter('a[href*="&tbm=vid"]'),
       navigateMapsTab: selectorElementGetter('a[href*="maps.google."]'),
       navigateNewsTab: selectorElementGetter('a[href*="&tbm=nws"]'),
