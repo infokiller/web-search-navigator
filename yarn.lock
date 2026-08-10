@@ -100,10 +100,10 @@
   resolved "https://registry.yarnpkg.com/@devicefarmer/adbkit-monkey/-/adbkit-monkey-1.2.1.tgz#28cd6a121c5d572588081dd1c53454c604eef241"
   integrity sha512-ZzZY/b66W2Jd6NHbAhLyDWOEIBWC11VizGFk7Wx7M61JZRz7HR9Cq5P+65RKWUU7u6wgsE8Lmh9nE4Mz+U2eTg==
 
-"@devicefarmer/adbkit@3.3.8":
-  version "3.3.8"
-  resolved "https://registry.yarnpkg.com/@devicefarmer/adbkit/-/adbkit-3.3.8.tgz#04bc35cb3a2d7385f2e22de40f54162088083183"
-  integrity sha512-7rBLLzWQnBwutH2WZ0EWUkQdihqrnLYCUMaB44hSol9e0/cdIhuNFcqZO0xNheAU6qqHVA8sMiLofkYTgb+lmw==
+"@devicefarmer/adbkit@3.3.9":
+  version "3.3.9"
+  resolved "https://registry.yarnpkg.com/@devicefarmer/adbkit/-/adbkit-3.3.9.tgz#035127f091a0bb43e8c4404dcb6fd6a4397d027e"
+  integrity sha512-AYxk5G/b2BPEfubcuxVEZEOpsLf0isqrPNJnnwAlUjZAiLdFg/uvLNRDuBhsC/Ar62X+rUhVlvlL+tKp9HCjfQ==
   dependencies:
     "@devicefarmer/adbkit-logcat" "^2.1.2"
     "@devicefarmer/adbkit-monkey" "~1.2.1"
@@ -350,10 +350,10 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.1.tgz#0c01dd3a3483882af7cf3878d4e71d505c81fc4a"
   integrity sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==
 
-"@mdn/browser-compat-data@8.0.4":
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-8.0.4.tgz#a0f09b29fc7ba7cc8e7260c0e57e9a0ea790d567"
-  integrity sha512-up6DsNsaPt3jq5d2TGx4UOXIqBKU0D86dxWwcVmmOOEYqP1rFaV1XcAcwHxMvb6bbtMfY5JpjUCszzy/aVc4yA==
+"@mdn/browser-compat-data@8.0.8":
+  version "8.0.8"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-8.0.8.tgz#399170709604be6bd0116ef7d497e52089be6fd5"
+  integrity sha512-Rutrrc3FYOc+um4/QC4WFETNk2fV8NKWoqQl3tQfcVTQ1WFaoJRbsJBasSF34ltitmnYYD6ZsKW1cOQtSj1jbQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -653,14 +653,14 @@ acorn@^8.5.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
   integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
 
-addons-linter@10.8.0:
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.8.0.tgz#308ee53b27f1a92683a5b2b111906133eb80a594"
-  integrity sha512-AotpGWlp5FrmUIH8kjyYjQvCmthnSqPLpw7kOEl7DfoAWEndOCV/ONuekAVM8QObiei802RyyIClEaekA51n5g==
+addons-linter@10.10.0:
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.10.0.tgz#4227461efc3646082919b82cc1a666b9cf95509a"
+  integrity sha512-1n5Xvn4DyHMsulchNDl4ucWnXXQhHwLif6eK80KjieI9KIK3xD+3OYXk5ZcA6a2J8y+Nrlvq9/vq6w7KOqT2MQ==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "8.0.4"
+    "@mdn/browser-compat-data" "8.0.8"
     addons-moz-compare "1.3.0"
     addons-scanner-utils "15.4.0"
     ajv "8.20.0"
@@ -680,7 +680,7 @@ addons-linter@10.8.0:
     pino "10.3.1"
     semver "7.8.5"
     source-map-support "0.5.21"
-    upath "3.0.7"
+    upath "3.0.8"
     yargs "17.7.2"
     yauzl "3.4.0"
 
@@ -701,10 +701,10 @@ addons-scanner-utils@15.4.0:
     upath "3.0.7"
     yauzl "3.4.0"
 
-adm-zip@~0.5.x:
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.5.9.tgz#b33691028333821c0cf95c31374c5462f2905a83"
-  integrity sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==
+adm-zip@~0.6.x:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.6.0.tgz#bbc5c6c333755e967a06dd98747f431e1d53a3cf"
+  integrity sha512-XleryMhbuksdKtofnWZ9Sk+4CUTbms4Mb/EU32SZwToAyZ5RgVos/ki8n+yr0LWHOGKuakbXTuuYNHLQjhddgg==
 
 agent-base@^7.0.2:
   version "7.1.1"
@@ -2097,12 +2097,12 @@ fined@^2.0.0:
     object.pick "^1.3.0"
     parse-filepath "^1.0.2"
 
-firefox-profile@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/firefox-profile/-/firefox-profile-4.7.0.tgz#97087b17a9a38fea58ec0acf2bca19a5cc121cb7"
-  integrity sha512-aGApEu5bfCNbA4PGUZiRJAIU6jKmghV2UVdklXAofnNtiDjqYw0czLS46W7IfFqVKgKhFB8Ao2YoNGHY4BoIMQ==
+firefox-profile@4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/firefox-profile/-/firefox-profile-4.7.1.tgz#9636dac892d9ed1cfee7a70b7d4b51c2347fc4e6"
+  integrity sha512-rUFGvJzXxhhOltBxf1aML9jTVismzgC3w00v2dG4Bxu5Xr6o9/D9QUT4do1ZUE9NHzmRFyQ6Bz+HBWnxZMO65w==
   dependencies:
-    adm-zip "~0.5.x"
+    adm-zip "~0.6.x"
     fs-extra "^11.2.0"
     ini "^4.1.3"
     minimist "^1.2.8"
@@ -2199,13 +2199,13 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fx-runner@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/fx-runner/-/fx-runner-1.5.0.tgz#79765a8571c2f9e1cae75cc39acaa1f28971ca5d"
-  integrity sha512-EstfdRQu04tM+SXR3pBmc0+GYKZj9FMHAvA8XAbKPzTvUeHP0v1/F3aQ10bG7EluR6phvFqsvn5Z7SvYJsEgNw==
+fx-runner@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/fx-runner/-/fx-runner-1.6.0.tgz#a2e5c76d8dd85a8955e9da698178740f4313d61d"
+  integrity sha512-PEEUfnQJw0/io6SspBbR4EIeXFL/qe/sugesCyfr9M3llgyxNaOH8stvO6KJOKRjeUAvEB6oSZKS3lgjSEOsXg==
   dependencies:
     commander "^12.1.0"
-    shell-quote "1.8.4"
+    shell-quote "1.10.0"
     which "^4.0.0"
     winreg "0.0.12"
 
@@ -4338,10 +4338,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shell-quote@1.8.4:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.8.4.tgz#2edd9a4dcefc96649e2e2cb12f637b1f1d92a190"
-  integrity sha512-VsC6n6vz1ihYYyZZwX7YZSF5l5x36ca17OC+a69h94YqB7X6XLwf+5MOgynYir2SLFUbl8gIYvBo8K8RoNQ6bQ==
+shell-quote@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.10.0.tgz#482033e192e4f5c07151521ffa03400ec71b1b0f"
+  integrity sha512-w1aiOKwKuRgtwAReIIj89puqg+I7GvX4IbLrvmhXbzQsj1+Zwi4VO3+fa6ZF91TWSjIxoEkKnMeHcLEODK5ZXA==
 
 shellcheck@^4.1.0:
   version "4.1.0"
@@ -4942,6 +4942,11 @@ upath@3.0.7:
   resolved "https://registry.yarnpkg.com/upath/-/upath-3.0.7.tgz#2e71224200ee5b14ca36342a9b7e8a37f0912859"
   integrity sha512-VjBBquch25nUGMuVBpOb2Cj3gc8Kb7lJBqbsXR/0anZ/5uJsL14Kpth9JKfnBsckxCfgIp6hPvcvvmZ97R9X7g==
 
+upath@3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/upath/-/upath-3.0.8.tgz#4c072fbbe04ef2d88d9ec1923457497bc46dc545"
+  integrity sha512-YAsrLMIlhfSCm9rga5TZsJ1mXgahs7N0qOTokzU8mFz35hUrYMvVkaEPefI3rEb/vkAWAOj1Km/qdije9RC1kQ==
+
 update-notifier@7.3.1:
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/update-notifier/-/update-notifier-7.3.1.tgz#49af1ad6acfa0ea01c0d0f3c04047c154ead7096"
@@ -5105,21 +5110,21 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.5.0.tgz#41772c8ebe2b438332bb37150cd008301175704b"
-  integrity sha512-tveUHhZHu5A2Qrs7u+hbh2S+7ZPuKVH/ILzqkRwpdivFOnVmgPhDLtmtGNKT3a8N9PZbW5uP6INe6Byj5qePVQ==
+web-ext@^10.6.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.6.0.tgz#58d1756e8c0c5cb37d28dda8a106350bf9d879e1"
+  integrity sha512-r1MfSwVy5wRQw3UgTUCw9CDViFIoDPri1Wq8qh/mRjC8T+K0TfuxKz68bzYTEP3rbAW6Wn8y7v/jXzBYd3LLGA==
   dependencies:
     "@babel/runtime" "8.0.0"
-    "@devicefarmer/adbkit" "3.3.8"
-    addons-linter "10.8.0"
+    "@devicefarmer/adbkit" "3.3.9"
+    addons-linter "10.10.0"
     camelcase "8.0.0"
     chrome-launcher "1.2.0"
     debounce "1.2.1"
     decamelize "6.0.1"
     es6-error "4.1.1"
-    firefox-profile "4.7.0"
-    fx-runner "1.5.0"
+    firefox-profile "4.7.1"
+    fx-runner "1.6.0"
     https-proxy-agent "^7.0.0"
     jose "5.9.6"
     jszip "3.10.1"
