@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.69.0",
-    "@typescript-eslint/parser": "^8.69.0",
+    "@typescript-eslint/parser": "^8.70.0",
     "eslint": "^10.10.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-json": "^5.0.0",
