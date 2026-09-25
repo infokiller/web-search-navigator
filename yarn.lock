@@ -42,10 +42,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/runtime@8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-8.0.0.tgz#d7bd513e6843662346552c2798ab895716cf97f2"
-  integrity sha512-sL6cvO2IfkSu/iU+zs2S/w01B7A8V7suXSIKEN4hPFFdZoiPGxrj5pAG0lCaqLWiEIrjKzdznIWuaLcxPR53qw==
+"@babel/runtime@8.0.5":
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-8.0.5.tgz#7b9cdb3ecdd4d9f5975f9a8a64c391a8ce04c436"
+  integrity sha512-7NK+Lz3spQ52XsUGTxIEVU4jYN2/dIaX8sTxRFAUtYmttYZnVh3aehiihv+/Gb7+duMNHl2OrFcBQRyOHScxpg==
 
 "@cacheable/memory@^2.2.0":
   version "2.2.0"
@@ -350,10 +350,10 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.1.tgz#0c01dd3a3483882af7cf3878d4e71d505c81fc4a"
   integrity sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==
 
-"@mdn/browser-compat-data@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-8.0.8.tgz#399170709604be6bd0116ef7d497e52089be6fd5"
-  integrity sha512-Rutrrc3FYOc+um4/QC4WFETNk2fV8NKWoqQl3tQfcVTQ1WFaoJRbsJBasSF34ltitmnYYD6ZsKW1cOQtSj1jbQ==
+"@mdn/browser-compat-data@8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-8.1.0.tgz#e1d9a43e3b9d0c7c4ea22d572b6abcf07ce083ef"
+  integrity sha512-BNlUjp+9O6gtIHPVZEGFb5rgtuWW8weR+mSKfLOevxbfoZv5DRe3N4ZTEpXiIm5wfR7+kqHu8malCCgP6USrlg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -618,16 +618,16 @@ acorn@^8.5.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
   integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
 
-addons-linter@10.10.0:
-  version "10.10.0"
-  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.10.0.tgz#4227461efc3646082919b82cc1a666b9cf95509a"
-  integrity sha512-1n5Xvn4DyHMsulchNDl4ucWnXXQhHwLif6eK80KjieI9KIK3xD+3OYXk5ZcA6a2J8y+Nrlvq9/vq6w7KOqT2MQ==
+addons-linter@10.13.0:
+  version "10.13.0"
+  resolved "https://registry.yarnpkg.com/addons-linter/-/addons-linter-10.13.0.tgz#9991abdb5182a6a571823f01e2552b48830d2333"
+  integrity sha512-gHCI20x4umX7q1cfJgwr4k/E6+mk2xkuTji17YGdDQxUuIkoDVxO3HmeZEm3pA/3+pVgayHdDzgt+xSu7vikUQ==
   dependencies:
     "@fluent/syntax" "0.19.0"
     "@fregante/relaxed-json" "2.0.0"
-    "@mdn/browser-compat-data" "8.0.8"
-    addons-moz-compare "1.3.0"
-    addons-scanner-utils "15.4.0"
+    "@mdn/browser-compat-data" "8.1.0"
+    addons-moz-compare "1.4.0"
+    addons-scanner-utils "15.5.0"
     ajv "8.20.0"
     cheerio "1.2.0"
     columnify "1.6.0"
@@ -640,7 +640,7 @@ addons-linter@10.10.0:
     espree "11.2.0"
     esprima "4.0.1"
     fast-json-patch "3.1.1"
-    image-size "2.0.2"
+    image-size "2.0.4"
     json-merge-patch "1.0.2"
     pino "10.3.1"
     semver "7.8.5"
@@ -649,21 +649,21 @@ addons-linter@10.10.0:
     yargs "17.7.2"
     yauzl "3.4.0"
 
-addons-moz-compare@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/addons-moz-compare/-/addons-moz-compare-1.3.0.tgz#9074dce00291cef998c2fba6b462d041cc6b3e36"
-  integrity sha512-/rXpQeaY0nOKhNx00pmZXdk5Mu+KhVlL3/pSBuAYwrxRrNiTvI/9xfQI8Lmm7DMMl+PDhtfAHY/0ibTpdeoQQQ==
+addons-moz-compare@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/addons-moz-compare/-/addons-moz-compare-1.4.0.tgz#14af93c30f1c1bc4f670008df33fbe622f798dc3"
+  integrity sha512-uAM48cRt09id5+A2M11f1iDYebISjrIKyFYHfBI3GzqqC5BoOLFMSAFqHRaRvChL07qYPmcVme6VMoCKo19d6Q==
 
-addons-scanner-utils@15.4.0:
-  version "15.4.0"
-  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-15.4.0.tgz#fef456e76837d29f6495de82da33d4b5d86d82d8"
-  integrity sha512-i3PnJx9YLZi96o4t4JWArP6JimC01949YVAcMJKHfyQ5qmUBaH21qNS8f12/RsloejW8IcCEljhh3Fq3gxFNsg==
+addons-scanner-utils@15.5.0:
+  version "15.5.0"
+  resolved "https://registry.yarnpkg.com/addons-scanner-utils/-/addons-scanner-utils-15.5.0.tgz#b40c7df6d36fdc30b639c8a86c846e66ec1ba7f5"
+  integrity sha512-bucvaWBYzhtIVrkbzSo9SA22DLsOxFKXLlIJ234N6x8+8a3FNDGOva8x9lsM7xVQ7oUZH4RZ/WAEtR54J/iQSg==
   dependencies:
     common-tags "1.8.2"
     first-chunk-stream "3.0.0"
     jsonwebtoken "^9.0.3"
     strip-bom-stream "4.0.0"
-    upath "3.0.7"
+    upath "3.0.8"
     yauzl "3.4.0"
 
 adm-zip@~0.6.x:
@@ -1459,10 +1459,10 @@ default-browser-id@^5.0.0:
   resolved "https://registry.yarnpkg.com/default-browser-id/-/default-browser-id-5.0.0.tgz#a1d98bf960c15082d8a3fa69e83150ccccc3af26"
   integrity sha512-A6p/pu/6fyBcA1TRz/GqWYPViplrftcW2gZC9q79ngNCKAeR/X3gcEdXQHl4KNXV+3wgIJ1CPkJQ3IHM6lcsyA==
 
-default-browser@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/default-browser/-/default-browser-5.4.0.tgz#b55cf335bb0b465dd7c961a02cd24246aa434287"
-  integrity sha512-XDuvSq38Hr1MdN47EDvYtx3U0MTqpCEn+F6ft8z2vYDzMrvQhVp0ui9oQdqW3MvK3vqUETglt1tVGgjLuJ5izg==
+default-browser@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/default-browser/-/default-browser-5.5.1.tgz#1790affc52680fbb11e17cab2752d69aa2a37d2c"
+  integrity sha512-m1pAzaJgZ/gssEqlOhJkPJp8Xly7QyW6xcrkUa2KKcDeDSEMP7X8xipU3snUcfisTQx0w1AGae+9UtJSfVnXGw==
   dependencies:
     bundle-name "^4.1.0"
     default-browser-id "^5.0.0"
@@ -2496,10 +2496,10 @@ ignore@^7.0.5, ignore@~7.0.6:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.6.tgz#6a57aaef4c90df27ac3590875d29e8f11988c88e"
   integrity sha512-BAg6QkE8W+TuQLrrw0Ugr7HegXduRuuj8/ti2kSOc+jz1dmx8/WNcjr6XGnq5YpDWxFwwaavqD0+jIUOKelTsw==
 
-image-size@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/image-size/-/image-size-2.0.2.tgz#84a7b43704db5736f364bf0d1b029821299b4bdc"
-  integrity sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==
+image-size@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/image-size/-/image-size-2.0.4.tgz#bbc1933173e4ee1adbbdf9d4958ded15fdb710e3"
+  integrity sha512-QRUkFFsRV/6fuESxb9Vkq+a0LkSrgKXuc2NEqfikiXxxN/G3tjWt5EVUlMaImRBZRZK/jRBEbYvpPYZL8t08Zw==
 
 immediate@~3.0.5:
   version "3.0.6"
@@ -2879,10 +2879,10 @@ jsonwebtoken@^9.0.3:
     ms "^2.1.1"
     semver "^7.5.4"
 
-jszip@3.10.1, jszip@^3.2.2:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.10.1.tgz#34aee70eb18ea1faec2f589208a157d1feb091c2"
-  integrity sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==
+jszip@3.10.2, jszip@^3.2.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.10.2.tgz#9fee8cfaaffb601f6c8796ecc522e4f81cbe88bf"
+  integrity sha512-3l+rb15IOWtUhU0H5MFqES/T6Kh7abYwjosBey/vD6hDt8zoEffkSC5Ws5SGtgVw3gBx2NEbhTeSW1+kWkpyTQ==
   dependencies:
     lie "~3.3.0"
     pako "~1.0.2"
@@ -3602,17 +3602,17 @@ once@^1.4.0:
   dependencies:
     wrappy "1"
 
-open@11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/open/-/open-11.0.0.tgz#897e6132f994d3554cbcf72e0df98f176a7e5f62"
-  integrity sha512-smsWv2LzFjP03xmvFoJ331ss6h+jixfA4UUV/Bsiyuu4YJPfN+FIQGOIiv4w9/+MoHkfkJ22UIaQWRVFRfH6Vw==
+open@11.0.3:
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/open/-/open-11.0.3.tgz#ce13044e930beab892d30b485429a79225889641"
+  integrity sha512-b3souUgU0VaAvMmzA4+9cRgrOgMdE0vc9H9VhQ0FYnjjcyZ8R/f9DiwMU9V8rl+vjf05On9UJhbgb06fsTs87Q==
   dependencies:
-    default-browser "^5.4.0"
+    default-browser "^5.5.1"
     define-lazy-prop "^3.0.0"
     is-in-ssh "^1.0.0"
     is-inside-container "^1.0.0"
-    powershell-utils "^0.1.0"
-    wsl-utils "^0.3.0"
+    powershell-utils "^0.2.1"
+    wsl-utils "^1.0.0"
 
 optionator@^0.9.3:
   version "0.9.3"
@@ -3900,6 +3900,11 @@ powershell-utils@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/powershell-utils/-/powershell-utils-0.1.0.tgz#5a42c9a824fb4f2f251ccb41aaae73314f5d6ac2"
   integrity sha512-dM0jVuXJPsDN6DvRpea484tCUaMiXWjuCn++HGTqUWzGDjv5tZkEZldAJ/UMlqRYGFrD/etByo4/xOuC/snX2A==
+
+powershell-utils@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/powershell-utils/-/powershell-utils-0.2.1.tgz#0853016f5b3c12d52b9571c8fe8059677d9ddbe2"
+  integrity sha512-C+y9x90UElAddDZmV4qOx9W53B61PO7cIqWz2dQsWlwswuq4mr8NEwytdGKboYbQlGZ3awrkTeNvcZiZNHnQ8A==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -4865,11 +4870,6 @@ universalify@^2.0.0:
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
   integrity sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
 
-upath@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/upath/-/upath-3.0.7.tgz#2e71224200ee5b14ca36342a9b7e8a37f0912859"
-  integrity sha512-VjBBquch25nUGMuVBpOb2Cj3gc8Kb7lJBqbsXR/0anZ/5uJsL14Kpth9JKfnBsckxCfgIp6hPvcvvmZ97R9X7g==
-
 upath@3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/upath/-/upath-3.0.8.tgz#4c072fbbe04ef2d88d9ec1923457497bc46dc545"
@@ -5038,14 +5038,14 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
-web-ext@^10.6.0:
-  version "10.6.0"
-  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.6.0.tgz#58d1756e8c0c5cb37d28dda8a106350bf9d879e1"
-  integrity sha512-r1MfSwVy5wRQw3UgTUCw9CDViFIoDPri1Wq8qh/mRjC8T+K0TfuxKz68bzYTEP3rbAW6Wn8y7v/jXzBYd3LLGA==
+web-ext@^10.7.0:
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-10.7.0.tgz#612dceb5c8e2a6d0b9ae1990a0f6a7986cdcfc4e"
+  integrity sha512-G1CJMzQx8rWzD5WhhlUupKkMXXI+oVKUP44aY7H8Qte30xaozZ592kdK7V24U4HMNgayEFsMWxrYfX+/ccqB1w==
   dependencies:
-    "@babel/runtime" "8.0.0"
+    "@babel/runtime" "8.0.5"
     "@devicefarmer/adbkit" "3.3.9"
-    addons-linter "10.10.0"
+    addons-linter "10.13.0"
     camelcase "8.0.0"
     chrome-launcher "1.2.0"
     debounce "1.2.1"
@@ -5055,9 +5055,9 @@ web-ext@^10.6.0:
     fx-runner "1.6.0"
     https-proxy-agent "^7.0.0"
     jose "5.9.6"
-    jszip "3.10.1"
+    jszip "3.10.2"
     multimatch "6.0.0"
-    open "11.0.0"
+    open "11.0.3"
     parse-json "8.3.0"
     pino "10.3.1"
     promise-toolbox "0.21.0"
@@ -5156,10 +5156,10 @@ write-file-atomic@^5.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^4.0.1"
 
-wsl-utils@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/wsl-utils/-/wsl-utils-0.3.0.tgz#197049b93b34b822703bf4ccde8256660651205f"
-  integrity sha512-3sFIGLiaDP7rTO4xh3g+b3AzhYDIUGGywE/WsmqzJWDxus5aJXVnPTNC/6L+r2WzrwXqVOdD262OaO+cEyPMSQ==
+wsl-utils@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/wsl-utils/-/wsl-utils-1.0.0.tgz#e113d9964e766657c53f5d570da1bbbdfee7f837"
+  integrity sha512-Hl0ZOAs672vg+06kfujwRhoS6/jehvULrlFkuF2dRu6pHgA8U06h3xqNIqNNU1LTXPcedxByAR4GS6pwQK0mgA==
   dependencies:
     is-wsl "^3.1.0"
     powershell-utils "^0.1.0"
