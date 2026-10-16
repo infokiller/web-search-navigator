@@ -22,15 +22,8 @@ const scrollToElement = (searchEngine, element) => {
   }
   const elementBounds = element.getBoundingClientRect();
   const scrollY = window.scrollY;
-  if (elementBounds.top < topMargin) {
-    // scroll element to top
-    element.scrollIntoView(true);
-    window.scrollBy(0, -topMargin);
-  } else if (elementBounds.bottom + bottomMargin > window.innerHeight) {
-    // scroll element to bottom
-    element.scrollIntoView(false);
-    window.scrollBy(0, bottomMargin);
-  }
+  window.scrollTo(0,
+      elementBounds.top + window.pageYOffset - (window.innerHeight / 2));
   return Math.abs(window.scrollY - scrollY) > 0.01;
 };
 
