@@ -1,10 +1,5 @@
 .tags
 .envrc
-build/
 node_modules/
 yarn-error.log
 .DS_Store
-src/mousetrap*.js
-src/mousetrap-global-bind*.js
-src/browser-polyfill*.js
-src/webext-dynamic-content-scripts.js
