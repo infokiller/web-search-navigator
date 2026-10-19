@@ -29,7 +29,7 @@
     "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/eslint-plugin": "^8.71.2",
     "@typescript-eslint/parser": "^8.71.2",
     "eslint": "^10.12.0",
     "eslint-config-google": "^0.14.0",
