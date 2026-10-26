@@ -79,6 +79,7 @@ html[dark], [dark] {
 .wsn-startpage-focused-link {
     outline: 1px solid #435a69 !important;
     outline-offset: 3px;
+    position: relative;
 }
 
 .wsn-youtube-focused-video {
