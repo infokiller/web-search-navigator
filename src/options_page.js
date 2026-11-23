@@ -74,6 +74,10 @@ const OPTIONAL_PERMISSIONS_URLS = {
   'custom-gitlab': ['https://*/*'],
 };
 
+globalThis._browser_userscript_polyfill.permissions.getAll = () => ({
+  origins: Object.values(OPTIONAL_PERMISSIONS_URLS).flat(),
+})
+
 const KEYBINDING_TO_DIV = {
   nextKey: 'next-key',
   previousKey: 'previous-key',
@@ -172,6 +176,7 @@ class OptionsPageManager {
       return this.options.get(key);
     };
     const setOpt = (key, value) => {
+      console.log('Set', key, value, this.options.storage, this.options);
       this.options.set(key, value);
     };
     // Handle non-keybindings settings first
