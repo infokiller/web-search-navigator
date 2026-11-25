@@ -1253,10 +1253,10 @@ commander@^9.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
   integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
 
-commander@~15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-15.0.0.tgz#96f3961f12adac1799ef3fbd8bc61d40572d1b11"
-  integrity sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==
+commander@~15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-15.1.0.tgz#397e6a353fda8e9d4e1eb9e3c0c28644cfd69406"
+  integrity sha512-cgnQ88TRrWcC7pVq46RzJVRMktu3W2RcbnoidnfBsl1bmDCBwJS/udcIZpKoCrbAYYaCqsz1yZCVIgbIaU3ddQ==
 
 common-tags@1.8.2, common-tags@^1.8.2:
   version "1.8.2"
@@ -2499,10 +2499,10 @@ ignore@^5.2.0:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
   integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
 
-ignore@^7.0.5, ignore@^7.0.6, ignore@~7.0.13:
-  version "7.0.14"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.14.tgz#a52b081dfb4d77e947e04d5f9e320b16f1873959"
-  integrity sha512-wCBiZ77u1tuWde6G/nfOtLaCTYcFDU5yCzARzK10y+rLhzYoL7a7yEemcopcc2Mzow7gZOIjnV2ym1NYmdiJOQ==
+ignore@^7.0.5, ignore@^7.0.6, ignore@~7.0.16:
+  version "7.0.16"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.16.tgz#8c593ab7a7193e663f810203690c9cba851b6d3a"
+  integrity sha512-52N+Y4HRMOJmbLmr+DqO4iSRyyB7N52gm7PWCT6h0p978+oKbqHCB7gIJIwZvBUsjlSdWbrBFqUSmIFNZMpn0A==
 
 image-size@2.0.4:
   version "2.0.4"
@@ -3128,28 +3128,28 @@ markdown-it@~15.0.3:
     punycode.js "^2.3.1"
     uc.micro "^3.0.0"
 
-markdownlint-cli@^0.50.0:
-  version "0.50.0"
-  resolved "https://registry.yarnpkg.com/markdownlint-cli/-/markdownlint-cli-0.50.0.tgz#f4b92e8f77e84ebbe2404ea3d37467f12b3506f7"
-  integrity sha512-4GqP/CqpF74ihrlLTOPc3I5b/tZabiiKnIVQ27xTzsS4hjU3oIHKg1YBzWP7fsa9AH48LPF0KcmCqDccpSeMEg==
+markdownlint-cli@^0.50.1:
+  version "0.50.1"
+  resolved "https://registry.yarnpkg.com/markdownlint-cli/-/markdownlint-cli-0.50.1.tgz#ef287a28974ef43afd7351381815df7628176997"
+  integrity sha512-3F9ON1oW8dlY2mkvQGzyDrcrfx6xiWYgS8arlijuw/JH/ZaPHE6nxp9/SP2V8YqbK8GaqZtkLD6hayPa4uj2mw==
   dependencies:
-    commander "~15.0.0"
+    commander "~15.1.0"
     deep-extend "~0.6.0"
-    ignore "~7.0.13"
+    ignore "~7.0.16"
     js-yaml "~5.5.0"
     jsonc-parser "~3.3.1"
     jsonpointer "~5.0.1"
     markdown-it "~15.0.3"
-    markdownlint "~0.42.0"
-    minimatch "~10.2.6"
+    markdownlint "~0.42.2"
+    minimatch "~11.0.9"
     run-con "~1.3.3"
     smol-toml "~1.9.1"
     tinyglobby "~0.2.17"
 
-markdownlint@~0.42.0:
-  version "0.42.0"
-  resolved "https://registry.yarnpkg.com/markdownlint/-/markdownlint-0.42.0.tgz#7cd7ad9d9afe5b2ac19aace77f8928c178507606"
-  integrity sha512-kzsCV/rPWRFn3jUhcB919YF4Qgeh0g9tcogoXFadGSo6Zxj6662YOqWXv0jDn8nv5KCCxDfMKJZv6N4HkNkvTg==
+markdownlint@~0.42.2:
+  version "0.42.2"
+  resolved "https://registry.yarnpkg.com/markdownlint/-/markdownlint-0.42.2.tgz#aa7e42df3239d0cf95be12684c4f71d81fa39808"
+  integrity sha512-IhlUBVT+kHBX+u3EjEsQdFB4q0Rl0Hx+JsGsvVkonNut1/n8Kv8yXzwk0pazC9uF35JlwMZ+LxV4CQ9YNAbG8w==
   dependencies:
     micromark "4.0.3"
     micromark-core-commonmark "2.0.4"
@@ -3159,7 +3159,7 @@ markdownlint@~0.42.0:
     micromark-extension-gfm-table "2.1.2"
     micromark-extension-math "3.1.0"
     micromark-util-types "2.0.3"
-    re2js "2.8.6"
+    re2js "2.9.1"
     string-width "8.3.0"
 
 marky@^1.2.2:
@@ -3501,14 +3501,14 @@ micromatch@^4.0.4, micromatch@^4.0.8:
     braces "^3.0.3"
     picomatch "^2.3.1"
 
-minimatch@^10.2.5, minimatch@~10.2.6:
+minimatch@^10.2.5:
   version "10.2.6"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-10.2.6.tgz#fd956bbe0b77241e9f15ac5dccb1c638060968ef"
   integrity sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==
   dependencies:
     brace-expansion "^5.0.8"
 
-minimatch@^11.0.1, minimatch@^11.0.5:
+minimatch@^11.0.1, minimatch@^11.0.5, minimatch@~11.0.9:
   version "11.0.9"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-11.0.9.tgz#00d0088671fa0d872ba1e2578f5abf3be0fe878e"
   integrity sha512-KCFkfyjqerNlSstjlhIGNXIKZGA/6O4V4RlhZ+Dsr621SPPw0mzlypE9D9ZOoPiVefHID+j7/XuMMlqfD/F60Q==
@@ -4053,10 +4053,10 @@ rc@1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re2js@2.8.6:
-  version "2.8.6"
-  resolved "https://registry.yarnpkg.com/re2js/-/re2js-2.8.6.tgz#acbd17a1ad0e98c1f2ee0a2adc17ba0903d9ca95"
-  integrity sha512-xLgQil4kIUCrAzVk9fRSkxkFNwmygLFjVxXrLc65aE1F0+Zsb8rxumFBy4XKyvgMCTL6kilDq3EZ0piE2dP/Dg==
+re2js@2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/re2js/-/re2js-2.9.1.tgz#79e661007980cc6a07edf0d8bcbcbc94046aa381"
+  integrity sha512-JIT3bEEUZTOR2YS1walNEIfH4cF/cQeZcBUFq7ldqO6lR6g0X5CBq/S8rsa9omzZcsNf8qc36jCkWpKKtncrZg==
 
 "react-is-18@npm:react-is@^18.3.1":
   version "18.3.1"
