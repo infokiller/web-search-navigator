@@ -1013,6 +1013,9 @@ class YouTube {
         element,
     );
   }
+  getBottomMargin(element) {
+    return window.innerHeight / 2;
+  }
 
   onChangedResults(callback) {
     // The ytd-section-list-renderer element may not exist yet when this code
